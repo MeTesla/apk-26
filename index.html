@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js" integrity="sha512-6BTOlkauINO65nLhXhthZMtepgJSghyimIalb+crKRPhvhmsCdnIuGcVbR5/aQY2A+260iC1OPy1oCdB6pSSwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1RL7PL7EFG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-1RL7PL7EFG');
+  </script>
+  <title>Home</title>
+</head>
+
+<body class="violet">  
+  <div class="wrapper">
+    <section class="nav">   
+      <div class="accueil">
+        <img src="./assets/img/euduka.png" alt="" />        
+      </div>
+      <div class="menu">
+        <i class="fa-solid fa-bars"></i>
+        <div class="user-menu">
+        </div>
+      </div>
+
+    <style>
+        
+      .nav{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 25px;
+        }
+        .accueil img{
+          width: 60px;
+        }
+
+        .nav .menu{
+          position: relative;
+        }
+        .nav .menu svg{
+          font-size: 1.7rem;
+          cursor: pointer;
+        }
+        .nav .menu .user-menu{
+          z-index: 33;
+          position: absolute;
+          top : 100%; right: 0px; 
+          /* 100% c'est nouveau pour MOI */
+          border-radius:10px;
+          overflow: hidden;
+          width: 200px;
+          display: none;
+          background-color: beige;
+        }
+        .nav .menu .user-menu.show{
+          display: block;
+        }
+        .nav .menu .user-menu div{      
+          padding: 10px;
+          background-color: #d1e7f8;
+          transition: 0.3s;
+        }
+        .nav .menu .user-menu div:hover{
+          background-color: #9dd0fa;
+        }
+
+        .nav .menu .user-menu div.guest, 
+        .nav .menu .user-menu div.connected{
+          display: none;
+        }
+        .nav .menu .user-menu div.show, 
+        .nav .menu .user-menu div.show{
+          display: block;
+        }
+        .creer-compte-page{
+          position: fixed;
+          top:0; left: 0;
+          width: 100%;
+          background-color: white;
+        }
+    </style>
+
+    <script>
+      const menu=document.querySelector('.nav .menu')
+      const userMenu= document.querySelector('.nav .menu .user-menu')
+      
+      function generateMenu(typeAccount){
+        let html=""        
+        switch (typeAccount) {
+          case 'registred':
+            return html=`<div>Premium</div> <div onclick="freeMins()">+10 minutes</div>  <div>Profile</div>`
+            break;
+          case'premium' :
+            return html=`<div>Le code</div> <div>Profile</div>`
+            break;
+          default : 'guest'
+            return html = `<div class="creer-compte" onclick="creerCompte()">Créer un compte</div>`
+            break;
+        }
+      }
+      
+      userMenu.innerHTML =generateMenu(localStorage.getItem('role'))
+      
+      // show hide menu + Type menus
+      menu.addEventListener('click',(e)=>{
+        e.stopPropagation()
+        userMenu.classList.toggle('show')
+      })
+      
+      document.body.onclick=()=> userMenu.classList.contains('show') && userMenu.classList.remove('show')
+      document.body.onscroll=()=> (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
+      
+      function creerCompte(){
+        //if(localStorage.getItem('token')) return
+        const modal = document.createElement('div')
+        modal.className="creer-compte-page"
+        modal.innerHTML=`<div class="form-container" style="display:nnone">
+        <form class="form">
+            <h2>Créer un compte</h2>
+            <input required type="text" class="nom" placeholder="Votre nom" name="nom" id="">
+            <input required type="text" class="prenom" placeholder="Votre prénom" name="prenom" id="">
+            <input required type="email" class="email" placeholder="Email ..." name="email" id="">
+            <input required type="tel" class="tel" placeholder="Numéro de téléphone..." name="tel" id="">
+            <div class="buttons">
+                <button class="envoyer" type="submit">Envoyer</button>
+                <button class="annuler">Annuler</button>
+            </div>
+        </form>
+        <style>
+        .form-container{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form.form{
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 3px rgb(179, 180, 255);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        form.form input{
+            width: 80%;
+            padding: 10px;
+            border: 1px solid rgb(155, 144, 255);
+            border-radius: 5px;
+            outline: none
+        }
+        form.form button{
+            padding: 10px;
+            border: 1px solid rgb(155, 144, 255);
+            border-radius: 5px;
+            outline: none
+        }
+        </style>
+    </div>`
+        document.body.appendChild(modal)
+
+        const annuler = document.querySelector('.annuler')
+        annuler.onclick=function(){modal.remove()   }
+
+        const envoyer = document.querySelector('.envoyer')
+        envoyer.onclick= function(){submitCreerCompte()}
+      }
+      
+      async function submitCreerCompte(){
+        const nom = document.querySelector('.nom').value        
+        const prenom = document.querySelector('.prenom').value        
+        const email = document.querySelector('.email').value        
+        const tel = document.querySelector('.tel').value        
+        // e.preventDefault()
+        const reponse = await fetch('http://localhost:3000/creer-compte',{
+              method: "POST",
+              headers:{"content-type": "application/json"},
+              body: JSON.stringify({nom, prenom, email, tel})
+            })    
+        const data = await reponse.json()
+        console.log(data);
+        
+        localStorage.setItem('token',data.eleve.token)
+        localStorage.setItem('role', data.eleve.role)
+        userMenu.innerHTML = generateMenu(localStorage.getItem('role'))
+        document.querySelector('.creer-compte-page').remove()
+        //location.reload()
+      }
+
+      async function freeMins(){
+        const reponse = await fetch('http://localhost:3000/freeMins', {
+          method: "GET",
+          headers:{
+            "Content-Type": "application/json",
+            authorization: localStorage.getItem('token')
+          }
+        })
+        const data = await reponse.json()
+        return console.log(data);       
+      }
+
+      /*   const d1 = new Date('2025-06-6')
+    const d2 = new Date()
+    const l= console.log
+    const difference= (d1-d2)/1000/60/60 // en heures
+    const d3 = new Date(d1-d2) // c'est nouveau pour moi, à tester
+    l('Mois : ' + d3.getMonth())
+    l('Jours : ' + d3.getDay() )
+    l('Heures : ' + d3.getHours())
+    l(difference / 24 + ' Jours')
+    l(difference / 24 /30 + ' mois')
+    //  je texte : floor / modulus pour extraire Moi, jours/ heures
+    // floor: pour le plus grand (mois) - modulus pour le reste (jours,heures).
+    
+      const hum=document.querySelector('.hum')
+      const menu=document.querySelector('.menu')
+      const mega = document.querySelectorAll('.mega');
+      const langue = document.querySelector('.langue');
+      const sousMenu=document.querySelectorAll('.menu .sous')
+      hum.onclick=()=>{
+        menu.classList.toggle('active')
+        hum.classList.toggle('active')
+        document.body.classList.toggle('menu-active')
+      }
+      mega[0].onclick=()=>sousMenu[0].style.display="block"
+      mega[1].onclick=()=>sousMenu[1].style.display="block"
+    */
+      </script>
+    </section>
+    
+    <section class="hero">
+      <div class="bg">
+        <img class="blob" src="./assets/img/blob.svg" alt="" />
+        <img class="fivelines" src="./assets/img/fiveLines.svg" alt="" />
+        <img class="gouttes" src="./assets/img/gouttes.svg" alt="" />
+        <img class="student" src="./assets/img/images/student.png" alt="" />
+      </div>
+      <div class="content">
+        <h2>Eudûka</h2>
+        <h4>Ta route pour le succès passe par <span>Eudûka</span></h4>
+        <button class="btn-compte" onclick="creerCompte()">Créer un Compte </button>
+        <button class="btn-compte" onclick="creerCompte()">Compte PREMIUM </button>
+      </div>
+   <style>
+    .hero{
+      height: 50vh;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+    }
+    .bg{
+      width: 100%; height: 100%;
+      position: absolute;
+      z-index: -1;
+    }
+    .blob{
+      position: absolute;
+      top: 100px;
+      right: 0px;
+      width: 250px;
+      transform: rotateZ(80deg);
+    }
+    .fivelines{
+      position: absolute;
+      height: 50px;
+      top: 40px; left: 50px;
+      transform: rotateZ(-50deg);
+    }
+    .gouttes{
+      position: absolute;
+      height: 20px;
+      bottom: 200px;
+      left: 100px;
+      transform: rotateZ(35deg);
+    }
+   
+    .student{
+      position: absolute;
+      top: 20px; right: 0px;
+      height: 80%;
+      transform: rotateY(180deg);
+    }
+    .content{
+      width: 70%;
+      margin-left: 20px;
+      margin-bottom: 60px;
+    }
+    .content h4{
+      margin: 15px 0;
+      font-size: 1.4rem; 
+    }
+    
+    h4 span{
+      color: darkred;
+      font-size: 1.2rem;
+      line-height: 30px;
+      padding: 5px; 
+      border-radius: 10px;
+    }
+    
+    .content button{
+      padding: 10px 15px;
+      border-radius: 10px;
+      outline: none;
+      border:1px solid;
+      font-weight: bolder;
+      font-size: 1rem;
+      background-color: #7C4DFF;
+      color: white;
+    }
+   </style>
+    </section>
+    
+    <section class="countdown">
+      <h2>Temps qui reste avant <span>L'examen régional</span> </h2>
+        
+        <div class="countdown-container">
+          <div class="mois time flx">
+            <div class="chiffre"> 03 </div>
+            <div class="texte"> Mois</div>
+          </div>
+          <div class="jours time flx">
+            <div class="chiffre"> 14</div>
+            <div class="texte">Jours </div>
+          </div>
+          <div class="heures time flx">
+            <div class="chiffre"> 06</div>
+            <div class="texte"> Heures </div>
+          </div>
+        </div>
+      <style>
+        .countdown{
+          margin: auto;
+          width: 80%;
+          padding: 10px;
+          border: 1px solid gray;
+          border-radius: 20px;
+        }
+        .countdown h2{
+          font-size: 1.3rem;
+          margin: 15px auto;
+          text-align: center;
+        }
+        .countdown h2 span{
+          color: orangered;
+        }
+        .countdown-container {
+          margin: 10px auto;
+          display: flex;
+          justify-content: center;
+          gap: 10px
+        }
+        .time{        
+          width: 100px;
+          /*height: 100px; */
+          border: 1px solid dimgray;
+          flex-direction: column;
+          border-radius: 30px;
+          overflow: hidden;
+        }
+        .time .chiffre{
+          padding-top: 10px;
+          font-size: 1.4rem;
+          font-weight: bold;
+        }
+        .time .texte{
+          padding: 8px 0px 10px;
+          text-align: center;
+          font-size: 1rem;
+          font-weight: bolder  ;
+          background-color: #4FC3F7;
+          width: 100%;
+        }
+      </style>
+    </section>
+
+    <section class="oeuvres">
+      <div class="oeuvres-container">
+        <div class="bam">
+          <img src="./assets/img/images/couverture-bam.jpg" alt="" />
+        </div>
+        <div class="antigone">
+          <img src="./assets/img/images/couverture-antigone.jpg" alt=""/>
+        </div>
+        <div class="djc">
+          <img src="./assets/img/images/couverture-djc.jpg" alt="" />
+        </div>
+      </div>
+      <style>
+        .oeuvres-container{
+          display: flex;
+          justify-content: space-evenly;
+          width: 100%;
+          padding: 40px 0;
+          overflow-x: auto;
+        }
+        .oeuvres-container div{
+          margin: 10px;
+        }
+        .oeuvres-container img{
+          height: 370px;
+          border-radius: 10px;
+          border: 1px solid lightgray;
+        }
+      @media screen and (max-width: 768px){
+        .oeuvres-container img{
+          height: 200px;
+        }
+      }
+      </style>
+    </section>
+
+    <section class="statistiques">
+          
+          <h2 class="">Tes derniers résultats : </h2>
+          <div class="conics"> </div>
+          <style>
+            .statistiques{
+              display: none;
+            }
+            .conics{
+              border-radius: 15px;
+              padding: 20px 0;
+              width: 90%;
+              margin: 10px auto;
+              background-color: #E0F2F1;
+            }
+          </style>
+    </section>
+        
+    <section class="suggestion">
+      <div class="suggestion-container">
+        <h1 class="suggestion-qst"> هـل لديك مقترحات لتطوير الموقع؟</h1>
+        <input type="text" id="nom" required placeholder="Nom">
+        <textarea placeholder="Ajouter des productions écrites svp" id="suggest"></textarea>
+        <button id="btn-envoyer" >Envoyer</button>
+      </div>
+ 
+      <style>
+      .suggestion{
+        width: 60%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 30px; 
+        border-radius: 10px;
+        background-color: lightyellow;
+      }
+      .suggestion-qst{
+        direction: rtl;
+      }
+
+        .suggestion textarea, .suggestion #nom{
+          width: 100%;
+          height: 100px;
+          display: block;
+          margin: 30px auto;
+          padding: 15px;
+          border-radius: 10px;
+          outline: none;
+          border: 1px solid darkgray;
+        }
+        .suggestion #nom{
+        height: 50px;
+      }
+        .suggestion button{
+          display: block;
+          padding: 10px 20px;
+          border-radius: 5px;
+          outline: none;
+          border: 1px solid darkgray;
+          justify-self: flex-end;
+        }
+@media screen and (max-width: 768px){
+  .suggestion{
+        width: 90%;
+  }
+}
+      </style> 
+    </section>
+    
+    <section class="langue">
+      <div class="langue-container">
+        <h2>Langue</h2>
+        <div class="liste-lecons">
+          <div class="figure flx">
+            <!-- <a href="./langue/figures/figures.html">Les figures de style</a> -->
+            Les figures de style
+          </div>
+          <div class="enonciation flx">
+            L'énonciation
+          </div>
+          <div class="registres flx">
+            Les registres littéraires
+          </div>
+        </div>
+      </div>
+      <style>
+        .langue-container h2{
+          padding: 20px;
+        }
+        .liste-lecons{
+          display:flex;
+          gap: 15px;
+          justify-content: center;
+          margin: 15px 0;
+        }
+        .liste-lecons > div{
+          width: 25%;
+          height: 250px;
+          padding: 15px;
+          border: 1px solid gray;
+          border-radius: 10px;
+          font-family: tahoma;
+          font-size: 1.1rem;
+        }
+        .enonciation, .registres{
+          opacity: 0.4;
+        }
+      @media screen and (max-width: 768px){
+        .liste-lecons{
+          flex-direction: column;
+          align-items:center;
+        }
+        .liste-lecons > div{
+          width: 90%;
+          height: 70px;
+        }
+      }
+      </style>
+    </section>
+        
+    <section class="caracteristiques">
+  <h2>Pourquoi réviser avec <span>Eudûka</span> ?</h2>
+  <div class="caracteristiques-container">
+      <div class="ludique flx">
+        <img src="./assets/img/images/ludique.png" alt="" />
+        <span>Ludique</span>
+      </div>
+      <div class="pratique flx">
+        <img src="./assets/img/images/pratique.png" alt="" />
+        <span>Pratique</span>
+      </div>
+      <div class="gratuit flx">
+        <img src="./assets/img/images/gratuit.png" alt="" />
+        <span>Gratuit</span>
+    </div>
+  </div>
+      <style>
+        .caracteristiques h2{
+          padding: 20px;
+        }
+        .caracteristiques h2 span{
+          color: orangered;
+        }
+        .caracteristiques-container{
+          display: flex;
+          justify-content: space-evenly;
+        }
+        .caracteristiques-container > div{
+          flex-direction: column;
+          gap: 10px;
+          width: 120px;
+          height: 120px;
+          font-weight: bold;
+          border-radius: 20px;
+          border: 1px solid darkgray;
+        }
+        .caracteristiques img{
+          width: 40px;
+        }
+        .caracteristiques span{
+          font-size: 1.2rem;
+        }
+   @media screen and (max-width: 769px){
+     .caracteristiques-container > div {
+         width: 90px;
+         height: 90px;
+
+      }
+   }
+      </style>
+    </section>
+
+    <section class="exo-type">
+      <span>QCM</span> 
+      <span>Vrai</span> 
+      <span>Faux</span>
+      <span>Jeux</span>
+      <span>matching</span>
+      <span>lexique</span>
+      <span>Apprendre</span> 
+      <span>S'amuser</span>
+      <span>Réviser</span>
+      <span>langue</span>
+      <style>
+        .exo-type{
+          width: 80%;
+          margin: auto;
+          display: flex;
+          justify-content: space-evenly;
+          flex-wrap: wrap;
+          gap: 40px;
+          padding: 40px 10px;
+        }
+        .exo-type span{
+          display: block;
+          padding: 25px 20px;
+          background-color: #2196F3;
+          border-radius: 40px;
+          font-size: 20px;
+          font-weight: bold;
+          color: white;
+        }
+        .exo-type span.active{
+          animation: rotation 0.1s 3 linear;
+        }
+        @keyframes rotation{
+          to{
+            transform: rotate(360deg)
+          }
+        }
+    @media screen and (max-width:768px){
+        .exo-type {
+          width: 100%;
+          gap: 10px;
+        }
+    }
+      </style>
+      <script>
+        const exoType=document.querySelectorAll('.exo-type span')
+        exoType.forEach(exo=>{
+          exo.onclick=()=>{
+            exo.classList.add('active')
+            setTimeout(() => {
+              exo.classList.remove('active');
+            }, 500)
+          }
+        })
+     </script>
+    </section>
+    
+    <footer class="footer">
+      <div class="right"> Tous droits réservés </div>
+      <div class="right"> Eudûka - 2025  </div>
+ 
+      <style>
+        .footer{
+          display: flex;
+          justify-content:space-between;
+          padding: 10px 20px;
+          background-color: #33333399;
+          color: white;
+        }
+      </style>
+    </footer>
+    
+  </div> <!-- Fin wrapper-->
+ <div class="loader">
+  <img src="./assets/img/images/loader.gif" alt="...Loading" srcset="">
+  <style>
+    .loader{
+      position: fixed; top: 0; left: 0;
+      background-color: white;
+      width: 100vw; height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+    }
+    
+   </style>
+ </div>
+    
+<script src="main.js" type="module"></script>
+</body>
+
+</html>

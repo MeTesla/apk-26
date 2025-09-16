@@ -1,0 +1,94 @@
+Toujours vérifier l'émail à chaque reqête de create-account
+    Si l'émail est déja dans BD , res.send. message()
+Traiter le cas de connection d'un autre navigateur. ==> ?? créer page login.
+connection d'un autre navigateur + compte non expiré vs compte expiré
+Sauvgarder les émails et les tel dans un endroit sûr
+
+payment plans / access denied, not allowed, protected account
+- index : inclure section : exercice aléatorie base de français. btn generate
+
+
+4-AJOUTER :
+    - SECTION : obtenir son code / Acheter un compte premium
+        20dh : Langue
+        50dh : production écrite
+        80dh : 30 examens régionaux corrigés.
+    - clique contenu protégé : modal pub : compte premium
+    
+        SI TOKEN EXPIRE
+    - créer une route/fonction backend (isAuthorized) à utilser 
+        à chaque fois que je veux interdire l'accès à une section.
+    
+   - Gérer les trois états : guest - registred - premium
+        Guest : créer compte
+        registred : profile , +10 minutes, premium
+        premium : profile
+   - Logique :
+   -    function typeUser(){
+            verifie
+            change menus et bouttons
+        }
+        localStorage = ''   => guest
+        créer compte =      => registred
+        Enter Code          => premium
+        localStorage.setItem({toke: token, type:'guest})
+
+    - token & email assez solide. les deux vérifiés.
+        Créer Token : email
+        je reçois la requete (vf) + 
+        verifier token
+        extraire l'email du token
+        BD : il y a token
+        L'émail token == émail BD
+        OK - autorisé
+        
+    - Traduction ar: vf, qcm, figures, 
+    - 3 traduction par session
+    - ajouter justification en cas de mauvaise réponse. et icône en coas de bonne rép
+
+
+Guest - registred - registred+token expired (x10)  - Premium
+
+Menus
+	Guest			|	Registred	|	Registred(expired)	|	Demande		|PREMIUM
+	----------------|---------------|-----------------------|---------------|------------
+	Créer compte	|	Premium		|	Premium				|	Code		|Profile
+					|	+10 minutes	|	+10 min(estmpé)		|	Profile     |
+					|	Profile		|   Profile				
+UX / UI
+	Guest
+	Protected = Modal(icône Cadenas + Créer compte pour pouvoir..... + btn créer compte)
+	Créer compte == form register [nom, prenom, email, tel, dateCreation, token, compteur10minutes(10), userType(registred, pending, premium),  ]
+	
+	Registred
+	Reçoi token	 ==	LocalStorage({type:'registred', token : 'ey...'})
+	Menu [Premium - Profile - +10 minutes]
+	Demande 10 minutes, accordées - Activer compteur (10-1)
+	Menu [Premium - +10min (estompé) - Profile]
+	Token expire après 10 minutes
+	protected	==	Modal(Votre session a pris fin. demain tu peux... + OFFRE Premium)
+	+ backEnd : isRegistred(email) + 24h = non autorisé
+	x10 TIMES
+	
+	Premium
+	Modal (avantages - devenir Premium) == page payent
+	Page payment == info utilisateur + info Amdin (compte bancaire)
+	OK== envoyer émail et msg whatsApp (coordonnées bancaires)
+	Ajout l'Utilisateur à BD : reçut de payment || msg banque
+	Activer user PREMIUM
+	
+	
+	localStorage : token, typeaccount(registred, premium), nbr10min(3),
+	
+	if (nbrconnections <= 10) +10min desabled
+	
+
+
+!!!!!!!!!!! Vérifier : qcm bam; il reste bcp de question commentées
+
+
+DONE : figure DB : éliminer phrases sans explication
+DONE : suggestions : lier à la firebase
+DONE : résumé
+DONE : nbrQst, nbrSessions
+DONE : Loader added
