@@ -117,7 +117,10 @@
       function me(){        
         createModal()
         const modal = document.querySelector('.full')
-        modal.onclick=function(){modal.remove()}
+        modal.onclick=function(){
+          modal.remove()
+          document.body.style.position='static'
+        }
       }
 
       function createModal(){
@@ -125,6 +128,7 @@
         div.className="full"
         div.innerHTML=``
         document.body.appendChild(div)
+        document.body.style.position='fixed'
       }
  
       userMenu.innerHTML =generateMenu(localStorage.getItem('role'))

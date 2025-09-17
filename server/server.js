@@ -56,25 +56,17 @@ const freeMinsMiddleware = async(req, res, next)=>{
         
     //trouver eleve dans BD , msg s'il n'existe pas
     const email = payload.id
-    const {freeMins} = await EleveModel.findOne({email})
+    const {freeMins, dateFreeMin} = await EleveModel.findOne({email})
     
-    if(freeMins >= 3) {
-        res.json({success:false, message:'+ 3 tokens', token})
-        // unifier les Res : success, message, data.teken, data.role     
-    };
+    //if(freeMins >= 3) // NOTE ALLOWED
+    // unifier les Res : success, message, data.teken, data.role     
     
-    const eleve = await EleveModel.findOneAndUpdate(
-        {email},
-        {
-            $inc: { freeMins: 1 },
-            $set: { dateFreeMin: Date.now() },           
-        },
-        {
-            new: true,
-            runValidators: true 
-        }
-    )   
-    req.eleve= eleve
+    const now= new Date()
+    console.log(dateFreeMin +' - ' + now);
+    
+    if((now - dateFreeMin) < 24*60*60*1000) // Attendez 24H
+        
+
     /* verifier : role, countFreeMins , dateFreeMins
         role : JE VAIS PAS TRAITER PREMIUM ICI
         countFreeMins >= 5  res.json('Passe Premium')
@@ -90,7 +82,7 @@ const freeMinsMiddleware = async(req, res, next)=>{
 }
 
 app.get('/freeMins',freeMinsMiddleware,async (req, res)=>{
-    console.log(req.userEmail);
+    console.log('after middleware : ' + req.userEmail);
     
     // const token = await generateToken(req.userEmail)
     // const expireAt = Date.now()
