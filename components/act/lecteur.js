@@ -84,7 +84,7 @@ function codeHtml(){
  border-radius: 10px;
  border :1px solid var(--comp);
  overflow:hidden;
- font-family: josefin, arial, tahoma;
+ font-family: arial, tahoma;
 }
 
 .lect-blc .controls-h{

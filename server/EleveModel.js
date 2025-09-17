@@ -5,9 +5,12 @@ const elevesSchema= new mongoose.Schema({
     prenom :{type: String, require},
     email:{type: String, require},
     tel :{type: String, require},
+    
     token:{type: String},
+    
     freeMins:{type: Number, default: 1},
     dateFreeMin:{type: Date,default: Date.now},
+    
     role:{type: String, default: 'registred'},
     dateCreation: {type:Date, default: Date.now}
 }) 

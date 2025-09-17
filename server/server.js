@@ -39,22 +39,63 @@ app.post('/creer-compte', async(req, res)=>{
     res.json({eleve})
 })
 
+//delete all documents
+app.delete('/delete', async(req, res)=>{
+    //const delet = await EleveModel.deleteMany({});
+    res.json('all decument deletedddd')
+})
 
 //+10 mintues route
-const freeMinsMiddleware =(req, res, next)=>{
+const freeMinsMiddleware = async(req, res, next)=>{
+    // Gérer le cas où le token n'a pas expiré (frontend|| backend)
     const token = req.headers.authorization
     if(!token) return res.json('pas de token +dixmin requête')
+    
+    const payload = jwt.decode(token);
+    req.userEmail = payload.id
+        
+    //trouver eleve dans BD , msg s'il n'existe pas
+    const email = payload.id
+    const {freeMins} = await EleveModel.findOne({email})
+    
+    if(freeMins >= 3) {
+        res.json({success:false, message:'+ 3 tokens', token})
+        // unifier les Res : success, message, data.teken, data.role     
+    };
+    
+    const eleve = await EleveModel.findOneAndUpdate(
+        {email},
+        {
+            $inc: { freeMins: 1 },
+            $set: { dateFreeMin: Date.now() },           
+        },
+        {
+            new: true,
+            runValidators: true 
+        }
+    )   
+    req.eleve= eleve
+    /* verifier : role, countFreeMins , dateFreeMins
+        role : JE VAIS PAS TRAITER PREMIUM ICI
+        countFreeMins >= 5  res.json('Passe Premium')
+        
+        dateFreeMins  <>  Date.now()    res.json('attendre 24 H)
+    
+    */
     jwt.verify(token, SECRET_KEY , (err, user) => {
-        if (err.name==="TokenExpiredError"){
-            req.user= user
+        if (err && err.name==="TokenExpiredError"){              
             next();            
         }
     });
 }
+
 app.get('/freeMins',freeMinsMiddleware,async (req, res)=>{
-    console.log(req.user);
+    console.log(req.userEmail);
     
-    res.json(req.user)
+    // const token = await generateToken(req.userEmail)
+    // const expireAt = Date.now()
+    // res.json({token, expireAt})
+
 })           
             
     

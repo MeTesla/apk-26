@@ -88,6 +88,12 @@
           width: 100%;
           background-color: white;
         }
+        .full{
+          position: fixed;
+          width: 100vw; height: 100vh;
+          top:0; left:0 ;
+          background-color: red;
+        }
     </style>
 
     <script>
@@ -98,7 +104,7 @@
         let html=""        
         switch (typeAccount) {
           case 'registred':
-            return html=`<div>Premium</div> <div onclick="freeMins()">+10 minutes</div>  <div>Profile</div>`
+            return html=`<div onclick=me()>Premium</div> <div onclick="freeMins()">+10 minutes</div>  <div>Profile</div>`
             break;
           case'premium' :
             return html=`<div>Le code</div> <div>Profile</div>`
@@ -108,7 +114,19 @@
             break;
         }
       }
-      
+      function me(){        
+        createModal()
+        const modal = document.querySelector('.full')
+        modal.onclick=function(){modal.remove()}
+      }
+
+      function createModal(){
+        const div=document.createElement('div')
+        div.className="full"
+        div.innerHTML=``
+        document.body.appendChild(div)
+      }
+ 
       userMenu.innerHTML =generateMenu(localStorage.getItem('role'))
       
       // show hide menu + Type menus
@@ -208,6 +226,9 @@
           }
         })
         const data = await reponse.json()
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('expireAt', data.expireAt)
+
         return console.log(data);       
       }
 
