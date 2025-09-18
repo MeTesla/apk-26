@@ -59,30 +59,34 @@ const freeMinsMiddleware = async(req, res, next)=>{
     const {freeMins, dateFreeMin} = await EleveModel.findOne({email})
     const now= new Date()
 
-    // ------------1
+    // ------------1    VALID
     if(dateFreeMin > now ){ // >>>> <<<<<<
         //throw new Error('token encore valide')
-        //res.json({success:false,message:'Token valid', token})        
-    } 
+        return res.json({success:false,message:'Token valid', token})        
+    }
+    console.log('1------' +dateFreeMin > now);
+    
 
-    // ------------2
+    // ------------2    3 FOIS
     if(freeMins >= 3){ // 3 fois 15 minute
-        //res.json({success:false,message:'3 fois 15 min', token})
+        return res.json({success:false,message:'3 fois 15 min', token})
     }    
+    console.log('2----'+freeMins >= 3);
+    
     // unifier les Res : success, message, data.teken, data.role     
     
         // console.log(dateFreeMin +' - ' + now);
     // console.log((now - dateFreeMin) + ' - ' + 1000*60*2)
-    console.log((now - dateFreeMin) < 2*60*1000)
     
-    // ------------3
-    if((now - dateFreeMin) > 2*60*1000){ // Attendez 24H
+    // ------------3    24H
+    if((now - dateFreeMin) < 60*1000){ // Attendez 24H
+
         //1- dateFreeMin : date creation compte
         //2- demamde 2ème token == update 
-        res.json({success:false,message:'Attends 2 minutes', token})
+        return res.json({success:false,message:'Attends 2 minutes', token})
     }
-
-
+    console.log('3-----------' + (now - dateFreeMin) < 60*1000);
+    
     /* verifier : role, countFreeMins , dateFreeMins
         role : JE VAIS PAS TRAITER PREMIUM ICI        
     */
@@ -99,8 +103,8 @@ app.get('/freeMins',freeMinsMiddleware,async (req, res)=>{
     
     if(!res.headersSent){
         const token = await generateToken(req.userEmail)
-        // UPDATE DOCUMENT
-        res.json({token})
+        // --------- UPDATE DOCUMENT
+        res.json({message :'new token',token})
     }
 
 })           
@@ -179,17 +183,17 @@ const auth = async(req, res, next)=>{
         //front : modal (créer compte)
     }
 
-    try {
-       const isValidToken = jwt.verify(authorization, SECRET_KEY)
-        if(!isValidToken) return res.json('Votre session a pris fin.')
-        req.user = authorization  
-    } catch (error) {
-        if (error.name === 'TokenExpiredError') {
-            return res.status(401).json('Le token a expiré, veuillez vous reconnecter.');
-        } else {
-            return res.status(401).json('Token invalide');
-    }
-    }
+        try {
+        const isValidToken = jwt.verify(authorization, SECRET_KEY)
+            if(!isValidToken) return res.json('Votre session a pris fin.')
+            req.user = authorization  
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json('Le token a expiré, veuillez vous reconnecter.');
+            } else {
+                return res.status(401).json('Token invalide');
+            }
+        }
     req.authorization=authorization
     next()
 }
