@@ -234,7 +234,7 @@ app.post('/admin',()=>{
 //DB connection
 mongoose.connect(URL)
     .then(() => {
-        //console.log('Connexion à la base de données réussie !');
+        console.log('Connexion à la base de données réussie !');
     })
     .catch(err => {
         // console.error('Erreur de connexion à la base de données :', err);
