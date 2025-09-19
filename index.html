@@ -107,8 +107,10 @@
     <script>
     // Afficher une notification simple
 Toastify({
-    text: "Ceci est une notification simple!",
-    className: "toast-id"
+    text: "Bienvenue à EUDUKA !",
+    className: "toast-id",
+    position:  "center",
+    close: true
 }).showToast();
 
       const menu=document.querySelector('.nav .menu')
@@ -252,7 +254,10 @@ Toastify({
         localStorage.setItem('token', data.token)
         localStorage.setItem('expireAt', data.expireAt)
 
-        console.log(data);       
+      Toastify({
+        text: "Vous bénéficier de 15 minutes d'accès!",
+        className: "toast-id"
+      }).showToast();               
       }
 
       /*   const d1 = new Date('2025-06-6')
