@@ -6,7 +6,7 @@ const cors = require('cors')
 const app=express()
 app.use(cors())
 app.use(express.json())
-
+ 
 
 //const prepareData = require('./utils')
 const {postEmail, prepareData} = require('./utils');
@@ -69,7 +69,7 @@ const freeMinsMiddleware = async(req, res, next)=>{
     
     
     // ------------1    VALID
-    if((timeStamp(dateFreeMin) + 1000*60*2) < timeStamp(now) ){ // > >  <<
+    if((timeStamp(dateFreeMin) + 1000*60*2) > timeStamp(now) ){ // > >  <<
         // console.log('1-VALID-----' +dateFreeMin > now + ' ' + now + ' ' + dateFreeMin);
         return res.json({success:false,message:'Token valid', token})        
     }
