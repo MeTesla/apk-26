@@ -57,7 +57,10 @@ const freeMinsMiddleware = async(req, res, next)=>{
         
     //trouver eleve dans BD , msg s'il n'existe pas
     const email = payload.id
+    if(!email) return res.json({token, message:'Vous n\'êtes pas enregistré'})
+    
     const {freeMins, dateFreeMin} = await EleveModel.findOne({email})
+    
     const now= new Date()
     function timeStamp(d){
         // const date = new Date(d)
@@ -237,7 +240,7 @@ mongoose.connect(URL)
         console.log('Connexion à la base de données réussie !');
     })
     .catch(err => {
-        // console.error('Erreur de connexion à la base de données :', err);
+        //console.error('Erreur de connexion à la base de données :', err);
     });
 
 
