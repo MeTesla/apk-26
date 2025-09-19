@@ -8,6 +8,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js" integrity="sha512-6BTOlkauINO65nLhXhthZMtepgJSghyimIalb+crKRPhvhmsCdnIuGcVbR5/aQY2A+260iC1OPy1oCdB6pSSwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1RL7PL7EFG"></script>
   <script>
@@ -33,7 +36,12 @@
       </div>
 
     <style>
-         
+      #toast-id{
+        border-radius: 20px;
+      }
+      .toast-id{
+        border-radius: 10px;
+      }
       .nav{
           display: flex;
           justify-content: space-between;
@@ -97,6 +105,12 @@
     </style>
 
     <script>
+    // Afficher une notification simple
+Toastify({
+    text: "Ceci est une notification simple!",
+    className: "toast-id"
+}).showToast();
+
       const menu=document.querySelector('.nav .menu')
       const userMenu= document.querySelector('.nav .menu .user-menu')
       
@@ -214,7 +228,11 @@
             })    
         const data = await reponse.json()
         console.log(data);
-        
+        Toastify({
+          text: "Ceci est une notification simple!",
+          className: "toast-id",
+          position: center,
+        }).showToast();
         localStorage.setItem('token',data.eleve.token)
         localStorage.setItem('role', data.eleve.role)
         userMenu.innerHTML = generateMenu(localStorage.getItem('role'))
