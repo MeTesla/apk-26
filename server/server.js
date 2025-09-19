@@ -15,8 +15,9 @@ const SECRET_KEY='mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
 
 // Generate TOKEN
+const expire = 1
 function generateToken(id){
-    return jwt.sign({id}, SECRET_KEY,{expiresIn:'1m'})
+    return jwt.sign({id}, SECRET_KEY,{expiresIn:`${expire}m`})
 } 
 
 //-------Créer compte
@@ -58,34 +59,40 @@ const freeMinsMiddleware = async(req, res, next)=>{
     const email = payload.id
     const {freeMins, dateFreeMin} = await EleveModel.findOne({email})
     const now= new Date()
-
+    function timeStamp(d){
+        // const date = new Date(d)
+        const time = d.getTime()
+        return time
+    }
+    //console.log('function : ' + timeStamp(dateFreeMin));
+    console.log(timeStamp(dateFreeMin) - timeStamp(now))
+    
+    
     // ------------1    VALID
-    if(dateFreeMin > now ){ // >>>> <<<<<<
-        //throw new Error('token encore valide')
+    if((timeStamp(dateFreeMin) + 1000*60*2) < timeStamp(now) ){ // > >  <<
+        // console.log('1-VALID-----' +dateFreeMin > now + ' ' + now + ' ' + dateFreeMin);
         return res.json({success:false,message:'Token valid', token})        
     }
-    console.log('1------' +dateFreeMin > now);
-    
+    console.log(dateFreeMin > now );
+    const date = new Date(dateFreeMin)
+    console.log('heures : ' + date.getHours() + ' | minutes : '+ date.getMinutes() )
+    // dateFreeMin : 3     token time
+    // now         : 5
 
+    
     // ------------2    3 FOIS
-    if(freeMins >= 3){ // 3 fois 15 minute
+    if(freeMins >= 11){ 
+        
         return res.json({success:false,message:'3 fois 15 min', token})
     }    
-    console.log('2----'+freeMins >= 3);
     
-    // unifier les Res : success, message, data.teken, data.role     
-    
-        // console.log(dateFreeMin +' - ' + now);
-    // console.log((now - dateFreeMin) + ' - ' + 1000*60*2)
     
     // ------------3    24H
     if((now - dateFreeMin) < 60*1000){ // Attendez 24H
-
-        //1- dateFreeMin : date creation compte
-        //2- demamde 2ème token == update 
-        return res.json({success:false,message:'Attends 2 minutes', token})
+        
+        return res.json({success:false,message:'Attends 24h', token})
     }
-    console.log('3-----------' + (now - dateFreeMin) < 60*1000);
+    
     
     /* verifier : role, countFreeMins , dateFreeMins
         role : JE VAIS PAS TRAITER PREMIUM ICI        
@@ -99,12 +106,26 @@ const freeMinsMiddleware = async(req, res, next)=>{
 } 
 
 app.get('/freeMins',freeMinsMiddleware,async (req, res)=>{
-    //console.log('after middleware : ' + req.userEmail);
     
     if(!res.headersSent){
         const token = await generateToken(req.userEmail)
-        // --------- UPDATE DOCUMENT
-        res.json({message :'new token',token})
+        // --------- UPDATE DOCUMENT       
+        const eleveUpdated = await EleveModel.findOneAndUpdate(
+            {email:req.userEmail},
+            {
+                $inc: { freeMins: 1 },
+                $set: { 
+                    dateFreeMin: new Date(),
+                    token
+                },                 
+            },
+            {
+                new: true,
+                runValidators: true 
+            }
+        )
+        
+        res.json({message :'new token',token, eleveUpdated})
     }
 
 })           
@@ -178,7 +199,7 @@ const auth = async(req, res, next)=>{
     
     const {authorization} = req.headers    
     if(!authorization) {
-        console.log('Authorization non accordée');
+        // console.log('Authorization non accordée');
         return res.json('accès interdit')
         //front : modal (créer compte)
     }
@@ -199,9 +220,7 @@ const auth = async(req, res, next)=>{
 }
 
 app.get('/', auth, (req, res)=>{
-    const {exo}=req.query   
-    console.log(req.authorization); // from middleware
-    
+    const {exo}=req.query       
     const data = prepareData(exo)
     res.json(data)
 })
@@ -215,13 +234,13 @@ app.post('/admin',()=>{
 //DB connection
 mongoose.connect(URL)
     .then(() => {
-        console.log('Connexion à la base de données réussie !');
+        //console.log('Connexion à la base de données réussie !');
     })
     .catch(err => {
-        console.error('Erreur de connexion à la base de données :', err);
+        // console.error('Erreur de connexion à la base de données :', err);
     });
 
 
 app.listen('3000',()=>{
-    console.log('Connected to server');    
+    // console.log('Connected to server');    
 })

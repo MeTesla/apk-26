@@ -114,6 +114,7 @@
             break;
         }
       }
+      
       function me(){        
         createModal()
         const modal = document.querySelector('.full')
@@ -233,7 +234,7 @@
         localStorage.setItem('token', data.token)
         localStorage.setItem('expireAt', data.expireAt)
 
-        return console.log(data);       
+        console.log(data);       
       }
 
       /*   const d1 = new Date('2025-06-6')
