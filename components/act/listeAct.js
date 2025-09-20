@@ -7,23 +7,14 @@ import {vf} from './vf.js'
 import {ordreEvenements} from './ordreEvenements.js'
 import {ordrePhrases} from './ordrePhrases.js'
  
-// // Lire
-// import {bam} from '../../bd/oeuvre.js'
-// // Résumé
-// import {resumeBam} from '../../bd/resume-db.js'
-// // Ordre Events
-// import {ordreEventsData} from '../../bd/ordreEvents-db.js'
-// // Ordre phrases
-// import {phrases} from '../../bd/ordrePh-db.js'
-// // QCM  
-// import {qcmData} from '../../bd/qcm.js'
-// // Fill blancs
-// import {textesVide} from '../../bd/vide-db.js'
-// Vrai-Faux
-//import {vfData} from '../../bd/vf-db.js'
-
-//const serveur ='http://localhost:3000/?oeuvre=bam&type=qcm'
-
+function toast(msg) {
+  Toastify({
+    text: msg,
+    className: "toast-id",
+    position: "center",
+    close: true
+  }).showToast();
+}
 const serveur ='http://localhost:3000/'
 
 const vffData = async (exo)=>{
@@ -36,7 +27,7 @@ const vffData = async (exo)=>{
   const data =await reponse.json()
   if(data =='Le token a expiré, veuillez vous reconnecter.') {
     
-    console.log('modal');
+    toast("Vous n'êtes pas autorisé !!");
     return 
   }
   
@@ -72,7 +63,7 @@ export function listeAct(bloc){
   lire.onclick= async()=> {
     const  {oeuvre} = await vffData('bamoeuvre')||''
     if(!oeuvre){
-      return console.log('Vou n\être pas autorisé')
+      return toast("Token invalid. Penser à passer Premium")
     }
     lecteur(wrapper, oeuvre)
     }

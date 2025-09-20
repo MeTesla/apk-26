@@ -237,6 +237,7 @@
         localStorage.setItem('role', data.eleve.role)
         userMenu.innerHTML = generateMenu(localStorage.getItem('role'))
         document.querySelector('.creer-compte-page').remove()
+        toast('Bienvenu à bord')
         //location.reload()
       }
 
@@ -251,7 +252,8 @@
         const data = await reponse.json()
         localStorage.setItem('token', data.token)
         localStorage.setItem('expireAt', data.expireAt)
-        toast("Vous bénéficier de 15 minutes d'accès !")
+        console.log(data)
+        toast(data.message)
       }
 
       /*   const d1 = new Date('2025-06-6')
