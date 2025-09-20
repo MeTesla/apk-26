@@ -96,7 +96,7 @@
           width: 100%;
           background-color: white;
         }
-        .full{
+        .modal-full{
           position: fixed;
           width: 100vw; height: 100vh;
           top:0; left:0 ;
@@ -123,7 +123,7 @@
         let html=""        
         switch (typeAccount) {
           case 'registred':
-            return html=`<div onclick=me()>Premium</div> <div onclick="freeMins()">+10 minutes</div>  <div>Profile</div>`
+            return html=`<div onclick="me()">Premium</div> <div onclick="freeMins()">+10 minutes</div>  <div>Profile</div>`
             break;
           case'premium' :
             return html=`<div>Le code</div> <div>Profile</div>`
@@ -134,21 +134,20 @@
         }
       }
       
-      function me(){        
+      const me =()=>{        
         createModal()
-        const modal = document.querySelector('.full')
+        const modal = document.querySelector('.modal-full')
         modal.onclick=function(){
           modal.remove()
           document.body.style.position='static'
         }
       }
-
-      function createModal(){
-        const div=document.createElement('div')
-        div.className="full"
-        div.innerHTML=``
+      function createModal() {
+        const div = document.createElement('div')
+        div.className = "modal-full"
+        div.innerHTML = ``
         document.body.appendChild(div)
-        document.body.style.position='fixed'
+        document.body.style.position = 'fixed'
       }
  
       userMenu.innerHTML =generateMenu(localStorage.getItem('role'))

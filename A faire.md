@@ -1,38 +1,30 @@
+Logique freeMins token
+Modals
+gestion UI fontEnd (localStorage, apis, menu, bouttons)
+unifier les réponses API {token, message, titre, expiredAt, }
+
 Toujours vérifier l'émail à chaque reqête de create-account
     Si l'émail est déja dans BD , res.send. message()
 Traiter le cas de connection d'un autre navigateur. ==> ?? créer page login.
 connection d'un autre navigateur + compte non expiré vs compte expiré
-Sauvgarder les émails et les tel dans un endroit sûr
+Sauvgarder (backup) les émails et les tel dans un endroit sûr
 
 payment plans / access denied, not allowed, protected account
 - index : inclure section : exercice aléatorie base de français. btn generate
 
 
 4-AJOUTER :
-    - SECTION : obtenir son code / Acheter un compte premium
-        20dh : Langue
-        50dh : production écrite
-        80dh : 30 examens régionaux corrigés.
-    - clique contenu protégé : modal pub : compte premium
-    
+
         SI TOKEN EXPIRE
     - créer une route/fonction backend (isAuthorized) à utilser 
         à chaque fois que je veux interdire l'accès à une section.
     
-   - Gérer les trois états : guest - registred - premium
-        Guest : créer compte
-        registred : profile , +10 minutes, premium
-        premium : profile
    - Logique :
    -    function typeUser(){
             verifie
             change menus et bouttons
         }
-        localStorage = ''   => guest
-        créer compte =      => registred
-        Enter Code          => premium
-        localStorage.setItem({toke: token, type:'guest})
-
+   
     - token & email assez solide. les deux vérifiés.
         Créer Token : email
         je reçois la requete (vf) + 

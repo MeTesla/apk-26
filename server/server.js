@@ -7,7 +7,7 @@ const app=express()
 app.use(cors())
 app.use(express.json())
  
-
+// phone
 //const prepareData = require('./utils')
 const {postEmail, prepareData} = require('./utils');
 
