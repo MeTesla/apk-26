@@ -106,12 +106,15 @@
 
     <script>
     // Afficher une notification simple
-Toastify({
-    text: "Bienvenue à EUDUKA !",
-    className: "toast-id",
-    position:  "center",
-    close: true
-}).showToast();
+    toast("Bienvenue dans EUDUKA !")
+    function toast(msg){
+      Toastify({
+        text: msg,
+        className: "toast-id",
+        position:  "center",
+        close: true
+        }).showToast();
+    }
 
       const menu=document.querySelector('.nav .menu')
       const userMenu= document.querySelector('.nav .menu .user-menu')
@@ -230,11 +233,7 @@ Toastify({
             })    
         const data = await reponse.json()
         console.log(data);
-        Toastify({
-          text: "Ceci est une notification simple!",
-          className: "toast-id",
-          position: "center",
-        }).showToast();
+        
         localStorage.setItem('token',data.eleve.token)
         localStorage.setItem('role', data.eleve.role)
         userMenu.innerHTML = generateMenu(localStorage.getItem('role'))
@@ -253,11 +252,7 @@ Toastify({
         const data = await reponse.json()
         localStorage.setItem('token', data.token)
         localStorage.setItem('expireAt', data.expireAt)
-
-      Toastify({
-        text: "Vous bénéficier de 15 minutes d'accès!",
-        className: "toast-id"
-      }).showToast();               
+        toast("Vous bénéficier de 15 minutes d'accès !")
       }
 
       /*   const d1 = new Date('2025-06-6')
