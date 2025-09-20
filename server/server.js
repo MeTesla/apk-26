@@ -7,8 +7,21 @@ const app=express()
 app.use(cors())
 app.use(express.json())
  
-// phone
+// phone + tablette 2
 //const prepareData = require('./utils')
+/*
+Créer compte
+    server: verifier si l'émail n'est déjà utilisé.
+recevoir token (15 min + changement de menu + localStorage)
+Demande 2ème token :
+    email existe BD 
+    extraire (dateFreeMins, freeMinsCounter)
+    isValidToke
+    freeMinsCounter>5
+    sameDay
+    generate new Token
+
+*/
 const {postEmail, prepareData} = require('./utils');
 
 const SECRET_KEY='mkljaz_çè(__j'
@@ -48,17 +61,17 @@ app.delete('/delete', async(req, res)=>{
 
 //+10 mintues route
 const freeMinsMiddleware = async(req, res, next)=>{
-    // Gérer le cas où le token n'a pas expiré (frontend|| backend)
+    
     const token = req.headers.authorization
     if(!token) return res.json('pas de token +dix min requête')
     
     const payload = jwt.decode(token);
     req.userEmail = payload.id
         
-    //trouver eleve dans BD , msg s'il n'existe pas
     const email = payload.id
     if(!email) return res.json({token, message:'Vous n\'êtes pas enregistré'})
     
+    //trouver eleve dans BD , msg s'il n'existe pas
     const {freeMins, dateFreeMin} = await EleveModel.findOne({email})
     
     const now= new Date()
@@ -71,7 +84,7 @@ const freeMinsMiddleware = async(req, res, next)=>{
     console.log(timeStamp(dateFreeMin) - timeStamp(now))
     
     
-    // ------------1    VALID
+    // ------------1   IS VALID
     if((timeStamp(dateFreeMin) + 1000*60*2) > timeStamp(now) ){ // > >  <<
         // console.log('1-VALID-----' +dateFreeMin > now + ' ' + now + ' ' + dateFreeMin);
         return res.json({success:false,message:'Token valid', token})        
@@ -79,18 +92,15 @@ const freeMinsMiddleware = async(req, res, next)=>{
     console.log(dateFreeMin > now );
     const date = new Date(dateFreeMin)
     console.log('heures : ' + date.getHours() + ' | minutes : '+ date.getMinutes() )
-    // dateFreeMin : 3     token time
-    // now         : 5
-
     
-    // ------------2    3 FOIS
+    // ------------2    FreeMinsCounter > 5
     if(freeMins >= 11){ 
         
         return res.json({success:false,message:'3 fois 15 min', token})
     }    
     
     
-    // ------------3    24H
+    // ------------3   Same day 24H
     if((now - dateFreeMin) < 60*1000){ // Attendez 24H
         
         return res.json({success:false,message:'Attends 24h', token})
