@@ -56,21 +56,23 @@ app.post('/creer-compte', async (req, res) => {
 
 //delete all documents
 app.delete('/delete', async (req, res) => {
-    //const delet = await EleveModel.deleteMany({});
+    const delet = await EleveModel.deleteMany({});
     res.json('all decument deletedddd')
 })
 
 //+10 mintues route
-const freeMinsMiddleware = async (req, res, next) => {
-    
+const freeMinsMiddleware = async (req, res, next) => {    
     const token = req.headers.authorization
-    if (!token) return res.json('pas de token +dix min requête')
+    if (!token || (token==="")) return res.json('pas de token +dix min requête')
     
     const payload = jwt.decode(token);
-    req.userEmail = payload.id
+    if(!payload) return res.json('pas de token valid')
     
+    req.userEmail = payload.id
     const email = payload.id
-    if (!email) return res.json({ token, message: 'Vous n\'êtes pas enregistré' })
+
+    const eleve = await EleveModel.findOne({email})    
+    if (!eleve) return res.json({message: 'Vous n\'êtes pas enregistré', token:"" })
     
     //trouver eleve dans BD , msg s'il n'existe pas
     const { freeMins, dateFreeMin } = await EleveModel.findOne({ email })
@@ -78,20 +80,17 @@ const freeMinsMiddleware = async (req, res, next) => {
     const now = new Date()
     
     function timeStamp(d) {
-        // const date = new Date(d)
         const time = d.getTime()
-        //const da = new Date(time)
-        //const date = da.getMinutes()
         return time
     }
     
-    // ------------1   IS VALID
-    if ((timeStamp(dateFreeMin) + 1000 * 60) > timeStamp(now)) { // > >  <<
+    // ------------1   IS VALID Token
+    if ((timeStamp(dateFreeMin) + 1000 * 60) > timeStamp(now)) {
         return res.json({ success: false, message: 'Token valid', token })
     }
     const date = new Date(dateFreeMin)
     
-    // ------------2    FreeMinsCounter > 5
+    // ------------2
     if (freeMins >= 3) {
         return res.json({ success: false, message: '3 fois 15 min', token })
     }
@@ -101,17 +100,6 @@ const freeMinsMiddleware = async (req, res, next) => {
     if (timeStamp(dateFreeMin) + 2 * 60 * 1000 > timeStamp(now)) {
         return res.json({ success: false, message: 'Attends 24h', token })
     }
-    
-    /*
-    après 6 heures
-  10 + 6  =16      15 non
-  10 + 6  =16      19 oui
-  
-    
-  */
-    /* verifier : role, countFreeMins , dateFreeMins
-        role : JE VAIS PAS TRAITER PREMIUM ICI        
-    */
     
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err && err.name === "TokenExpiredError") {

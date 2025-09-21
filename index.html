@@ -246,11 +246,11 @@
           method: "GET",
           headers:{
             "Content-Type": "application/json",
-            authorization: localStorage.getItem('token')
+            authorization: localStorage.getItem('token')|| ""
           }
         })
         const data = await reponse.json()
-        localStorage.setItem('token', data.token)
+        data.token && localStorage.setItem('token', data.token)
         localStorage.setItem('expireAt', data.expireAt)
         console.log(data)
         toast(data.message)

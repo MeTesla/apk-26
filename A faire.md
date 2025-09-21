@@ -1,11 +1,24 @@
-Logique freeMins token
-Modals
+RESSET PASSWORD :
+https://accounts.lottiefiles.com/reset-password?token=kb9emoua9mzymdzql752znygaf79yimw8w
+
+MODALS :
+	Creer compte : 15min 5fois 24h, btn ok
+	+15 minutes : Oui, success + btn ok
+	+15 minutes : Non, fail + btn ok + msg	attendre 24h/  
+				: Non, fail x10 foix / msg: passer Premium
+
+	devenir premium / 
+	Entrer code premium /
+	premium(feliciter)
+
+Logique freeMins token			FAIT
+
 gestion UI fontEnd (localStorage, apis, menu, bouttons)
 unifier les réponses API {token, message, titre, expiredAt, }
 
 Toujours vérifier l'émail à chaque reqête de create-account
     Si l'émail est déja dans BD , res.send. message()
-Traiter le cas de connection d'un autre navigateur. ==> ?? créer page login.
+Connection d'un autre navigateur. ==> ?? créer page login.
 connection d'un autre navigateur + compte non expiré vs compte expiré
 Sauvgarder (backup) les émails et les tel dans un endroit sûr
 
@@ -14,25 +27,14 @@ payment plans / access denied, not allowed, protected account
 
 
 4-AJOUTER :
-
+	- Admin dashboard : liste élèves + activer Premium
         SI TOKEN EXPIRE
     - créer une route/fonction backend (isAuthorized) à utilser 
         à chaque fois que je veux interdire l'accès à une section.
     
-   - Logique :
-   -    function typeUser(){
-            verifie
-            change menus et bouttons
-        }
    
     - token & email assez solide. les deux vérifiés.
-        Créer Token : email
-        je reçois la requete (vf) + 
-        verifier token
-        extraire l'email du token
-        BD : il y a token
-        L'émail token == émail BD
-        OK - autorisé
+
         
     - Traduction ar: vf, qcm, figures, 
     - 3 traduction par session

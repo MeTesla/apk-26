@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="open-modal">click-me</div>
+    
+    <script>
+        const modal = document.querySelector('.open-modal')
+
+      modal.onclick= ()=>createModal(premium())
+
+      function createModal(children) {
+        const div = document.createElement('div')
+        div.className = "modal-full"
+        div.innerHTML=children
+        //div.appendChild(children)
+        document.body.appendChild(div)
+        document.body.style.position = 'fixed'
+        
+        div.addEventListener('click',function(){
+            div.remove()
+        })
+        const prem=document.querySelector('.premium')
+        console.log(prem.childNodes[0].innerHTML);
+        
+      }
+
+      function premium(){
+        const html="<div class='premium'><h2>PREMIUM</h2></div>"
+        return html
+      }
+    </script>
+    <style>
+        
+        .modal-full{
+          position: fixed;
+          width: 100vw; height: 100vh;
+          top:0; left:0 ;
+          background-color: red;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 33;
+        }
+        .premium{
+            width:250px;
+            height: 400px;
+            background-color: white;
+            text-align: center;
+            padding-top: 40px;
+            border: 1px solid rgb(0, 0, 0);
+        }
+    </style>
+</body>
+</html>
