@@ -3,60 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-player/2.0.12/lottie-player.js" integrity="sha512-2nOSQ1o1ohJgCDWTrSe2tFG4CU8hurCGROpUKoopgPHT2mUWy1mgLed21mf2le8n9gZ2c3ujOHuiXlivAnYvTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Document</title>
 </head>
 <body>
-    <div class="modal-container">
-        <div class="modal-titre">Bienvenue chez Euduka !!</div>
+    <div class="modal-creer-compte">
+        <div class="modal-card">
+            <div class="modal-titre">
+                <h3 >Bienvenue chez Euduka</h3>
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
         <div class="modal-corps">
-            <h2>Cadeau de Bienvenue</h2>
+            <h4>Cadeau de Bienvenue</h4>
+
             <ul>
                 <li>15 minutes par jour pendant une semaine</li>
                 <li>105 minutes en total</li>
             </ul>
+            <lottie-player src="./assets/lotties/Winner.json" 
+                background="transparent"  speed="0.8"
+                                style="width: 200px" 
+                loop autoplay>
+            </lottie-player>
         </div>
         <div class="modal-footer">
             <div class="ok">Ok</div>
         </div>
-    </div>
+        </div>
+
     <style>
-        .modal-container{
+        .modal-creer-compte{
           position: fixed;
           width: 100vw; height: 100vh;
           top:0; left:0 ;
-          background-color: red;
+          background-color: white;
           display: flex;
           justify-content: center;
           align-items: center;
           z-index: 3;
         }
+        .modal-card{
+            width: 240px;
+            box-shadow: 0 0 5px rgb(214, 214, 214);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity:0;
+            animation: appear linear  1s forwards;
+        }
+        @keyframes appear {
+            from{opacity: 0}
+            to{ opacity: 1;}
+        }
+        .modal-titre{
+            background-color: rgb(217, 226, 255);
+            padding: 25px 10px ;
+            margin: 0;
+            position: relative;
+        }
+        .modal-titre h3{
+            margin:0
+        }
+        .modal-titre i{
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size: 25px;
+            color: rgb(99, 141, 255);
+            cursor: pointer
+        }
+        .modal-corps{
+            position: relative;
+            padding: 0 20px;
+        }
+        .modal-footer{
+            text-align: center;
+            padding: 10px;
+            margin: 10px auto;
+            text-align: center;
+            width: 80px;
+            border: 1px solid rgb(235, 235, 235);
+            border-radius: 5px;
+            cursor: pointer;
+        }
         
-    </style>
+    </style>    
+    </div>
+    
     <script>
-        const modal = document.querySelector('.open-modal')
+        const modalClose=document.querySelector('.modal-titre i')
+        const ok = document.querySelector('.ok')
 
-      modal.onclick= ()=>createModal(premium())
-
-      function createModal(children) {
-        const div = document.createElement('div')
-        div.className = "modal-full"
-        div.innerHTML=children
-        //div.appendChild(children)
-        document.body.appendChild(div)
-        document.body.style.position = 'fixed'
-        
-        div.addEventListener('click',function(){
-            div.remove()
+        modalClose.addEventListener('click', ()=>{
+            console.log('close');            
         })
-        const prem=document.querySelector('.premium')
-        console.log(prem.childNodes[0].innerHTML);
-        
-      }
-
-      function premium(){
-        const html="<div class='premium'><h2>PREMIUM</h2></div>"
-        return html
-      }
+        ok.addEventListener('click', ()=>{
+            console.log('close');            
+        })
     </script>
 </body>
 </html>

@@ -104,7 +104,7 @@
         }
     </style>
 
-    <script>
+    <script type="module">
     // Afficher une notification simple
     toast("Bienvenue dans EUDUKA !")
     function toast(msg){
@@ -142,13 +142,7 @@
           document.body.style.position='static'
         }
       }
-      function createModal() {
-        const div = document.createElement('div')
-        div.className = "modal-full"
-        div.innerHTML = ``
-        document.body.appendChild(div)
-        document.body.style.position = 'fixed'
-      }
+
  
       userMenu.innerHTML =generateMenu(localStorage.getItem('role'))
       
@@ -253,7 +247,8 @@
         data.token && localStorage.setItem('token', data.token)
         localStorage.setItem('expireAt', data.expireAt)
         console.log(data)
-        toast(data.message)
+        //toast(data.message)
+        modalCreerCompte()
       }
 
       /*   const d1 = new Date('2025-06-6')

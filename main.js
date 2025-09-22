@@ -5,6 +5,9 @@ import {listeAct} from './components/act/listeAct.js'
 import {conic} from './utils.js'
 import {qcmFigures} from './langue/figures/figures.js'
 import {userSuggests} from './auth/login.js'
+
+import { modalCreerCompte } from './components/misc/modals.js'
+
 const loader=document.querySelector('.loader')
 window.addEventListener("load", function () {
   loader.style.display="none";

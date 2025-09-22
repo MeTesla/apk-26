@@ -2,10 +2,11 @@ RESSET PASSWORD :
 https://accounts.lottiefiles.com/reset-password?token=kb9emoua9mzymdzql752znygaf79yimw8w
 
 MODALS :
-	Creer compte : 15min 5fois 24h, btn ok
-	+15 minutes : Oui, success + btn ok
-	+15 minutes : Non, fail + btn ok + msg	attendre 24h/  
-				: Non, fail x10 foix / msg: passer Premium
+--------
+	modal-creer-compte : 15min 5fois 24h, btn ok
+	modal-quinze-minutes-ok : Oui, success + btn ok
+	modal-attendre-jour : Non, fail + btn ok + msg	attendre 24h/  
+	modal-sept-fois			: Non, fail x10 foix / msg: passer Premium
 
 	devenir premium / 
 	Entrer code premium /
