@@ -6,7 +6,7 @@ const cors = require('cors')
 const app = express()
 app.use(cors())
 app.use(express.json())
-
+//git phon~
 // phone + tablette 2
 //const prepareData = require('./utils')
 /*
