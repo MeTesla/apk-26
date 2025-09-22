@@ -7,48 +7,99 @@ import {qcmFigures} from './langue/figures/figures.js'
 import {userSuggests} from './auth/login.js'
 
 import { modalCreerCompte } from './components/misc/modals.js'
+import {creerCompte,toast} from './components/misc/utils.js'
 
 const loader=document.querySelector('.loader')
 window.addEventListener("load", function () {
   loader.style.display="none";
   document.querySelector('.wrapper').style.display="block"
 })
- 
-    //Token from url params
-    // Récupérer le token de l'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
 
-if (token) {
-    // Enregistrer le token dans localStorage
-    localStorage.setItem('jwtToken', token);
-    console.log('Token enregistré dans localStorage');
-}
+//--------------------------------------------------
+  toast("Bienvenue dans EUDUKA !")
+
+  const menu=document.querySelector('.nav .menu')
+  const div= document.createElement('div')
+  div.className="user-menu"
+  div.innerHTML =generateMenu(localStorage.getItem('role'))
+  menu.appendChild(div)
+  const userMenu= document.querySelector('.nav .menu .user-menu')
+  
+  const compte=document.querySelector('.menu .creer-compte')
+  const freeM= document.querySelector('.free-mins')
+  freeM && freeM.addEventListener('click',()=>{
+    freeMins()
+  })
+  
+  compte && compte.addEventListener('click', ()=>{
+    creerCompte()    
+  })
+  function generateMenu(typeAccount){
+    let html=""        
+    switch (typeAccount) {
+      case 'registred':
+        return html=`<div>Premium</div> <div class="free-mins">+10 minutes</div>  <div>Profile</div>`
+        break;
+      case'premium' :
+        return html=`<div>Le code</div> <div>Profile</div>`
+        break;
+      default : 'guest'
+        return html = `<div class="creer-compte">Créer un compte</div>`
+        break;
+    }
+  }
+
+      
+  // show hide menu + Type menus
+  menu.addEventListener('click',(e)=>{
+    e.stopPropagation()
+    userMenu.classList.toggle('show')
+  })     
+  document.body.onclick=()=> userMenu.classList.contains('show') && userMenu.classList.remove('show')
+  document.body.onscroll=()=> (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
+  
+  // Get free MINs
+  async function freeMins(){
+    const reponse = await fetch('http://localhost:3000/freeMins', {
+      method: "GET",
+      headers:{
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem('token')|| ""
+      }
+    })
+    const data = await reponse.json()
+    data.token && localStorage.setItem('token', data.token)
+    localStorage.setItem('expireAt', data.expireAt)
+    console.log(data)
+    toast(data.message)
+    modalCreerCompte()
+  }
+
+//--------------------------------------------------
 
 
-// Nombre connexions
-let nbrConnect
-if(localStorage.getItem('nbrConnect')){
-  nbrConnect= +(localStorage.getItem('nbrConnect')) + 1
-  localStorage.setItem('nbrConnect', nbrConnect)
-} else {
-  nbrConnect=1
-  localStorage.setItem('nbrConnect', nbrConnect)
-}
-if(nbrConnect==4){
-  l('POP-UP : Vous êtes connecté ' + nbrConnect + ' foix')
-  localStorage.removeItem('nbrConnect')
-}
-//nbrConnect=localStorage.setitem
 
-// Conics
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -------------- Conics
 const notes = [5,2,7]
 const conics=document.querySelector('.conics');
 for(let i=0; i<3; i++){
   conics.appendChild(conic(notes[i]))
 }
 
-// Activités Oeuvres
+// -------------- Clique sur les oeuvres
 const antigone = document.querySelector('.oeuvres-container .antigone')
 const djc = document.querySelector('.oeuvres-container .djc')
 const bam = document.querySelector('.oeuvres-container .bam')
@@ -59,7 +110,7 @@ antigone.onclick=()=>{listeActAntigone(document.body, 0)}
 djc.onclick=()=>{listeActDjc(document.body, 0)}
 figure.onclick=()=>{qcmFigures(document.body)}
 
-// Date examen
+// ----------------- Date examen
 const mois = document.querySelector('.mois .chiffre')
 const jours = document.querySelector('.jours .chiffre')
 const heures = document.querySelector('.heures .chiffre')
@@ -91,6 +142,7 @@ function calculerTempsRestant(dateDonnee) {
 }
 
 
+//---------- Suggestion FIREBASE -----------
 const nom= document.getElementById('nom')
 const suggest= document.getElementById('suggest')
 const envoyer=document.getElementById('btn-envoyer') 
@@ -108,3 +160,32 @@ envoyer.addEventListener('click', ()=>{
   userSuggests(nom, suggest)    
 })
 
+
+// Nombre connexions
+
+let nbrConnect
+if(localStorage.getItem('nbrConnect')){
+  nbrConnect= +(localStorage.getItem('nbrConnect')) + 1
+  localStorage.setItem('nbrConnect', nbrConnect)
+} else {
+  nbrConnect=1
+  localStorage.setItem('nbrConnect', nbrConnect)
+}
+if(nbrConnect==4){
+  l('POP-UP : Vous êtes connecté ' + nbrConnect + ' foix')
+  localStorage.removeItem('nbrConnect')
+}
+//nbrConnect=localStorage.setitem
+
+
+    //------- Token in EMAIL
+    //Token from url params
+    // Récupérer le token de l'URL
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const token = urlParams.get('token');
+
+    // if (token) {
+    //     // Enregistrer le token dans localStorage
+    //     localStorage.setItem('jwtToken', token);
+    //     console.log('Token enregistré dans localStorage');
+    // }

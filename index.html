@@ -10,7 +10,7 @@
   
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-player/2.0.12/lottie-player.js" integrity="sha512-2nOSQ1o1ohJgCDWTrSe2tFG4CU8hurCGROpUKoopgPHT2mUWy1mgLed21mf2le8n9gZ2c3ujOHuiXlivAnYvTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1RL7PL7EFG"></script>
   <script>
@@ -30,9 +30,7 @@
         <img src="./assets/img/euduka.png" alt="" />        
       </div>
       <div class="menu">
-        <i class="fa-solid fa-bars"></i>
-        <div class="user-menu">
-        </div>
+        <i class="fa-solid fa-bars"></i>        
       </div>
 
     <style>
@@ -104,180 +102,6 @@
         }
     </style>
 
-    <script type="module">
-    // Afficher une notification simple
-    toast("Bienvenue dans EUDUKA !")
-    function toast(msg){
-      Toastify({
-        text: msg,
-        className: "toast-id",
-        position:  "center",
-        close: true
-        }).showToast();
-    }
-
-      const menu=document.querySelector('.nav .menu')
-      const userMenu= document.querySelector('.nav .menu .user-menu')
-      
-      function generateMenu(typeAccount){
-        let html=""        
-        switch (typeAccount) {
-          case 'registred':
-            return html=`<div onclick="me()">Premium</div> <div onclick="freeMins()">+10 minutes</div>  <div>Profile</div>`
-            break;
-          case'premium' :
-            return html=`<div>Le code</div> <div>Profile</div>`
-            break;
-          default : 'guest'
-            return html = `<div class="creer-compte" onclick="creerCompte()">Créer un compte</div>`
-            break;
-        }
-      }
-      
-      const me =()=>{        
-        createModal()
-        const modal = document.querySelector('.modal-full')
-        modal.onclick=function(){
-          modal.remove()
-          document.body.style.position='static'
-        }
-      }
-
- 
-      userMenu.innerHTML =generateMenu(localStorage.getItem('role'))
-      
-      // show hide menu + Type menus
-      menu.addEventListener('click',(e)=>{
-        e.stopPropagation()
-        userMenu.classList.toggle('show')
-      })
-      
-      document.body.onclick=()=> userMenu.classList.contains('show') && userMenu.classList.remove('show')
-      document.body.onscroll=()=> (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
-      
-      function creerCompte(){
-        //if(localStorage.getItem('token')) return
-        const modal = document.createElement('div')
-        modal.className="creer-compte-page"
-        modal.innerHTML=`<div class="form-container" style="display:nnone">
-        <form class="form">
-            <h2>Créer un compte</h2>
-            <input required type="text" class="nom" placeholder="Votre nom" name="nom" id="">
-            <input required type="text" class="prenom" placeholder="Votre prénom" name="prenom" id="">
-            <input required type="email" class="email" placeholder="Email ..." name="email" id="">
-            <input required type="tel" class="tel" placeholder="Numéro de téléphone..." name="tel" id="">
-            <div class="buttons">
-                <button class="envoyer" type="submit">Envoyer</button>
-                <button class="annuler">Annuler</button>
-            </div>
-        </form>
-        <style>
-        .form-container{
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        form.form{
-            width: 250px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 3px rgb(179, 180, 255);
-            padding: 20px;
-            border-radius: 15px;
-        }
-        form.form input{
-            width: 80%;
-            padding: 10px;
-            border: 1px solid rgb(155, 144, 255);
-            border-radius: 5px;
-            outline: none
-        }
-        form.form button{
-            padding: 10px;
-            border: 1px solid rgb(155, 144, 255);
-            border-radius: 5px;
-            outline: none
-        }
-        </style>
-    </div>`
-        document.body.appendChild(modal)
-
-        const annuler = document.querySelector('.annuler')
-        annuler.onclick=function(){modal.remove()   }
-
-        const envoyer = document.querySelector('.envoyer')
-        envoyer.onclick= function(){submitCreerCompte()}
-      }
-      
-      async function submitCreerCompte(){
-        const nom = document.querySelector('.nom').value        
-        const prenom = document.querySelector('.prenom').value        
-        const email = document.querySelector('.email').value        
-        const tel = document.querySelector('.tel').value        
-        // e.preventDefault()
-        const reponse = await fetch('http://localhost:3000/creer-compte',{
-              method: "POST",
-              headers:{"content-type": "application/json"},
-              body: JSON.stringify({nom, prenom, email, tel})
-            })    
-        const data = await reponse.json()
-        console.log(data);
-        
-        localStorage.setItem('token',data.eleve.token)
-        localStorage.setItem('role', data.eleve.role)
-        userMenu.innerHTML = generateMenu(localStorage.getItem('role'))
-        document.querySelector('.creer-compte-page').remove()
-        toast('Bienvenu à bord')
-        //location.reload()
-      }
-
-      async function freeMins(){
-        const reponse = await fetch('http://localhost:3000/freeMins', {
-          method: "GET",
-          headers:{
-            "Content-Type": "application/json",
-            authorization: localStorage.getItem('token')|| ""
-          }
-        })
-        const data = await reponse.json()
-        data.token && localStorage.setItem('token', data.token)
-        localStorage.setItem('expireAt', data.expireAt)
-        console.log(data)
-        //toast(data.message)
-        modalCreerCompte()
-      }
-
-      /*   const d1 = new Date('2025-06-6')
-    const d2 = new Date()
-    const l= console.log
-    const difference= (d1-d2)/1000/60/60 // en heures
-    const d3 = new Date(d1-d2) // c'est nouveau pour moi, à tester
-    l('Mois : ' + d3.getMonth())
-    l('Jours : ' + d3.getDay() )
-    l('Heures : ' + d3.getHours())
-    l(difference / 24 + ' Jours')
-    l(difference / 24 /30 + ' mois')
-    //  je texte : floor / modulus pour extraire Moi, jours/ heures
-    // floor: pour le plus grand (mois) - modulus pour le reste (jours,heures).
-    
-      const hum=document.querySelector('.hum')
-      const menu=document.querySelector('.menu')
-      const mega = document.querySelectorAll('.mega');
-      const langue = document.querySelector('.langue');
-      const sousMenu=document.querySelectorAll('.menu .sous')
-      hum.onclick=()=>{
-        menu.classList.toggle('active')
-        hum.classList.toggle('active')
-        document.body.classList.toggle('menu-active')
-      }
-      mega[0].onclick=()=>sousMenu[0].style.display="block"
-      mega[1].onclick=()=>sousMenu[1].style.display="block"
-    */
-      </script>
     </section>
     
     <section class="hero">
