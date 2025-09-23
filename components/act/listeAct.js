@@ -6,7 +6,12 @@ import {remplirVide} from './remplirVide.js'
 import {vf} from './vf.js'
 import {ordreEvenements} from './ordreEvenements.js'
 import {ordrePhrases} from './ordrePhrases.js'
-
+/*
+t.addEventListener('click', async ()=>{
+  let {d} = await import('./data.js')
+  console.log(d)
+})
+*/
 import { modalFreeMins } from '../misc/modals.js'
  
 function toast(msg) {
