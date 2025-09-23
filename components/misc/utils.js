@@ -1,11 +1,13 @@
 // Afficher une notification simple
 import {generateMenu} from '../../main.js'
+import { modalFreeMins } from './modals.js'
 export function toast(msg){
     Toastify({
-    text: msg,
-    className: "toast-id",
-    position:  "center",
-    close: true
+        gravity: 'bottom',
+        text: msg,
+        className: "toast-id",
+        position:  "center",
+        close: true
     }).showToast();
 }
 
@@ -80,12 +82,16 @@ export function creerCompte(){
           })    
       const data = await reponse.json()
       console.log(data);
+      if(data.eleve){
+        localStorage.setItem('token',data.eleve.token)
+        data.eleve.token && localStorage.setItem('role', data.eleve.role)
+        document.querySelector('.user-menu').innerHTML = generateMenu(localStorage.getItem('role'))
+        document.querySelector('.creer-compte-page').remove()
+        modalFreeMins(true, 'Bienvenue')
+      } else{
+        modalFreeMins(false, 'Erreur')
+      }
       
-      localStorage.setItem('token',data.eleve.token)
-      localStorage.setItem('role', data.eleve.role)
-      document.querySelector('.user-menu').innerHTML = generateMenu(localStorage.getItem('role'))
-      document.querySelector('.creer-compte-page').remove()
-      toast('Bienvenu à bord')
       //location.reload()
     }
   

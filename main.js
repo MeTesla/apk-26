@@ -6,7 +6,7 @@ import {conic} from './utils.js'
 import {qcmFigures} from './langue/figures/figures.js'
 import {userSuggests} from './auth/login.js'
 
-import { modalCreerCompte } from './components/misc/modals.js'
+import { modalFreeMins } from './components/misc/modals.js'
 import {creerCompte,toast} from './components/misc/utils.js'
 
 const loader=document.querySelector('.loader')
@@ -56,7 +56,7 @@ window.addEventListener("load", function () {
   document.body.onclick=()=> userMenu.classList.contains('show') && userMenu.classList.remove('show')
   document.body.onscroll=()=> (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
   
-  // Get free MINs
+  // ------------  Get free MINs
   async function freeMins(){
     const reponse = await fetch('http://localhost:3000/freeMins', {
       method: "GET",
@@ -66,12 +66,17 @@ window.addEventListener("load", function () {
       }
     })
     const data = await reponse.json()
-    data.token && localStorage.setItem('token', data.token)
-    localStorage.setItem('expireAt', data.expireAt)
+    if(data.token){
+      localStorage.setItem('token', data.token)
+      modalFreeMins(data.success, data.message, 'winner')
+    } else{
+      modalFreeMins(data.success, data.message)
+    }
+    
     console.log(data)
-
-    // Des conditions poru afficher tel ou tel modal
-    modalCreerCompte()
+    
+    //Appeler generate menu
+    //modalCreerCompte()
   }
 
 //--------------------------------------------------

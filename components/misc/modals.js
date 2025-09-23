@@ -1,18 +1,15 @@
-export function modalCreerCompte() {
+export function modalFreeMins(success, message, lottie='failed') {
   const div = document.createElement('div')
   div.className = "modal-creer-compte"
   div.innerHTML = `<div class="modal-card">
             <div class="modal-titre">
-                <h3 >Bienvenue chez Euduka</h3>
+                <h3 class=${success ? 'modal-green': 'modal-red'}>Bienvenue chez Euduka</h3>
                 <div class="fermer-modal"><i class="fa-solid fa-circle-xmark"></i></div>                
             </div>
         <div class="modal-corps">
             <h4>Cadeau de Bienvenue</h4>
-            <ul>
-                <li>15 minutes par jour pendant une semaine</li>
-                <li>105 minutes en total</li>
-            </ul>
-            <lottie-player src="./assets/lotties/Winner.json" 
+            ${message}
+            <lottie-player src="./assets/lotties/${lottie}.json" 
                 background="transparent"  speed="0.8"
                                 style="width: 200px" 
                 loop autoplay>
@@ -26,13 +23,13 @@ export function modalCreerCompte() {
     <style>
         .modal-creer-compte{
           position: fixed;
-          width: 100vw; height: 100vh;
+          width: 100%; height: 100%;
           top:0; left:0 ;
           background-color: rgba(102, 102, 102, 0.73);
           display: flex;
           justify-content: center;
           align-items: center;
-          z-index: 3;
+          z-index: 113;
         }
         .modal-card{
             width: 240px;
@@ -53,6 +50,8 @@ export function modalCreerCompte() {
             margin: 0;
             position: relative;
         }
+        .modal-red{color: red}
+        .modal-green{color:green}
         .modal-titre h3{
             margin:0
         }

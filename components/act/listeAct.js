@@ -6,6 +6,8 @@ import {remplirVide} from './remplirVide.js'
 import {vf} from './vf.js'
 import {ordreEvenements} from './ordreEvenements.js'
 import {ordrePhrases} from './ordrePhrases.js'
+
+import { modalFreeMins } from '../misc/modals.js'
  
 function toast(msg) {
   Toastify({
@@ -26,8 +28,7 @@ const vffData = async (exo)=>{
   })
   const data =await reponse.json()
   if(data =='Le token a expiré, veuillez vous reconnecter.') {
-    
-    toast("Vous n'êtes pas autorisé !!");
+    modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock')
     return 
   }
   
@@ -62,10 +63,8 @@ export function listeAct(bloc){
   const lire=document.querySelector('.lst-lire')
   lire.onclick= async()=> {
     const  {oeuvre} = await vffData('bamoeuvre')||''
-    if(!oeuvre){
-      return toast("Token invalid. Penser à passer Premium")
-    }
-    lecteur(wrapper, oeuvre)
+      if(!oeuvre) return
+      lecteur(wrapper, oeuvre)
     }
   
   const res=document.querySelector('.lst-resume')
