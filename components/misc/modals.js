@@ -4,11 +4,10 @@ export function modalCreerCompte() {
   div.innerHTML = `<div class="modal-card">
             <div class="modal-titre">
                 <h3 >Bienvenue chez Euduka</h3>
-                <i class="fa-solid fa-circle-xmark"></i>
+                <div class="fermer-modal"><i class="fa-solid fa-circle-xmark"></i></div>                
             </div>
         <div class="modal-corps">
             <h4>Cadeau de Bienvenue</h4>
-
             <ul>
                 <li>15 minutes par jour pendant une semaine</li>
                 <li>105 minutes en total</li>
@@ -29,7 +28,7 @@ export function modalCreerCompte() {
           position: fixed;
           width: 100vw; height: 100vh;
           top:0; left:0 ;
-          background-color: white;
+          background-color: rgba(102, 102, 102, 0.73);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -37,11 +36,12 @@ export function modalCreerCompte() {
         }
         .modal-card{
             width: 240px;
-            box-shadow: 0 0 5px rgb(214, 214, 214);
+            box-shadow: 0 0 3px rgb(214, 214, 214);
+            background-color: rgba(255, 255, 255, 1);
             border-radius: 10px;
             overflow: hidden;
             opacity:0;
-            animation: appear linear  1s forwards;
+            animation: appear linear  .3s forwards;
         }
         @keyframes appear {
             from{opacity: 0}
@@ -56,7 +56,7 @@ export function modalCreerCompte() {
         .modal-titre h3{
             margin:0
         }
-        .modal-titre i{
+        .modal-titre svg{
             position: absolute;
             right: 5px;
             top: 5px;
@@ -66,7 +66,7 @@ export function modalCreerCompte() {
         }
         .modal-corps{
             position: relative;
-            padding: 0 20px;
+            padding: 20px 20px 0 20px;
         }
         .modal-footer{
             text-align: center;
@@ -82,4 +82,16 @@ export function modalCreerCompte() {
     </style> `
   document.body.appendChild(div)
   document.body.style.position = 'fixed'
+
+  const closeModal =document.querySelector('.modal-titre .fermer-modal')
+  const ok =document.querySelector('.modal-footer div')
+
+  closeModal.addEventListener('click', ()=>{
+    document.body.style.position="static"   
+    div.remove() 
+  })
+  ok.addEventListener('click', ()=>{
+    document.body.style.position="static"
+    div.remove()
+  })
 }

@@ -1,5 +1,5 @@
 // Afficher une notification simple
-
+import {generateMenu} from '../../main.js'
 export function toast(msg){
     Toastify({
     text: msg,

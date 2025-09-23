@@ -16,13 +16,12 @@ window.addEventListener("load", function () {
 })
 
 //--------------------------------------------------
-  toast("Bienvenue dans EUDUKA !")
-
+  //Menu
   const menu=document.querySelector('.nav .menu')
-  const div= document.createElement('div')
-  div.className="user-menu"
-  div.innerHTML =generateMenu(localStorage.getItem('role'))
-  menu.appendChild(div)
+  const divMenu= document.createElement('div')
+  divMenu.className="user-menu"
+  divMenu.innerHTML =generateMenu(localStorage.getItem('role'))
+  menu.appendChild(divMenu)
   const userMenu= document.querySelector('.nav .menu .user-menu')
   
   const compte=document.querySelector('.menu .creer-compte')
@@ -34,7 +33,7 @@ window.addEventListener("load", function () {
   compte && compte.addEventListener('click', ()=>{
     creerCompte()    
   })
-  function generateMenu(typeAccount){
+  export function generateMenu(typeAccount){
     let html=""        
     switch (typeAccount) {
       case 'registred':
@@ -48,7 +47,6 @@ window.addEventListener("load", function () {
         break;
     }
   }
-
       
   // show hide menu + Type menus
   menu.addEventListener('click',(e)=>{
@@ -71,7 +69,8 @@ window.addEventListener("load", function () {
     data.token && localStorage.setItem('token', data.token)
     localStorage.setItem('expireAt', data.expireAt)
     console.log(data)
-    toast(data.message)
+
+    // Des conditions poru afficher tel ou tel modal
     modalCreerCompte()
   }
 

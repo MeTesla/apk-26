@@ -63,7 +63,7 @@ app.delete('/delete', async (req, res) => {
 //+10 mintues route
 const freeMinsMiddleware = async (req, res, next) => {    
     const token = req.headers.authorization
-    if (!token || (token==="")) return res.json('pas de token +dix min requête')
+    if (!token || (token==="")) return res.json('pas de token freeMins')
     
     const payload = jwt.decode(token);
     if(!payload) return res.json('pas de token valid')
@@ -71,14 +71,13 @@ const freeMinsMiddleware = async (req, res, next) => {
     req.userEmail = payload.id
     const email = payload.id
 
-    const eleve = await EleveModel.findOne({email})    
-    if (!eleve) return res.json({message: 'Vous n\'êtes pas enregistré', token:"" })
-    
     //trouver eleve dans BD , msg s'il n'existe pas
-    const { freeMins, dateFreeMin } = await EleveModel.findOne({ email })
+    const eleve = await EleveModel.findOne({email})    
+    if (!eleve) return res.json({message: 'Vous n\'êtes pas enregistré', token:"" })        
+    const { freeMins, dateFreeMin } = eleve
     
-    const now = new Date()
-    
+
+    const now = new Date()    
     function timeStamp(d) {
         const time = d.getTime()
         return time
