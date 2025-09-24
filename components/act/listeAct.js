@@ -6,7 +6,8 @@ import {remplirVide} from './remplirVide.js'
 import {vf} from './vf.js'
 import {ordreEvenements} from './ordreEvenements.js'
 import {ordrePhrases} from './ordrePhrases.js'
-/*
+
+/* DYNAMIC IMPORT
 t.addEventListener('click', async ()=>{
   let {d} = await import('./data.js')
   console.log(d)
