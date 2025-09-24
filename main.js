@@ -18,43 +18,49 @@ window.addEventListener("load", function () {
 //--------------------------------------------------
   //Menu
   const menu=document.querySelector('.nav .menu')
-  const divMenu= document.createElement('div')
-  divMenu.className="user-menu"
-  divMenu.innerHTML =generateMenu(localStorage.getItem('role'))
-  menu.appendChild(divMenu)
-  const userMenu= document.querySelector('.nav .menu .user-menu')
-  
-  const compte=document.querySelector('.menu .creer-compte')
-  const freeM= document.querySelector('.free-mins')
-  freeM && freeM.addEventListener('click',()=>{
-    freeMins()
-  })
-  
-  compte && compte.addEventListener('click', ()=>{
-    creerCompte()    
-  })
-  export function generateMenu(typeAccount){
-    let html=""        
+  // const divMenu= document.createElement('div')
+  // divMenu.className="user-menu"
+  // divMenu.innerHTML =generateMenu(localStorage.getItem('role'))
+  generateMenu(localStorage.getItem('role'), menu)
+
+
+  export function generateMenu(typeAccount, pere){
+    const div = document.createElement('div')
+    div.className="user-menu"     
     switch (typeAccount) {
       case 'registred':
-        return html=`<div>Premium</div> <div class="free-mins">+10 minutes</div>  <div>Profile</div>`
+        div.innerHTML=`<div>Premium</div> <div class="free-mins">+10 minutes</div>  <div>Profile</div>`
         break;
       case'premium' :
-        return html=`<div>Le code</div> <div>Profile</div>`
+        div.innerHTML=`<div>Le code</div> <div>Profile</div>`
         break;
       default : 'guest'
-        return html = `<div class="creer-compte">Créer un compte</div>`
+        div.innerHTML = `<div class="creer-compte">Créer un compte</div>`
         break;
     }
+      pere.appendChild(div)
+      const userMenu= document.querySelector('.nav .menu .user-menu')
+      const compte=document.querySelector('.menu .creer-compte')
+      const freeM= document.querySelector('.free-mins')
+      freeM && freeM.addEventListener('click',()=>{
+        freeMins()
+      })
+      
+      compte && compte.addEventListener('click', ()=>{
+        creerCompte()    
+      })
+
+      // show hide menu + Type menus
+      menu.addEventListener('click',(e)=>{
+        e.stopPropagation()
+        userMenu.classList.toggle('show')
+      })     
+      document.body.onclick=()=> userMenu.classList.contains('show') && userMenu.classList.remove('show')
+      document.body.onscroll=()=> (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
+      
+    return div
   }
       
-  // show hide menu + Type menus
-  menu.addEventListener('click',(e)=>{
-    e.stopPropagation()
-    userMenu.classList.toggle('show')
-  })     
-  document.body.onclick=()=> userMenu.classList.contains('show') && userMenu.classList.remove('show')
-  document.body.onscroll=()=> (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
   
   // ------------  Get free MINs
   async function freeMins(){

@@ -22,8 +22,15 @@ function generateToken(id) {
 //-------Créer compte
 app.post('/creer-compte', async (req, res) => {
     const { nom, prenom, email, tel } = req.body
+    if(!nom || !prenom|| !email || !tel) return res.json({
+        success: false,
+        titre:'infoManquantes',
+        message: 'Tous les champs sont obligatoires',
+    })
     const eleveExists= await EleveModel.findOne({email}) 
-    if(eleveExists) return res.json({message: 'Vous êtes avez déjà un compte !'})
+    if(eleveExists) return res.json({success:false, 
+        titre: 'compteExiste',
+        message: 'Vous êtes avez déjà un compte !'})
     const token = await generateToken(email)
     
     const today = new Date()
@@ -35,43 +42,42 @@ app.post('/creer-compte', async (req, res) => {
     await eleve.save()
     
     //await postEmail(req, res, nom, prenom, email, token)
-    res.json({ eleve })
+    return res.json({ success :true, titre:'registred',
+        message: 'Vous avez créé un compte. Vous gagnez 15 min par jour 5 fois',
+        token
+     })
 })
 
 //delete all documents
 app.delete('/delete', async (req, res) => {
-    // const delet = await EleveModel.deleteMany({});
-    // res.json('all decument deletedddd')
+    const delet = await EleveModel.deleteMany({});
+    res.json('all decument deletedddd')
 })
 
 //+10 mintues route
 const freeMinsMiddleware = async (req, res, next) => {    
     const token = req.headers.authorization
-    if (!token || (token==="")) return res.json({succuss: false,
+    if (!token || (token==="")) return res.json({success: false,
             titre: 'noToken',
             message: 'Un problème est survenu. Veuillez contacter l\'Administareur',        
-        })
-    console.log('un');
-    
+        })    
+    console.log('1');
     
     const payload = jwt.decode(token);
     if(!payload) return res.json({success: false,
             titre: 'noPayload',
             message: 'Un problème est survenu. Veuillez contacter l\'Administareur',        
         })
-    
-       
+    console.log('2');   
     req.userEmail = payload.id
     const email = payload.id
-        console.log('deux');
-    //trouver eleve dans BD , msg s'il n'existe pas
     const eleve = await EleveModel.findOne({email})    
-    if (!eleve) return res.json({succuss: false,
+    if (!eleve) return res.json({success: false,
             titre: 'noEleve',
             message: 'Vous n\'avez pas de compte. Veuillez vous enregistrer !',
         })
     
-    
+    console.log('3');
     const { freeMins, dateFreeMin } = eleve
     
     const now = new Date()    
@@ -82,14 +88,14 @@ const freeMinsMiddleware = async (req, res, next) => {
     
     // ------------1   IS VALID Token
     if ((timeStamp(dateFreeMin) + 1000 * 60) > timeStamp(now)) {
-        return res.json({succuss: false,
+        return res.json({success: false,
             titre: 'validToken',
             message : 'Les 15 minutes ne sont pas encore écoulées !'
         })
     
     }
     const date = new Date(dateFreeMin)
-    console.log('trois');
+    console.log('4');
     // ------------2
     if (freeMins >= 3) {
         return res.json({success: false,
@@ -98,7 +104,7 @@ const freeMinsMiddleware = async (req, res, next) => {
             freeMins
         })    
     }
-    
+    console.log('5');
     // ------------3   Same day 24H
     if (timeStamp(dateFreeMin) + (2 * 60 * 1000) > timeStamp(now)) {
         return res.json({success: false,
@@ -107,7 +113,7 @@ const freeMinsMiddleware = async (req, res, next) => {
             freeMins
         })
     }
-    console.log('quatres');
+    console.log('6');
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err && err.name === "TokenExpiredError") {
             next();
@@ -116,7 +122,7 @@ const freeMinsMiddleware = async (req, res, next) => {
 }
 
 app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
-    console.log('cinq');
+    console.log('7');
     if (!res.headersSent) {
         const token = await generateToken(req.userEmail)
         // --------- UPDATE DOCUMENT       
@@ -133,7 +139,7 @@ app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
             runValidators: true
         })
         
-        return res.json({succuss: true,
+        return res.json({success: true,
             titre: 'Félicitation',
             message: 'Vous avez 15 minutes gratuites !',
             token,

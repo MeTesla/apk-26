@@ -3,13 +3,12 @@ export function modalFreeMins(success, message, lottie='failed') {
   div.className = "modal-creer-compte"
   div.innerHTML = `<div class="modal-card">
             <div class="modal-titre">
-                <h3 class=${success ? 'modal-green': 'modal-red'}>Bienvenue chez Euduka</h3>
+                <h3 class=${success ? 'modal-green': 'modal-red'}>${success ? 'Félicitaion !' : 'Erreur'}</h3>
                 <div class="fermer-modal"><i class="fa-solid fa-circle-xmark"></i></div>                
             </div>
-        <div class="modal-corps">
-            <h4>Cadeau de Bienvenue</h4>
-            ${message}
-            <lottie-player src="./assets/lotties/${lottie}.json" 
+        <div class="modal-corps">           
+            <h3>${message}</h3>
+            <lottie-player src="./assets/lotties/${lottie}.json"
                 background="transparent"  speed="0.8"
                                 style="width: 200px" 
                 loop autoplay>

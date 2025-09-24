@@ -1,6 +1,8 @@
 // Afficher une notification simple
 import {generateMenu} from '../../main.js'
 import { modalFreeMins } from './modals.js'
+
+
 export function toast(msg){
     Toastify({
         gravity: 'bottom',
@@ -18,10 +20,10 @@ export function creerCompte(){
     modal.innerHTML=`<div class="form-container" style="display:nnone">
     <form class="form">
         <h2>Créer un compte</h2>
-        <input required type="text" class="nom" placeholder="Votre nom" name="nom" id="">
-        <input required type="text" class="prenom" placeholder="Votre prénom" name="prenom" id="">
-        <input required type="email" class="email" placeholder="Email ..." name="email" id="">
-        <input required type="tel" class="tel" placeholder="Numéro de téléphone..." name="tel" id="">
+        <input  type="text" class="nom" required placeholder="Votre nom" name="nom" id="">
+        <input  type="text" class="prenom" required placeholder="Votre prénom" name="prenom" id="">
+        <input  type="email" class="email" required placeholder="Email ..." name="email" id="em">
+        <input  type="tel" class="tel" required placeholder="Numéro de téléphone..." name="tel" id="">
         <div class="buttons">
             <button class="envoyer" type="submit">Envoyer</button>
             <button class="annuler">Annuler</button>
@@ -82,14 +84,19 @@ export function creerCompte(){
           })    
       const data = await reponse.json()
       console.log(data);
-      if(data.eleve){
-        localStorage.setItem('token',data.eleve.token)
-        data.eleve.token && localStorage.setItem('role', data.eleve.role)
-        document.querySelector('.user-menu').innerHTML = generateMenu(localStorage.getItem('role'))
+      if(data.success){
+        localStorage.setItem('token',data.token)
+        localStorage.setItem('role', 'registred')
+
+        document.querySelector('.user-menu').remove()
+        generateMenu(localStorage.getItem('role'), document.querySelector('.menu'))
+        
+        
+        modalFreeMins(true, data.message, 'winner')
         document.querySelector('.creer-compte-page').remove()
-        modalFreeMins(true, 'Bienvenue')
       } else{
-        modalFreeMins(false, 'Erreur')
+        modalFreeMins(false, data.message, 'failed')
+      
       }
       
       //location.reload()
