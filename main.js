@@ -67,8 +67,7 @@ window.addEventListener("load", function () {
       
     return div
   }
-      
-  
+
   // ------------  Get free MINs
   async function freeMins(){
     const reponse = await fetch('http://localhost:3000/freeMins', {

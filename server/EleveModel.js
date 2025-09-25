@@ -8,7 +8,7 @@ const elevesSchema= new mongoose.Schema({
     
     token:{type: String},
     
-    freeMins:{type: Number, default: 1},
+    freeMins:{type: Number, default: 2},
     dateFreeMin:{type: Date,default: Date.now},
     
     role:{type: String, default: 'registred'},

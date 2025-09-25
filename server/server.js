@@ -98,7 +98,7 @@ const freeMinsMiddleware = async (req, res, next) => {
     const date = new Date(dateFreeMin)
     console.log('4');
     // ------------2
-    if (freeMins >= 3) {
+    if (freeMins <= 0) {
         return res.json({success: false,
             titre: 'noMoreMins',
             message: 'Vous n\'avez plus de solde minutes. Passer Prmium',
@@ -129,7 +129,7 @@ app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
         // --------- UPDATE DOCUMENT       
         const eleveUpdated = await EleveModel.findOneAndUpdate({ email: req.userEmail },
         {
-            $inc: { freeMins: 1 },
+            $inc: { freeMins: -1 },
             $set: {
                 dateFreeMin: new Date(),
                 token

@@ -9,7 +9,7 @@ export function profile(){
         <div> NOM :</div> <h3>${objElv.nom}</h3>
         <div> Prenom :</div> <h3>${objElv.prenom}</h3>
         <div> Email :</div> <h3>${objElv.email}</h3>
-        <div> Minutes :</div> <h3>${objElv.freeMins}</h3>
+        <div> Minutes :</div> <h3>${parseInt(objElv.freeMins)*5}</h3>
         <style>
             .user-profile{
                 position: fixed;

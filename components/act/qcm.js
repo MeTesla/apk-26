@@ -131,6 +131,7 @@ function loadQst(){
  })
 
  valider.addEventListener('click', valid)
+
  function valid(){
   let audioFeed = new Audio()
   if(choosenQuestion){
@@ -167,7 +168,10 @@ function loadQst(){
     nbrQst: nbrQst,
     end:nbrSession
   }
-  if (repondu.length == nbrQst) modalFinSession(div, reinitialiser, resultat)
+  if (repondu.length == nbrQst) {
+    console.log(resultat);   
+    modalFinSession(div, reinitialiser, resultat)
+  }  
 }
 
  function reinitialiser(re){
@@ -195,7 +199,6 @@ function loadQst(){
       choix[x].className="choix c" + (x+1)
     }
  }
- 
   
 function codeHtml(){
  const html=`${entete()}
@@ -230,7 +233,7 @@ function codeHtml(){
  <style>
 @font-face {
   font-family: josefin;
-  src: url(../assets/josefin.ttf);
+  src: url(../assets/fonts/josefin.ttf);
 }
 
 .q-head .progress-bar{

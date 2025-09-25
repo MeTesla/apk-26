@@ -2,7 +2,7 @@ const l=console.log
 function random(min, max) {
   return min + Math.floor(Math.random() * (max - min));
 }
-  
+   
 export function conic(num) {
   const conic = document.createElement('div')
   conic.className = "conic"
