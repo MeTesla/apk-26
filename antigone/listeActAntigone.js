@@ -7,6 +7,7 @@ import {vf} from '../components/act/vf.js'
 import {ordreEvenements} from '../components/act/ordreEvenements.js'
 import {ordrePhrases} from '../components/act/ordrePhrases.js'
 
+import { modalFreeMins } from '../components/misc/modals.js'
 // Lecteur :
 // import {antigone} from './bd/piece.js'
 
@@ -35,7 +36,9 @@ const vffData = async (exo)=>{
     }
   })
   const data =await reponse.json() 
-  if(!data) return console.log('Vous n\'êtes pas autorisé')
+  if(!reponse.ok) {
+    return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+  } 
   return data
 }
 
@@ -72,49 +75,49 @@ export function listeActAntigone(bloc, num){
 
 const lire=document.querySelector('.lst-lire')
  lire.onclick= async()=> {
-  const  {oeuvre} = await vffData('antigoneoeuvre') 
+  const  {oeuvre} = await vffData('antigoneoeuvre') || ''
   if(!oeuvre){return console.log('Vou n\être pas autorisé')}
   lecteur(wrapper, oeuvre)
   }
  
  const res=document.querySelector('.lst-resume')
  res.onclick= async()=> {
-  const  {resumee} = await vffData('antigoneresume') 
+  const  {resumee} = await vffData('antigoneresume') || ''
   if(!resumee){return console.log('Vou n\être pas autorisé')}
   resume(wrapper, resumee)
   }
   
  const q=document.querySelector('.lst-qcm')
  q.onclick=async()=> {
-  const  {qcmData} = await vffData('antigoneqcm') 
+  const  {qcmData} = await vffData('antigoneqcm') || ''
   if(!qcmData){return console.log('Vou n\être pas autorisé')}
   qcm(wrapper, qcmData)
   }
  
  const vide=document.querySelector('.lst-vide')
  vide.onclick= async()=> {
-  const  {textesVide} = await vffData('antigonevide') 
+  const  {textesVide} = await vffData('antigonevide') || ''
   if(!textesVide){return console.log('Vou n\être pas autorisé')}
   remplirVide(wrapper, textesVide)
   }
  
  const vF=document.querySelector('.lst-vf')
  vF.onclick= async()=> {
-  const  {antigonevf} = await vffData('antigonevf') 
+  const  {antigonevf} = await vffData('antigonevf') || ''
   if(!antigonevf){return console.log('Vou n\être pas autorisé')}
   vf(wrapper, antigonevf)
   }
  
  const ordreEvents=document.querySelector('.lst-ordre-ev')
  ordreEvents.onclick=async()=> {
-  const {ordreEventsData} = await vffData('antigoneordreev') 
+  const {ordreEventsData} = await vffData('antigoneordreev') || ''
   if(!ordreEventsData){return console.log('Vou n\être pas autorisé')}
   ordreEvenements(wrapper, ordreEventsData)
   }
   
  const ordrePh=document.querySelector('.lst-ordre-ph')
  ordrePh.onclick=async()=> {
-  const {phrases} = await vffData('antigoneordreph') 
+  const {phrases} = await vffData('antigoneordreph') || ''
   if(!phrases){return console.log('Vou n\être pas autorisé')}
   ordrePhrases(wrapper, phrases)
   }

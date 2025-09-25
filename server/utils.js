@@ -55,28 +55,28 @@ async function postEmail(req, res, token){
 function prepareData(exo){
     switch (exo) {
         case 'bamvf': return bamvf; break;    
-        case 'bamoeuvre': return bamoeuvre;    break;
-        case 'bamresume': return bamresume;      break;
-        case 'bamqcm': return bamqcm;        break;        
-        case 'bamordreph': return bamordreph;      break;        
-        case 'bamordreev': return bamordreev;        break;        
-        case 'bamvide': return bamvide;       break;  
+        case 'bamoeuvre': return bamoeuvre; break;
+        case 'bamresume': return bamresume; break;
+        case 'bamqcm': return bamqcm; break;        
+        case 'bamordreph': return bamordreph; break;        
+        case 'bamordreev': return bamordreev; break;        
+        case 'bamvide': return bamvide; break;  
 
         case 'antigonevf': return antigonevf; break;    
-        case 'antigoneoeuvre': return antigoneoeuvre;    break;
-        case 'antigoneresume': return antigoneresume;      break;
-        case 'antigoneqcm': return antigoneqcm;        break;        
-        case 'antigoneordreph': return antigoneordreph;      break;        
-        case 'antigoneordreev': return antigoneordreev;        break;        
-        case 'antigonevide': return antigonevide;       break;                
+        case 'antigoneoeuvre': return antigoneoeuvre; break;
+        case 'antigoneresume': return antigoneresume; break;
+        case 'antigoneqcm': return antigoneqcm; break;        
+        case 'antigoneordreph': return antigoneordreph; break;        
+        case 'antigoneordreev': return antigoneordreev; break;        
+        case 'antigonevide': return antigonevide; break;                
         
         case 'djcvf': return djcvf; break;    
-        case 'djcoeuvre': return djcoeuvre;    break;
-        case 'djcresume': return djcresume;      break;
-        case 'djcqcm': return djcqcm;        break;        
-        case 'djcordreph': return djcordreph;      break;        
-        case 'djcordreev': return djcordreev;        break;        
-        case 'djcvide': return djcvide;       break;        
+        case 'djcoeuvre': return djcoeuvre; break;
+        case 'djcresume': return djcresume; break;
+        case 'djcqcm': return djcqcm; break;        
+        case 'djcordreph': return djcordreph; break;        
+        case 'djcordreev': return djcordreev; break;        
+        case 'djcvide': return djcvide; break;        
         
         
         default:

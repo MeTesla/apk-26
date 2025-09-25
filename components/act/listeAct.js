@@ -33,11 +33,10 @@ const vffData = async (exo)=>{
     }
   })
   const data =await reponse.json()
-  if(data =='Le token a expiré, veuillez vous reconnecter.') {
-    modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock')
-    return 
-  }
   
+  if(!reponse.ok) {
+    return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+  }  
   return data
 }
 
@@ -65,53 +64,54 @@ export function listeAct(bloc){
   const listBlc=document.querySelector('.liste-act')
   
   accueil.onclick=()=> listBlc.remove()
-    
+  
+  //-------Lire
   const lire=document.querySelector('.lst-lire')
   lire.onclick= async()=> {
     const  {oeuvre} = await vffData('bamoeuvre')||''
       if(!oeuvre) return
       lecteur(wrapper, oeuvre)
     }
-  
+  //-------Résumé  
   const res=document.querySelector('.lst-resume')
   res.onclick= async()=> {
-    const  {resumee} = await vffData('bamresume') 
-    if(!resumee){return console.log('Vou n\êtes pas autorisé')}
+    const  {resumee} = await vffData('bamresume') || ''
+    if(!resumee)return //console.log('Vou n\êtes pas autorisé')}
     resume(wrapper, resumee)
     }
     
   const q=document.querySelector('.lst-qcm')
   q.onclick=async()=> {
-    const  {qcmData} = await vffData('bamqcm') 
-    if(!qcmData){return console.log('Vou n\être pas autorisé')}
+    const  {qcmData} = await vffData('bamqcm') || ''
+    if(!qcmData) return
     qcm(wrapper, qcmData)
     }
   
   const vide=document.querySelector('.lst-vide')
   vide.onclick= async()=> {
-    const  {textesVide} = await vffData('bamvide') 
-    if(!textesVide){return console.log('Vou n\être pas autorisé')}
+    const  {textesVide} = await vffData('bamvide') || ''
+    if(!textesVide)return 
     remplirVide(wrapper, textesVide)
     }
   
   const vF=document.querySelector('.lst-vf')
   vF.onclick= async()=> {
-    const  {bamvf} = await vffData('bamvf') 
-    if(!bamvf){return console.log('Vou n\être pas autorisé')}
+    const  {bamvf} = await vffData('bamvf') || ''
+    if(!bamvf)return 
     vf(wrapper, bamvf)
     }
   
   const ordreEvents=document.querySelector('.lst-ordre-ev')
   ordreEvents.onclick=async()=> {
-    const {ordreEventsData} = await vffData('bamordreev') 
-    if(!ordreEventsData){return console.log('Vou n\être pas autorisé')}
+    const {ordreEventsData} = await vffData('bamordreev') || ''
+    if(!ordreEventsData)return 
     ordreEvenements(wrapper, ordreEventsData)
     }
     
   const ordrePh=document.querySelector('.lst-ordre-ph')
   ordrePh.onclick=async()=> {
-    const {phrases} = await vffData('bamordreph') 
-    if(!phrases){return console.log('Vou n\être pas autorisé')}
+    const {phrases} = await vffData('bamordreph') || ''
+    if(!phrases)return 
     ordrePhrases(wrapper, phrases)
   }
 }

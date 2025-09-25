@@ -106,7 +106,7 @@ const freeMinsMiddleware = async (req, res, next) => {
     }
     console.log('5');
     // ------------3   Same day 24H
-    if (timeStamp(dateFreeMin) + (2 * 60 * 1000) > timeStamp(now)) {
+    if (timeStamp(dateFreeMin) + (60 * 1000) > timeStamp(now)) {
         return res.json({success: false,
             titre: 'waitDay',
             message: 'Vous devez attendre 24h avant d\'avoir des minutes gratuites',
@@ -175,7 +175,7 @@ const auth = async (req, res, next) => {
 }
 
 app.get('/', auth, (req, res) => {
-    const { exo } = req.query
+    const {exo} = req.query
     const data = prepareData(exo)
     res.json(data)
 })

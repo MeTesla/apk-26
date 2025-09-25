@@ -1,4 +1,5 @@
-export function modalFreeMins(success, message, lottie='failed') {
+
+export function modalFreeMins(success, message, lottie='failed', autoClose) {
   const div = document.createElement('div')
   div.className = "modal-creer-compte"
   div.innerHTML = `<div class="modal-card">
@@ -37,6 +38,7 @@ export function modalFreeMins(success, message, lottie='failed') {
             border-radius: 10px;
             overflow: hidden;
             opacity:0;
+            transition: 0.5s;
             animation: appear linear  .3s forwards;
         }
         @keyframes appear {
@@ -83,7 +85,15 @@ export function modalFreeMins(success, message, lottie='failed') {
 
   const closeModal =document.querySelector('.modal-titre .fermer-modal')
   const ok =document.querySelector('.modal-footer div')
-
+  if(autoClose){
+    setTimeout(()=>{
+        setTimeout(()=>{
+            div.style.opacity="0"
+        },1400)
+        document.body.style.position="static"
+        div.remove()
+    }, 1500)
+  }
   closeModal.addEventListener('click', ()=>{
     document.body.style.position="static"   
     div.remove() 

@@ -100,5 +100,14 @@ export function creerCompte(){
       }
       
       //location.reload()
-    }
+  }
+
+async function profile(){
+    // Create Compte
+        //Créer localStorage.setItem('profile', eleve)
+        //Eleve: nom, prénom, email, type compte, minutes restantes,
+        // l'idéal : les exercices faits et les scores
+    // +FreeMins
+        //mettre à jour data de localStorage
+}
   
