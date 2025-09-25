@@ -44,7 +44,8 @@ app.post('/creer-compte', async (req, res) => {
     //await postEmail(req, res, nom, prenom, email, token)
     return res.json({ success :true, titre:'registred',
         message: 'Vous avez créé un compte. Vous gagnez 15 min par jour 5 fois',
-        token
+        token,
+        eleve
      })
 })
 
@@ -143,7 +144,7 @@ app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
             titre: 'Félicitation',
             message: 'Vous avez 15 minutes gratuites !',
             token,
-            freeMins : eleveUpdated.freeMins
+            eleveUpdated
         })
     }    
 })       

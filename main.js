@@ -8,6 +8,7 @@ import {userSuggests} from './auth/login.js'
 
 import { modalFreeMins } from './components/misc/modals.js'
 import {creerCompte,toast} from './components/misc/utils.js'
+import { profile } from './components/misc/profile.js'
 
 const loader=document.querySelector('.loader')
 window.addEventListener("load", function () {
@@ -29,7 +30,8 @@ window.addEventListener("load", function () {
     div.className="user-menu"     
     switch (typeAccount) {
       case 'registred':
-        div.innerHTML=`<div>Premium</div> <div class="free-mins">+10 minutes</div>  <div>Profile</div>`
+        div.innerHTML=`<div>Premium</div> <div class="free-mins">+10 minutes</div>  
+          <div class="menu-profile">Profile</div>`
         break;
       case'premium' :
         div.innerHTML=`<div>Le code</div> <div>Profile</div>`
@@ -41,11 +43,16 @@ window.addEventListener("load", function () {
       pere.appendChild(div)
       const userMenu= document.querySelector('.nav .menu .user-menu')
       const compte=document.querySelector('.menu .creer-compte')
+      const menuProfile= document.querySelector('.menu-profile')
       const freeM= document.querySelector('.free-mins')
       freeM && freeM.addEventListener('click',()=>{
         freeMins()
       })
       
+      menuProfile.addEventListener('click', ()=>{
+        profile()
+        
+      })
       compte && compte.addEventListener('click', ()=>{
         creerCompte()    
       })
