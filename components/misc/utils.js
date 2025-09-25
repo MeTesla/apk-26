@@ -87,16 +87,19 @@ export function creerCompte(){
       if(data.success){
         localStorage.setItem('token',data.token)
         localStorage.setItem('role', 'registred')
-
+        const {nom, prenom, email, tel, freeMins} = data.eleve
+        console.log(nom, prenom, email, tel, freeMins);
+        const objElv={nom, prenom, email, tel, freeMins}
+        localStorage.setItem('profile', JSON.stringify(objElv))
+        
         document.querySelector('.user-menu').remove()
         generateMenu(localStorage.getItem('role'), document.querySelector('.menu'))
         
-        
+        {}
         modalFreeMins(true, data.message, 'winner')
         document.querySelector('.creer-compte-page').remove()
       } else{
-        modalFreeMins(false, data.message, 'failed')
-      
+        modalFreeMins(false, data.message, 'failed')      
       }
       
       //location.reload()
