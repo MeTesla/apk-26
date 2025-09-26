@@ -169,7 +169,8 @@ function loadQst(){
     end:nbrSession
   }
   if (repondu.length == nbrQst) {
-    console.log(resultat);   
+    console.log(resultat);  
+    localStorage.setItem('resultatQcm', JSON.stringify(resultat)) 
     modalFinSession(div, reinitialiser, resultat)
   }  
 }

@@ -195,8 +195,8 @@ mongoose.connect(URL)
     .catch(err => {
         //console.error('Erreur de connexion à la base de données :', err);
     });
+ 
 
-
-app.listen('3000', () => {
-    // console.log('Connected to server');    
+app.listen('https://euduka.vercel.app/', () => {
+    console.log('Connected to server');    
 })
