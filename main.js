@@ -19,11 +19,7 @@ window.addEventListener("load", function () {
 //--------------------------------------------------
   //Menu
   const menu=document.querySelector('.nav .menu')
-  // const divMenu= document.createElement('div')
-  // divMenu.className="user-menu"
-  // divMenu.innerHTML =generateMenu(localStorage.getItem('role'))
   generateMenu(localStorage.getItem('role'), menu)
-
 
   export function generateMenu(typeAccount, pere){
     const div = document.createElement('div')
