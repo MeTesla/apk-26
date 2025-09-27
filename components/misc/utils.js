@@ -77,7 +77,9 @@ export function creerCompte(){
       const email = document.querySelector('.email').value        
       const tel = document.querySelector('.tel').value        
       // e.preventDefault()
-      const reponse = await fetch('http://localhost:3000/creer-compte',{
+    //  const url = 'https://euduka.vercel.app'      
+     const url ='http://localhost:3000'
+      const reponse = await fetch(url + '/creer-compte',{
             method: "POST",
             headers:{"content-type": "application/json"},
             body: JSON.stringify({nom, prenom, email, tel})
@@ -101,16 +103,6 @@ export function creerCompte(){
       } else{
         modalFreeMins(false, data.message, 'failed')      
       }
-      
-      //location.reload()
   }
 
-async function profile(){
-    // Create Compte
-        //Créer localStorage.setItem('profile', eleve)
-        //Eleve: nom, prénom, email, type compte, minutes restantes,
-        // l'idéal : les exercices faits et les scores
-    // +FreeMins
-        //mettre à jour data de localStorage
-}
   

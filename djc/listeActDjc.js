@@ -9,7 +9,7 @@ import {ordrePhrases} from '../components/act/ordrePhrases.js'
 
 import { modalFreeMins } from '../components/misc/modals.js'
 
-const serveur ='http://localhost:3000/'
+const serveur ='https://euduka.vercel.app/'
 const vffData = async (exo)=>{
   const reponse = await fetch(serveur+`?exo=${exo}`,{
     headers:{

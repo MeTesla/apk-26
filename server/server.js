@@ -4,9 +4,14 @@ const EleveModel = require('./EleveModel')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const app = express()
-app.use(cors())
+app.use(cors({
+    // ne pas mettre '/' à la fin de l'origine
+    origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
+        'https://euduka.vercel.app', 'https://euduka.page.gd',
+        'http://localhost:5500'
+    ] 
+}))
 app.use(express.json())
-// helo
 
 const { postEmail, prepareData } = require('./utils');
 
@@ -157,7 +162,6 @@ const auth = async (req, res, next) => {
     const { authorization } = req.headers
     if (!authorization) {
         return res.json('accès interdit')
-        //front : modal (créer compte)
     }
     
     try {
@@ -196,7 +200,9 @@ mongoose.connect(URL)
         //console.error('Erreur de connexion à la base de données :', err);
     });
  
-
-app.listen('https://euduka.vercel.app/', () => {
+//
+const url='3000'
+// const url='https://euduka.vercel.app'
+app.listen(url, () => {
     console.log('Connected to server');    
 })

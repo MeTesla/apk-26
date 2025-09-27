@@ -70,7 +70,9 @@ window.addEventListener("load", function () {
 
   // ------------  Get free MINs
   async function freeMins(){
-    const reponse = await fetch('http://localhost:3000/freeMins', {
+    const url='http://localhost:3000' //
+    // const url ='https://euduka.vercel.app'
+    const reponse = await fetch(url+'/freeMins', {
       method: "GET",
       headers:{
         "Content-Type": "application/json",

@@ -9,11 +9,7 @@ export function modalFreeMins(success, message, lottie='failed', autoClose) {
             </div>
         <div class="modal-corps">           
             <h3>${message}</h3>
-            <lottie-player src="./assets/lotties/${lottie}.json"
-                background="transparent"  speed="0.8"
-                                style="width: 200px" 
-                loop autoplay>
-            </lottie-player>
+            <img src='./assets/img/${lottie}.png' alt="Compte déjà utilisé"/>
         </div>
         <div class="modal-footer">
             <div class="ok">Ok</div>
@@ -68,6 +64,11 @@ export function modalFreeMins(success, message, lottie='failed', autoClose) {
             position: relative;
             padding: 20px 20px 0 20px;
         }
+        .modal-corps img{
+            display: block;
+            margin: 30px auto;
+            width: 100px;
+        }
         .modal-footer{
             text-align: center;
             padding: 10px;
@@ -102,4 +103,8 @@ export function modalFreeMins(success, message, lottie='failed', autoClose) {
     document.body.style.position="static"
     div.remove()
   })
+}
+
+export function lokedContent(){
+    //
 }

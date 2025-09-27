@@ -59,9 +59,16 @@
   display: none;
 }
 
-  .flx{
-    display: flex; align-items: center; justify-content: center;
+ .loader{
+      position: fixed; top: 0; left: 0;
+      background-color: white;
+      width: 100vw; height: 100vh;
+      display: flex; justify-content: center; align-items: center;
   }
+
+.flx{
+  display: flex; align-items: center; justify-content: center;
+}
   
 a, a:visited{
   color: initial;

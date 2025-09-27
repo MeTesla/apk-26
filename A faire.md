@@ -1,13 +1,16 @@
-RESSET PASSWORD :
-https://accounts.lottiefiles.com/reset-password?token=kb9emoua9mzymdzql752znygaf79yimw8w
+creerCompte route:
+	- Envoyer email verification
+	- 
+verifier-email route:
+	- 
+supprimer toutes les log
+mettre à jour cors()
+
+Loader arpès chaque appel au backEnd
 
 MODALS :
 --------
-	modal-creer-compte : 15min 5fois 24h, btn ok
-	modal-quinze-minutes-ok : Oui, success + btn ok
-	modal-attendre-jour : Non, fail + btn ok + msg	attendre 24h/  
-	modal-sept-fois			: Non, fail x10 foix / msg: passer Premium
-
+	changer modal: locked
 	devenir premium / 
 	Entrer code premium /
 	premium(feliciter)

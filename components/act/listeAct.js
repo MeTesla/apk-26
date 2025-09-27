@@ -14,7 +14,9 @@ t.addEventListener('click', async ()=>{
 })
 */
 import { modalFreeMins } from '../misc/modals.js'
- 
+
+
+
 function toast(msg) {
   Toastify({
     text: msg,
@@ -23,10 +25,11 @@ function toast(msg) {
     close: true
   }).showToast();
 }
-const serveur ='http://localhost:3000/'
+// const url ='https://euduka.vercel.app/'
+const url ='http://localhost:3000/'
 
 const vffData = async (exo)=>{
-  const reponse = await fetch(serveur+`?exo=${exo}`,{
+  const reponse = await fetch(url+`?exo=${exo}`,{
     headers:{
       "Content-Type":"application/json",
       authorization: localStorage.getItem('token') || ''
