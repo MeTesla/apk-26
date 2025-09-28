@@ -7,29 +7,13 @@ import {vf} from '../components/act/vf.js'
 import {ordreEvenements} from '../components/act/ordreEvenements.js'
 import {ordrePhrases} from '../components/act/ordrePhrases.js'
 
-import { modalFreeMins } from '../components/misc/modals.js'
-// Lecteur :
-// import {antigone} from './bd/piece.js'
+// import { modalFreeMins } from '../components/misc/modals.js'
+import { modalLokedContent } from '../components/misc/modals.js'
 
-// // Résumé
-// import {resumeAntigone } from './bd/resume-db.js'
-
-// // Ordre Events 
-// import {ordreEventsData} from './bd/ordreEvents-db.js'
-// // Ordre phrases
-// import {phrases} from './bd/ordrePh-db.js'
-// // QCM 
-// import {qcmData} from './bd/qcm.js'
-// // Remplir vides - fill blanc - exercice à trous
-// import {textesVide} from './bd/vide-db.js'
-
-// // Vrai-Faux
-// import {vfData} from './bd/vf-db.js'
-
-
-const serveur ='https://euduka.vercel.app/'
+// const url ='https://euduka.vercel.app/'
+const url ='http://localhost:3000/'
 const vffData = async (exo)=>{
-  const reponse = await fetch(serveur+`?exo=${exo}`,{
+  const reponse = await fetch(url+`?exo=${exo}`,{
     headers:{
       "Content-Type":"application/json",
       authorization: localStorage.getItem('token')|| ''
@@ -37,7 +21,8 @@ const vffData = async (exo)=>{
   })
   const data =await reponse.json() 
   if(!reponse.ok) {
-    return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+    // return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+    return modalLokedContent()
   } 
   return data
 }

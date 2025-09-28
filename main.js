@@ -26,14 +26,19 @@ window.addEventListener("load", function () {
     div.className="user-menu"     
     switch (typeAccount) {
       case 'registred':
-        div.innerHTML=`<div>Premium</div> <div class="free-mins">+10 minutes</div>  
-          <div class="menu-profile">Profile</div>`
+        div.innerHTML=`
+          <div><img src="./assets/img/diamond.png" /><span>Premium</span></div> 
+          <div class="free-mins"><img src="./assets/img/freeMins.png" /><span>+10 minutes</span></div>  
+          <div class="menu-profile"><img src="./assets/img/profile.png" /><span>Profile</span> </div>`
         break;
       case'premium' :
-        div.innerHTML=`<div>Le code</div> <div>Profile</div>`
+        div.innerHTML=`
+          <div>Le code</div> 
+          <div>Profile</div>`
         break;
       default : 'guest'
-        div.innerHTML = `<div class="creer-compte">Créer un compte</div>`
+        div.innerHTML = `
+        <div class="creer-compte">Créer un compte</div>`
         break;
     }
       pere.appendChild(div)

@@ -67,7 +67,7 @@ export function modalFreeMins(success, message, lottie='failed', autoClose) {
         .modal-corps img{
             display: block;
             margin: 30px auto;
-            width: 100px;
+            height: 120px;
         }
         .modal-footer{
             text-align: center;
@@ -105,6 +105,31 @@ export function modalFreeMins(success, message, lottie='failed', autoClose) {
   })
 }
 
-export function lokedContent(){
-    //
+export function modalLokedContent(){
+    const div = document.createElement('div')
+    div.className = "lock-container"
+    div.innerHTML = `<div class="lock">
+        <img src="./assets/img/lock.png"/>        
+    </div>
+    <style>
+        .lock-container{
+            z-index: 33;
+            height: 100%; width: 100%;
+            position: fixed;
+            top:0; left:0;
+            bbackground-color: red;
+            display: flex;
+            justify-content: center; align-items: center
+        }
+        .lock img{
+            height: 120px;
+        }
+    </style>`
+    document.body.appendChild(div)
+    setTimeout(()=>{div.remove()}, 800)
+
+}
+
+export function devenirPremium(){
+    
 }

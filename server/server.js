@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const EleveModel = require('./EleveModel')
 const jwt = require('jsonwebtoken')
+
 const cors = require('cors')
 const app = express()
 app.use(cors({
@@ -60,7 +61,13 @@ app.delete('/delete', async (req, res) => {
     res.json('all decument deletedddd')
 })
 
-//+10 mintues route
+// Verify email
+app.get('/verify-email',(req, res)=>{
+   
+})
+
+
+//+10 mintues Middleware & route
 const freeMinsMiddleware = async (req, res, next) => {    
     const token = req.headers.authorization
     if (!token || (token==="")) return res.json({success: false,
@@ -112,7 +119,7 @@ const freeMinsMiddleware = async (req, res, next) => {
     }
     console.log('5');
     // ------------3   Same day 24H
-    if (timeStamp(dateFreeMin) + (60 * 1000) > timeStamp(now)) {
+    if (timeStamp(dateFreeMin) + (2 * 60 * 1000) > timeStamp(now)) {
         return res.json({success: false,
             titre: 'waitDay',
             message: 'Vous devez attendre 24h avant d\'avoir des minutes gratuites',

@@ -13,8 +13,8 @@ t.addEventListener('click', async ()=>{
   console.log(d)
 })
 */
-import { modalFreeMins } from '../misc/modals.js'
-
+// import { modalFreeMins } from '../misc/modals.js'
+import { modalLokedContent } from '../misc/modals.js'
 
 
 function toast(msg) {
@@ -38,7 +38,8 @@ const vffData = async (exo)=>{
   const data =await reponse.json()
   
   if(!reponse.ok) {
-    return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+    // return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+    return modalLokedContent()
   }  
   return data
 }

@@ -8,10 +8,12 @@ import {ordreEvenements} from '../components/act/ordreEvenements.js'
 import {ordrePhrases} from '../components/act/ordrePhrases.js'
 
 import { modalFreeMins } from '../components/misc/modals.js'
+import { modalLokedContent } from '../components/misc/modals.js'
 
-const serveur ='https://euduka.vercel.app/'
+// const url ='https://euduka.vercel.app/'
+const url ='http://localhost:3000/'
 const vffData = async (exo)=>{
-  const reponse = await fetch(serveur+`?exo=${exo}`,{
+  const reponse = await fetch(url+`?exo=${exo}`,{
     headers:{
       "Content-Type":"application/json",
       authorization: localStorage.getItem('token')|| ''
@@ -19,7 +21,8 @@ const vffData = async (exo)=>{
   })
   const data =await reponse.json() 
   if(!reponse.ok) {
-    return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+    // return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+    return modalLokedContent()
   } 
   return data
 }
