@@ -4,28 +4,20 @@ creerCompte route:
 	- Envoyer email verification
 	- 
 verifier-email route:
-	- 
-supprimer toutes les log
-mettre à jour cors()
-
 Loader arpès chaque appel au backEnd
 
 MODALS :
 --------
-	changer modal: locked
+	changer modal: locked	fait
 	devenir premium / 
 	Entrer code premium /
 	premium(feliciter)
 
 Logique freeMins token			FAIT
 
-gestion UI fontEnd (localStorage, apis, menu, bouttons)
-unifier les réponses API {token, message, titre, expiredAt, }
 
-Toujours vérifier l'émail à chaque reqête de create-account
-    Si l'émail est déja dans BD , res.send. message()
 Connection d'un autre navigateur. ==> ?? créer page login.
-connection d'un autre navigateur + compte non expiré vs compte expiré
+ 			 compte non expiré vs compte expiré
 Sauvgarder (backup) les émails et les tel dans un endroit sûr
 
 payment plans / access denied, not allowed, protected account
@@ -33,18 +25,21 @@ payment plans / access denied, not allowed, protected account
 
 
 4-AJOUTER :
-	- Admin dashboard : liste élèves + activer Premium
+	- Page pour capture reçu payement
+	- DASHBOARD :
+		Cards : Fremium [120], Premium [100], Demande Premium [20]
+		Filtres : Checkboxes to filter: afficher/masquer : fremium, premium, demande premium
+		liste élèves + activer Premium
         SI TOKEN EXPIRE
+
     - créer une route/fonction backend (isAuthorized) à utilser 
         à chaque fois que je veux interdire l'accès à une section.
-    
-   
-    - token & email assez solide. les deux vérifiés.
+
 
         
     - Traduction ar: vf, qcm, figures, 
     - 3 traduction par session
-    - ajouter justification en cas de mauvaise réponse. et icône en coas de bonne rép
+    - ajouter justification en cas de mauvaise réponse. et icône en cas de bonne rép
 
 
 Guest - registred - registred+token expired (x10)  - Premium

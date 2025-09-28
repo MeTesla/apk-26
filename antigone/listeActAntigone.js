@@ -20,10 +20,7 @@ const vffData = async (exo)=>{
     }
   })
   const data =await reponse.json() 
-  if(!reponse.ok) {
-    // return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
-    return modalLokedContent()
-  } 
+  if((!reponse.ok) || (data=="accès interdit")) return modalLokedContent()
   return data
 }
 

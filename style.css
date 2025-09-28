@@ -199,8 +199,11 @@ svg rect{
   line-height :40px;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 0.1s;
 }
-
+.liste-act .list-elements:active{
+  transform: scaleX(0.98);
+}
 .valider{
    background-color: var(--comp);
    color: var(--pr);
