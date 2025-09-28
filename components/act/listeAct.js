@@ -39,7 +39,10 @@ const vffData = async (exo)=>{
   
   if(!reponse.ok) {
     // return modalFreeMins(false, 'Vous n\'êtes pas autorisé', 'lock', 'close')     
+    console.log('helloiuuouou');
+    
     return modalLokedContent()
+
   }  
   return data
 }
@@ -73,7 +76,7 @@ export function listeAct(bloc){
   const lire=document.querySelector('.lst-lire')
   lire.onclick= async()=> {
     const  {oeuvre} = await vffData('bamoeuvre')||''
-      if(!oeuvre) return
+      if(!oeuvre) return console.log('lkqdflmj')
       lecteur(wrapper, oeuvre)
     }
   //-------Résumé  

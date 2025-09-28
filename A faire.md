@@ -1,3 +1,5 @@
+
+comment ajouter fichier config à l'app : son, confetti, dark mode,
 creerCompte route:
 	- Envoyer email verification
 	- 

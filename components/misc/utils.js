@@ -105,4 +105,12 @@ export function creerCompte(){
       }
   }
 
+  export function confet(){
+    confetti({
+        particleCount: 100,
+        spread: 100,
+        origin: { y: 0.6 },
+    });
+  }
+
   

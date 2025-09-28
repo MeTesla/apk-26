@@ -198,6 +198,7 @@ svg rect{
   height :40px;
   line-height :40px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .valider{

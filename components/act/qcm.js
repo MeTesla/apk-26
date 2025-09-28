@@ -5,6 +5,7 @@ const l=console.log
 import {closeAct,homeAct} from '../misc/closeAct.js'
 import {entete} from '../misc/entete.js'
 import {modalFinSession} from '../../utils.js'
+import { confet } from '../misc/utils.js'
 
 export function qcm(bloc,data) {
  const div = document.createElement('div')
@@ -146,8 +147,8 @@ function loadQst(){
       let audio = new Audio()
       audio.volume=0.02
       audio.src='./assets/audios/yay.mp3'
-      audio.play()
-
+      //audio.play()
+      confet()
       choosenQuestion.classList.add('reponseCorrect')
     } else{
       let audio = new Audio()
