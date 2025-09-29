@@ -1,3 +1,4 @@
+//git 
 const l=console.log
 function random(min, max) {
   return min + Math.floor(Math.random() * (max - min));
