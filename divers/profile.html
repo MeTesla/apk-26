@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capturer une photo</title>
+    <style>
+        video, canvas {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Capturer une photo avec la caméra</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="capture">Capturer</button>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const captureButton = document.getElementById('capture');
+        let isVideoReady = false;
+
+        // Demander l'accès à la caméra
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                console.log('Accès à la caméra réussi');
+                video.srcObject = stream;
+                video.onloadedmetadata = () => {
+                    video.play();
+                    isVideoReady = true;
+                    console.log('Flux vidéo prêt');
+                };
+            })
+            .catch(err => {
+                console.error('Erreur lors de l\'accès à la caméra:', err);
+            });
+
+        // Capturer l'image lorsque le bouton est cliqué
+        captureButton.addEventListener('click', () => {
+            if (isVideoReady) {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                console.log('Image capturée');
+            } else {
+                console.error('Le flux vidéo n\'est pas prêt');
+            }
+        });
+    </script>
+</body>
+</html>

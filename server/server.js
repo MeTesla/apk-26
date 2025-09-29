@@ -48,6 +48,8 @@ app.post('/creer-compte', async (req, res) => {
     await eleve.save()
     
     //await postEmail(req, res, nom, prenom, email, token)
+    //Envoyer email de vérification
+    //Ne pas envoyer de minutes.
     return res.json({ success :true, titre:'registred',
         message: 'Vous avez créé un compte. Vous gagnez 15 min par jour 5 fois',
         token,
@@ -65,7 +67,6 @@ app.delete('/delete', async (req, res) => {
 app.get('/verify-email',(req, res)=>{
    
 })
-
 
 //+10 mintues Middleware & route
 const freeMinsMiddleware = async (req, res, next) => {    
