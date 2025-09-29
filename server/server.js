@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const EleveModel = require('./EleveModel')
 const jwt = require('jsonwebtoken')
-
+const totp =require('otplib')
 const cors = require('cors')
 const app = express()
 app.use(cors({
@@ -18,6 +18,9 @@ const { postEmail, prepareData } = require('./utils');
 
 const SECRET_KEY = 'mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
+const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
+const otpToken = totp.authenticator.generate(secret)//totp.generate(secret);
+console.log(otpToken);
 
 // Generate TOKEN
 const expire = 1
@@ -47,14 +50,21 @@ app.post('/creer-compte', async (req, res) => {
     const eleve = new EleveModel({ nom, prenom, email, tel, token })
     await eleve.save()
     
-    //await postEmail(req, res, nom, prenom, email, token)
+    await postEmail(req, res, nom, prenom, email, otpToken)
     //Envoyer email de vérification
     //Ne pas envoyer de minutes.
-    return res.json({ success :true, titre:'registred',
-        message: 'Vous avez créé un compte. Vous gagnez 15 min par jour 5 fois',
-        token,
-        eleve
-     })
+    // return res.json({ success :true, titre:'registred',
+    //     message: 'Vous avez créé un compte. Vous gagnez 15 min par jour 5 fois',
+    //     token,
+    //     eleve
+    //  })
+})
+
+// Vérifier email
+app.get('/verifier-email', (req,res)=>{
+    const otp= req.query.verifier
+    console.log(otp);
+    
 })
 
 //delete all documents

@@ -21,7 +21,8 @@ djcordreph,
 djcordreev,
 djcvide} = require('./bd/data');
 
-async function postEmail(req, res, token){
+// postEmail(req, res, nom, prenom, email, token)
+async function postEmail(req, res, nom, prenom, email, otpToken){
     // Configuration du transporteur Nodemailer
     const transporter = nodemailer.createTransport({
         service: 'gmail', // ou un autre service de messagerie
@@ -38,17 +39,17 @@ async function postEmail(req, res, token){
         from: 'pookarim@gmail.com',
         to: 'euduka.fr@gmail.com',
         subject: 'Mot de passe',
-            html: `<p style="font-size:1.2rem; "> Copier ce code et coller le dans la case dédiée :</p>
-            <h2 style="text-align: center"> ${token} </h2>
-            <h4> Voir cette vidéo pour savoir comment faire </h4>
-            <a href="https://www.youtube.com/watch?v=1bH_ukYn81c">Cliquer ici</a>`
+            html: `<p style="font-size:1.2rem; "> Bonjour ${nom + ' ' + prenom}</p>
+            <p style="font-size:1.2rem; "> votre Email : ${email}</p>
+            <a href="http://localhost:3000/verifier-email?verifier=${otpToken}">clique ICIIIIII</a>
+            <h1> http://localhost:3000/verifier-email?verifier=${otpToken} </h1>`
     };
     
     return transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             return res.status(500).send(error.toString());
         }
-        res.status(200).send('Email envoyé');
+        res.status(200).send({message:'Email envoyé'});
     });
 }
 
