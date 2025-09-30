@@ -1,8 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const EleveModel = require('./EleveModel')
-const jwt = require('jsonwebtoken')
-const totp =require('otplib')
+const jwt = require('jsonwebtoken') 
 const cors = require('cors')
 const app = express()
 app.use(cors({
@@ -18,14 +17,11 @@ const { postEmail, prepareData } = require('./utils');
 
 const SECRET_KEY = 'mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
-const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-const otpToken = totp.authenticator.generate(secret)//totp.generate(secret);
-console.log(otpToken);
 
 // Generate TOKEN
-const expire = 1
-function generateToken(id) {
-    return jwt.sign({ id }, SECRET_KEY, { expiresIn: `${expire}m` })
+
+function generateToken(email, expire) {
+    return jwt.sign({ email }, SECRET_KEY, { expiresIn: `${expire}m` })
 }
 
 //-------Créer compte
@@ -40,17 +36,23 @@ app.post('/creer-compte', async (req, res) => {
     if(eleveExists) return res.json({success:false, 
         titre: 'compteExiste',
         message: 'Vous êtes avez déjà un compte !'})
-    const token = await generateToken(email)
+    
     
     const today = new Date()
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
     //futureDate.setMinutes(now.getMinutes() + minutesToAdd);
-    
-    const eleve = new EleveModel({ nom, prenom, email, tel, token })
+    const token = await generateToken(email,30)
+    const eleve = new EleveModel({ nom, prenom, email, tel, role:'attenteR', token})
     await eleve.save()
     
-    await postEmail(req, res, nom, prenom, email, otpToken)
+    await postEmail(req, res, nom, prenom, email, token)
+    return res.json({
+        success: true,
+        titre:"attenteR",
+        role: eleve.role,
+        message: "Un mail vous a été envoyés. Pour finaliser votre inscription cliquez sur le lien du mail."
+    })
     //Envoyer email de vérification
     //Ne pas envoyer de minutes.
     // return res.json({ success :true, titre:'registred',
@@ -61,10 +63,19 @@ app.post('/creer-compte', async (req, res) => {
 })
 
 // Vérifier email
-app.get('/verifier-email', (req,res)=>{
-    const otp= req.query.verifier
-    console.log(otp);
-    
+app.post('/verifier-email', async(req,res)=>{
+    const {token}= req.body
+
+    const eleve = await EleveModel.findOne({token})
+
+    if(!eleve) return res.json({
+        succuss: false,
+        message: 'Un problème est survenu'
+    })
+
+    if(eleve.token == token){
+        res.json({success : true, message: 'exist', eleve, token:generateToken(eleve.email, 1)})    
+    }
 })
 
 //delete all documents
@@ -81,6 +92,8 @@ app.get('/verify-email',(req, res)=>{
 //+10 mintues Middleware & route
 const freeMinsMiddleware = async (req, res, next) => {    
     const token = req.headers.authorization
+    console.log('tok' + token);
+    
     if (!token || (token==="")) return res.json({success: false,
             titre: 'noToken',
             message: 'Un problème est survenu. Veuillez contacter l\'Administareur',        
@@ -93,8 +106,10 @@ const freeMinsMiddleware = async (req, res, next) => {
             message: 'Un problème est survenu. Veuillez contacter l\'Administareur',        
         })
     console.log('2');   
-    req.userEmail = payload.id
-    const email = payload.id
+    req.userEmail = payload.email
+    console.log(payload.email);
+    
+    const email = payload.email
     const eleve = await EleveModel.findOne({email})    
     if (!eleve) return res.json({success: false,
             titre: 'noEleve',
@@ -147,8 +162,10 @@ const freeMinsMiddleware = async (req, res, next) => {
 
 app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
     console.log('7');
+    console.log(req.userEmail);
+    
     if (!res.headersSent) {
-        const token = await generateToken(req.userEmail)
+        const token = await generateToken(req.userEmail, 1)
         // --------- UPDATE DOCUMENT       
         const eleveUpdated = await EleveModel.findOneAndUpdate({ email: req.userEmail },
         {

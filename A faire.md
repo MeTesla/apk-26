@@ -1,19 +1,20 @@
 
-comment ajouter fichier config à l'app : son, confetti, dark mode,
-creerCompte route:
-	- Envoyer email verification
-	- 
-verifier-email route:
-Loader arpès chaque appel au backEnd
+- comment ajouter fichier config à l'app : son, confetti, dark mode,
+- creerCompte route:
+	- Envoyer email verification	FAIT avec OTP
+	- verifier-email route:			FAIT
+	- Comment répondre le frontEnd ?
+
+- Loader arpès chaque appel au backEnd
 
 MODALS :
 --------
-	changer modal: locked	fait
+	changer modal: locked			FAIT
 	devenir premium / 
 	Entrer code premium /
 	premium(feliciter)
 
-Logique freeMins token			FAIT
+Logique freeMins token				FAIT
 
 
 Connection d'un autre navigateur. ==> ?? créer page login.

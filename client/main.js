@@ -25,6 +25,9 @@ window.addEventListener("load", function () {
     const div = document.createElement('div')
     div.className="user-menu"     
     switch (typeAccount) {
+      case'attenteR' :
+        div.innerHTML=` <div><img src="./assets/img/verifyEmail.png" /><span>En attente</span></div>`          
+        break;
       case 'registred':
         div.innerHTML=`
           <div><img src="./assets/img/diamond.png" /><span>Premium</span></div> 
@@ -38,14 +41,16 @@ window.addEventListener("load", function () {
         break;
       default : 'guest'
         div.innerHTML = `
-        <div class="creer-compte">Créer un compte</div>`
+        <div class="creer-compte"><img src="./assets/img/creerCompte.png" /><span>Créer un compte</span></div>`
         break;
-    }
+    } 
+      // pere.innerHTML = ''
       pere.appendChild(div)
       const userMenu= document.querySelector('.nav .menu .user-menu')
       const compte=document.querySelector('.menu .creer-compte')
       const menuProfile= document.querySelector('.menu-profile')
       const freeM= document.querySelector('.free-mins')
+      
       freeM && freeM.addEventListener('click',()=>{
         freeMins()
       })
@@ -84,10 +89,10 @@ window.addEventListener("load", function () {
     if(data.token){
       localStorage.setItem('token', data.token)
 
-      const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
-      console.log(nom, prenom, email, tel, freeMins);
-      const objElv={nom, prenom, email, tel, freeMins}
-      localStorage.setItem('profile', JSON.stringify(objElv))
+      // const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
+      // console.log(nom, prenom, email, tel, freeMins);
+      // const objElv={nom, prenom, email, tel, freeMins}
+      // localStorage.setItem('profile', JSON.stringify(objElv))
 
       modalFreeMins(data.success, data.message, 'winner')
     } else{
@@ -101,15 +106,6 @@ window.addEventListener("load", function () {
   }
 
 //--------------------------------------------------
-
-
-
-
-
-
-
-
-
 
 
 

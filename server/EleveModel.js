@@ -11,7 +11,7 @@ const elevesSchema= new mongoose.Schema({
     freeMins:{type: Number, default: 2},
     dateFreeMin:{type: Date,default: Date.now},
     
-    role:{type: String, default: 'registred'},
+    role:{type: String},
     dateCreation: {type:Date, default: Date.now}
 }) 
 

@@ -86,23 +86,20 @@ export function creerCompte(){
           })    
       const data = await reponse.json()
       console.log(data);
-      // if(data.success){
-      //   localStorage.setItem('token',data.token)
-      //   localStorage.setItem('role', 'registred')
-      //   const {nom, prenom, email, tel, freeMins} = data.eleve
-      //   console.log(nom, prenom, email, tel, freeMins);
-      //   const objElv={nom, prenom, email, tel, freeMins}
-      //   localStorage.setItem('profile', JSON.stringify(objElv))
+      if(data.success){
+        //   const {nom, prenom, email, tel, freeMins, role} = data.eleve          
+        //const objElv={nom, prenom, email, tel, freeMins}
+        //localStorage.setItem('profile', JSON.stringify(objElv))
+          localStorage.setItem('role', data.role)
         
-      //   document.querySelector('.user-menu').remove()
-      //   generateMenu(localStorage.getItem('role'), document.querySelector('.menu'))
+       document.querySelector('.user-menu').remove()
+       generateMenu(data.role, document.querySelector('.menu'))
         
-      //   {}
-      //   modalFreeMins(true, data.message, 'winner')
-      //   document.querySelector('.creer-compte-page').remove()
-      // } else{
+        modalFreeMins(true, data.message, 'verifyEmail')
+        document.querySelector('.creer-compte-page').remove()
+      } else{
       //   modalFreeMins(false, data.message, 'failed')      
-      // }
+      }
   }
 
   export function confet(){

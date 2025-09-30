@@ -22,7 +22,7 @@ djcordreev,
 djcvide} = require('./bd/data');
 
 // postEmail(req, res, nom, prenom, email, token)
-async function postEmail(req, res, nom, prenom, email, otpToken){
+async function postEmail(req, res, nom, prenom, email, token){
     // Configuration du transporteur Nodemailer
     const transporter = nodemailer.createTransport({
         service: 'gmail', // ou un autre service de messagerie
@@ -39,10 +39,11 @@ async function postEmail(req, res, nom, prenom, email, otpToken){
         from: 'pookarim@gmail.com',
         to: 'euduka.fr@gmail.com',
         subject: 'Mot de passe',
-            html: `<p style="font-size:1.2rem; "> Bonjour ${nom + ' ' + prenom}</p>
+            html: `<div style="border: 1px solid gray; width: 70%; margin: auto">
+            <p style="font-size:1.2rem; "> Bonjour ${nom + ' ' + prenom}</p>
             <p style="font-size:1.2rem; "> votre Email : ${email}</p>
-            <a href="http://localhost:3000/verifier-email?verifier=${otpToken}">clique ICIIIIII</a>
-            <h1> http://localhost:3000/verifier-email?verifier=${otpToken} </h1>`
+            <h1><a href="http://localhost:5500/client/verifier-email.html?token=${token}">Valider votre Email </a></h1>
+            </div>`
     };
     
     return transporter.sendMail(mailOptions, (error, info) => {
