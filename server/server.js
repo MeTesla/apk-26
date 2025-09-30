@@ -42,7 +42,7 @@ app.post('/creer-compte', async (req, res) => {
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
     //futureDate.setMinutes(now.getMinutes() + minutesToAdd);
-    const token = await generateToken(email,30)
+    const token = await generateToken(email,1)
     const eleve = new EleveModel({ nom, prenom, email, tel, role:'attenteR', token})
     await eleve.save()
     
@@ -65,16 +65,27 @@ app.post('/creer-compte', async (req, res) => {
 // Vérifier email
 app.post('/verifier-email', async(req,res)=>{
     const {token}= req.body
+    jwt.verify(token, SECRET_KEY, (err, user) =>{      
+        
+        if(err) return res.json({
+            // navigateur: envoyer role:''
+            success:false,
+            role: 'attenteR',
+            message: 'Un problème est survenu: token nest pas valide'
+        })
+        
+    })
 
+    
     const eleve = await EleveModel.findOne({token})
 
     if(!eleve) return res.json({
         succuss: false,
-        message: 'Un problème est survenu'
+        message: 'Un problème est survenu : pas deleve de ce nom'
     })
 
     if(eleve.token == token){
-        res.json({success : true, message: 'exist', eleve, token:generateToken(eleve.email, 1)})    
+        return res.json({success : true, message: 'exist', eleve, token:generateToken(eleve.email, 1)})    
     }
 })
 
