@@ -75,8 +75,7 @@ app.post('/verifier-email', async(req,res)=>{
         })
         
     })
-
-    
+   
     const eleve = await EleveModel.findOne({token})
 
     if(!eleve) return res.json({
@@ -85,7 +84,14 @@ app.post('/verifier-email', async(req,res)=>{
     })
 
     if(eleve.token == token){
-        return res.json({success : true, message: 'exist', eleve, token:generateToken(eleve.email, 1)})    
+        const eleveUpdated = await EleveModel.findOneAndUpdate({token},
+        { $set: {role: 'registred'}},
+        {
+            new: true,
+            runValidators: true
+        })
+
+        return res.json({success : true, message: 'exist', eleveUpdated, token:generateToken(eleve.email, 1)})    
     }
 })
 
@@ -122,7 +128,7 @@ const freeMinsMiddleware = async (req, res, next) => {
     
     const email = payload.email
     const eleve = await EleveModel.findOne({email})    
-    if (!eleve) return res.json({success: false,
+    if (!eleve || (eleve.role=='attenteR')) return res.json({success: false,
             titre: 'noEleve',
             message: 'Vous n\'avez pas de compte. Veuillez vous enregistrer !',
         })

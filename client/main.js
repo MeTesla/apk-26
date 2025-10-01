@@ -26,7 +26,10 @@ window.addEventListener("load", function () {
     div.className="user-menu"     
     switch (typeAccount) {
       case'attenteR' :
-        div.innerHTML=` <div><img src="./assets/img/verifyEmail.png" /><span>En attente</span></div>`          
+        div.innerHTML=` <div>
+          <img src="./assets/img/verifyEmail.png" />
+          <span>En attente</span>
+        </div>`          
         break;
       case 'registred':
         div.innerHTML=`
@@ -47,6 +50,7 @@ window.addEventListener("load", function () {
       // pere.innerHTML = ''
       pere.appendChild(div)
       const userMenu= document.querySelector('.nav .menu .user-menu')
+      
       const compte=document.querySelector('.menu .creer-compte')
       const menuProfile= document.querySelector('.menu-profile')
       const freeM= document.querySelector('.free-mins')
@@ -76,7 +80,7 @@ window.addEventListener("load", function () {
 
   // ------------  Get free MINs
   async function freeMins(){
-    const url='http://localhost:3000' //
+    const url='http://localhost:3000'
     // const url ='https://euduka.vercel.app'
     const reponse = await fetch(url+'/freeMins', {
       method: "GET",

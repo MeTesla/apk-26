@@ -36,7 +36,7 @@ async function verifierTokenEmail(token) {
             // afficherSucces('Votre email a été vérifié avec succès !');
             localStorage.setItem('role', 'registred')
             localStorage.setItem('token', data.token)
-            const {nom, prenom, email, tel, freeMins} = data.eleve
+            const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
             const objElv={nom, prenom, email, tel, freeMins}
             localStorage.setItem('profile', JSON.stringify(objElv))
 
