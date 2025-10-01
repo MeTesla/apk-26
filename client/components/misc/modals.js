@@ -130,6 +130,10 @@ export function modalLokedContent(){
 
 }
 
-export function devenirPremium(){
-    
+export function modalDevenirPremium(){
+    const div = document.createElement('div')
+    div.className = "devenir-premium"
+    div.innerHTML = `<div class="lock">
+        <button>Premium<button/>        
+    </div>`
 }

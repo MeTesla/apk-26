@@ -17,7 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     if (!token) return;
-    verifierTokenEmail(token);
+    if(localStorage.getItem('role')=="attenteR"){
+        verifierTokenEmail(token);
+    } else {
+        location.assign('http://localhost:5500/client')
+    }
+    
 });
 
 async function verifierTokenEmail(token) {
@@ -33,7 +38,8 @@ async function verifierTokenEmail(token) {
         const data = await reponse.json();
         
         if (data.success) {
-            // afficherSucces('Votre email a été vérifié avec succès !');
+            // 1- afficherSucces('Votre email a été vérifié avec succès !');
+            // 2- logique: s'il a déjà utilisé le lien de l'émail.
             localStorage.setItem('role', 'registred')
             localStorage.setItem('token', data.token)
             const {nom, prenom, email, tel, freeMins} = data.eleveUpdated

@@ -33,7 +33,8 @@ app.post('/creer-compte', async (req, res) => {
         message: 'Tous les champs sont obligatoires',
     })
     const eleveExists= await EleveModel.findOne({email}) 
-    if(eleveExists) return res.json({success:false, 
+    if(eleveExists) return res.json({
+        success:false, 
         titre: 'compteExiste',
         message: 'Vous êtes avez déjà un compte !'})
     
@@ -42,7 +43,7 @@ app.post('/creer-compte', async (req, res) => {
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
     //futureDate.setMinutes(now.getMinutes() + minutesToAdd);
-    const token = await generateToken(email,1)
+    const token = await generateToken(email,3)
     const eleve = new EleveModel({ nom, prenom, email, tel, role:'attenteR', token})
     await eleve.save()
     

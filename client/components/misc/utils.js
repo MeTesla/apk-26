@@ -87,18 +87,20 @@ export function creerCompte(){
       const data = await reponse.json()
       console.log(data);
       if(data.success){
-        //   const {nom, prenom, email, tel, freeMins, role} = data.eleve          
+        //const {nom, prenom, email, tel, freeMins, role} = data.eleve          
         //const objElv={nom, prenom, email, tel, freeMins}
         //localStorage.setItem('profile', JSON.stringify(objElv))
-          localStorage.setItem('role', data.role)
-        
-       document.querySelector('.user-menu').remove()
-       generateMenu(data.role, document.querySelector('.menu'))
+        localStorage.setItem('role', data.role)
+            
+        document.querySelector('.user-menu').remove()
+        generateMenu(data.role, document.querySelector('.menu'))
+        console.log('avant');
         
         modalFreeMins(true, data.message, 'verifyEmail')
+        console.log('après');
         document.querySelector('.creer-compte-page').remove()
       } else{
-      //   modalFreeMins(false, data.message, 'failed')      
+        modalFreeMins(false, data.message, 'failed')      
       }
   }
 
