@@ -66,15 +66,13 @@ app.post('/creer-compte', async (req, res) => {
 // Vérifier email
 app.post('/verifier-email', async(req,res)=>{
     const {token}= req.body
-    jwt.verify(token, SECRET_KEY, (err, user) =>{      
-        
+    jwt.verify(token, SECRET_KEY, (err, user) =>{           
         if(err) return res.json({
             // navigateur: envoyer role:''
             success:false,
             role: 'attenteR',
             message: 'Un problème est survenu: token nest pas valide'
-        })
-        
+        })        
     })
    
     const eleve = await EleveModel.findOne({token})
@@ -92,7 +90,15 @@ app.post('/verifier-email', async(req,res)=>{
             runValidators: true
         })
 
-        return res.json({success : true, message: 'exist', eleveUpdated, token:generateToken(eleve.email, 1)})    
+        return res.json({success : true, 
+            message: 'exist', 
+            eleveUpdated, 
+            token:generateToken(eleve.email, 1)})    
+    } else{
+        return res.json({
+            succuess:false,
+            message: 'Une erreur s\'était produite. Veuillez contacter l\'admin'
+        })
     }
 })
 

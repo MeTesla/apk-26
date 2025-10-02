@@ -6,7 +6,7 @@ import {conic} from './utils.js'
 import {qcmFigures} from './langue/figures/figures.js'
 import {userSuggests} from './auth/login.js'
 
-import { modalFreeMins } from './components/misc/modals.js'
+import { modalDevenirPremium, modalFreeMins } from './components/misc/modals.js'
 import {creerCompte,toast} from './components/misc/utils.js'
 import { profile } from './components/misc/profile.js'
 
@@ -33,7 +33,7 @@ window.addEventListener("load", function () {
         break;
       case 'registred':
         div.innerHTML=`
-          <div><img src="./assets/img/diamond.png" /><span>Premium</span></div> 
+          <div class="premium"><img src="./assets/img/diamond.png" /><span>Premium</span></div> 
           <div class="free-mins"><img src="./assets/img/freeMins.png" /><span>+10 minutes</span></div>  
           <div class="menu-profile"><img src="./assets/img/profile.png" /><span>Profile</span> </div>`
         break;
@@ -47,13 +47,14 @@ window.addEventListener("load", function () {
         <div class="creer-compte"><img src="./assets/img/creerCompte.png" /><span>Créer un compte</span></div>`
         break;
     } 
-      // pere.innerHTML = ''
+
       pere.appendChild(div)
       const userMenu= document.querySelector('.nav .menu .user-menu')
       
       const compte=document.querySelector('.menu .creer-compte')
       const menuProfile= document.querySelector('.menu-profile')
       const freeM= document.querySelector('.free-mins')
+      const premium = document.querySelector('.premium')
       
       freeM && freeM.addEventListener('click',()=>{
         freeMins()
@@ -66,7 +67,9 @@ window.addEventListener("load", function () {
       compte && compte.addEventListener('click', ()=>{
         creerCompte()    
       })
-
+      premium && premium.addEventListener('click', ()=>{
+        modalDevenirPremium()
+      })
       // show hide menu + Type menus
       menu.addEventListener('click',(e)=>{
         e.stopPropagation()

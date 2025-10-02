@@ -132,8 +132,28 @@ export function modalLokedContent(){
 
 export function modalDevenirPremium(){
     const div = document.createElement('div')
-    div.className = "devenir-premium"
-    div.innerHTML = `<div class="lock">
-        <button>Premium<button/>        
-    </div>`
+    div.className = "modal-premium-container"
+    div.innerHTML = `<div class="modal-premium">
+              
+    <div class="header">
+        <div></div>    
+    </div>
+    <div></div>
+    </div>
+        <style>
+        .premium{}
+        .devenir-premium{
+           
+        }
+        .modoal-premium .header{
+            height: 330px; width: 100%;            
+            background-image : url('./assets/img/waves-premium2.png');
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+        .lock img{
+            height: 120px;
+        }
+    </style>`
+    document.body.appendChild(div)
 }

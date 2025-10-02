@@ -1,6 +1,6 @@
 premium - modal + commencer - modal (réécris tes infos: nom email num tel) confirme tes
 	coordonnées. Nom, numéro de compte. + vidéo
-	
+
 - comment ajouter fichier config à l'app : son, confetti, dark mode,
 - creerCompte route:
 	- Envoyer email verification	FAIT avec OTP
