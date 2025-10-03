@@ -134,26 +134,82 @@ export function modalDevenirPremium(){
     const div = document.createElement('div')
     div.className = "modal-premium-container"
     div.innerHTML = `<div class="modal-premium">
-              
-    <div class="header">
-        <div></div>    
+        <div class="prem-header">        
+            <div class="prem-logo"> Euduka </div>    
+            <h2 class="prem-titre"> Compte Premium  </h2>
+        </div>            
+        <div class="prem-corps">
+            <ul>
+                <li>Accès illimité </li>
+                <li>+300 exemples de figures de style </li>
+                <li>+50 productios écrites expiquées </li>
+                <li>+600 exercices des oeuvres </li>
+            </ul>
+            <div class="prem-cta">Devenir Premium</div>
+        </div>
     </div>
-    <div></div>
+
+    <div class="coordonnees">
+        
     </div>
         <style>
-        .premium{}
-        .devenir-premium{
-           
+        .modal-premium{
+            height: 400px;
+            width: 250px;
+            border: 1px solid gray;
+            border-radius:20px;
+            overflow: hidden;
         }
-        .modoal-premium .header{
-            height: 330px; width: 100%;            
+        .modal-premium .prem-header{
+            height: 30%; width: 100%;  
+            padding: 30px 0;          
             background-image : url('./assets/img/waves-premium2.png');
-            background-size: 100%;
+            bbackground-size:contain;
             background-repeat: no-repeat;
         }
-        .lock img{
-            height: 120px;
+        .prem-logo{
+            width: 60px;
+            text-align: center;
+            font-size: 0.8rem;
+            margin: auto;
+            padding: 5px;
+            border-radius: 10px;
+            background-color: #E3DFDF;
+        }
+        .prem-titre{
+            text-align: center;
+            margin: 15px;
+            font-weight: bold;
+        
+        }
+        .modal-premium .prem-corps{
+            hheight: 70%;
+            background-color: white;
+        }
+        .prem-corps ul{
+            margin: 30px 0 10px 30px;
+        }
+        .prem-corps ul li{
+            padding: 5px;
+        }    
+        .prem-cta{
+            margin: auto;
+            width: 60%;
+            background-color: #E3DFDF;
+            border-radius: 15px;
+            text-align:center;
+            padding: 10px;
+            transition: 100ms;
+        }        
+        .prem-cta:active{
+            transform: scale(0.96);
         }
     </style>`
+    document.body.style.overflow="hidden"
     document.body.appendChild(div)
+    const premCta=document.querySelector('.prem-cta')
+    premCta.addEventListener('click',()=>{
+        console.log('cta');
+        
+    })
 }
