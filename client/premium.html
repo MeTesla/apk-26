@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
+    <div class="container">
         <div class="modal-premium">
         <div class="prem-header">        
             <div class="prem-logo"> Euduka </div>    
@@ -20,32 +20,105 @@
                 <li>+50 productios écrites expiquées </li>
                 <li>+600 exercices des oeuvres </li>
             </ul>
-            <div class="">
-                <span>972</span> élèves nous font confiance
+            <div class="msg">
+                <span class="num">972</span> élèves nous font confiance
             </div>
             <div class="prem-cta">Devenir Premium</div>
         </div>
     </div>
 
     <div class="coordonnees">
-        
+        <div class="prem-header">        
+            <div class="prem-logo"> Euduka </div>    
+            <h2 class="prem-titre"> Compte Premium  </h2>
+            <p class="percent"><span>20%</span> pour toute inscription </p>
+        </div>        
+        <div class="coord-corps">
+            <h3>Veuillez confirmer vos coordonnées</h3>
+            <div class="cord-eleve">
+                <form>
+                    <div class="form-item">
+                        <label for="nom">Nom</label>
+                        <input type="text" name="nom" id="">
+                    </div>               
+                    <div class="form-item">
+                        <label for="prenom">Prenom</label>
+                        <input type="text" name="prenom" id="">
+                    </div>
+                    <div class="form-item">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="">
+                    </div>
+                    <div class="form-item">
+                        <label for="tel">Téléphone</label>
+                        <input type="tel" name="tel" id="">
+                    </div>
+                    <div class="coord-btn">Confirmer</div>
+                </form>
+            </div>            
+        </div>
+        <style>
+         
+            .coordonnees h3{
+                font-size: 1.2rem;
+                text-align: center;
+            }
+            .coordonnees form div{
+                margin: 10px 0;
+                padding-left: 15px;
+            }
+            .coordonnees form label{
+                display: inline-block;
+                width: 30%;
+            }
+            .coordonnees form input[type="text"],
+            .coordonnees form input[type="email"],
+            .coordonnees form input[type="tel"]{
+                width: 50%;
+                padding: 5px;
+                outline: none;
+                border: 1px solid gray;
+                border-radius: 5px;
+            }
+        </style>
+    </div>
+
+    <div class="mes-coord">
+         <div class="prem-header">        
+            <div class="prem-logo"> Euduka </div>    
+            <h2 class="prem-titre"> Compte Premium  </h2>
+            <p class="percent"><span>20%</span> pour toute inscription </p>
+        </div>
+        <div class="mes-coord-corps">
+            <h3>Veuillez vercer la somme de <span>50dh</span> à ce compte</h3>
+            <div>Numéro de compte : <span>984 076</span></div>
+            <div>Au nom de : <span>Mohamed KARIM</span></div>
+        </div>
     </div>
         <style>
-        .modal-premium{
-            hheight: 400px;
-            padding: 25px 50x;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        
+        .container{
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-premium, .coordonnees, .mes-coord{
+            font-family: "Poppins", sans-serif;
+            font-size: 0.7rem;
             width: 250px;
             border: 1px solid gray;
             border-radius:20px;
             overflow: hidden;
         }
-        .modal-premium .prem-header{
-            height: 150px;
-            padding : 10px 0;
-            background-size: contain ;
-            background-position: center;
+        .modal-premium .prem-header,
+        .coordonnees .prem-header,
+        .mes-coord .prem-header{
+            height: 110px;
+            padding : 20px 0;
+            background-color: rgba(236, 236, 236, 0.568);
             background-image : url('./assets/img/waves-premium2.png'); 
-            nlinear-gradient(red, blue);
             background-repeat: no-repeat;
         }
         .prem-logo{
@@ -60,7 +133,8 @@
         .prem-titre{
             text-align: center;
             margin: 5px;
-            font-weight: bold;        
+            font-weight: bold;
+            color: rgb(43, 43, 43);    
         }
         .percent {
             width :60%;
@@ -76,8 +150,10 @@
             color:green;
             font-weight: bold ;
         }
-        .modal-premium .prem-corps{
-            background-color: white;
+        .modal-premium .prem-corps,
+        .coordonnees .coord-corps{
+            background-color: rgba(236, 236, 236, 0.568);
+            padding: 15px 0px;
         }
         .prem-corps ul{
             mmargin: 10px 0 10px 10px;
@@ -85,31 +161,48 @@
         .prem-corps ul li{
             position :relative ;
             padding: 0px;
-            margin :10px ;
+            margin :15px ;
             list-style-type: none;
         }
         .prem-corps ul li:before{
             content:'';
             width :20px ; height :20px ;
             position: absolute ;
-            top :2px;
-            left:-25px;
+            top :0px;
+            left:-30px;
             background-image: url(./assets/img/verifier.png);
             background-size: cover ;
         }
-        .prem-cta{
-            margin: 15px auto;
+        .msg{
+            /* width: 85%; */
+            margin: 20px auto;
+            padding: 8px 0;
+
+            background-color: beige;
+            text-align: center;
+            /* border-radius: 10px; */
+        }
+        .msg .num{         
+            color: white;
+            font-weight: bold;
+            padding: 02px 5px;
+            background-color: rgb(46, 138, 43);
+            border-radius: 10px;
+        }
+        .prem-cta, .coordonnees form .coord-btn{
+            margin: auto;
             width: 60%;
             background-color: #FF9800 ;
             color :white ;
             font-weight :bold;
             border-radius: 15px;
             text-align:center;
-            padding: 10px;
-            
+            padding: 10px;     
+            cursor: pointer;       
             transition: 100ms;
         }        
-        .prem-cta:active{
+        .prem-cta:active,
+        .coordonnees form .coord-btn:active{
             transform: scale(0.96);
         }
     </style>
