@@ -29,7 +29,7 @@
 
     <div class="coordonnees">
         <div class="prem-header">        
-            <div class="prem-logo"> Euduka </div>    
+            <div class="prem-logo" > Euduka </div>    
             <h2 class="prem-titre"> Compte Premium  </h2>
             <p class="percent"><span>20%</span> pour toute inscription </p>
         </div>        
@@ -39,24 +39,31 @@
                 <form>
                     <div class="form-item">
                         <label for="nom">Nom</label>
-                        <input type="text" name="nom" id="">
+                        <input type="text" name="nom" id="nom">
                     </div>               
                     <div class="form-item">
                         <label for="prenom">Prenom</label>
-                        <input type="text" name="prenom" id="">
+                        <input type="text" name="prenom" id="prenom">
                     </div>
                     <div class="form-item">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="">
+                        <input type="email" name="email" id="email">
                     </div>
                     <div class="form-item">
                         <label for="tel">Téléphone</label>
-                        <input type="tel" name="tel" id="">
+                        <input type="tel" name="tel" id="tel">
                     </div>
                     <div class="coord-btn">Confirmer</div>
                 </form>
             </div>            
         </div>
+        <script>
+            const {nom, prenom, email, tel} = JSON.parse(localStorage.getItem('profile'))
+            document.querySelector('#nom').value= nom
+            document.querySelector('#prenom').value= prenom
+            document.querySelector('#email').value= email
+            document.querySelector('#tel').value= tel
+        </script>
         <style>
          
             .coordonnees h3{
