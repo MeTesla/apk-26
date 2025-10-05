@@ -64,30 +64,7 @@
             document.querySelector('#email').value= email
             document.querySelector('#tel').value= tel
         </script>
-        <style>
-         
-            .coordonnees h3{
-                font-size: 1.2rem;
-                text-align: center;
-            }
-            .coordonnees form div{
-                margin: 10px 0;
-                padding-left: 15px;
-            }
-            .coordonnees form label{
-                display: inline-block;
-                width: 30%;
-            }
-            .coordonnees form input[type="text"],
-            .coordonnees form input[type="email"],
-            .coordonnees form input[type="tel"]{
-                width: 50%;
-                padding: 5px;
-                outline: none;
-                border: 1px solid gray;
-                border-radius: 5px;
-            }
-        </style>
+
     </div>
 
     <div class="mes-coord">
@@ -97,10 +74,36 @@
             <p class="percent"><span>20%</span> pour toute inscription </p>
         </div>
         <div class="mes-coord-corps">
-            <h3>Veuillez vercer la somme de <span>50dh</span> à ce compte</h3>
+            <img class="voir-plus" src="./assets/img/voir-plus.png" alt="" srcset="">            
+            <h3>Mes coordonnées bancaires :</h3>
+            <div>Banque : <span>Barid Bank</span></div>
             <div>Numéro de compte : <span>984 076</span></div>
-            <div>Au nom de : <span>Mohamed KARIM</span></div>
+            <div>Titulaire du compte : <span>Mohamed KARIM</span></div>            
+            <div class="mes-coord-btn">Confirmer</div>
         </div>
+        <style>
+            .mes-coord-corps h3,
+            .mes-coord-corps div:not(:last-child){
+                padding:0 20px;
+            }
+            .mes-coord-corps div span{
+                display: block;
+                font-size: 1.1rem;
+                font-weight: bold;
+                text-align: center;
+                justify-content: flex-end;
+            }
+
+            .voir-plus{
+                position: absolute;
+                top: -20px; right: 10px;
+                width: 50px;
+                animation: sc 0.9s alternate infinite;
+            }
+            @keyframes sc{
+                to{scale: 0.9}
+            }
+        </style>
     </div>
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -158,13 +161,13 @@
             font-weight: bold ;
         }
         .modal-premium .prem-corps,
-        .coordonnees .coord-corps{
+        .coordonnees .coord-corps,
+        .mes-coord .mes-coord-corps{
             background-color: rgba(236, 236, 236, 0.568);
             padding: 15px 0px;
+            position: relative;
         }
-        .prem-corps ul{
-            mmargin: 10px 0 10px 10px;
-        }
+
         .prem-corps ul li{
             position :relative ;
             padding: 0px;
@@ -196,7 +199,32 @@
             background-color: rgb(46, 138, 43);
             border-radius: 10px;
         }
-        .prem-cta, .coordonnees form .coord-btn{
+      
+        .coordonnees h3{
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        .coordonnees form div{
+            margin: 10px 0;
+            padding-left: 15px;
+        }
+        .coordonnees form label{
+            display: inline-block;
+            width: 30%;
+        }
+        .coordonnees form input[type="text"],
+        .coordonnees form input[type="email"],
+        .coordonnees form input[type="tel"]{
+            width: 50%;
+            padding: 5px;
+            outline: none;
+            border: 1px solid gray;
+            border-radius: 5px;
+            color: rgb(94, 94, 94)
+        }
+        .prem-cta, 
+        .coordonnees form .coord-btn,
+        .mes-coord-btn{
             margin: auto;
             width: 60%;
             background-color: #FF9800 ;
@@ -209,7 +237,8 @@
             transition: 100ms;
         }        
         .prem-cta:active,
-        .coordonnees form .coord-btn:active{
+        .coordonnees form .coord-btn:active,
+        .mes-coord-btn:active{
             transform: scale(0.96);
         }
     </style>
