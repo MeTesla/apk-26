@@ -75,7 +75,10 @@
             <p class="percent"><span>20%</span> pour toute inscription </p>
         </div>
         <div class="mes-coord-corps">
-            <img class="voir-plus" src="./assets/img/voir-plus.png" alt="" srcset="">            
+            <div class="voir-plus">
+                <img class="" src="./assets/img/tout-en-bas.png" alt="" srcset="">            
+                <img class="" src="./assets/img/voir-plus.png" alt="" srcset="">            
+            </div>
             <h3>Mes coordonnées bancaires :</h3>
             <div>Banque : <span>Barid Bank</span></div>
             <div>Numéro de compte : <span>984 076</span></div>
@@ -96,10 +99,14 @@
             }
 
             .voir-plus{
+                display: flex;
                 position: absolute;
-                top: -20px; right: 10px;
-                width: 50px;
-                animation: sc 0.3s alternate infinite;
+                top: -20px; left: 50%;
+                transform: translateX(-50%);
+                    }
+            .voir-plus img{
+                width:50px;
+                aanimation: sc 0.3s alternate infinite;
             }
             @keyframes sc{
                 to{scale: 0.9}
@@ -230,7 +237,7 @@
         .prem-cta, 
         .coordonnees form .coord-btn,
         .mes-coord-btn{
-            margin: auto;
+            margin: 20px auto 0px;
             width: 60%;
             background-color: #FF9800 ;
             color :white ;

@@ -1,6 +1,10 @@
 premium - modal + commencer - modal (réécris tes infos: nom email num tel) confirme tes
 	coordonnées. Nom, numéro de compte. + vidéo
 
+PREMIUM LOGIC 2 :
+	modal premium pour les registred
+	
+
 - comment ajouter fichier config à l'app : son, confetti, dark mode,
 - creerCompte route:
 	- Envoyer email verification	FAIT avec OTP
@@ -13,7 +17,6 @@ MODALS :
 --------
 	changer modal: locked			FAIT
 	devenir premium / 
-	Entrer code premium /
 	premium(feliciter)
 
 Logique freeMins token				FAIT
