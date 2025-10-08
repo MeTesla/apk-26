@@ -58,11 +58,12 @@
             </div>            
         </div>
         <script>
-            const {nom, prenom, email, tel} = JSON.parse(localStorage.getItem('profile'))
+            /*const {nom, prenom, email, tel} = JSON.parse(localStorage.getItem('profile'))
             document.querySelector('#nom').value= nom
             document.querySelector('#prenom').value= prenom
             document.querySelector('#email').value= email
             document.querySelector('#tel').value= tel
+            */
         </script>
 
     </div>
@@ -74,7 +75,10 @@
             <p class="percent"><span>20%</span> pour toute inscription </p>
         </div>
         <div class="mes-coord-corps">
-            <img class="voir-plus" src="./assets/img/voir-plus.png" alt="" srcset="">            
+            <div class="voir-plus">
+                <img class="" src="./assets/img/tout-en-bas.png" alt="" srcset="">            
+                <img class="" src="./assets/img/voir-plus.png" alt="" srcset="">            
+            </div>
             <h3>Mes coordonnées bancaires :</h3>
             <div>Banque : <span>Barid Bank</span></div>
             <div>Numéro de compte : <span>984 076</span></div>
@@ -95,10 +99,14 @@
             }
 
             .voir-plus{
+                display: flex;
                 position: absolute;
-                top: -20px; right: 10px;
-                width: 50px;
-                animation: sc 0.9s alternate infinite;
+                top: -20px; left: 50%;
+                transform: translateX(-50%);
+                    }
+            .voir-plus img{
+                width:50px;
+                aanimation: sc 0.3s alternate infinite;
             }
             @keyframes sc{
                 to{scale: 0.9}
@@ -113,6 +121,7 @@
             gap: 30px;
             justify-content: center;
             align-items: center;
+            flex-direction: column-reverse;
         }
         .modal-premium, .coordonnees, .mes-coord{
             font-family: "Poppins", sans-serif;
@@ -132,13 +141,16 @@
             background-repeat: no-repeat;
         }
         .prem-logo{
+            position :relative ;
+            right :80px;
             width: 50px;
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.6rem;
             margin: auto;
-            padding:2px 5px ;
+            padding:2px;
             border-radius: 10px;
             background-color: white ;
+            transform :rotateZ(10deg);
         }
         .prem-titre{
             text-align: center;
@@ -225,7 +237,7 @@
         .prem-cta, 
         .coordonnees form .coord-btn,
         .mes-coord-btn{
-            margin: auto;
+            margin: 20px auto 0px;
             width: 60%;
             background-color: #FF9800 ;
             color :white ;
