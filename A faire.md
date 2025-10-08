@@ -1,4 +1,6 @@
-premium - modal + commencer - modal (réécris tes infos: nom email num tel) confirme tes
+- Message de bievenue après validation par émail
+- voir obj user in Localstorage. les données ne sont pas de l'util actuel
+
 	coordonnées. Nom, numéro de compte. + vidéo
 
 - comment ajouter fichier config à l'app : son, confetti, dark mode,
