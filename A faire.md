@@ -1,11 +1,12 @@
 - Message de bievenue après validation par émail
 - voir obj user in Localstorage. les données ne sont pas de l'util actuel
+- verifier si onwindow load j'écris ql ch en LocalStorage. la page affiche tjr "en attente" meme après mail verif.
+-
 
-	coordonnées. Nom, numéro de compte. + vidéo
 
 PREMIUM LOGIC 2 :
-	modal premium pour les registred
-	
+	modal premium pour les registred	
+	Checkbox + Clauses du contrat à lire	
 
 - comment ajouter fichier config à l'app : son, confetti, dark mode,
 - creerCompte route:

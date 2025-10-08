@@ -25,94 +25,68 @@
             </div>
             <div class="prem-cta">Devenir Premium</div>
         </div>
-    </div>
-
-    <div class="coordonnees">
-        <div class="prem-header">        
-            <div class="prem-logo" > Euduka </div>    
-            <h2 class="prem-titre"> Compte Premium  </h2>
-            <p class="percent"><span>20%</span> pour toute inscription </p>
-        </div>        
-        <div class="coord-corps">
-            <h3>Veuillez confirmer vos coordonnées</h3>
-            <div class="cord-eleve">
-                <form>
-                    <div class="form-item">
-                        <label for="nom">Nom</label>
-                        <input type="text" name="nom" id="nom">
-                    </div>               
-                    <div class="form-item">
-                        <label for="prenom">Prenom</label>
-                        <input type="text" name="prenom" id="prenom">
-                    </div>
-                    <div class="form-item">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email">
-                    </div>
-                    <div class="form-item">
-                        <label for="tel">Téléphone</label>
-                        <input type="tel" name="tel" id="tel">
-                    </div>
-                    <div class="coord-btn">Confirmer</div>
-                </form>
-            </div>            
         </div>
-        <script>
-            /*const {nom, prenom, email, tel} = JSON.parse(localStorage.getItem('profile'))
-            document.querySelector('#nom').value= nom
-            document.querySelector('#prenom').value= prenom
-            document.querySelector('#email').value= email
-            document.querySelector('#tel').value= tel
-            */
-        </script>
 
-    </div>
-
-    <div class="mes-coord">
-         <div class="prem-header">        
-            <div class="prem-logo"> Euduka </div>    
-            <h2 class="prem-titre"> Compte Premium  </h2>
-            <p class="percent"><span>20%</span> pour toute inscription </p>
-        </div>
-        <div class="mes-coord-corps">
-            <div class="voir-plus">
-                <img class="" src="./assets/img/tout-en-bas.png" alt="" srcset="">            
-                <img class="" src="./assets/img/voir-plus.png" alt="" srcset="">            
+        <div class="coordonnees">
+            <div class="prem-header">        
+                <div class="prem-logo" > Euduka </div>    
+                <h2 class="prem-titre"> Compte Premium  </h2>
+                <p class="percent"><span>20%</span> pour toute inscription </p>
+            </div>        
+            <div class="coord-corps">
+                <h3>Veuillez confirmer vos coordonnées</h3>
+                <div class="cord-eleve">
+                    <form>
+                        <div class="form-item">
+                            <label for="nom">Nom</label>
+                            <input type="text" name="nom" id="nom">
+                        </div>               
+                        <div class="form-item">
+                            <label for="prenom">Prenom</label>
+                            <input type="text" name="prenom" id="prenom">
+                        </div>
+                        <div class="form-item">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email">
+                        </div>
+                        <div class="form-item">
+                            <label for="tel">Téléphone</label>
+                            <input type="tel" name="tel" id="tel">
+                        </div>
+                        <div class="coord-btn">Confirmer</div>
+                    </form>
+                </div>            
             </div>
-            <h3>Mes coordonnées bancaires :</h3>
-            <div>Banque : <span>Barid Bank</span></div>
-            <div>Numéro de compte : <span>984 076</span></div>
-            <div>Titulaire du compte : <span>Mohamed KARIM</span></div>            
-            <div class="mes-coord-btn">Confirmer</div>
-        </div>
-        <style>
-            .mes-coord-corps h3,
-            .mes-coord-corps div:not(:last-child){
-                padding:0 20px;
-            }
-            .mes-coord-corps div span{
-                display: block;
-                font-size: 1.1rem;
-                font-weight: bold;
-                text-align: center;
-                justify-content: flex-end;
-            }
+            <script>
+                /*const {nom, prenom, email, tel} = JSON.parse(localStorage.getItem('profile'))
+                document.querySelector('#nom').value= nom
+                document.querySelector('#prenom').value= prenom
+                document.querySelector('#email').value= email
+                document.querySelector('#tel').value= tel
+                */
+            </script>
 
-            .voir-plus{
-                display: flex;
-                position: absolute;
-                top: -20px; left: 50%;
-                transform: translateX(-50%);
-                    }
-            .voir-plus img{
-                width:50px;
-                aanimation: sc 0.3s alternate infinite;
-            }
-            @keyframes sc{
-                to{scale: 0.9}
-            }
-        </style>
-    </div>
+        </div>
+
+        <div class="mes-coord">
+            <div class="prem-header">        
+                <div class="prem-logo"> Euduka </div>    
+                <h2 class="prem-titre"> Compte Premium  </h2>
+                <p class="percent"><span>20%</span> pour toute inscription </p>
+            </div>
+            <div class="mes-coord-corps">
+                <div class="voir-plus">
+                    <img class="" src="./assets/img/tout-en-bas.png" alt="" srcset="">            
+                    <img class="" src="./assets/img/voir-plus.png" alt="" srcset="">            
+                </div>
+                <h3>Mes coordonnées bancaires :</h3>
+                <div>Banque : <span>Barid Bank</span></div>
+                <div>Numéro de compte : <span>984 076</span></div>
+                <div>Titulaire du compte : <span>Mohamed KARIM</span></div>            
+                <div class="mes-coord-btn">Confirmer</div>
+            </div>
+        </div>
+
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         
@@ -180,6 +154,37 @@
             position: relative;
         }
 
+
+        .mes-coord-corps h3,
+            .mes-coord-corps div:not(:last-child){
+                padding:0 20px;
+            }
+            .mes-coord-corps div span{
+                display: block;
+                font-size: 1.1rem;
+                font-weight: bold;
+                text-align: center;
+                justify-content: flex-end;
+            }
+
+            .voir-plus{
+                display: flex;
+                position: absolute;
+                top: -20px; left: 50%;
+                transform: translateX(-50%);
+                    }
+            .voir-plus img{
+                width:50px;
+                aanimation: sc 0.3s alternate infinite;
+            }
+            @keyframes sc{
+                to{scale: 0.9}
+            }
+        
+        .prem-corps ul{
+            margin-left: 30px;
+            padding: 0;
+        }
         .prem-corps ul li{
             position :relative ;
             padding: 0px;
@@ -211,7 +216,7 @@
             background-color: rgb(46, 138, 43);
             border-radius: 10px;
         }
-      
+    
         .coordonnees h3{
             font-size: 1.2rem;
             text-align: center;
@@ -253,7 +258,7 @@
         .mes-coord-btn:active{
             transform: scale(0.96);
         }
-    </style>
+        </style>
     </div>
 </body>
 </html>
