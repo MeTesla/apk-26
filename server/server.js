@@ -89,6 +89,7 @@ app.post('/verifier-email', async(req,res)=>{
             new: true,
             runValidators: true
         })
+console.log(eleveUpdated);
 
         return res.json({success : true, 
             message: 'exist', 
@@ -106,11 +107,6 @@ app.post('/verifier-email', async(req,res)=>{
 app.delete('/delete', async (req, res) => {
     const delet = await EleveModel.deleteMany({});
     res.json('all decument deletedddd')
-})
-
-// Verify email
-app.get('/verify-email',(req, res)=>{
-   
 })
 
 //+10 mintues Middleware & route
