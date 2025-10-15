@@ -65,7 +65,7 @@ app.post('/creer-compte', async (req, res) => {
 
 // Vérifier email
 app.post('/verifier-email', async(req,res)=>{
-    //Ajouter : Votre compte est déjà actié. ne rien faire.
+    //AJOUTER : Votre compte est déjà actié. ne rien faire.
     const {token}= req.body
     jwt.verify(token, SECRET_KEY, (err, user) =>{           
         if(err) return res.json({
