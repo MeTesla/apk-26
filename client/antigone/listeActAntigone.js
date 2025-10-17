@@ -10,8 +10,8 @@ import {ordrePhrases} from '../components/act/ordrePhrases.js'
 // import { modalFreeMins } from '../components/misc/modals.js'
 import { modalLokedContent } from '../components/misc/modals.js'
 
-// const url ='https://euduka.vercel.app/'
-const url ='http://localhost:3000/'
+const url ='https://euduka.vercel.app/'
+// const url ='http://localhost:3000/'
 const vffData = async (exo)=>{
   const reponse = await fetch(url+`?exo=${exo}`,{
     headers:{

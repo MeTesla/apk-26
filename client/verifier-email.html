@@ -26,8 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function verifierTokenEmail(token) {
+    // const url='http://localhost:3000'
+    const url ='https://euduka.vercel.app'
     try {
-        const reponse = await fetch('http://localhost:3000/verifier-email', {
+        const reponse = await fetch(url+'/verifier-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

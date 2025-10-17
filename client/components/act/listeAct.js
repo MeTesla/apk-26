@@ -25,8 +25,8 @@ function toast(msg) {
     close: true
   }).showToast();
 }
-// const url ='https://euduka.vercel.app/'
-const url ='http://localhost:3000/'
+const url ='https://euduka.vercel.app/'
+// const url ='http://localhost:3000/'
 
 const vffData = async (exo)=>{
   const reponse = await fetch(url+`?exo=${exo}`,{

@@ -1,4 +1,41 @@
 const nodemailer = require('nodemailer');
+
+// postEmail(req, res, nom, prenom, email, token)
+async function postEmail(req, res, nom, prenom, email, token){
+    // Configuration du transporteur Nodemailer
+    const transporter = nodemailer.createTransport({
+        service: 'gmail', // ou un autre service de messagerie
+        auth: {
+            user: 'pookarim@gmail.com', // votre adresse email
+            pass: 'ynsl tthr kcoq hpdg' // votre mot de passe ou un mot de passe d'application
+        },
+        tls: {
+            rejectUnauthorized: false // Ignorer les erreurs de certificat
+        } 
+    });
+    //const { to, subject, text } = req.body;
+    //<h1><a href="http://localhost:5500/client/verifier-email.html?token=${token}">Valider votre Email </a></h1>
+    const client = "https://euduka.page.gd"
+    const mailOptions = {
+        from: 'pookarim@gmail.com',
+        to: 'euduka.fr@gmail.com',
+        subject: 'Mot de passe',
+            html: `<div style="border: 1px solid gray; width: 70%; margin: auto">
+            <p style="font-size:1.2rem; "> Bonjour ${nom + ' ' + prenom}</p>
+            <p style="font-size:1.2rem; "> votre Email : ${email}</p>
+            <h1><a href=${client}"/verifier-email.html?token=${token}">Valider votre Email </a></h1>
+            
+            </div>`
+    };
+    
+    return transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return res.status(500).send(error.toString());
+        }
+        res.status(200).send({message:'Email envoyé'});
+    });
+}
+
 const {bamvf,
 bamoeuvre,
 bamresume,
@@ -21,38 +58,7 @@ djcordreph,
 djcordreev,
 djcvide} = require('./bd/data');
 
-// postEmail(req, res, nom, prenom, email, token)
-async function postEmail(req, res, nom, prenom, email, token){
-    // Configuration du transporteur Nodemailer
-    const transporter = nodemailer.createTransport({
-        service: 'gmail', // ou un autre service de messagerie
-        auth: {
-            user: 'pookarim@gmail.com', // votre adresse email
-            pass: 'ynsl tthr kcoq hpdg' // votre mot de passe ou un mot de passe d'application
-        },
-        tls: {
-            rejectUnauthorized: false // Ignorer les erreurs de certificat
-        } 
-    });
-    //const { to, subject, text } = req.body;
-    const mailOptions = {
-        from: 'pookarim@gmail.com',
-        to: 'euduka.fr@gmail.com',
-        subject: 'Mot de passe',
-            html: `<div style="border: 1px solid gray; width: 70%; margin: auto">
-            <p style="font-size:1.2rem; "> Bonjour ${nom + ' ' + prenom}</p>
-            <p style="font-size:1.2rem; "> votre Email : ${email}</p>
-            <h1><a href="http://localhost:5500/client/verifier-email.html?token=${token}">Valider votre Email </a></h1>
-            </div>`
-    };
-    
-    return transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return res.status(500).send(error.toString());
-        }
-        res.status(200).send({message:'Email envoyé'});
-    });
-}
+
 
 function prepareData(exo){
     switch (exo) {

@@ -77,8 +77,8 @@ export function creerCompte(){
       const email = document.querySelector('.email').value        
       const tel = document.querySelector('.tel').value        
       // e.preventDefault()
-    //  const url = 'https://euduka.vercel.app'      
-     const url ='http://localhost:3000'
+     const url = 'https://euduka.vercel.app'      
+    //  const url ='http://localhost:3000'
       const reponse = await fetch(url + '/creer-compte',{
             method: "POST",
             headers:{"content-type": "application/json"},
