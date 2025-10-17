@@ -95,18 +95,17 @@ window.addEventListener("load", function () {
     const data = await reponse.json()
     if(data.token){
       localStorage.setItem('token', data.token)
-
-      // const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
-      // console.log(nom, prenom, email, tel, freeMins);
-      // const objElv={nom, prenom, email, tel, freeMins}
-      // localStorage.setItem('profile', JSON.stringify(objElv))
+      console.log(data);
+      
+      const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
+      console.log(nom, prenom, email, tel, freeMins);
+      const objElv={nom, prenom, email, tel, freeMins}
+      localStorage.setItem('profile', JSON.stringify(objElv))
 
       modalFreeMins(data.success, data.message, 'winner')
     } else{
       modalFreeMins(data.success, data.message)
     }
-    
-    console.log(data)
     
     //Appeler generate menu
     //modalCreerCompte()
