@@ -16,6 +16,15 @@ window.addEventListener("load", function () {
   document.querySelector('.wrapper').style.display="block"
 })
 
+
+// ----------------- Fetch ROLE from server
+
+
+
+
+
+
+
 //--------------------------------------------------
   //Menu
   const menu=document.querySelector('.nav .menu')

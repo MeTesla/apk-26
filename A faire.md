@@ -4,15 +4,11 @@
 -
 
 
-PREMIUM LOGIC 2 :
-	modal premium pour les registred	
-	Checkbox + Clauses du contrat à lire	
-
 - comment ajouter fichier config à l'app : son, confetti, dark mode,
 - creerCompte route:
-	- Envoyer email verification	FAIT avec OTP
-	- verifier-email route:			FAIT
-	- Comment répondre le frontEnd ?
+	- Envoyer email verification		FAIT
+	- verifier-email route:				FAIT
+	- Comment répondre le frontEnd ?	FAIT
 
 - Loader arpès chaque appel au backEnd
 
@@ -79,7 +75,7 @@ UX / UI
 	Page payment == info utilisateur + info Amdin (compte bancaire)
 	OK== envoyer émail et msg whatsApp (coordonnées bancaires)
 	Ajout l'Utilisateur à BD : reçut de payment || msg banque
-	Activer user PREMIUM
+	Activer user PREMIUM	Mais COMMENT ?
 	
 	
 	localStorage : token, typeaccount(registred, premium), nbr10min(3),
