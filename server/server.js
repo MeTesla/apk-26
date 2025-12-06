@@ -258,7 +258,7 @@ mongoose.connect(URL)
         //console.error('Erreur de connexion à la base de données :', err);
     });
  
-//
+// Dell
 const url='3000'
 // const url='https://euduka.vercel.app'
 app.listen(url, () => {
