@@ -20,6 +20,7 @@ window.addEventListener("load", function () {
 // ----------------- Fetch ROLE from server
 //DEll
 //Dell 2
+//HP
 
 
 
