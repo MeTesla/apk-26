@@ -17,18 +17,7 @@ window.addEventListener("load", function () {
 })
 
 
-// ----------------- Fetch ROLE from server
-//DEll
-//Dell 2
-//HP
-
-
-
-
-
-
-//--------------------------------------------------
-  //Menu
+// -------------------Menu-------------------------------
   const menu=document.querySelector('.nav .menu')
   generateMenu(localStorage.getItem('role'), menu)
 
@@ -92,7 +81,7 @@ window.addEventListener("load", function () {
     return div
   }
 
-  // ------------  Get free MINs
+  // ------------  Get free MINs -----------
   async function freeMins(){
     const url='http://localhost:3000'
     // const url ='https://euduka.vercel.app'
@@ -122,12 +111,11 @@ window.addEventListener("load", function () {
     //modalCreerCompte()
   }
 
-//--------------------------------------------------
+//-----------------FIN Get free MINs-----------
 
-
-
-
-
+//---------Hero créer compte----------------
+const btnHero = document.querySelector('.btn-compte')
+btnHero.addEventListener('click', ()=>creerCompte() )
 
 
 // -------------- Conics
@@ -213,17 +201,3 @@ if(nbrConnect==4){
   l('POP-UP : Vous êtes connecté ' + nbrConnect + ' foix')
   localStorage.removeItem('nbrConnect')
 }
-//nbrConnect=localStorage.setitem
-
-
-    //------- Token in EMAIL
-    //Token from url params
-    // Récupérer le token de l'URL
-    //     const urlParams = new URLSearchParams(window.location.search);
-    //     const token = urlParams.get('token');
-
-    // if (token) {
-    //     // Enregistrer le token dans localStorage
-    //     localStorage.setItem('jwtToken', token);
-    //     console.log('Token enregistré dans localStorage');
-    // }
