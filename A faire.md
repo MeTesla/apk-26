@@ -19,7 +19,7 @@
 - Sugg : comment ajouter fichier config à l'app : son, confetti, dark mode ?
 
 
-Menus
+Menus :
 	|Guest			|	Registred	|	Registred(expired)	|	Demande		|PREMIUM	|
 	|---------------|---------------|-----------------------|---------------|---------	|
 	|Créer compte	|	Premium		|	Premium				|	Code		|Profile	|
@@ -28,14 +28,13 @@ Menus
 
 
 UX / UI
-	Guest
-		
+	Guest		
 		Menu : Créer compte
 		btn Hero : 
 		Menu : En attente
-register :	- clique email verif
-			- igonre email verif + deuxième register
-			Le menu est généré depuis le backend	
+		register :	- clique email verif
+					- igonre email verif + deuxième register
+					- Le menu est généré depuis le backend
 	
 	Registred
 		Reçoi token	 ==	LocalStorage({type:'registred', token : 'ey...'})
@@ -54,13 +53,6 @@ register :	- clique email verif
 		Ajout l'Utilisateur à BD : reçut de payment || msg banque
 		Activer user PREMIUM	Mais COMMENT ?
 	
-	
-	localStorage : token, typeaccount(registred, premium), nbr10min(3),
-	
-	if (nbrconnections <= 10) +10min desabled
-	
-
-
 !!!!!!!!!!! Vérifier : qcm bam; il reste bcp de question commentées
 
 

@@ -5,10 +5,10 @@ import {listeAct} from './components/act/listeAct.js'
 import {conic} from './utils.js'
 import {qcmFigures} from './langue/figures/figures.js'
 import {userSuggests} from './auth/login.js'
+import { generateMenu } from './components/misc/utils.js'
 
-import { modalDevenirPremium, modalFreeMins } from './components/misc/modals.js'
 import {creerCompte,toast} from './components/misc/utils.js'
-import { profile } from './components/misc/profile.js'
+
 
 const loader=document.querySelector('.loader')
 window.addEventListener("load", function () {
@@ -16,107 +16,14 @@ window.addEventListener("load", function () {
   document.querySelector('.wrapper').style.display="block"
 })
 
-
 // -------------------Menu-------------------------------
   const menu=document.querySelector('.nav .menu')
-  generateMenu(localStorage.getItem('role'), menu)
+  generateMenu(localStorage.getItem('role'), menu, menu)
 
-  export function generateMenu(typeAccount, pere){
-    const div = document.createElement('div')
-    div.className="user-menu"     
-    switch (typeAccount) {
-      case'attenteR' :
-        div.innerHTML=` <div>
-          <img src="./assets/img/verifyEmail.png" />
-          <span>En attente</span>
-        </div>`          
-        break;
-      case 'registred':
-        div.innerHTML=`
-          <div class="premium"><img src="./assets/img/diamond.png" /><span>Premium</span></div> 
-          <div class="free-mins"><img src="./assets/img/freeMins.png" /><span>+10 minutes</span></div>  
-          <div class="menu-profile"><img src="./assets/img/profile.png" /><span>Profile</span> </div>`
-        break;
-      case'premium' :
-        div.innerHTML=`
-          <div>Le code</div> 
-          <div>Profile</div>`
-        break;
-      default : 'guest'
-        div.innerHTML = `
-        <div class="creer-compte"><img src="./assets/img/creerCompte.png" /><span>Créer un compte</span></div>`
-        break;
-    } 
-
-      pere.appendChild(div)
-      const userMenu= document.querySelector('.nav .menu .user-menu')
-      
-      const compte=document.querySelector('.menu .creer-compte')
-      const menuProfile= document.querySelector('.menu-profile')
-      const freeM= document.querySelector('.free-mins')
-      const premium = document.querySelector('.premium')
-      
-      freeM && freeM.addEventListener('click',()=>{
-        freeMins()
-      })
-      
-      menuProfile?.addEventListener('click', ()=>{
-        profile()
-        
-      })
-      compte && compte.addEventListener('click', ()=>{
-        creerCompte()    
-      })
-      premium && premium.addEventListener('click', ()=>{
-        modalDevenirPremium()
-      })
-      // show hide menu + Type menus
-      menu.addEventListener('click',(e)=>{
-        e.stopPropagation()
-        userMenu.classList.toggle('show')
-      })     
-      document.body.onclick=()=> userMenu.classList.contains('show') && userMenu.classList.remove('show')
-      document.body.onscroll=()=> (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
-      
-    return div
-  }
-
-  // ------------  Get free MINs -----------
-  async function freeMins(){
-    const url='http://localhost:3000'
-    // const url ='https://euduka.vercel.app'
-    const reponse = await fetch(url+'/freeMins', {
-      method: "GET",
-      headers:{
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem('token')|| ""
-      }
-    })
-    const data = await reponse.json()
-    if(data.token){
-      localStorage.setItem('token', data.token)
-      console.log(data);
-      
-      const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
-      console.log(nom, prenom, email, tel, freeMins);
-      const objElv={nom, prenom, email, tel, freeMins}
-      localStorage.setItem('profile', JSON.stringify(objElv))
-
-      modalFreeMins(data.success, data.message, 'winner')
-    } else{
-      modalFreeMins(data.success, data.message)
-    }
-    
-    //Appeler generate menu
-    //modalCreerCompte()
-  }
-
-//-----------------FIN Get free MINs-----------
 
 //---------Hero créer compte----------------
 const btnHero = document.querySelector('.btn-compte')
 btnHero.addEventListener('click', ()=>creerCompte() )
-
 
 // -------------- Conics
 const notes = [5,2,7]
@@ -125,7 +32,7 @@ for(let i=0; i<3; i++){
   conics.appendChild(conic(notes[i]))
 }
 
-// -------------- Clique sur les oeuvres
+//-------------- Clique sur les oeuvres
 const antigone = document.querySelector('.oeuvres-container .antigone')
 const djc = document.querySelector('.oeuvres-container .djc')
 const bam = document.querySelector('.oeuvres-container .bam')
