@@ -1,4 +1,5 @@
 - Message de bievenue après validation par émail
+- Sugg : Tous les ETATS sont gérés par le backend (menu ....)
 - PROB : voir obj user in Localstorage. les données ne sont pas de l'utilisateur actuel
 - PROB : verifier si onwindow load j'écris ql ch en LocalStorage. la page affiche tjr "en attente" meme après mail verif.
 - SUGG : Loader arpès chaque appel au backEnd
@@ -9,32 +10,21 @@
 	- 3 traduction par session
 	- ajouter justification en cas de mauvaise réponse. et icône en cas de bonne rép
 
+- Traiter les cas de : 	re-register avec le même émail.
+						ignorer l'émail de vérif
+						Freemium épuisé : afficher btn supprimer mon compte + devenir premium + autres possibilités
+						Prob multi browser : sign-in sign-up
+						Repenser créer compte: nom + email + mot de passe
 
-- comment ajouter fichier config à l'app : son, confetti, dark mode,
-- creerCompte route:
-	- Envoyer email verification		FAIT
-	- verifier-email route:				FAIT
-	- Comment répondre le frontEnd ?	FAIT
-	- changer modal: locked				FAIT
-	- Logique freeMins token			FAIT
-
-
-	- DASHBOARD :
-		Cards : Fremium [120], Premium [100], Demande Premium [20]
-		Filtres : Checkboxes to filter: afficher/masquer : fremium, premium, demande premium
-		liste élèves + activer Premium
-        SI TOKEN EXPIRE
-
-- créer une route/fonction/middleware backend (isAuthorized) à utilser 
-  à chaque fois que je veux interdire l'accès à une section.
+- Sugg : comment ajouter fichier config à l'app : son, confetti, dark mode ?
 
 
 Menus
-	Guest			|	Registred	|	Registred(expired)	|	Demande		|PREMIUM
-	----------------|---------------|-----------------------|---------------|------------
-	Créer compte	|	Premium		|	Premium				|	Code		|Profile
-					|	+10 minutes	|	+10 min(estmpé)		|	Profile     |
-					|	Profile		|   Profile				|				|
+	|Guest			|	Registred	|	Registred(expired)	|	Demande		|PREMIUM	|
+	|---------------|---------------|-----------------------|---------------|---------	|
+	|Créer compte	|	Premium		|	Premium				|	Code		|Profile	|
+	|				|	+10 minutes	|	+10 min(estmpé)		|	Profile     |			|
+	|				|	Profile		|   Profile				|				|			|
 
 
 UX / UI
@@ -79,3 +69,10 @@ DONE : suggestions : lier à la firebase
 DONE : résumé
 DONE : nbrQst, nbrSessions
 DONE : Loader added
+
+- creerCompte route:
+	- Envoyer email verification		FAIT
+	- verifier-email route:				FAIT
+	- Comment répondre le frontEnd ?	FAIT
+	- changer modal: locked				FAIT
+	- Logique freeMins token			FAIT

@@ -28,6 +28,10 @@ export function creerCompte(){
             <button class="envoyer" type="submit">Envoyer</button>
             <button class="annuler">Annuler</button>
         </div>
+        <div style="text-align:center;font-size: 0.7rem">
+        Vous avez un compte ? 
+        <span style="color: blue;cursor: pointer">
+        Connectez-vous ! </span></div>
     </form>
     <style>
     .form-container{
