@@ -98,6 +98,11 @@ import { modalDevenirPremium, modalFreeMins } from './modals.js'
       }
   }
 
+// ------------ Login -----------
+export async function login(email, password){
+
+}
+
 // ------------  Get free MINs -----------
   async function freeMins(){
     const url='http://localhost:3000'
