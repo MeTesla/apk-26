@@ -87,7 +87,7 @@ import { modalDevenirPremium, modalFreeMins } from './modals.js'
         localStorage.setItem('role', data.role)
             
         document.querySelector('.user-menu').remove()
-        generateMenu(data.role, document.querySelector('.menu'))
+        generateMenu(data.role, document.querySelector('.menu'),document.querySelector('.menu'))
         console.log('avant');
         
         modalFreeMins(true, data.message, 'verifyEmail')
@@ -99,8 +99,15 @@ import { modalDevenirPremium, modalFreeMins } from './modals.js'
   }
 
 // ------------ Login -----------
-export async function login(email, password){
+export function login(email, password){
+  /* 
+  Créer UI 
+    email, password, btn login, btn annuler
+  Collecte des données
+  Fetch Post request
 
+
+*/
 }
 
 // ------------  Get free MINs -----------
