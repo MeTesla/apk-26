@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEST Login</title>
-</head>
-<body>
-  <div class="login-container">
+export function Login() {
+    const div = document.createElement('div');
+    div.className = 'login-container';
+    div.innerHTML = `  <div class="login-container">
     <form class="form-login">
       <h1 class="title-login">Login</h1>
       <input type="email" class="input-email" placeholder="Email" required>
       <input type="password" class="input-pass" placeholder="Password" required>
-      <button type="submit" class="btn-login">Login</button>
+      <div class="buttons-login">
+        <button type="submit" class="btn-login">Login</button>
+        <button class="annuler">Annuler</button>
+      </div>
       <div class="redirect">Vous n'avez pas de compte <span>inscrivez-vous</span></div>
     </form>
   <style>
     .login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      align-items: center;      
       background-color: #f0f0f0;
     }
     .form-login {
@@ -43,6 +45,10 @@
       border-radius: 3px;
       font-size: 16px;
     }
+    .buttons-login {
+      display: flex;
+      justify-content: space-between;
+    }
     .btn-login{
       cursor: pointer;
     }
@@ -56,8 +62,10 @@
       text-decoration: underline;
     }
   </style>
-  </div>
+  </div>`
+    
+  document.body.appendChild(div);
 
 
-</body>
-</html>
+
+}

@@ -5,8 +5,7 @@ export function profile(){
 
     const div=document.createElement('div')
     div.className="user-profile"
-    div.innerHTML =`
-        <div class="profile-container">
+    div.innerHTML =`<div class="profile-container">
         <div class= "ligne"> NOM :</div> <h3>${objElv.nom}</h3>
         <div class= "ligne"> Prenom :</div> <h3>${objElv.prenom}</h3>
         <div class= "ligne"> Email :</div> <h3>${objElv.email}</h3>
