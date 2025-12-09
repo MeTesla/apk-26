@@ -9,7 +9,6 @@ import { generateMenu } from './components/misc/utils.js'
 
 import {creerCompte,toast} from './components/misc/utils.js'
 
-
 const loader=document.querySelector('.loader')
 window.addEventListener("load", function () {
   loader.style.display="none";
@@ -23,6 +22,9 @@ window.addEventListener("load", function () {
 
 //---------Hero créer compte----------------
 const btnHero = document.querySelector('.btn-compte')
+if(localStorage.getItem('role')==='registred' || localStorage.getItem('role')==='attenteR'){
+  btnHero.style.display="none"
+}
 btnHero.addEventListener('click', ()=>creerCompte() )
 
 // -------------- Conics

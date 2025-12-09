@@ -44,7 +44,7 @@ app.post('/creer-compte', async (req, res) => {
     const today = new Date()
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
-    //futureDate.setMinutes(now.getMinutes() + minutesToAdd);
+
     const token = await generateToken(email,3)
     const eleve = new EleveModel({ nom, prenom, email, tel, role:'attenteR', token})
     await eleve.save()
@@ -56,15 +56,28 @@ app.post('/creer-compte', async (req, res) => {
         role: eleve.role,
         message: "Un mail vous a été envoyés. Pour finaliser votre inscription cliquez sur le lien du mail."
     })
-    //Envoyer email de vérification
-    //Ne pas envoyer de minutes.
-    // return res.json({ success :true, titre:'registred',
-    //     message: 'Vous avez créé un compte. Vous gagnez 15 min par jour 5 fois',
-    //     token,
-    //     eleve
-    //  })
+
 })
 
+//-------Login----------------
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body
+    if(!email || !password) return res.json({
+        success: false,
+        message: 'Email et mot de passe sont requis'
+    })
+    const eleve = await EleveModel.findOne({email})
+    if(!eleve) return res.json({
+        success: false,
+        message: 'Aucun compte associé à cet email. Veuillez créer un compte'
+    })
+    // if(eleve.password !== password) return res.json({
+    //     success: false,
+    //     message: 'Mot de passe incorrect'
+    // })
+
+    return res.json({eleve, success:true, titre: eleve.role})
+})
 // Vérifier email
 app.post('/verifier-email', async(req,res)=>{
     //AJOUTER : Votre compte est déjà actié. ne rien faire.
@@ -74,7 +87,7 @@ app.post('/verifier-email', async(req,res)=>{
             // navigateur: envoyer role:''
             success:false,
             role: 'attenteR',
-            message: 'Un problème est survenu: token nest pas valide'
+            message: 'Un problème est survenu: token n est pas valide'
         })        
     })
    
@@ -92,7 +105,6 @@ app.post('/verifier-email', async(req,res)=>{
             new: true,
             runValidators: true
         })
-console.log(eleveUpdated);
 
         return res.json({success : true, 
             message: 'exist', 

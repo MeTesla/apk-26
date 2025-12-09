@@ -407,10 +407,11 @@ flex-basis: 90%}
 .suivant{
   width: 30px; 
   height: 30px;
- background-image: url(../../assets/img/next.svg);
- background-size: 20px;
- background-repeat: no-repeat; 
- flex-basis: 10%;
+  border: 1px solid gray;
+  background-image: url(../../assets/img/diamond.png);
+  background-size: 20px;
+  background-repeat: no-repeat; 
+  flex-basis: 10%;
 }
       </style>`
       return html

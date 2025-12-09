@@ -1,7 +1,9 @@
-export function Login() {
+import { creerCompte } from './utils.js';
+//import { generateMenu } from './misc/utils.js';
+export function login() {
     const div = document.createElement('div');
     div.className = 'login-container';
-    div.innerHTML = `  <div class="login-container">
+    div.innerHTML = `<div class="login-container">
     <form class="form-login">
       <h1 class="title-login">Login</h1>
       <input type="email" class="input-email" placeholder="Email" required>
@@ -10,7 +12,7 @@ export function Login() {
         <button type="submit" class="btn-login">Login</button>
         <button class="annuler">Annuler</button>
       </div>
-      <div class="redirect">Vous n'avez pas de compte <span>inscrivez-vous</span></div>
+      <div class="redirect">Vous n'avez pas de compte <span class="creer-compte-link">inscrivez-vous</span></div>
     </form>
   <style>
     .login-container {
@@ -18,7 +20,7 @@ export function Login() {
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;      
@@ -47,7 +49,11 @@ export function Login() {
     }
     .buttons-login {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 10px;
+    }
+    .buttons-login button{
+      padding: 10px 20px;
     }
     .btn-login{
       cursor: pointer;
@@ -58,14 +64,55 @@ export function Login() {
     }
     .redirect span {
       color: blue;
-      cursor: pointer;
-      text-decoration: underline;
+      cursor: pointer;      
+    }
+    .redirect span:hover{
+    text-decoration: underline;
     }
   </style>
   </div>`
     
   document.body.appendChild(div);
+  const btnLogin = document.querySelector('.btn-login');
+  btnLogin.onclick = function (e, div) {
+      submitLogin(e);
+    };
+  const btnAnnuler= document.querySelector('.buttons-login .annuler')
+  btnAnnuler.onclick=function(){div.remove()}
 
+  const creerCompteLink = document.querySelector('.creer-compte-link');
+  creerCompteLink.onclick = function () {
+      div.remove();
+      creerCompte();
+  };
 
-
+  async function submitLogin(e,div){
+      e.preventDefault();
+      const email = document.querySelector('.input-email').value;
+      const password = document.querySelector('.input-pass').value;
+      // const url = 'https://euduka.vercel.app'      
+      const url ='http://localhost:3000'
+      const reponse = await fetch(url + '/login',{
+        method: "POST",
+        headers:{"content-type": "application/json"},
+        body: JSON.stringify({email, password})
+      })
+      const data = await reponse.json()
+      if(data.success){      
+        localStorage.setItem('role', 'registred')
+        localStorage.setItem('token', data.eleve.token)
+        const {nom, prenom, email, tel, freeMins} = data.eleve
+        const objElv={nom, prenom, email, tel, freeMins}
+        localStorage.setItem('profile', JSON.stringify(objElv))
+        
+        //document.querySelector('.user-menu').remove()
+        // generateMenu(data.role, document.querySelector('.menu'),document.querySelector('.menu'))
+        console.log(data)
+        //div.remove()
+      } else{
+        console.log(data);
+        
+        alert(data.message)
+      } 
+  }
 }

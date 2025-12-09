@@ -1,7 +1,7 @@
 // Afficher une notification simple
 import { profile } from './profile.js'
 import { modalDevenirPremium, modalFreeMins } from './modals.js'
-
+import { login } from './login.js'
 
   export function creerCompte(){
       //if(localStorage.getItem('token')) return
@@ -20,7 +20,7 @@ import { modalDevenirPremium, modalFreeMins } from './modals.js'
           </div>
           <div style="text-align:center;font-size: 0.7rem">
           Vous avez un compte ? 
-          <span style="color: blue;cursor: pointer">
+          <span class="login-link" style="color: blue;cursor: pointer">
           Connectez-vous ! </span></div>
       </form>
       <style>
@@ -63,6 +63,12 @@ import { modalDevenirPremium, modalFreeMins } from './modals.js'
 
       const envoyer = document.querySelector('.envoyer')
       envoyer.onclick= function(){submitCreerCompte()}
+
+      const loginLink = document.querySelector('.login-link')
+      loginLink.onclick= function(){
+        modal.remove()
+        login()
+      }
   }
 
   async function submitCreerCompte(){
@@ -78,37 +84,19 @@ import { modalDevenirPremium, modalFreeMins } from './modals.js'
             headers:{"content-type": "application/json"},
             body: JSON.stringify({nom, prenom, email, tel})
           })    
-      const data = await reponse.json()
-      console.log(data);
-      if(data.success){
-        //const {nom, prenom, email, tel, freeMins, role} = data.eleve          
-        //const objElv={nom, prenom, email, tel, freeMins}
-        //localStorage.setItem('profile', JSON.stringify(objElv))
-        localStorage.setItem('role', data.role)
-            
+      const data = await reponse.json()      
+      if(data.success){      
+        localStorage.setItem('role', data.role)            
         document.querySelector('.user-menu').remove()
         generateMenu(data.role, document.querySelector('.menu'),document.querySelector('.menu'))
-        console.log('avant');
-        
         modalFreeMins(true, data.message, 'verifyEmail')
-        console.log('après');
         document.querySelector('.creer-compte-page').remove()
       } else{
         modalFreeMins(false, data.message, 'failed')      
       }
   }
 
-// ------------ Login -----------
-export function login(email, password){
-  /* 
-  Créer UI 
-    email, password, btn login, btn annuler
-  Collecte des données
-  Fetch Post request
 
-
-*/
-}
 
 // ------------  Get free MINs -----------
   async function freeMins(){
@@ -126,8 +114,7 @@ export function login(email, password){
       localStorage.setItem('token', data.token)
       console.log(data);
       
-      const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
-      console.log(nom, prenom, email, tel, freeMins);
+      const {nom, prenom, email, tel, freeMins} = data.eleveUpdated      
       const objElv={nom, prenom, email, tel, freeMins}
       localStorage.setItem('profile', JSON.stringify(objElv))
 
@@ -135,9 +122,6 @@ export function login(email, password){
     } else{
       modalFreeMins(data.success, data.message)
     }
-    
-    //Appeler generate menu
-    //modalCreerCompte()
   }
 //-----------------FIN Get free MINs-----------
 

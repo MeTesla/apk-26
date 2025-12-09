@@ -83,7 +83,7 @@ export function modalFreeMins(success, message, lottie='failed', autoClose) {
     </style> `
   document.body.appendChild(div)
   document.body.style.position = 'fixed'
-
+    
   const closeModal =document.querySelector('.modal-titre .fermer-modal')
   const ok =document.querySelector('.modal-footer div')
   if(autoClose){

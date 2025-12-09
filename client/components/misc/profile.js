@@ -12,7 +12,7 @@ export function profile(){
         <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv.freeMins)*5}</h3>
         <h2> Résultats</h2>
         <h4>QCM </h4>
-        <div> ${JSON.parse(localStorage.getItem('resultatQcm')).score} </div> 
+        <div> ${JSON.parse(localStorage.getItem('resultatQcm'))?.score|| '0'} </div>
         <div class="reset">Supprimer Profile</div>
         <style>
             .user-profile{

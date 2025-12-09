@@ -13,15 +13,16 @@
 
     <script>
         // verification-email.js
-document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
+    const token = urlParams.get('token');    
     if (!token) return;
-    if(localStorage.getItem('role')=="attenteR"){
-        verifierTokenEmail(token);
-    } else {
-        location.assign('http://localhost:5500/client')
-    }
+    
+    // if(localStorage.getItem('role')=="attenteR"){
+    verifierTokenEmail(token);
+    // } else {
+    //     location.assign('http://localhost:5500/client')
+    // }
     
 });
 
@@ -46,8 +47,6 @@ async function verifierTokenEmail(token) {
             localStorage.setItem('token', data.token)
             const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
             const objElv={nom, prenom, email, tel, freeMins}
-            
-            
             localStorage.setItem('profile', JSON.stringify(objElv))
 
             location.assign('http://localhost:5500/client/index.html')
@@ -62,8 +61,6 @@ async function verifierTokenEmail(token) {
         console.log(erreur);
     }
 }
-
-
     </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-- Message de bievenue après validation par émail
+- Sugg : no free-min : changer menu
+- Sugg : Message de bievenue après validation par émail
 - Sugg : Tous les ETATS sont gérés par le backend (menu ....)
 - PROB : voir obj user in Localstorage. les données ne sont pas de l'utilisateur actuel
 - PROB : verifier si onwindow load j'écris ql ch en LocalStorage. la page affiche tjr "en attente" meme après mail verif.
@@ -10,14 +11,19 @@
 	- 3 traduction par session
 	- ajouter justification en cas de mauvaise réponse. et icône en cas de bonne rép
 
-- Traiter les cas de : 	re-register avec le même émail.
-						ignorer l'émail de vérif
-						Freemium épuisé : afficher btn supprimer mon compte + devenir premium + autres possibilités
-						Prob multi browser : sign-in sign-up
-						Repenser créer compte: nom + email + mot de passe
+- Traiter les cas de : 
+	- re-register avec le même émail.
+	- ignorer l'émail de vérif
+	- Freemium épuisé : afficher btn supprimer mon compte + devenir  premium + autres possibilités
+	- Prob multi browser : sign-in sign-up
+	- Repenser créer compte: nom + email + mot de passe
 
 - Sugg : comment ajouter fichier config à l'app : son, confetti, dark mode ?
 
+- LOGIN LOGIC :
+	création de compte - pas de login page
+	Avoir compte  : login : chercher bd ,
+	réponse : eleve() 
 
 Menus :
 	|Guest			|	Registred	|	Registred(expired)	|	Demande		|PREMIUM	|
