@@ -1,15 +1,12 @@
-- Sugg : no free-min : changer menu
+- Sugg : no free-min : changer menu[profil+Premium]
 - Sugg : Message de bievenue après validation par émail
 - Sugg : Tous les ETATS sont gérés par le backend (menu ....)
 - PROB : voir obj user in Localstorage. les données ne sont pas de l'utilisateur actuel
-- PROB : verifier si onwindow load j'écris ql ch en LocalStorage. la page affiche tjr "en attente" meme après mail verif.
+- PROB : 	verifier si onwindow load j'écris ql ch en LocalStorage. 
+			la page affiche tjr "en attente" meme après mail verif.
 - SUGG : Loader arpès chaque appel au backEnd
 - à voir : Connection d'un autre navigateur. ==> ?? créer page login.
 - sugg : Sauvgarder (backup) les émails et les tel dans un endroit sûr
-- sugg activités:
-	- Traduction ar: vf, qcm, figures, 
-	- 3 traduction par session
-	- ajouter justification en cas de mauvaise réponse. et icône en cas de bonne rép
 
 - Traiter les cas de : 
 	- re-register avec le même émail.
@@ -27,7 +24,7 @@
 
 Menus :
 	|Guest			|	Registred	|	Registred(expired)	|	Demande		|PREMIUM	|
-	|---------------|---------------|-----------------------|---------------|---------	|
+	|--------------	|---------------|-----------------------|---------------|---------	|
 	|Créer compte	|	Premium		|	Premium				|	Code		|Profile	|
 	|				|	+10 minutes	|	+10 min(estmpé)		|	Profile     |			|
 	|				|	Profile		|   Profile				|				|			|
@@ -61,16 +58,14 @@ UX / UI
 	
 !!!!!!!!!!! Vérifier : qcm bam; il reste bcp de question commentées
 
+visiteur - il créer compte - il a des minutes.
+il se connecte d'un autre ordi : boutton login.
+il se déconnecte et se reconnecte 
 
-DONE : figure DB : éliminer phrases sans explication
-DONE : suggestions : lier à la firebase
-DONE : résumé
-DONE : nbrQst, nbrSessions
-DONE : Loader added
+Menu
 
-- creerCompte route:
-	- Envoyer email verification		FAIT
-	- verifier-email route:				FAIT
-	- Comment répondre le frontEnd ?	FAIT
-	- changer modal: locked				FAIT
-	- Logique freeMins token			FAIT
+Boutton héro
+
+Les états utilisateur : 
+
+1re visite : Créer compte ou Login

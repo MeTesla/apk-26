@@ -74,8 +74,8 @@ export function login() {
     
   document.body.appendChild(div);
   const btnLogin = document.querySelector('.btn-login');
-  btnLogin.onclick = function (e, div) {
-      submitLogin(e);
+  btnLogin.onclick = function (e) {
+      submitLogin(e,div);
     };
   const btnAnnuler= document.querySelector('.buttons-login .annuler')
   btnAnnuler.onclick=function(){div.remove()}
@@ -105,10 +105,7 @@ export function login() {
         const objElv={nom, prenom, email, tel, freeMins}
         localStorage.setItem('profile', JSON.stringify(objElv))
         
-        //document.querySelector('.user-menu').remove()
-        // generateMenu(data.role, document.querySelector('.menu'),document.querySelector('.menu'))
-        console.log(data)
-        //div.remove()
+        window.location.reload()
       } else{
         console.log(data);
         

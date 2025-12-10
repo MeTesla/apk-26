@@ -31,7 +31,8 @@
         <img src="./assets/img/euduka.png" alt="" />        
       </div>
       <div class="menu">
-        <i class="fa-solid fa-bars"></i>        
+        <i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-user"></i>        
       </div>
 
     <style>
@@ -53,15 +54,21 @@
 
         .nav .menu{
           position: relative;
+          display: flex;
+          align-items: center;
+          border: 1px solid gray;
+          border-radius: 20px;
+          padding: 5px 10px;
         }
         .nav .menu svg{
-          font-size: 1.7rem;
+          color: rgb(46, 45, 45);
+          font-size: 1.3rem;
           cursor: pointer;
         }
         .nav .menu .user-menu{
           z-index: 33;
           position: absolute;
-          top : 100%; right: 0px; 
+          top : 105%; right: 0px; 
           /* 100% c'est nouveau pour MOI */
           border-radius:10px;
           overflow: hidden;
@@ -72,16 +79,26 @@
         .nav .menu .user-menu.show{
           display: block;
         }
-        .nav .menu .user-menu div{      
-          padding: 10px;
-          background-color: #d1e7f8;
+        .nav .menu .user-menu div{     
+         
           display: flex;
           align-items: center;
-          gap: 15px;
+        }
+        .nav .menu .user-menu div img{
+          margin-right: 10px;
+        }
+        .nav .menu .user-menu div div{
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          padding: 10px;
+          background-color: #d1e7f8;
           transition: 0.3s;
         }
-        .nav .menu .user-menu div:hover{
+        .nav .menu .user-menu div :hover{
           background-color: #afd7f8;
+          cursor: pointer;
         }
          .nav .menu .user-menu div img{
           width: 30px;
@@ -93,6 +110,12 @@
         .nav .menu .user-menu div.show, 
         .nav .menu .user-menu div.show{
           display: block;
+        }
+        .user-menu .premium, .user-menu .free-mins, 
+        .user-menu .menu-profile, .user-menu .menu-logout{        
+          cursor: pointer;
+          display: flex;
+          flex-direction: row !important;
         }
         .creer-compte-page{
           position: fixed;

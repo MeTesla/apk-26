@@ -38,6 +38,9 @@ export function profile(){
                 padding: 10px;
                 border-radius: 5px;
             }
+            .user-profile h4{
+                margin-top: 20px;
+            }
             .reset{
                 width: 160px;
                 padding:10px;

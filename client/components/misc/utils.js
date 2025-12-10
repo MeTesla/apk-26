@@ -138,9 +138,22 @@ import { login } from './login.js'
         break;
       case 'registred':
         div.innerHTML=`
-          <div class="premium"><img src="./assets/img/diamond.png" /><span>Premium</span></div> 
-          <div class="free-mins"><img src="./assets/img/freeMins.png" /><span>+10 minutes</span></div>  
-          <div class="menu-profile"><img src="./assets/img/profile.png" /><span>Profile</span> </div>`
+          <div class="premium">
+            <img src="./assets/img/diamond.png" />
+            <span>Premium</span>
+          </div> 
+          <div class="free-mins">
+            <img src="./assets/img/freeMins.png" />
+            <span>+10 minutes</span>
+          </div>  
+          <div class="menu-profile">
+            <img src="./assets/img/profile.png" />
+            <span>Profile</span>
+          </div>
+          <div class="menu-logout">
+            <img src="./assets/img/logout.png" />
+            <span>Se déconnecter</span>
+          </div>`
         break;
       case'premium' :
         div.innerHTML=`
@@ -149,7 +162,16 @@ import { login } from './login.js'
         break;
       default : 'guest'
         div.innerHTML = `
-        <div class="creer-compte"><img src="./assets/img/creerCompte.png" /><span>Créer un compte</span></div>`
+        <div>
+          <div class="creer-compte">
+            <img src="./assets/img/creerCompte.png" />
+            <span>Créer un compte</span>
+          </div>
+          <div class="login">
+            <img src="./assets/img/creerCompte.png" />
+            <span>Login</span>          
+          </div>
+        </div>`
         break;
     } 
 
@@ -157,6 +179,7 @@ import { login } from './login.js'
       const userMenu= document.querySelector('.nav .menu .user-menu')
       
       const compte=document.querySelector('.menu .creer-compte')
+      const loginBtn=document.querySelector('.menu .login')
       const menuProfile= document.querySelector('.menu-profile')
       const freeM= document.querySelector('.free-mins')
       const premium = document.querySelector('.premium')
@@ -171,6 +194,9 @@ import { login } from './login.js'
       })
       compte && compte.addEventListener('click', ()=>{
         creerCompte()    
+      })
+      loginBtn && loginBtn.addEventListener('click', ()=>{
+        login()    
       })
       premium && premium.addEventListener('click', ()=>{
         modalDevenirPremium()
