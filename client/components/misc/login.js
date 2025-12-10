@@ -1,4 +1,4 @@
-import { creerCompte } from './utils.js';
+import { creerCompte, toast } from './utils.js';
 //import { generateMenu } from './misc/utils.js';
 export function login() {
     const div = document.createElement('div');
@@ -109,7 +109,7 @@ export function login() {
       } else{
         console.log(data);
         
-        alert(data.message)
+        toast(data.message)
       } 
   }
 }

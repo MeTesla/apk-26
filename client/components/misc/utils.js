@@ -3,6 +3,7 @@ import { profile } from './profile.js'
 import { modalDevenirPremium, modalFreeMins } from './modals.js'
 import { login } from './login.js'
 
+
   export function creerCompte(){
       //if(localStorage.getItem('token')) return
       const modal = document.createElement('div')
@@ -97,7 +98,6 @@ import { login } from './login.js'
   }
 
 
-
 // ------------  Get free MINs -----------
   async function freeMins(){
     const url='http://localhost:3000'
@@ -124,6 +124,7 @@ import { login } from './login.js'
     }
   }
 //-----------------FIN Get free MINs-----------
+
 
 // ------------- Générer le menu utilisateur --------------
   export function generateMenu(typeAccount, pere, menu){
@@ -152,7 +153,7 @@ import { login } from './login.js'
           </div>
           <div class="menu-logout">
             <img src="./assets/img/logout.png" />
-            <span>Se déconnecter</span>
+            <span class="logout">Se déconnecter</span>
           </div>`
         break;
       case'premium' :
@@ -183,6 +184,7 @@ import { login } from './login.js'
       const menuProfile= document.querySelector('.menu-profile')
       const freeM= document.querySelector('.free-mins')
       const premium = document.querySelector('.premium')
+      const logout = document.querySelector('.logout')
       
       freeM && freeM.addEventListener('click',()=>{
         freeMins()
@@ -201,6 +203,14 @@ import { login } from './login.js'
       premium && premium.addEventListener('click', ()=>{
         modalDevenirPremium()
       })
+
+      logout && logout.addEventListener('click', ()=>{
+        localStorage.removeItem('token')
+        localStorage.removeItem('role')
+        localStorage.removeItem('profile')
+        document.location.reload()        
+      })
+      
       // show hide menu + Type menus
       menu.addEventListener('click',(e)=>{
         e.stopPropagation()
@@ -212,6 +222,7 @@ import { login } from './login.js'
     return div
   }
 // ------------- FIN Générer le menu utilisateur ----------
+
 
   export function confet(){
     confetti({

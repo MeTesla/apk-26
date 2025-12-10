@@ -10,10 +10,28 @@ export function profile(){
         <div class= "ligne"> Prenom :</div> <h3>${objElv.prenom}</h3>
         <div class= "ligne"> Email :</div> <h3>${objElv.email}</h3>
         <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv.freeMins)*5}</h3>
-        <h2> Résultats</h2>
-        <h4>QCM </h4>
-        <div> ${JSON.parse(localStorage.getItem('resultatQcm'))?.score|| '0'} </div>
-        <div class="reset">Supprimer Profile</div>
+        <div>
+            <h4> Mes résultats </h4>
+            <div class="res-container">
+                <div class="qcm-res">
+                    <h4>QCM</h4>
+                    <div> ${JSON.parse(localStorage.getItem('resultatQcm'))?.score|| '0'} </div>
+                </div>
+                <div class="v-f-res">
+                    <h4>Vrai/Faux</h4>
+                    <div> ${JSON.parse(localStorage.getItem('resultatVf'))?.score|| '0'} </div>
+                </div>
+                <div class="remplir-res">
+                    <h4>Remplir les blancs</h4>
+                    <div> ${JSON.parse(localStorage.getItem('resultatRemplir'))?.score|| '0'} </div>
+                </div>
+                <div class="associer-res">
+                    <h4>Associer</h4>
+                    <div> ${JSON.parse(localStorage.getItem('resultatAssocier'))?.score|| '0'} </div>
+                </div>
+            </div>
+        </div>
+       
         <style>
             .user-profile{
                 position: fixed;
@@ -41,10 +59,12 @@ export function profile(){
             .user-profile h4{
                 margin-top: 20px;
             }
-            .reset{
-                width: 160px;
-                padding:10px;
-                background-color: red;
+            .res-container{
+                display: flex;
+                gap: 20px;
+            }
+            .res-container > div{
+                border: 1px solid gray;
             }
         </style>
         </div>`
@@ -57,8 +77,4 @@ export function profile(){
         div.remove()
     })
 
-    const reset = document.querySelector('.reset')
-    reset.addEventListener('click',()=>{
-        localStorage.clear()
-    })
 }

@@ -66,17 +66,21 @@ app.post('/login', async (req, res) => {
         success: false,
         message: 'Email et mot de passe sont requis'
     })
-    const eleve = await EleveModel.findOne({email})
-    if(!eleve) return res.json({
-        success: false,
-        message: 'Aucun compte associé à cet email. Veuillez créer un compte'
-    })
-    // if(eleve.password !== password) return res.json({
-    //     success: false,
-    //     message: 'Mot de passe incorrect'
-    // })
+    try {
+        const eleve = await EleveModel.findOne({email})
+        if(!eleve) return res.json({
+            success: false,
+            message: 'Aucun compte associé à cet émail. Veuillez créer un compte'
+        })
+        // if(eleve.password !== password) return res.json({
+        //     success: false,
+        //     message: 'Mot de passe incorrect'
+        // })
 
-    return res.json({eleve, success:true, titre: eleve.role})
+        return res.json({eleve, success:true, titre: eleve.role})
+    } catch (error) {
+        res.json({success:false, message: 'Erreur serveur. Veuillez réessayer plus tard'})
+    }    
 })
 // Vérifier email
 app.post('/verifier-email', async(req,res)=>{
