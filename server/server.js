@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
+
+
 const EleveModel = require('./EleveModel')
 const jwt = require('jsonwebtoken') 
 const cors = require('cors')
@@ -16,6 +18,26 @@ app.use(express.json())
 
 
 const { postEmail, prepareData } = require('./utils');
+
+// ----------------------------------
+// Configuration de EJS comme moteur de template
+app.set('view engine', 'ejs');
+// Exemple de données des élèves
+const eleves = [
+    { nom: 'Dupont', prenom: 'Jean', age: 20 },
+    { nom: 'Martin', prenom: 'Sophie', age: 22 },
+    { nom: 'Tremblay', prenom: 'Julien', age: 19 },
+];
+
+// Route pour l'admin
+app.get('/admin', (req, res) => {
+    // Envoi du template et des données des élèves
+    res.render('admin', { eleves: eleves });
+});
+// ----------------------------------
+
+
+
 
 const SECRET_KEY = 'mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
@@ -82,6 +104,7 @@ app.post('/login', async (req, res) => {
         res.json({success:false, message: 'Erreur serveur. Veuillez réessayer plus tard'})
     }    
 })
+
 // Vérifier email
 app.post('/verifier-email', async(req,res)=>{
     //AJOUTER : Votre compte est déjà actié. ne rien faire.
@@ -260,10 +283,15 @@ app.get('/', auth, (req, res) => {
 })
 
 //Admin dashboard
-app.post('/admin', () => {
-    // verifier email et password dans BD
-    // envoyer HTML template du dashboard avec data 
-})
+// app.post('/admin', () => {
+//     /*
+//         1- envoyer HTML template de login page admin (password)
+//         2- verifier password
+//         3- envoyer HTML template du dashboard admin avec data (list des eleves, stats, etc)
+
+//     */
+   
+// })
 
 //DB connection
 mongoose.connect(URL)

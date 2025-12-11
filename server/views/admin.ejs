@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Gestion des Élèves</title>
+</head>
+<body>
+    <h1>Tableau des Élèves</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% eleves.forEach(elève => { %>
+                <tr>
+                    <td><%= elève.nom %></td>
+                    <td><%= elève.prenom %></td>
+                    <td><%= elève.age %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: yellow;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</body>
+</html>
