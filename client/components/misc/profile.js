@@ -6,6 +6,7 @@ export function profile(){
     const div=document.createElement('div')
     div.className="user-profile"
     div.innerHTML =`<div class="profile-container">
+        <img class="profile-previous" src="./assets/img/previous.svg" alt="Previous"/>
         <div class= "ligne"> NOM :</div> <h3>${objElv.nom}</h3>
         <div class= "ligne"> Prenom :</div> <h3>${objElv.prenom}</h3>
         <div class= "ligne"> Email :</div> <h3>${objElv.email}</h3>
@@ -33,6 +34,7 @@ export function profile(){
         </div>
        
         <style>
+
             .user-profile{
                 position: fixed;
                 top: 0; left: 0;
@@ -50,6 +52,22 @@ export function profile(){
                 align-items: center;
                 justify-content: center;
             }
+
+            .profile-previous{
+                width: 30px; height: 30px;
+                padding: 5px;
+                border: 1px solid gray;
+                border-radius: 50%;
+                cursor: pointer;
+                align-self: flex-start;
+                margin-bottom: 20px;
+                transition: background-color 0.3s ease;
+            }
+            
+            .profile-previous:hover{
+                background-color: rgb(240,240,240);
+            }
+                
             .ligne{
                 width: 100%;
                 background-color: rgb(220,220,220);
@@ -61,17 +79,21 @@ export function profile(){
             }
             .res-container{
                 display: flex;
+                flex-wrap: wrap;
                 gap: 20px;
             }
             .res-container > div{
+                width: 20%;
                 border: 1px solid gray;
+                text-align: center;
+
             }
         </style>
         </div>`
     document.body.style.overflow="hidden"
     document.body.appendChild(div)
 
-    const userProfile = document.querySelector('.user-profile')
+    const userProfile = document.querySelector('.profile-previous')
     userProfile.addEventListener('click', ()=>{
         document.body.style.overflow="auto"
         div.remove()
