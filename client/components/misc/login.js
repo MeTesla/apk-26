@@ -105,7 +105,7 @@ export function login() {
         const objElv={nom, prenom, email, tel, freeMins}
         localStorage.setItem('profile', JSON.stringify(objElv))
         toast("Connecté avec succès")
-        setTimeout(()=> window.location.reload(), 1200)        
+        setTimeout(()=> window.location.reload(), 800)        
       } else{      
         toast(data.message)
       } 

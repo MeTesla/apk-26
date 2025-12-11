@@ -76,7 +76,14 @@ function calculerTempsRestant(dateDonnee) {
   return {mois: mois, jours: jours, heures: heures}//`${mois} : ${jours} : ${heures}`;
 }
 
-
+// Langue 
+const langue=document.querySelectorAll('.langue')[1]
+langue.addEventListener('click', async()=>{
+  const reponse = await fetch('http://localhost:3000/admin')
+  const data = await reponse.text()
+  document.body.innerHTML=data  
+})
+        
 //---------- Suggestion FIREBASE -----------
 const nom= document.getElementById('nom')
 const suggest= document.getElementById('suggest')

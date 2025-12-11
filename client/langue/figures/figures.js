@@ -297,7 +297,9 @@ export function qcmFigures(bloc){
 
     <div class="explication">
       <div class="explication-msg"> </div>
-      <div class="suivant"></div>
+      <div class="suivant">
+        <img src="./assets/img/next.svg" alt="suivant">
+      </div>
     </div>
     
     <div class="score">00</div>
@@ -404,13 +406,10 @@ export function qcmFigures(bloc){
 .explication-msg{
 flex-basis: 90%}
 
-.suivant{
+.suivant img{
   width: 30px; 
   height: 30px;
-  border: 1px solid gray;
-  background-image: url(../../assets/img/diamond.png);
-  background-size: 20px;
-  background-repeat: no-repeat; 
+  
   flex-basis: 10%;
 }
       </style>`

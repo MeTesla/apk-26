@@ -139,37 +139,41 @@ import { login } from './login.js'
         break;
       case 'registred':
         div.innerHTML=`
-          <div class="premium">
-            <img src="./assets/img/diamond.png" />
-            <span>Premium</span>
-          </div> 
-          <div class="free-mins">
-            <img src="./assets/img/freeMins.png" />
-            <span>+10 minutes</span>
-          </div>  
-          <div class="menu-profile">
-            <img src="./assets/img/profile.png" />
-            <span>Profile</span>
-          </div>
-          <div class="menu-logout">
-            <img src="./assets/img/logout.png" />
-            <span class="logout">Se déconnecter</span>
+          <div class="registred">
+            <div class="premium">
+              <img src="./assets/img/diamond.png" />
+              <span>Premium</span>
+            </div>           
+            <div class="free-mins">
+              <img src="./assets/img/freeMins.png" />
+              <span>+10 minutes</span>
+            </div>  
+            <div class="menu-profile">
+              <img src="./assets/img/profile.png" />
+              <span>Profile</span>
+            </div>
+            <div class="menu-logout">
+              <img src="./assets/img/logout.png" />
+              <span class="logout">Se déconnecter</span>
+            </div>
           </div>`
         break;
       case'premium' :
         div.innerHTML=`
-          <div>Le code</div> 
-          <div>Profile</div>`
+          <div class="premium">
+            <div>Le code</div> 
+            <div>Profile</div>
+          </div>`
         break;
       default : 'guest'
         div.innerHTML = `
-        <div>
+        <div class="menu-compte">
           <div class="creer-compte">
             <img src="./assets/img/creerCompte.png" />
             <span>Créer un compte</span>
           </div>
           <div class="login">
-            <img src="./assets/img/creerCompte.png" />
+            <img src="./assets/img/login.png" />
             <span>Login</span>          
           </div>
         </div>`

@@ -46,7 +46,9 @@
           display: flex; 
           justify-content: space-between;
           align-items: center;
-          padding: 25px;
+          padding: 10px 25px;
+          background-color: #cab9f9;
+          box-shadow: 0 0px 2px rgb(191, 129, 245);
         }
         .accueil img{
           width: 60px;
@@ -77,17 +79,18 @@
           /* 100% c'est nouveau pour MOI */
           border-radius:10px;
           overflow: hidden;
-          width: 200px;
+          width: 200px;        
           display: none;
-          background-color: beige;
         }
         .nav .menu .user-menu.show{
           display: block;
         }
-        .nav .menu .user-menu div{     
-         
+        .nav .menu .user-menu div{         
           display: flex;
+          flex-direction: column;
+          padding: 5px;
           align-items: center;
+          transition: 0.3s;
         }
         .nav .menu .user-menu div img{
           margin-right: 10px;
@@ -101,8 +104,8 @@
           background-color: #d1e7f8;
           transition: 0.3s;
         }
-        .nav .menu .user-menu div :hover{
-          background-color: #afd7f8;
+        .nav .menu .user-menu div div:hover{
+          background-color: #94cdfc;
           cursor: pointer;
         }
          .nav .menu .user-menu div img{
@@ -504,7 +507,7 @@
       <span>Apprendre</span> 
       <span>S'amuser</span>
       <span>Réviser</span>
-      <span>langue</span>
+      <span class="langue">langue</span>
       <style>
         .exo-type{
           width: 80%;
@@ -540,15 +543,17 @@
     }
       </style>
       <script>
-        const exoType=document.querySelectorAll('.exo-type span')
-        exoType.forEach(exo=>{
-          exo.onclick=()=>{
-            exo.classList.add('active')
-            setTimeout(() => {
-              exo.classList.remove('active');
-            }, 500)
-          }
-        })
+        // const exoType=document.querySelectorAll('.exo-type span')
+        // exoType.forEach(exo=>{
+        //   exo.onclick=()=>{
+        //     exo.classList.add('active')
+        //     console.log('mqmldf');
+            
+        //     setTimeout(() => {
+        //       exo.classList.remove('active');
+        //     }, 500)
+        //   }
+        // })
      </script>
     </section>
     
