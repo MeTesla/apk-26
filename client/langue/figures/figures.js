@@ -284,30 +284,29 @@ export function qcmFigures(bloc){
     
     function codeHtml(){
       const html =`${entete()}
-  <div class="figure-wrapper">
-    
-    <div class="qst">
-      <p></p>
-    </div>
-    <div class="les-choix">
-      <div class="choix c1"></div>
-      <div class="choix c2"></div>
-      <div class="choix c3"></div>
-    </div>
+      <div class="figure-wrapper">
+        <div class="qst">
+          <p></p>
+        </div>
+        <div class="les-choix">
+          <div class="choix c1"></div>
+          <div class="choix c2"></div>
+          <div class="choix c3"></div>
+        </div>
 
-    <div class="explication">
-      <div class="explication-msg"> </div>
-      <div class="suivant">
-        <img src="./assets/img/next.svg" alt="suivant">
+        <div class="explication">
+          <div class="explication-msg"> </div>
+          <div class="suivant">
+            <img src="./assets/img/next.svg" alt="suivant">
+          </div>
+        </div>
+        
+        <div class="score">00</div>
+
+        <div class="q-foot"> 
+          <div class="valider">Valider</div>    
+        </div>
       </div>
-    </div>
-    
-    <div class="score">00</div>
-
-    <div class="q-foot"> 
-      <div class="valider">Valider</div>    
-    </div>
-  </div>
   <style>
 .fermerImg{
   width: 30px;

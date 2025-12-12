@@ -42,7 +42,6 @@ let index=0, nbrQst =10, nbrSession=1
 
 // convert text to an array of objects
 let myArray= data.split('\n')
-
 let arrayOfObj=[]
 let myObj={}
 for(let i=0; i<myArray.length;i+=5){
@@ -63,6 +62,7 @@ for (let i = index; i < index + nbrQst; i++) {
   questions.push(arrayOfObj[i])
 }
 
+// DOM / UI
 loadQst()
 function loadQst(){
   selection()
@@ -79,7 +79,7 @@ function loadQst(){
   choix2.innerText = question[1]
   choix3.innerText = question[2]
   
-  // TEST des réponses faites
+    // TEST des réponses faites
   if (repondu.includes(currentQuestion+1)){
       valider.style.opacity="0.6"
       valider.removeEventListener('click',valid)
@@ -99,7 +99,7 @@ function loadQst(){
   if(answered==true) return
   choosenQuestion = item
   selection()
-  //Ce code marche : for(let choix of mesChoix){choix.classList.remove('selected')}
+  // Ce code marche : for(let choix of mesChoix){choix.classList.remove('selected')}
   item.classList.add('selected')
   let audio = new Audio()
   audio.volume=0.1
@@ -238,6 +238,9 @@ function codeHtml(){
   src: url(../assets/fonts/josefin.ttf);
 }
 
+.quiz-container{
+  padding-bottom: 20px;
+}
 .q-head .progress-bar{
    width:300px;
    height: 10px;
@@ -279,7 +282,7 @@ function codeHtml(){
 }
 .les-choix{
   height:180px;
-}
+} 
 .c1, .c2, .c3{
   color: var(--secf);
   background-color: var(--pr);
@@ -289,7 +292,11 @@ function codeHtml(){
   margin: 10px auto;
   border-radius: 10px;
   font-size: 0.9rem;
+  cursor: pointer;
   transition: .2s;
+}
+.c1:hover, .c2:hover, .c3:hover{
+  border: 1px solid #8482823e;
 }
 .selected{
   color: var(--secf);
@@ -308,7 +315,7 @@ function codeHtml(){
   font-size: 1.4rem;
   font-weight: bold;
   color: white;
-  margin: 0px auto;
+  margin: -20px auto;
   width: 50px;
   height: 50px;
   line-height: 50px;
@@ -322,7 +329,7 @@ function codeHtml(){
    display: flex;
    justify-content: center ;
    align-items: center;
-   margin: auto ;
+   margin: -10px auto ;
    width: 100%;
 }
 
@@ -338,6 +345,7 @@ function codeHtml(){
 
 .suivant, .precedent{
   position: relative;
+  cursor: pointer;
 }
 .suivant span, .precedent span{
   display:none;

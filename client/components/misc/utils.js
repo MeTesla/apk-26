@@ -132,10 +132,10 @@ import { login } from './login.js'
     div.className="user-menu"     
     switch (typeAccount) {
       case'attenteR' :
-        div.innerHTML=` <div>
+        div.innerHTML=`<div><div>
           <img src="./assets/img/verifyEmail.png" />
           <span>En attente</span>
-        </div>`          
+        </div></div>`          
         break;
       case 'registred':
         div.innerHTML=`

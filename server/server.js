@@ -136,7 +136,8 @@ app.post('/verifier-email', async(req,res)=>{
         return res.json({success : true, 
             message: 'exist', 
             eleveUpdated, 
-            token:generateToken(eleve.email, 1)})    
+            token:generateToken(eleve.email, 3*60*24)})  
+            // générer token de 3 jours : 3*60*24  
     } else{
         return res.json({
             succuess:false,
@@ -173,10 +174,16 @@ const freeMinsMiddleware = async (req, res, next) => {
     
     const email = payload.email
     const eleve = await EleveModel.findOne({email})    
-    if (!eleve || (eleve.role=='attenteR')) return res.json({success: false,
+    if (!eleve) return res.json({success: false,
             titre: 'noEleve',
+            // Je dois gérer le cas d'un élève qui n'a pas vérifié son email, cas larbi@larbi.co
+            // Token evoyé par émail dois avoir une durée de validité plus longue (4jours)
             message: 'Vous n\'avez pas de compte. Veuillez vous enregistrer !',
-        })
+    })
+    if(eleve.role=='attenteR') return res.json({success: false,
+        titre: 'notVerified',
+        message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !',
+    })
     
     console.log('3');
     const { freeMins, dateFreeMin } = eleve

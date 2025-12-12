@@ -37,12 +37,12 @@ export function profile(){
 
             .user-profile{
                 position: fixed;
-                top: 0; left: 0;
+                top: 54px; left: 0;
                 width:100%;
                 height: 100%;                
-                background-color: white;
+                background-color: #eee;
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: center;
             }
             .profile-container{
