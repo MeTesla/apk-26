@@ -13,11 +13,34 @@
 - Sugg : comment ajouter fichier config à l'app : son, confetti, dark mode ?
 - Sugg : Sauvgarder (backup) les émails et les tel dans un endroit sûr
 
-
-
 - Repenser créer compte: nom + email + mot de passe
+
+PREMIUM 
+	1- Créer un compte
+	2- Utiliser gratuitement l'application pour une durée limitée
+	3- Acheter un compte Premium sans limite
+	4- 
+
+	###Devenir PREMIUM || Passer PREMIUM
+	## Préparez-vous à l'examen régional || Bénéficier d'un accès illimité à tout le matériel pour préparer votre régional
+
+	###Vos avantages (centre)
+		+600 questions sur les oeuvres
+		+300 exemples de figures de style
+		+50 productios écrites expiquées
+		+20 examens régionaux expliqués et corrigés
+		Un simulateur de l'examen régional
 	
-Premium
+	Comment passer PREMIUM ? 
+		icone vidéo youtube
+	
+	Questions fréquement posées :
+		- Combien de temps j'utilise mon compte premium ?
+		- Est-ce qu'il y a moyen de vous contacter ?
+		- Ce site est-il suffisant pour bien préparer mon régional ?
+		- En cas de perte de mon compte, comment puis-je le récupérer ?
+
+	
 	Modal vs page
 	index : Section carrousel Premium
 
