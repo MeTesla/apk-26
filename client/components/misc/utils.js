@@ -4,11 +4,11 @@ import { modalDevenirPremium, modalFreeMins } from './modals.js'
 import { login } from './login.js'
 
 
-  export function creerCompte(){
-      //if(localStorage.getItem('token')) return
-      const modal = document.createElement('div')
-      modal.className="creer-compte-page"
-      modal.innerHTML=`<div class="form-container" style="display:nnone">
+export function creerCompte() {
+  //if(localStorage.getItem('token')) return
+  const modal = document.createElement('div')
+  modal.className = "creer-compte-page"
+  modal.innerHTML = `<div class="form-container" style="display:nnone">
       <form class="form">
           <h2>Créer un compte</h2>
           <input  type="text" class="nom" required placeholder="Votre nom" name="nom" id="">
@@ -57,88 +57,88 @@ import { login } from './login.js'
       }
       </style>
         </div>`
-      document.body.appendChild(modal)
+  document.body.appendChild(modal)
 
-      const annuler = document.querySelector('.annuler')
-      annuler.onclick=function(){modal.remove()   }
+  const annuler = document.querySelector('.annuler')
+  annuler.onclick = function () { modal.remove() }
 
-      const envoyer = document.querySelector('.envoyer')
-      envoyer.onclick= function(){submitCreerCompte()}
+  const envoyer = document.querySelector('.envoyer')
+  envoyer.onclick = function () { submitCreerCompte() }
 
-      const loginLink = document.querySelector('.login-link')
-      loginLink.onclick= function(){
-        modal.remove()
-        login()
-      }
+  const loginLink = document.querySelector('.login-link')
+  loginLink.onclick = function () {
+    modal.remove()
+    login()
   }
+}
 
-  async function submitCreerCompte(){
-      const nom = document.querySelector('.nom').value        
-      const prenom = document.querySelector('.prenom').value        
-      const email = document.querySelector('.email').value        
-      const tel = document.querySelector('.tel').value        
-      // e.preventDefault()
-    //  const url = 'https://euduka.vercel.app'      
-     const url ='http://localhost:3000'
-      const reponse = await fetch(url + '/creer-compte',{
-            method: "POST",
-            headers:{"content-type": "application/json"},
-            body: JSON.stringify({nom, prenom, email, tel})
-          })    
-      const data = await reponse.json()      
-      if(data.success){      
-        localStorage.setItem('role', data.role)            
-        document.querySelector('.user-menu').remove()
-        generateMenu(data.role, document.querySelector('.menu'),document.querySelector('.menu'))
-        modalFreeMins(true, data.message, 'verifyEmail')
-        document.querySelector('.creer-compte-page').remove()
-      } else{
-        modalFreeMins(false, data.message, 'failed')      
-      }
+async function submitCreerCompte() {
+  const nom = document.querySelector('.nom').value
+  const prenom = document.querySelector('.prenom').value
+  const email = document.querySelector('.email').value
+  const tel = document.querySelector('.tel').value
+  // e.preventDefault()
+  //  const url = 'https://euduka.vercel.app'      
+  const url = 'http://localhost:3000'
+  const reponse = await fetch(url + '/creer-compte', {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ nom, prenom, email, tel })
+  })
+  const data = await reponse.json()
+  if (data.success) {
+    localStorage.setItem('role', data.role)
+    document.querySelector('.user-menu').remove()
+    generateMenu(data.role, document.querySelector('.menu'), document.querySelector('.menu'))
+    modalFreeMins(true, data.message, 'verifyEmail')
+    document.querySelector('.creer-compte-page').remove()
+  } else {
+    modalFreeMins(false, data.message, 'failed')
   }
+}
 
 
 // ------------  Get free MINs -----------
-  async function freeMins(){
-    const url='http://localhost:3000'
-    // const url ='https://euduka.vercel.app'
-    const reponse = await fetch(url+'/freeMins', {
-      method: "GET",
-      headers:{
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem('token')|| ""
-      }
-    })
-    const data = await reponse.json()
-    if(data.token){
-      localStorage.setItem('token', data.token)
-      console.log(data);
-      
-      const {nom, prenom, email, tel, freeMins} = data.eleveUpdated      
-      const objElv={nom, prenom, email, tel, freeMins}
-      localStorage.setItem('profile', JSON.stringify(objElv))
-
-      modalFreeMins(data.success, data.message, 'winner')
-    } else{
-      modalFreeMins(data.success, data.message)
+async function freeMins() {
+  const url = 'http://localhost:3000'
+  // const url ='https://euduka.vercel.app'
+  const reponse = await fetch(url + '/freeMins', {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: localStorage.getItem('token') || ""
     }
+  })
+  const data = await reponse.json()
+  if (data.token) {
+    localStorage.setItem('token', data.token)
+    console.log(data);
+
+    const { nom, prenom, email, tel, freeMins } = data.eleveUpdated
+    const objElv = { nom, prenom, email, tel, freeMins }
+    localStorage.setItem('profile', JSON.stringify(objElv))
+
+    modalFreeMins(data.success, data.message, 'winner')
+  } else {
+    modalFreeMins(data.success, data.message)
   }
+}
 //-----------------FIN Get free MINs-----------
 
 
 // ------------- Générer le menu utilisateur --------------
-  export function generateMenu(typeAccount, pere, menu){
-    const div = document.createElement('div')
-    div.className="user-menu"     
-    switch (typeAccount) {
-      case'attenteR' :
-        div.innerHTML=`<div><div>
+export function generateMenu(typeAccount, pere, menu) {
+  const div = document.createElement('div')
+  div.className = "user-menu"
+  switch (typeAccount) {
+    case 'attenteR':
+      div.innerHTML = `<div><div>
           <img src="./assets/img/verifyEmail.png" />
           <span>En attente</span>
-        </div></div>`          
-        break;
-      case 'registred':
-        div.innerHTML=`
+        </div></div>`
+      break;
+    case 'registred':
+      div.innerHTML = `
           <div class="registred">
             <div class="premium">
               <img src="./assets/img/diamond.png" />
@@ -157,16 +157,16 @@ import { login } from './login.js'
               <span class="logout">Se déconnecter</span>
             </div>
           </div>`
-        break;
-      case'premium' :
-        div.innerHTML=`
+      break;
+    case 'premium':
+      div.innerHTML = `
           <div class="premium">
             <div>Le code</div> 
             <div>Profile</div>
           </div>`
-        break;
-      default : 'guest'
-        div.innerHTML = `
+      break;
+    default: 'guest'
+      div.innerHTML = `
         <div class="menu-compte">
           <div class="creer-compte">
             <img src="./assets/img/creerCompte.png" />
@@ -177,72 +177,72 @@ import { login } from './login.js'
             <span>Login</span>          
           </div>
         </div>`
-        break;
-    } 
-
-      pere.appendChild(div)
-      const userMenu= document.querySelector('.nav .menu .user-menu')
-      
-      const compte=document.querySelector('.menu .creer-compte')
-      const loginBtn=document.querySelector('.menu .login')
-      const menuProfile= document.querySelector('.menu-profile')
-      const freeM= document.querySelector('.free-mins')
-      const premium = document.querySelector('.premium')
-      const logout = document.querySelector('.logout')
-      
-      freeM && freeM.addEventListener('click',()=>{
-        freeMins()
-      })
-      
-      menuProfile?.addEventListener('click', ()=>{
-        profile()
-        
-      })
-      compte && compte.addEventListener('click', ()=>{
-        creerCompte()    
-      })
-      loginBtn && loginBtn.addEventListener('click', ()=>{
-        login()    
-      })
-      premium && premium.addEventListener('click', ()=>{
-        modalDevenirPremium()
-      })
-
-      logout && logout.addEventListener('click', ()=>{
-        localStorage.removeItem('token')
-        localStorage.removeItem('role')
-        localStorage.removeItem('profile')
-        document.location.reload()        
-      })
-      
-      // show hide menu + Type menus
-      menu.addEventListener('click',(e)=>{
-        e.stopPropagation()
-        userMenu.classList.toggle('show')
-      })     
-      document.body.onclick=()=> userMenu.classList.contains('show') && userMenu.classList.remove('show')
-      document.body.onscroll=()=> (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
-      
-    return div
+      break;
   }
+
+  pere.appendChild(div)
+  const userMenu = document.querySelector('.nav .menu .user-menu')
+
+  const compte = document.querySelector('.menu .creer-compte')
+  const loginBtn = document.querySelector('.menu .login')
+  const menuProfile = document.querySelector('.menu-profile')
+  const freeM = document.querySelector('.free-mins')
+  const premium = document.querySelector('.premium')
+  const logout = document.querySelector('.logout')
+
+  freeM && freeM.addEventListener('click', () => {
+    freeMins()
+  })
+
+  menuProfile?.addEventListener('click', () => {
+    profile()
+
+  })
+  compte && compte.addEventListener('click', () => {
+    creerCompte()
+  })
+  loginBtn && loginBtn.addEventListener('click', () => {
+    login()
+  })
+  premium && premium.addEventListener('click', () => {
+    // modalDevenirPremium()
+    location.assign('./premium.html')
+  })
+
+  logout && logout.addEventListener('click', () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('role')
+    localStorage.removeItem('profile')
+    document.location.reload()
+  })
+
+  // show hide menu + Type menus
+  menu.addEventListener('click', (e) => {
+    e.stopPropagation()
+    userMenu.classList.toggle('show')
+  })
+  document.body.onclick = () => userMenu.classList.contains('show') && userMenu.classList.remove('show')
+  document.body.onscroll = () => (userMenu.classList.contains('show')) && userMenu.classList.remove('show')
+
+  return div
+}
 // ------------- FIN Générer le menu utilisateur ----------
 
 
-  export function confet(){
-    confetti({
-        particleCount: 100,
-        spread: 100,
-        origin: { y: 0.6 },
-    });
-  }
+export function confet() {
+  confetti({
+    particleCount: 100,
+    spread: 100,
+    origin: { y: 0.6 },
+  });
+}
 
-  export function toast(msg){
-    Toastify({
-        gravity: 'bottom',
-        text: msg,
-        className: "toast-id",
-        position:  "center",
-        close: true
-    }).showToast();
-  }
-  
+export function toast(msg) {
+  Toastify({
+    gravity: 'bottom',
+    text: msg,
+    className: "toast-id",
+    position: "center",
+    close: true
+  }).showToast();
+}

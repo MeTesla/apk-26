@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 
 const EleveModel = require('./EleveModel')
-const jwt = require('jsonwebtoken') 
+const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const app = express()
 app.use(cors({
@@ -12,7 +12,7 @@ app.use(cors({
     origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
         'https://euduka.vercel.app', 'https://euduka.page.gd',
         'http://localhost:5500'
-    ] 
+    ]
 }))
 app.use(express.json())
 
@@ -51,30 +51,31 @@ function generateToken(email, expire) {
 //-------Créer compte
 app.post('/creer-compte', async (req, res) => {
     const { nom, prenom, email, tel } = req.body
-    if(!nom || !prenom|| !email || !tel) return res.json({
+    if (!nom || !prenom || !email || !tel) return res.json({
         success: false,
-        titre:'infoManquantes',
+        titre: 'infoManquantes',
         message: 'Tous les champs sont obligatoires',
     })
-    const eleveExists= await EleveModel.findOne({email}) 
-    if(eleveExists) return res.json({
-        success:false, 
+    const eleveExists = await EleveModel.findOne({ email })
+    if (eleveExists) return res.json({
+        success: false,
         titre: 'compteExiste',
-        message: 'Vous êtes avez déjà un compte !'})
-    
-    
+        message: 'Vous êtes avez déjà un compte !'
+    })
+
+
     const today = new Date()
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
 
-    const token = await generateToken(email,3)
-    const eleve = new EleveModel({ nom, prenom, email, tel, role:'attenteR', token})
+    const token = await generateToken(email, 1) // token valide 3 jours
+    const eleve = new EleveModel({ nom, prenom, email, tel, role: 'attenteR', token })
     await eleve.save()
-    
+
     await postEmail(req, res, nom, prenom, email, token)
     return res.json({
         success: true,
-        titre:"attenteR",
+        titre: "attenteR",
         role: eleve.role,
         message: "Un mail vous a été envoyés. Pour finaliser votre inscription cliquez sur le lien du mail."
     })
@@ -84,66 +85,45 @@ app.post('/creer-compte', async (req, res) => {
 //-------Login----------------
 app.post('/login', async (req, res) => {
     const { email, password } = req.body
-    if(!email || !password) return res.json({
+    if (!email || !password) return res.json({
         success: false,
         message: 'Email et mot de passe sont requis'
     })
     try {
-        const eleve = await EleveModel.findOne({email})
-        if(!eleve) return res.json({
+        const eleve = await EleveModel.findOne({ email })
+        if (!eleve) return res.json({
             success: false,
             message: 'Aucun compte associé à cet émail. Veuillez créer un compte'
+        })
+        if (eleve.role === 'attenteR') return res.json({
+            success: false,
+            message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !'
         })
         // if(eleve.password !== password) return res.json({
         //     success: false,
         //     message: 'Mot de passe incorrect'
         // })
 
-        return res.json({eleve, success:true, titre: eleve.role})
+        return res.json({ eleve, success: true, titre: eleve.role })
     } catch (error) {
-        res.json({success:false, message: 'Erreur serveur. Veuillez réessayer plus tard'})
-    }    
+        res.json({ success: false, message: 'Erreur serveur. Veuillez réessayer plus tard' })
+    }
 })
 
 // Vérifier email
-app.post('/verifier-email', async(req,res)=>{
+app.post('/verifier-email', async (req, res) => {
     //AJOUTER : Votre compte est déjà actié. ne rien faire.
-    const {token}= req.body
-    jwt.verify(token, SECRET_KEY, (err, user) =>{           
-        if(err) return res.json({
+    const { token } = req.body
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+        if (err) return res.json({
             // navigateur: envoyer role:''
-            success:false,
+            success: false,
             role: 'attenteR',
-            message: 'Un problème est survenu: token n est pas valide'
-        })        
-    })
-   
-    const eleve = await EleveModel.findOne({token})
-
-    if(!eleve) return res.json({
-        succuss: false,
-        message: 'Un problème est survenu : pas deleve de ce nom'
+            message: 'Le lien de vérification a expiré ou est invalide.'
+        })
     })
 
-    if(eleve.token == token){
-        const eleveUpdated = await EleveModel.findOneAndUpdate({token},
-        { $set: {role: 'registred'}},
-        {
-            new: true,
-            runValidators: true
-        })
 
-        return res.json({success : true, 
-            message: 'exist', 
-            eleveUpdated, 
-            token:generateToken(eleve.email, 3*60*24)})  
-            // générer token de 3 jours : 3*60*24  
-    } else{
-        return res.json({
-            succuess:false,
-            message: 'Une erreur s\'était produite. Veuillez contacter l\'admin'
-        })
-    }
 })
 
 //delete all documents
@@ -153,69 +133,76 @@ app.delete('/delete', async (req, res) => {
 })
 
 //+10 mintues Middleware & route
-const freeMinsMiddleware = async (req, res, next) => {    
+const freeMinsMiddleware = async (req, res, next) => {
     const token = req.headers.authorization
     console.log('tok' + token);
-    
-    if (!token || (token==="")) return res.json({success: false,
-            titre: 'noToken',
-            message: 'Un problème est survenu. Veuillez contacter l\'Administareur',        
-        })    
+
+    if (!token || (token === "")) return res.json({
+        success: false,
+        titre: 'noToken',
+        message: 'Un problème est survenu. Veuillez contacter l\'Administareur',
+    })
     console.log('1');
-    
+
     const payload = jwt.decode(token);
-    if(!payload) return res.json({success: false,
-            titre: 'noPayload',
-            message: 'Un problème est survenu. Veuillez contacter l\'Administareur',        
-        })
-    console.log('2');   
+    if (!payload) return res.json({
+        success: false,
+        titre: 'noPayload',
+        message: 'Un problème est survenu. Veuillez contacter l\'Administareur',
+    })
+    console.log('2');
     req.userEmail = payload.email
     console.log(payload.email);
-    
+
     const email = payload.email
-    const eleve = await EleveModel.findOne({email})    
-    if (!eleve) return res.json({success: false,
-            titre: 'noEleve',
-            // Je dois gérer le cas d'un élève qui n'a pas vérifié son email, cas larbi@larbi.co
-            // Token evoyé par émail dois avoir une durée de validité plus longue (4jours)
-            message: 'Vous n\'avez pas de compte. Veuillez vous enregistrer !',
+    const eleve = await EleveModel.findOne({ email })
+    if (!eleve) return res.json({
+        success: false,
+        titre: 'noEleve',
+        // Je dois gérer le cas d'un élève qui n'a pas vérifié son email, cas larbi@larbi.co
+        // Token evoyé par émail dois avoir une durée de validité plus longue (4jours)
+        message: 'Vous n\'avez pas de compte. Veuillez vous enregistrer !',
     })
-    if(eleve.role=='attenteR') return res.json({success: false,
+    if (eleve.role == 'attenteR') return res.json({
+        success: false,
         titre: 'notVerified',
         message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !',
     })
-    
+
     console.log('3');
     const { freeMins, dateFreeMin } = eleve
-    
-    const now = new Date()    
+
+    const now = new Date()
     function timeStamp(d) {
         const time = d.getTime()
         return time
     }
-    
+
     // ------------1   IS VALID Token
     if ((timeStamp(dateFreeMin) + 1000 * 60) > timeStamp(now)) {
-        return res.json({success: false,
+        return res.json({
+            success: false,
             titre: 'validToken',
-            message : 'Les 15 minutes ne sont pas encore écoulées !'
+            message: 'Les 15 minutes ne sont pas encore écoulées !'
         })
-    
+
     }
     const date = new Date(dateFreeMin)
     console.log('4');
     // ------------2
     if (freeMins <= 0) {
-        return res.json({success: false,
+        return res.json({
+            success: false,
             titre: 'noMoreMins',
             message: 'Vous n\'avez plus de solde minutes. Passer Prmium',
             freeMins
-        })    
+        })
     }
     console.log('5');
     // ------------3   Same day 24H
     if (timeStamp(dateFreeMin) + (2 * 60 * 1000) > timeStamp(now)) {
-        return res.json({success: false,
+        return res.json({
+            success: false,
             titre: 'waitDay',
             message: 'Vous devez attendre 24h avant d\'avoir des minutes gratuites',
             freeMins
@@ -232,42 +219,43 @@ const freeMinsMiddleware = async (req, res, next) => {
 app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
     console.log('7');
     console.log(req.userEmail);
-    
+
     if (!res.headersSent) {
         const token = await generateToken(req.userEmail, 1)
         // --------- UPDATE DOCUMENT       
         const eleveUpdated = await EleveModel.findOneAndUpdate({ email: req.userEmail },
-        {
-            $inc: { freeMins: -1 },
-            $set: {
-                dateFreeMin: new Date(),
-                token
+            {
+                $inc: { freeMins: -1 },
+                $set: {
+                    dateFreeMin: new Date(),
+                    token
+                },
             },
-        },
-        {
-            new: true,
-            runValidators: true
-        })
-        
-        return res.json({success: true,
+            {
+                new: true,
+                runValidators: true
+            })
+
+        return res.json({
+            success: true,
             titre: 'Félicitation',
             message: 'Vous avez 15 minutes gratuites !',
             token,
             eleveUpdated
         })
-    }    
-})       
+    }
+})
 
 //MIDDLEWARE : get EXO
 const auth = async (req, res, next) => {
     // Bearer Token ???   
     //revoir la logie de ce middleware :
-    
+
     const { authorization } = req.headers
     if (!authorization) {
         return res.json('accès interdit')
     }
-    
+
     try {
         const isValidToken = jwt.verify(authorization, SECRET_KEY)
         if (!isValidToken) return res.json('Votre session a pris fin.')
@@ -284,7 +272,7 @@ const auth = async (req, res, next) => {
 }
 
 app.get('/', auth, (req, res) => {
-    const {exo} = req.query
+    const { exo } = req.query
     const data = prepareData(exo)
     res.json(data)
 })
@@ -297,7 +285,7 @@ app.get('/', auth, (req, res) => {
 //         3- envoyer HTML template du dashboard admin avec data (list des eleves, stats, etc)
 
 //     */
-   
+
 // })
 
 //DB connection
@@ -308,10 +296,10 @@ mongoose.connect(URL)
     .catch(err => {
         //console.error('Erreur de connexion à la base de données :', err);
     });
- 
+
 // Dell
-const url='3000'
+const url = '3000'
 // const url='https://euduka.vercel.app'
 app.listen(url, () => {
-    console.log('Connected to server');    
+    console.log('Connected to server');
 })

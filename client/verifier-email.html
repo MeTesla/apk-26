@@ -1,66 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <title>Vérification Email</title>
 </head>
+
 <body>
-     <div id="message-container">
+    <div id="message-container">
         <h1>Vérification de votre email</h1>
         <p id="status-message">Vérification en cours...</p>
     </div>
 
-    <script>
+    <script type="module">
+        import { toast } from './components/misc/utils.js';
         // verification-email.js
-    document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');    
-    if (!token) return;
-    
-    // if(localStorage.getItem('role')=="attenteR"){
-    verifierTokenEmail(token);
-    // } else {
-    //     location.assign('http://localhost:5500/client')
-    // }
-    
-});
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            if (!token) return;
 
-async function verifierTokenEmail(token) {
-    const url='http://localhost:3000'
-    // const url ='https://euduka.vercel.app'
-    try {
-        const reponse = await fetch(url+'/verifier-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token })
+            // if(localStorage.getItem('role')=="attenteR"){
+            verifierTokenEmail(token);
+            // } else {
+            //     location.assign('http://localhost:5500/client')
+            // }
+
         });
 
-        const data = await reponse.json();
-        
-        if (data.success) {
-            // 1- afficherSucces('Votre email a été vérifié avec succès !');
-            // 2- logique: s'il a déjà utilisé le lien de l'émail.
-            localStorage.setItem('role', 'registred')
-            localStorage.setItem('token', data.token)
-            const {nom, prenom, email, tel, freeMins} = data.eleveUpdated
-            const objElv={nom, prenom, email, tel, freeMins}
-            localStorage.setItem('profile', JSON.stringify(objElv))
+        async function verifierTokenEmail(token) {
+            const url = 'http://localhost:3000'
+            // const url ='https://euduka.vercel.app'
+            try {
+                const reponse = await fetch(url + '/verifier-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token })
+                });
 
-            location.assign('http://localhost:5500/client/index.html')
-            
-        } else {
-            localStorage.setItem('role', '')
-            // afficher message de durée de 3 secondes
-          
-            location.assign('http://localhost:5500/client/index.html')
+                const data = await reponse.json();
+
+                if (data.success) {
+                    // 1- afficherSucces('Votre email a été vérifié avec succès !');
+                    // 2- logique: s'il a déjà utilisé le lien de l'émail.
+                    toast('Votre email a été vérifié avec succès !')
+                    localStorage.setItem('role', 'registred')
+                    localStorage.setItem('token', data.token)
+                    const { nom, prenom, email, tel, freeMins } = data.eleveUpdated
+                    const objElv = { nom, prenom, email, tel, freeMins }
+                    localStorage.setItem('profile', JSON.stringify(objElv))
+
+                    setTimeout(() => {
+                        location.assign('http://localhost:5500/client/index.html')
+                    }, 1900);
+
+                } else {
+                    //localStorage.setItem('role', '')
+                    // afficher message de durée de 3 secondes
+                    toast(data.message)
+                    const roleLS = localStorage.getItem('role')
+                    roleLS && localStorage.removeItem('role')
+                    setTimeout(() => {
+                        location.assign('http://localhost:5500/client/index.html')
+                    }, 1900);
+                }
+            } catch (erreur) {
+                console.log(erreur);
+            }
         }
-    } catch (erreur) {
-        console.log(erreur);
-    }
-}
     </script>
 </body>
+
 </html>
