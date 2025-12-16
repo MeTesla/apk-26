@@ -76,6 +76,7 @@ BD : 	Premium, num reçu, img reçu
 		- Est-ce qu'il y a moyen de vous contacter ?
 		- Ce site est-il suffisant pour bien préparer mon régional ?
 		- En cas de perte de mon compte, comment puis-je le récupérer ?
+		- Le contenu d'Euduka.com est-il conforme au programme du Ministère de l'Education Nationale ?
 
 ---------------------------------------------------------
 
