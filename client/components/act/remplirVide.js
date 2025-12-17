@@ -185,6 +185,9 @@ export function remplirVide(bloc, data) {
   .liste{
     width: 80%;
     margin: 14px auto;
+    padding: 10px;
+    bodrer-radius: 10px;
+    border: 1px solid var(--comp);
   }
 
   .liste .mot{
