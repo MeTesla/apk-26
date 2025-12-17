@@ -53,18 +53,24 @@ export function profile() {
                 display: flex;
                 align-items: flex-start;
                 justify-content: center;
-                
+                z-index: 1000;
             }
             .profile-container{
+                position: relative;
                 width: 50%;
-                display: flex;
+                height: 90vh;
+                ddisplay: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                overflow-y: scroll;
+                overflow-y: auto;
             }
-
+            .profile-container::-webkit-scrollbar {
+                display: none;
+            }
             .profile-previous{
+                position: fixed;
+                top: 10px; left: 10px;
                 width: 30px; height: 30px;
                 padding: 5px;
                 border: 1px solid gray;
