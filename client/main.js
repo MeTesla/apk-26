@@ -1,36 +1,61 @@
-const l=console.log
+const l = console.log
 import { listeActDjc } from './djc/listeActDjc.js'
-import {listeActAntigone} from './antigone/listeActAntigone.js'
-import {listeAct} from './components/act/listeAct.js'
-import {conic} from './utils.js'
-import {qcmFigures} from './langue/figures/figures.js'
-import {userSuggests} from './auth/login.js'
+import { listeActAntigone } from './antigone/listeActAntigone.js'
+import { listeAct } from './components/act/listeAct.js'
+import { conic } from './utils.js'
+import { qcmFigures } from './langue/figures/figures.js'
+import { userSuggests } from './auth/login.js'
 import { generateMenu } from './components/misc/utils.js'
 
-import {creerCompte,toast} from './components/misc/utils.js'
+import { creerCompte, toast } from './components/misc/utils.js'
 
-const loader=document.querySelector('.loader')
+const loader = document.querySelector('.loader')
 window.addEventListener("load", function () {
-  loader.style.display="none";
-  document.querySelector('.wrapper').style.display="block"
+  loader.style.display = "none";
+  document.querySelector('.wrapper').style.display = "block"
 })
 
+//----------------------
+!localStorage.getItem('resultats') && localStorage.setItem('resultats', JSON.stringify({
+  qcm: {
+    date: new Date().toLocaleDateString('fr-FR'),
+    score: 0
+  }, vf: {
+    date: new Date().toLocaleDateString('fr-FR'),
+    score: 0
+  }, ordrePh: {
+    date: new Date().toLocaleDateString('fr-FR'),
+    score: 0
+  }, ordreEv: {
+    date: new Date().toLocaleDateString('fr-FR'),
+    score: 0
+  }, remplir: {
+    date: new Date().toLocaleDateString('fr-FR'),
+    score: 0
+  }
+}));
+//----------------------
+
+
+
+
+
 // -------------------Menu-------------------------------
-  const menu=document.querySelector('.nav .menu')
-  generateMenu(localStorage.getItem('role'), menu, menu)
+const menu = document.querySelector('.nav .menu')
+generateMenu(localStorage.getItem('role'), menu, menu)
 
 
 //---------Hero créer compte----------------
 const btnHero = document.querySelector('.btn-compte')
-if(localStorage.getItem('role')==='registred' || localStorage.getItem('role')==='attenteR'){
-  btnHero.style.display="none"
+if (localStorage.getItem('role') === 'registred' || localStorage.getItem('role') === 'attenteR') {
+  btnHero.style.display = "none"
 }
-btnHero.addEventListener('click', ()=>creerCompte() )
+btnHero.addEventListener('click', () => creerCompte())
 
 // -------------- Conics
-const notes = [5,2,7]
-const conics=document.querySelector('.conics');
-for(let i=0; i<3; i++){
+const notes = [5, 2, 7]
+const conics = document.querySelector('.conics');
+for (let i = 0; i < 3; i++) {
   conics.appendChild(conic(notes[i]))
 }
 
@@ -38,12 +63,12 @@ for(let i=0; i<3; i++){
 const antigone = document.querySelector('.oeuvres-container .antigone')
 const djc = document.querySelector('.oeuvres-container .djc')
 const bam = document.querySelector('.oeuvres-container .bam')
-const figure= document.querySelector('.figure')
+const figure = document.querySelector('.figure')
 
-bam.onclick=()=>{listeAct(document.body, 0)}
-antigone.onclick=()=>{listeActAntigone(document.body, 0)}
-djc.onclick=()=>{listeActDjc(document.body, 0)}
-figure.onclick=()=>{qcmFigures(document.body)}
+bam.onclick = () => { listeAct(document.body, 0) }
+antigone.onclick = () => { listeActAntigone(document.body, 0) }
+djc.onclick = () => { listeActDjc(document.body, 0) }
+figure.onclick = () => { qcmFigures(document.body) }
 
 // ----------------- Date examen
 const mois = document.querySelector('.mois .chiffre')
@@ -73,47 +98,47 @@ function calculerTempsRestant(dateDonnee) {
   const heures = Math.floor((differenceMillis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
   // Formatter le résultat
-  return {mois: mois, jours: jours, heures: heures}//`${mois} : ${jours} : ${heures}`;
+  return { mois: mois, jours: jours, heures: heures }//`${mois} : ${jours} : ${heures}`;
 }
 
 // Langue 
-const langue=document.querySelectorAll('.langue')[1]
-langue.addEventListener('click', async()=>{
+const langue = document.querySelectorAll('.langue')[1]
+langue.addEventListener('click', async () => {
   const reponse = await fetch('http://localhost:3000/admin')
   const data = await reponse.text()
-  document.body.innerHTML=data  
+  document.body.innerHTML = data
 })
-        
+
 //---------- Suggestion FIREBASE -----------
-const nom= document.getElementById('nom')
-const suggest= document.getElementById('suggest')
-const envoyer=document.getElementById('btn-envoyer') 
-envoyer.addEventListener('click', ()=>{ 
-  if(!nom.value) {
-    nom.style.border="2px solid red"
-    setTimeout(() => {nom.style.border=""}, 1500);
+const nom = document.getElementById('nom')
+const suggest = document.getElementById('suggest')
+const envoyer = document.getElementById('btn-envoyer')
+envoyer.addEventListener('click', () => {
+  if (!nom.value) {
+    nom.style.border = "2px solid red"
+    setTimeout(() => { nom.style.border = "" }, 1500);
     return
   }
-  if(!suggest.value) {
-    suggest.style.border="2px solid red"
-    setTimeout(() => {suggest.style.border=""}, 1500);
+  if (!suggest.value) {
+    suggest.style.border = "2px solid red"
+    setTimeout(() => { suggest.style.border = "" }, 1500);
     return
   }
-  userSuggests(nom, suggest)    
+  userSuggests(nom, suggest)
 })
 
 
 // Nombre connexions
 
 let nbrConnect
-if(localStorage.getItem('nbrConnect')){
-  nbrConnect= +(localStorage.getItem('nbrConnect')) + 1
+if (localStorage.getItem('nbrConnect')) {
+  nbrConnect = +(localStorage.getItem('nbrConnect')) + 1
   localStorage.setItem('nbrConnect', nbrConnect)
 } else {
-  nbrConnect=1
+  nbrConnect = 1
   localStorage.setItem('nbrConnect', nbrConnect)
 }
-if(nbrConnect==4){
+if (nbrConnect == 4) {
   l('POP-UP : Vous êtes connecté ' + nbrConnect + ' foix')
   localStorage.removeItem('nbrConnect')
 }

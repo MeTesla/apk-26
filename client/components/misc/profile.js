@@ -1,34 +1,37 @@
 
 
-export function profile(){
+export function profile() {
     const objElv = JSON.parse(localStorage.getItem('profile'))
-
-    const div=document.createElement('div')
-    div.className="user-profile"
-    div.innerHTML =`<div class="profile-container">
+    const resultats = JSON.parse(localStorage.getItem('resultats')) || {}
+    const div = document.createElement('div')
+    div.className = "user-profile"
+    div.innerHTML = `<div class="profile-container">
         <img class="profile-previous" src="./assets/img/previous.svg" alt="Previous"/>
         <div class= "ligne"> NOM :</div> <h3>${objElv.nom}</h3>
         <div class= "ligne"> Prenom :</div> <h3>${objElv.prenom}</h3>
         <div class= "ligne"> Email :</div> <h3>${objElv.email}</h3>
-        <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv.freeMins)*5}</h3>
+        <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv.freeMins) * 5}</h3>
         <div>
             <h4> Mes résultats </h4>
             <div class="res-container">
                 <div class="qcm-res">
                     <h4>QCM</h4>
-                    <div> ${JSON.parse(localStorage.getItem('resultatQcm'))?.score|| '0'} </div>
+                    <div> ${resultats.qcm?.score || '0'} </div>
+                    <div> ${resultats.qcm?.date || 'Date'} </div>
                 </div>
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
-                    <div> ${JSON.parse(localStorage.getItem('resultatVf'))?.score|| '0'} </div>
+                    <div> ${resultats.vf?.score || '0'} </div>
+                    <div> ${resultats.vf?.date || 'Date'} </div>
                 </div>
                 <div class="remplir-res">
                     <h4>Remplir les blancs</h4>
-                    <div> ${JSON.parse(localStorage.getItem('resultatRemplir'))?.score|| '0'} </div>
+                    <div> ${resultats.remplir?.score || '0'} </div>
+                    <div> ${resultats.remplir?.date || 'Date'} </div>
                 </div>
                 <div class="associer-res">
                     <h4>Associer</h4>
-                    <div> ${JSON.parse(localStorage.getItem('resultatAssocier'))?.score|| '0'} </div>
+                    <div> ${JSON.parse(localStorage.getItem('resultatAssocier'))?.score || '0'} </div>
                 </div>
             </div>
         </div>
@@ -90,12 +93,12 @@ export function profile(){
             }
         </style>
         </div>`
-    document.body.style.overflow="hidden"
+    document.body.style.overflow = "hidden"
     document.body.appendChild(div)
 
     const userProfile = document.querySelector('.profile-previous')
-    userProfile.addEventListener('click', ()=>{
-        document.body.style.overflow="auto"
+    userProfile.addEventListener('click', () => {
+        document.body.style.overflow = "auto"
         div.remove()
     })
 

@@ -221,7 +221,7 @@ app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
     console.log(req.userEmail);
 
     if (!res.headersSent) {
-        const token = await generateToken(req.userEmail, 1)
+        const token = await generateToken(req.userEmail, 10) // token valide 10 minutes
         // --------- UPDATE DOCUMENT       
         const eleveUpdated = await EleveModel.findOneAndUpdate({ email: req.userEmail },
             {

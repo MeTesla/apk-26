@@ -1,13 +1,13 @@
 //git 
-const l=console.log
+const l = console.log
 function random(min, max) {
   return min + Math.floor(Math.random() * (max - min));
 }
-   
+
 export function conic(num) {
   const conic = document.createElement('div')
   conic.className = "conic"
-  conic.style.background= `conic-gradient(#ECB390 ${num*3.6*10}deg, #D1C4E9 ${num*3.6*10}deg)`;
+  conic.style.background = `conic-gradient(#ECB390 ${num * 3.6 * 10}deg, #D1C4E9 ${num * 3.6 * 10}deg)`;
   conic.innerHTML = `<span> ${num}/10</span><style>
   .conic{
      position :relative ;
@@ -33,11 +33,11 @@ export function conic(num) {
   return conic
 }
 
-export function modalFinSession(blocParent, reinit, resultat){
-    setTimeout(()=>{
-      const divModal = document.createElement('div');
-      divModal.className = "modal";
-      divModal.innerHTML = `<div class="modal-wrapper">
+export function modalFinSession(blocParent, reinit, resultat) {
+  setTimeout(() => {
+    const divModal = document.createElement('div');
+    divModal.className = "modal";
+    divModal.innerHTML = `<div class="modal-wrapper">
       <div class="resultats">
         <div class="message">
           Session terminée, Voici tes résultats :
@@ -50,7 +50,7 @@ export function modalFinSession(blocParent, reinit, resultat){
       </div>
       <div class="options">
         <div class="refaire"> Refaire la session</div>
-        <div class=${resultat.end==3 ? "hide": "nouvelle"}>Nouvelle session</div>
+        <div class=${resultat.end == 3 ? "hide" : "nouvelle"}>Nouvelle session</div>
         <div class="quitter">Quitter</div>
       </div>
     </div>
@@ -112,39 +112,39 @@ export function modalFinSession(blocParent, reinit, resultat){
         }
     </style>`
     blocParent.appendChild(divModal);
-    const quitter=document.querySelector('.quitter')
+    const quitter = document.querySelector('.quitter')
     const refaire = document.querySelector('.refaire')
     const nouvelle = document.querySelector('.nouvelle')
     quitter.addEventListener('click', () => {
       divModal.parentElement.remove()
     })
-    refaire.addEventListener('click', ()=>{
+    refaire.addEventListener('click', () => {
       //reinitialiser()
       reinit()
       divModal.remove()
     })
-    if(nouvelle) {
-      nouvelle.addEventListener('click', ()=>{
-      //reinitialiser('re')
-      reinit('re')
-      divModal.remove()
+    if (nouvelle) {
+      nouvelle.addEventListener('click', () => {
+        //reinitialiser('re')
+        reinit('re')
+        divModal.remove()
       })
     }
-    }, 1500)
+  }, 1500)
 }
 
-export function uniq(){
-  for(let i=0; i<nbrPhrases; i++){
+export function uniq() {
+  for (let i = 0; i < nbrPhrases; i++) {
 
-   if(mesPhrases.includes(data[index])){
-   i--
-   }
-   else{
-   phrasesInOrder.push(data[index])
-   mesPhrases.push(data[index].split(" "))
-   //mesPhrases.sort(function(a, b){return 0.5 - Math.random()})
-   }
-   
-}
+    if (mesPhrases.includes(data[index])) {
+      i--
+    }
+    else {
+      phrasesInOrder.push(data[index])
+      mesPhrases.push(data[index].split(" "))
+      //mesPhrases.sort(function(a, b){return 0.5 - Math.random()})
+    }
+
+  }
 
 }

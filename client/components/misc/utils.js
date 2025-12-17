@@ -228,7 +228,11 @@ export function generateMenu(typeAccount, pere, menu) {
 }
 // ------------- FIN Générer le menu utilisateur ----------
 
-
+export function handleResultats(resultat) {
+  let resultatLS = JSON.parse(localStorage.getItem('resultats'))
+  resultatLS = { ...resultatLS, ...resultat }
+  localStorage.setItem('resultats', JSON.stringify(resultatLS))
+}
 export function confet() {
   confetti({
     particleCount: 100,

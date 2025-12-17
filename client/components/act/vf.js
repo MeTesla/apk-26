@@ -10,17 +10,18 @@ charger 10 questions dans un nouveau tableau
 load question
 qst 10 => aficher modal: résultat
 */
-const l=console.log
-import {closeAct,homeAct} from '../misc/closeAct.js'
-import {entete} from '../misc/entete.js';
-import {modalFinSession} from '../../utils.js'
+const l = console.log
+import { closeAct, homeAct } from '../misc/closeAct.js'
+import { entete } from '../misc/entete.js';
+import { modalFinSession } from '../../utils.js'
+import { handleResultats } from '../misc/utils.js';
 
-export function vf(bloc, data){
-  const div=document.createElement('div')
+export function vf(bloc, data) {
+  const div = document.createElement('div')
   div.setAttribute('class', 'vrai-faux')
-  div.innerHTML= codeHTML();
+  div.innerHTML = codeHTML();
   bloc.appendChild(div);
- 
+
   // Home & Close buttons 
   const home = document.querySelector('.home')
   home.onclick = () => { homeAct(div) }
@@ -28,27 +29,27 @@ export function vf(bloc, data){
   close.onclick = () => { closeAct(div); }
 
   //DOM variables
-  const question=document.querySelector('.question')
-  const vraiBtn=document.querySelector('.vrai')
-  const fauxBtn=document.querySelector('.faux')
-  const valider=document.querySelector('.valider')
-  const suivant= document.querySelector('.suivant')
-  const precedent= document.querySelector('.precedent')
+  const question = document.querySelector('.question')
+  const vraiBtn = document.querySelector('.vrai')
+  const fauxBtn = document.querySelector('.faux')
+  const valider = document.querySelector('.valider')
+  const suivant = document.querySelector('.suivant')
+  const precedent = document.querySelector('.precedent')
   const score = document.querySelector('.score')
   const numQst = document.querySelector('.num-qst')
-  const rep=document.querySelectorAll('.rep')
+  const rep = document.querySelectorAll('.rep')
   const progress = document.querySelector('.vrai-faux .progress')
-  
-  let index = 0, nbrQst=10, nbrSession = 1
-  let currentQst=0, monScore=0, choosenRep=false, 
-  repondu=[], answered, questions=[]
+
+  let index = 0, nbrQst = 10, nbrSession = 1
+  let currentQst = 0, monScore = 0, choosenRep = false,
+    repondu = [], answered, questions = []
 
   // repenser cette logique : alea tout le tableau, puis choix 10 qst. 
   //en cas de session suiv. passer le pointeur à 10 ...
   //en cas de refaire: repasser pointeur à 0
 
   //Shuffle les 15 questions
-  data.sort(function(a, b){return 0.5 - Math.random()})
+  data.sort(function (a, b) { return 0.5 - Math.random() })
 
   //charger n questions dans un tableau
   for (let i = index; i < index + nbrQst; i++) {
@@ -56,28 +57,28 @@ export function vf(bloc, data){
   }
   // LOAD QUESTIONS on DOM
   loadQst()
-  function loadQst(){
+  function loadQst() {
     selection()
     answered = false
-    choosenRep=""
+    choosenRep = ""
     // Changer 300 par une valeur dynamique pour le responsif
-    progress.style.width=(300/questions.length) *(currentQst+1) + 'px'
-    question.innerHTML= questions[currentQst].question
-    
+    progress.style.width = (300 / questions.length) * (currentQst + 1) + 'px'
+    question.innerHTML = questions[currentQst].question
+
     // TEST des réponses faites
-    if (repondu.includes(currentQst+1)){
-      valider.style.opacity="0.6"
-      valider.removeEventListener('click',valid)
-    }else{
-      valider.style.opacity="1"
-      valider.addEventListener('click',valid)
+    if (repondu.includes(currentQst + 1)) {
+      valider.style.opacity = "0.6"
+      valider.removeEventListener('click', valid)
+    } else {
+      valider.style.opacity = "1"
+      valider.addEventListener('click', valid)
     }
   }
 
   //Selection VRAI - FAUX
-  rep.forEach((item)=>{
-    item.addEventListener('click',()=>{
-      if(answered==true) return
+  rep.forEach((item) => {
+    item.addEventListener('click', () => {
+      if (answered == true) return
       choosenRep = item
       selection()
       item.classList.add('selected')
@@ -85,30 +86,30 @@ export function vf(bloc, data){
       // audio.play()
     })
   })
-  
+
   valider.addEventListener('click', valid)
-  
-  function valid(){
+
+  function valid() {
     let audioFeed = new Audio()
-    if(choosenRep){
-      answered=true
-      repondu.push(currentQst+1)
-      valider.style.opacity="0.6"
-      valider.removeEventListener('click',valid)
+    if (choosenRep) {
+      answered = true
+      repondu.push(currentQst + 1)
+      valider.style.opacity = "0.6"
+      valider.removeEventListener('click', valid)
       selection()
-      if(choosenRep.innerText === questions[currentQst].rep){
-        monScore+=10
+      if (choosenRep.innerText === questions[currentQst].rep) {
+        monScore += 10
         score.innerText = monScore
         // audio.src='../assets/audios/yay.mp3'
         // audio.play()
         choosenRep.classList.add('reponseCorrect')
-      } else{
+      } else {
         choosenRep.classList.add('reponseIncorrect')
-       /* Array.from(rep).filter((item) => {
-          return item.innerText == questions[currentQst].rep.trim()
-        [0].classList.add('reponseCorrect')
-       })
-       */
+        /* Array.from(rep).filter((item) => {
+           return item.innerText == questions[currentQst].rep.trim()
+         [0].classList.add('reponseCorrect')
+        })
+        */
         // audio.src='../assets/audios/wrong.mp3'
         // audio.play()
 
@@ -127,58 +128,114 @@ export function vf(bloc, data){
       nbrQst: nbrQst,
       end: nbrSession
     }
-    if (repondu.length == nbrQst) modalFinSession(div, reinitialiser, resultat)
+    if (repondu.length == nbrQst) {
+      /*
+      function handleResultats(activity){
+
+      }
+      1-Récupérer resultats depuis LS
+      const resultatLS = JSON.stringify(localStorage.getItem('resultats'))
+      
+      2- préparer résultatQCM
+      let resultatQCM = {
+          qcm:{
+            score: monScore/10, 
+            date: new Date().toLocaleDateString('fr-FR')
+          }
+        }
+      3- update résultats
+      resultatLS={...JSON.parse(resultatLS), ...resultatQCM}
+      
+      4-réenregistrer résultats dans LS
+      localStorage.setItem('resultats', JSON.stringify(resultatLS))
+      
+      
+        
+        
+        resultatsLS={...JSON.parse(resultatLS), ...resultatQCM}}
+        
+        let resultatsLS={...JSON.parse(resultatLS), ...resultatQCM}
+        localStorage.setItem('resultats', JSON.stringify(resultatsLS))
+
+
+      resultat{qcm:{
+        date: new Date().toLocaleDateString('fr-FR'),
+        score: score / 10          
+      }, vf:{
+          date: new Date().toLocaleDateString('fr-FR'),
+          score: score / 10
+      }, ordrePh:{
+          date: new Date().toLocaleDateString('fr-FR'),
+          score: score / 10      
+      }, ordreEv:{
+          date: new Date().toLocaleDateString('fr-FR'),
+          score: score / 10      
+      }, remplir:{
+          date: new Date().toLocaleDateString('fr-FR'),
+          score: score / 10      
+      }, associer:{
+      */
+
+      let resultatVF = {
+        vf: {
+          score: monScore / 10,
+          date: new Date().toLocaleDateString('fr-FR')
+        }
+      }
+      handleResultats(resultatVF)
+      modalFinSession(div, reinitialiser, resultat)
+    }
   }
-  
-  suivant.addEventListener('click', () =>{
-    if(currentQst < questions.length-1){
-    currentQst++   
-    loadQst()
-    } else{
-      suivant.querySelector('span').style.display="block"
+
+  suivant.addEventListener('click', () => {
+    if (currentQst < questions.length - 1) {
+      currentQst++
+      loadQst()
+    } else {
+      suivant.querySelector('span').style.display = "block"
       setTimeout(() => {
-        suivant.querySelector('span').style.display="none"
+        suivant.querySelector('span').style.display = "none"
       }, 700);
     }
   })
 
-  precedent.addEventListener('click', () =>{
-    if(currentQst>0){
-    currentQst--     
-    loadQst()
-    } else{
-      precedent.querySelector('span').style.display="block"
+  precedent.addEventListener('click', () => {
+    if (currentQst > 0) {
+      currentQst--
+      loadQst()
+    } else {
+      precedent.querySelector('span').style.display = "block"
       setTimeout(() => {
-        precedent.querySelector('span').style.display="none"
+        precedent.querySelector('span').style.display = "none"
       }, 700);
     }
   })
-  
+
   // Réinitialisation
-  function reinitialiser(re){
-    monScore=0; repondu=[]; currentQst=0;
-    progress.style.width=(300/questions.length) *(currentQst+1) + 'px'
+  function reinitialiser(re) {
+    monScore = 0; repondu = []; currentQst = 0;
+    progress.style.width = (300 / questions.length) * (currentQst + 1) + 'px'
     score.innerText = "00"
-    if(re) {
+    if (re) {
       index += nbrQst;
-      nbrSession+=1
+      nbrSession += 1
     }
-    questions=[]
+    questions = []
     for (let i = index; i < index + nbrQst; i++) questions.push(data[i])
     loadQst()
   }
 
-  function selection(){
-    for(let x=0; x<2;x++){
+  function selection() {
+    for (let x = 0; x < 2; x++) {
       rep[x].classList.remove('selected')
       rep[x].classList.remove('reponseCorrect')
       rep[x].classList.remove('reponseIncorrect')
-      
+
     }
   }
 
-  function codeHTML(){
-  const html=`${entete()}
+  function codeHTML() {
+    const html = `${entete()}
     <div class="progress-bar">
       <div class="progress"></div>
     </div>
@@ -336,6 +393,6 @@ export function vf(bloc, data){
  }
   </style>
 </div>`
-  return html
+    return html
   }
 }

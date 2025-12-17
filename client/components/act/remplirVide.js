@@ -1,144 +1,158 @@
 
-import {closeAct,homeAct} from '../misc/closeAct.js'
-import {entete} from '../misc/entete.js'
-
+import { closeAct, homeAct } from '../misc/closeAct.js'
+import { entete } from '../misc/entete.js'
+import { handleResultats } from '../misc/utils.js'
 const l = console.log
 
-export function remplirVide(bloc, data){
- const div=document.createElement('div');
- div.classList.add('vide') 
- div.innerHTML = htmlCode()
- bloc.appendChild(div)
+export function remplirVide(bloc, data) {
+  const div = document.createElement('div');
+  div.classList.add('vide')
+  div.innerHTML = htmlCode()
+  bloc.appendChild(div)
 
- // Close and Home
- let home = document.querySelector('.home')
- home.onclick = () => { homeAct(div) }
- let close= document.querySelector('.close')
- close.onclick = () => { closeAct(div); }
- 
- var paragraphe = document.querySelector('.paragraphe')
- var liste = document.querySelector('.liste')
- 
+  // Close and Home
+  let home = document.querySelector('.home')
+  home.onclick = () => { homeAct(div) }
+  let close = document.querySelector('.close')
+  close.onclick = () => { closeAct(div); }
+
+  var paragraphe = document.querySelector('.paragraphe')
+  var liste = document.querySelector('.liste')
+
   var resultat = document.querySelector('.resultat')
   var voirRep = document.querySelector('.voir-rep')
   var suivant = document.querySelector('.ph-suivante')
   var refaire = document.querySelector('.refaire')
-   
-  let verified = false, index = 0, nbrTextes=2, listeMotsTmp=[]
-  
-data.sort(function(a, b){return 0.5 - Math.random()}) 
-loadQuestion()
- 
+
+  let verified = false, index = 0, nbrTextes = 2, listeMotsTmp = []
+
+  data.sort(function (a, b) { return 0.5 - Math.random() })
+  loadQuestion()
+
   function loadQuestion() {
     let texteTmp = data[index].texte //copier le Texte = texteTmp
     listeMotsTmp = [...data[index].listeMots] // copier la liste des mots
-    listeMotsTmp.sort(function(a, b){return 0.5 - Math.random()}) // shuffle liste de mots
-  
-   // Créer paragraphe
+    listeMotsTmp.sort(function (a, b) { return 0.5 - Math.random() }) // shuffle liste de mots
+
+    // Créer paragraphe
     for (let i = 0; i < listeMotsTmp.length; i++) {
-       let gap = `<div class="gap"> </div>`
-       let texte2 = texteTmp.replace(listeMotsTmp[i], gap)
-       texteTmp = texte2      
-       paragraphe.innerHTML = texteTmp
-       //liste mots
-       liste.innerHTML += "<span class='mot' >" + listeMotsTmp[i] + "</span>"
+      let gap = `<div class="gap"> </div>`
+      let texte2 = texteTmp.replace(listeMotsTmp[i], gap)
+      texteTmp = texte2
+      paragraphe.innerHTML = texteTmp
+      //liste mots
+      liste.innerHTML += "<span class='mot' >" + listeMotsTmp[i] + "</span>"
     }
-    
-      // gestion des réponses
-    let mot, vide, motsChoisis=[]
-    let vides=document.querySelectorAll('.gap')
-    let mots=document.querySelectorAll('.liste .mot')
-      
-     
-    for(let i =0; i < mots.length;i++){
+
+    // gestion des réponses
+    let mot, vide, motsChoisis = []
+    let vides = document.querySelectorAll('.gap')
+    let mots = document.querySelectorAll('.liste .mot')
+
+
+    for (let i = 0; i < mots.length; i++) {
       // clique sur les mots de la liste
-      mots[i].addEventListener('click', (ev)=>{
+      mots[i].addEventListener('click', (ev) => {
         if (verified || motsChoisis.includes(ev.target.innerText)) return
-        mots.forEach((item)=> item.style.backgroundColor="rgba(0,0,0, .08)")
+        mots.forEach((item) => item.style.backgroundColor = "rgba(0,0,0, .08)")
         //color selected list word
-        ev.target.style.backgroundColor="#E79b64" 
+        ev.target.style.backgroundColor = "#E79b64"
         // mot selectionné de la liste
-        mot=ev.target
-      }) 
-        // clique sur les mots du paragraphe
-        vides[i].addEventListener('click', (e)=>{
-          if (e.target.innerText != "") {
-            const m = Array.from(mots).filter(mot => {
-              return mot.innerText == e.target.innerText
-            })[0]
-           m.style.opacity="1"
-           motsChoisis.pop(m.innerText)
-           e.target.innerText = ""
-       }
-        if(mot){
-         e.target.innerText=mot.innerText
-         motsChoisis.push(mot.innerText)
-         e.target.style.transition="1s all ease"
-         e.target.style.color="black"
-         mot.style.opacity="0.5"
-         mot.style.backgroundColor="rgba(0,0,0, .08)"
-         mot = undefined
+        mot = ev.target
+      })
+      // clique sur les mots du paragraphe
+      vides[i].addEventListener('click', (e) => {
+        if (e.target.innerText != "") {
+          const m = Array.from(mots).filter(mot => {
+            return mot.innerText == e.target.innerText
+          })[0]
+          m.style.opacity = "1"
+          motsChoisis.pop(m.innerText)
+          e.target.innerText = ""
+        }
+        if (mot) {
+          e.target.innerText = mot.innerText
+          motsChoisis.push(mot.innerText)
+          e.target.style.transition = "1s all ease"
+          e.target.style.color = "black"
+          mot.style.opacity = "0.5"
+          mot.style.backgroundColor = "rgba(0,0,0, .08)"
+          mot = undefined
         } // fin if (typeof)
-       }) //fin vides[i]
-      }// fin for gestion réponses
+      }) //fin vides[i]
+    }// fin for gestion réponses
   }
-  
+
   let verifier = document.querySelector('.valider')
- verifier.addEventListener('click', (ev) => {
+  verifier.addEventListener('click', (ev) => {
     verified = true;
+    let correct = 0, incorrect = 0
+
     resultat.style.bottom = "40px"
     let gaps = document.querySelectorAll('.gap')
     gaps.forEach((item, i) => {
       let theFeed = document.createElement('span')
-      
+
       if (item.innerText === data[index].listeMots[i]) {
         item.style.transition = "0.8s all ease"
         item.style.backgroundColor = "var(--correct)"
         item.appendChild(theFeed)
         theFeed.classList.add('correct')
+        correct += 1
+
       } else {
         item.appendChild(theFeed)
         theFeed.classList.add('incorrect')
         item.style.backgroundColor = "var(--incorrect)"
+        incorrect -= 1
       }
     })
+    console.log('Corrects : ', correct)
+    let resultatVide = {
+      remplir: {
+        score: correct + "/" + gaps.length,
+        date: new Date().toLocaleDateString('fr-FR')
+      }
+    }
+    handleResultats(resultatVide)
     verifier.style.display = "none";
-    
-  })    
-// OPTIONS 
-  suivant.addEventListener('click', () => { 
-    if(index < nbrTextes){
+    // 3/6: 5/10 - 6/6 : 10/10 
+    // 
+  })
+  // OPTIONS 
+  suivant.addEventListener('click', () => {
+    if (index < nbrTextes) {
       reinitialiser()
-    }else{
-      document.querySelector('.fin-session').style.display="flex"
+    } else {
+      document.querySelector('.fin-session').style.display = "flex"
       // resultat.style.bottom = "0"
       // resultat.innerHTML=`<h1 style="color: var(--comp)">FIN de session</h1>`  
     }
   })
   refaire.addEventListener('click', () => { reinitialiser('re') })
   voirRep.addEventListener('click', () => { voirReponse() })
- function reinitialiser(re){
-  verified = false
-  //listeMotsTmp=[]
-  paragraphe.innerHTML=""
-  liste.innerHTML=""
-   
-  if (!re) index += 1
-  verifier.style.display = "block"
-  resultat.style.bottom = "-100vh"
-  loadQuestion()
- }
- 
- function voirReponse(){
-    let gaps=document.querySelectorAll('.paragraphe .gap')
-    for(let i=0; i<gaps.length; i++){
+  function reinitialiser(re) {
+    verified = false
+    //listeMotsTmp=[]
+    paragraphe.innerHTML = ""
+    liste.innerHTML = ""
+
+    if (!re) index += 1
+    verifier.style.display = "block"
+    resultat.style.bottom = "-100vh"
+    loadQuestion()
+  }
+
+  function voirReponse() {
+    let gaps = document.querySelectorAll('.paragraphe .gap')
+    for (let i = 0; i < gaps.length; i++) {
       gaps[i].innerHTML = `<div>${data[index].listeMots[i]}</div>`
       gaps[i].className = "gap"
-      gaps[i].style.backgroundColor="var(--correct)"
+      gaps[i].style.backgroundColor = "var(--correct)"
     }
- }
- 
- function htmlCode(){
+  }
+
+  function htmlCode() {
     const html = `${entete()} 
   <div class="consigne">Remplissez les espaces blancs par les mots de la liste :</div>
    <div class="sous-consigne">[Clique sur le mot puis sur l'endroit où tu veux l'insérer]</div>
@@ -178,6 +192,7 @@ loadQuestion()
     margin: 5px;
     background-color: var(--secc);
     border-radius: 10px;
+    cursor: pointer;
  }  
 
   .paragraphe {
@@ -205,6 +220,7 @@ loadQuestion()
     padding: 0 3px ;
     margin:-7px 0;
     position: relative;
+    cursor: pointer;
   } 
 
   .correct, .incorrect {
@@ -261,7 +277,7 @@ loadQuestion()
     font-weight: bold;
     }
   </style>`
-  return html
- }
- 
+    return html
+  }
+
 } // fin fonction
