@@ -31,7 +31,10 @@ const eleves = [
 
 // Route pour l'admin
 app.get('/admin', (req, res) => {
-    // Envoi du template et des données des élèves
+    /*
+        1- chercher les élèves dans la BDD
+        2- inclure les données dans le template EJS
+    */
     res.render('admin', { eleves: eleves });
 });
 // ----------------------------------

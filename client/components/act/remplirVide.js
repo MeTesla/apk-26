@@ -183,7 +183,8 @@ export function remplirVide(bloc, data) {
     padding-bottom: 10px;
   }
   .liste{
-    margin: auto 14px;
+    width: 80%;
+    margin: 14px auto;
   }
 
   .liste .mot{

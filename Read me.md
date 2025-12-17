@@ -19,7 +19,7 @@
 
 - Repenser créer compte: nom + email + mot de passe
 
-PREMIUM 
+		PREMIUM 
 #############################
 Accueil 	: boutton devenir
 Menu 		: Premium
@@ -28,6 +28,8 @@ CTA button		: processe payment; entrer ses coordonnées, afficher mes coordonné
 backEnd			: dashboard, envoyer code; réinitialiser compte
 
 Coordonnées ACCESSIBLES à tout moment mais comment ? boutton nos coordonnées dans la page PREMIUM
+SOLUTION : 	L'inclure dans la page : ## Nous contacter
+			Séparer le menu en deux : profile (déconnexion, profil, ...) et menu général (Qui sommes-nous ? Nous contacter[email, whats, face, compte banc])
 
 Il remplit formulaire. paye. attends. Moi, J'attends la preuve du payment. 
 reçu, dashboard, je clique: premium, son statut change registred=>Premium

@@ -16,22 +16,28 @@ export function profile() {
             <div class="res-container">
                 <div class="qcm-res">
                     <h4>QCM</h4>
-                    <div> ${resultats.qcm?.score || '0'} </div>
-                    <div> ${resultats.qcm?.date || 'Date'} </div>
+                    <div class="resultat-score"> ${resultats.qcm?.score + '/10' || '0'} </div>
+                    <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
                 </div>
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
-                    <div> ${resultats.vf?.score || '0'} </div>
-                    <div> ${resultats.vf?.date || 'Date'} </div>
+                    <div class="resultat-score"> ${resultats.vf?.score + '/10' || '0'} </div>
+                    <div class="resultat-date"> ${resultats.vf?.date || 'Date'} </div>
                 </div>
                 <div class="remplir-res">
                     <h4>Remplir les blancs</h4>
-                    <div> ${resultats.remplir?.score || '0'} </div>
-                    <div> ${resultats.remplir?.date || 'Date'} </div>
+                    <div class="resultat-score"> ${resultats.remplir?.score || '0'} </div>
+                    <div class="resultat-date"> ${resultats.remplir?.date || 'Date'} </div>
                 </div>
-                <div class="associer-res">
-                    <h4>Associer</h4>
-                    <div> ${JSON.parse(localStorage.getItem('resultatAssocier'))?.score || '0'} </div>
+                <div class="resultat-ordreEv">
+                    <h4>Evénement</h4>
+                        <div class="resultat-score"> ${resultats.ordreEv?.score || '0'} </div>
+                        <div class="resultat-date"> ${resultats.ordreEv?.date || 'Date'} </div>
+                </div>
+                <div class="resultat-ordrePh">
+                    <h4>Evénement</h4>
+                        <div class="resultat-score"> ${resultats.ordrePh?.score || '0'} </div>
+                        <div class="resultat-date"> ${resultats.ordrePh?.date || 'Date'} </div>
                 </div>
             </div>
         </div>
@@ -42,11 +48,12 @@ export function profile() {
                 position: fixed;
                 top: 54px; left: 0;
                 width:100%;
-                height: 100%;                
+                hheight: 100%;                
                 background-color: #eee;
                 display: flex;
                 align-items: flex-start;
                 justify-content: center;
+                
             }
             .profile-container{
                 width: 50%;
@@ -54,6 +61,7 @@ export function profile() {
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                overflow-y: scroll;
             }
 
             .profile-previous{
@@ -77,20 +85,29 @@ export function profile() {
                 padding: 10px;
                 border-radius: 5px;
             }
-            .user-profile h4{
-                margin-top: 20px;
-            }
+            
             .res-container{
-                display: flex;
-                flex-wrap: wrap;
+                width: 100%;
+                display:grid;
+                grid-template-columns: repeat(2, 6fr);
                 gap: 20px;
             }
             .res-container > div{
-                width: 20%;
+                padding: 10px;
                 border: 1px solid gray;
+                border-radius: 5px;
                 text-align: center;
 
             }
+            
+            .user-profile h4{
+               margin-bottom: 10px;
+            }
+                .resultat-date{
+                    font-size: 10px;
+                    text-align: right;
+                    color: gray;
+                }
         </style>
         </div>`
     document.body.style.overflow = "hidden"
