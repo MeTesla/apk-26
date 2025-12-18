@@ -4,17 +4,19 @@ function random(min, max) {
   return min + Math.floor(Math.random() * (max - min));
 }
 
-export function conic(num) {
+export function conic(num, nbrItems) {
   const conic = document.createElement('div')
   conic.className = "conic"
   conic.style.background = `conic-gradient(#ECB390 ${num * 3.6 * 10}deg, #D1C4E9 ${num * 3.6 * 10}deg)`;
-  conic.innerHTML = `<span> ${num}/10</span><style>
+  conic.innerHTML = `<span> ${num}/${nbrItems}</span><style>
   .conic{
      position :relative ;
-     width: 50px; height : 50px;
+     width: 40px; height : 40px;
      border-radius: 50%;
      /*calcul : pourcentage x 3.6 
      exemple : 25% = 25 x 3.6 = 90deg*/
+     font-size: 0.6rem;
+     font-weight: bold;
      display: flex;
      justify-content: center;
      align-items: center;

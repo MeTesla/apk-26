@@ -1,3 +1,17 @@
+
+Ajouter graphe conic, ajouter a item LS l'historique des résultats . Ajouter icone graphe au clic afficher graphe barres. Ajouter dernier quiz (save on LS)
+const eleveSchema = new mongoose.Schema({
+  nom: String,
+  prenom: String,
+  date: Date,
+  resultats: {
+    maths: Number,
+    francais: Number,
+    commentaires: String
+    // Vous pouvez mettre autant de sous-niveaux que vous voulez
+  }
+});
+
 - PROB : même sans verification, je peux accéder à mon compte surtout après expiration du token de validation. 
 		(entre création compte et vérification)
 		Le lien expiré mais je ne connecte avec succès

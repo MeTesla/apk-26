@@ -1,4 +1,4 @@
-
+import { conic } from "../../utils.js"
 
 export function profile() {
     const objElv = JSON.parse(localStorage.getItem('profile'))
@@ -13,21 +13,25 @@ export function profile() {
         <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv.freeMins) * 5}</h3>
         <div>
             <h4> Mes résultats </h4>
+            
             <div class="res-container">
                 <div class="qcm-res">
                     <h4>QCM</h4>
                     <div class="resultat-score"> ${resultats.qcm?.score + '/10' || '0'} </div>
                     <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
+                    <div class="qcm-conic"> </div>
                 </div>
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
                     <div class="resultat-score"> ${resultats.vf?.score + '/10' || '0'} </div>
                     <div class="resultat-date"> ${resultats.vf?.date || 'Date'} </div>
+                    <div class="vf-conic"> </div>
                 </div>
                 <div class="remplir-res">
                     <h4>Remplir les blancs</h4>
                     <div class="resultat-score"> ${resultats.remplir?.score || '0'} </div>
                     <div class="resultat-date"> ${resultats.remplir?.date || 'Date'} </div>
+                    <div class="remplir-conic"> </div>
                 </div>
                 <div class="resultat-ordreEv">
                     <h4>Evénement</h4>
@@ -109,17 +113,30 @@ export function profile() {
             .user-profile h4{
                margin-bottom: 10px;
             }
-                .resultat-date{
-                    font-size: 10px;
-                    text-align: right;
-                    color: gray;
-                }
+            .resultat-date{
+                font-size: 10px;
+                text-align: right;
+                color: gray;
+            }
+            .qcm-conic{
+                width: 40px;
+                height: 40px;
+            }
         </style>
         </div>`
     document.body.style.overflow = "hidden"
     document.body.appendChild(div)
 
     const userProfile = document.querySelector('.profile-previous')
+    const qcmConic = document.querySelector('.qcm-conic')
+    const vfConic = document.querySelector('.vf-conic')
+    const remplirConic = document.querySelector('.remplir-conic')
+
+    qcmConic.appendChild(conic(resultats.qcm?.score,10))
+    vfConic.appendChild(conic(resultats.vf?.score, 10))
+    remplirConic.appendChild(conic(resultats.remplir?.score.split('/')[0],resultats.remplir?.score.split('/')[1]))
+
+
     userProfile.addEventListener('click', () => {
         document.body.style.overflow = "auto"
         div.remove()
