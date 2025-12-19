@@ -132,9 +132,9 @@ export function profile() {
     const vfConic = document.querySelector('.vf-conic')
     const remplirConic = document.querySelector('.remplir-conic')
 
-    qcmConic.appendChild(conic(resultats.qcm?.score,10))
+    qcmConic.appendChild(conic(resultats.qcm?.score, 10))
     vfConic.appendChild(conic(resultats.vf?.score, 10))
-    remplirConic.appendChild(conic(resultats.remplir?.score.split('/')[0],resultats.remplir?.score.split('/')[1]))
+    remplirConic.appendChild(conic(resultats.remplir?.score.split('/')[0], resultats.remplir?.score.split('/')[1] || 10))
 
 
     userProfile.addEventListener('click', () => {

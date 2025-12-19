@@ -7,14 +7,20 @@ function random(min, max) {
 export function conic(num, nbrItems) {
   const conic = document.createElement('div')
   conic.className = "conic"
-  conic.style.background = `conic-gradient(#ECB390 ${num * 3.6 * 10}deg, #D1C4E9 ${num * 3.6 * 10}deg)`;
-  conic.innerHTML = `<span> ${num}/${nbrItems}</span><style>
+  //conic.style.background = `conic-gradient(#ECB390 ${num * 3.6 * 10}deg, #D1C4E9 ${num * 3.6 * 10}deg)`;
+  conic.style.background = `conic-gradient(#ECB390 ${(num / nbrItems) * 360}deg, #D1C4E9 ${(num / nbrItems) * 360}deg)`;
+  conic.innerHTML = `<span> ${num}/${nbrItems}</span>
+  <style>
   .conic{
      position :relative ;
      width: 40px; height : 40px;
      border-radius: 50%;
      /*calcul : pourcentage x 3.6 
-     exemple : 25% = 25 x 3.6 = 90deg*/
+     exemple : 25% = 25 x 3.6 = 90deg
+     AI : (reponses correctes / nombre de questions) * 360deg
+     10 questions, 7 bonnes reponses : (7/10)*360 = 252deg
+     5 questions, 3 bonnes reponses : (3/5)*360 = 216deg
+     */
      font-size: 0.6rem;
      font-weight: bold;
      display: flex;
