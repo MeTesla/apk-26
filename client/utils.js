@@ -14,7 +14,11 @@ export function conic(num, nbrItems) {
      width: 40px; height : 40px;
      border-radius: 50%;
      /*calcul : pourcentage x 3.6 
-     exemple : 25% = 25 x 3.6 = 90deg*/
+     exemple : 25% = 25 x 3.6 = 90deg
+     AI : (reponses correctes / nombre de questions) * 360deg
+     10 questions, 7 bonnes reponses : (7/10)*360 = 252deg
+     5 questions, 3 bonnes reponses : (3/5)*360 = 216deg
+     */
      font-size: 0.6rem;
      font-weight: bold;
      display: flex;
