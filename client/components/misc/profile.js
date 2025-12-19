@@ -16,32 +16,40 @@ export function profile() {
             
             <div class="res-container">
                 <div class="qcm-res">
-                    <h4>QCM</h4>
+                    <h4>QCM</h4>                    
                     <div class="resultat-score"> ${resultats.qcm?.score + '/10' || '0'} </div>
                     <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
                     <div class="qcm-conic"> </div>
+                    <div class="qcm-last-session last-session" > <i class="fa-solid fa-rotate-right"></i> </div>
+                    
                 </div>
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
                     <div class="resultat-score"> ${resultats.vf?.score + '/10' || '0'} </div>
                     <div class="resultat-date"> ${resultats.vf?.date || 'Date'} </div>
                     <div class="vf-conic"> </div>
+                    <div class="vf-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                 </div>
                 <div class="remplir-res">
                     <h4>Remplir les blancs</h4>
                     <div class="resultat-score"> ${resultats.remplir?.score || '0'} </div>
                     <div class="resultat-date"> ${resultats.remplir?.date || 'Date'} </div>
                     <div class="remplir-conic"> </div>
+                    <div class="remplir-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                 </div>
                 <div class="resultat-ordreEv">
                     <h4>Evénement</h4>
                         <div class="resultat-score"> ${resultats.ordreEv?.score || '0'} </div>
                         <div class="resultat-date"> ${resultats.ordreEv?.date || 'Date'} </div>
+
+                        <div class="ordreevlast-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                 </div>
                 <div class="resultat-ordrePh">
                     <h4>Evénement</h4>
                         <div class="resultat-score"> ${resultats.ordrePh?.score || '0'} </div>
                         <div class="resultat-date"> ${resultats.ordrePh?.date || 'Date'} </div>
+
+                        <div class="oredreph-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                 </div>
             </div>
         </div>
@@ -121,6 +129,9 @@ export function profile() {
             .qcm-conic{
                 width: 40px;
                 height: 40px;
+            }
+            .last-session{
+                cursor: pointer
             }
         </style>
         </div>`
