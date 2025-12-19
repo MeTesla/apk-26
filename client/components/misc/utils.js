@@ -96,7 +96,7 @@ async function submitCreerCompte() {
     modalFreeMins(false, data.message, 'failed')
   }
 }
-
+ 
 // ------------  Get free MINs -----------
 async function freeMins() {
   const url = 'http://localhost:3000'
