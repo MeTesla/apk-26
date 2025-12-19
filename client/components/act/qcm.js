@@ -1,6 +1,3 @@
-/*
-- Nouvelle session if (data.length == index -3 ;...)
-*/
 const l = console.log
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js'
@@ -9,6 +6,8 @@ import { handleResultats } from '../misc/utils.js'
 import { confet } from '../misc/utils.js'
 
 export function qcm(bloc, data) {
+  //---Add data to resultats localStorage
+
   const div = document.createElement('div')
   div.innerHTML = codeHtml()
   div.classList.add('qcm')
@@ -175,7 +174,8 @@ export function qcm(bloc, data) {
       let resultatQCM = {
         qcm: {
           score: monScore / 10,
-          date: new Date().toLocaleDateString('fr-FR')
+          date: new Date().toLocaleDateString('fr-FR'),
+          lastSession: arrayOfObj          
         }
       }
 

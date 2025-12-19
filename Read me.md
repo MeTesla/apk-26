@@ -1,5 +1,7 @@
 
 Ajouter graphe conic, ajouter a item LS l'historique des résultats . Ajouter icone graphe au clic afficher graphe barres. Ajouter dernier quiz (save on LS)
+
+-Sugg : Login, charger résultats de BD ou
 const eleveSchema = new mongoose.Schema({
   nom: String,
   prenom: String,

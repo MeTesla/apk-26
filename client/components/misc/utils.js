@@ -97,7 +97,6 @@ async function submitCreerCompte() {
   }
 }
 
-
 // ------------  Get free MINs -----------
 async function freeMins() {
   const url = 'http://localhost:3000'
@@ -124,7 +123,6 @@ async function freeMins() {
   }
 }
 //-----------------FIN Get free MINs-----------
-
 
 // ------------- Générer le menu utilisateur --------------
 export function generateMenu(typeAccount, pere, menu) {
@@ -228,11 +226,14 @@ export function generateMenu(typeAccount, pere, menu) {
 }
 // ------------- FIN Générer le menu utilisateur ----------
 
+// ---- LocalStorage resultats
 export function handleResultats(resultat) {
   let resultatLS = JSON.parse(localStorage.getItem('resultats'))
   resultatLS = { ...resultatLS, ...resultat }
   localStorage.setItem('resultats', JSON.stringify(resultatLS))
 }
+
+// ----Confetti
 export function confet() {
   confetti({
     particleCount: 100,
@@ -241,6 +242,7 @@ export function confet() {
   });
 }
 
+// ---- Toast
 export function toast(msg) {
   Toastify({
     gravity: 'bottom',

@@ -7,7 +7,7 @@ function random(min, max) {
 export function conic(num, nbrItems) {
   const conic = document.createElement('div')
   conic.className = "conic"
-  conic.style.background = `conic-gradient(#ECB390 ${num * 3.6 * 10}deg, #D1C4E9 ${num * 3.6 * 10}deg)`;
+  conic.style.background = `conic-gradient(#ECB390 ${(num/nbrItems)*360}deg, #D1C4E9 ${(num/nbrItems)*360}deg)`;
   conic.innerHTML = `<span> ${num}/${nbrItems}</span><style>
   .conic{
      position :relative ;

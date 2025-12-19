@@ -179,7 +179,8 @@ export function vf(bloc, data) {
       let resultatVF = {
         vf: {
           score: monScore / 10,
-          date: new Date().toLocaleDateString('fr-FR')
+          date: new Date().toLocaleDateString('fr-FR'),
+          lastSession: data
         }
       }
       handleResultats(resultatVF)

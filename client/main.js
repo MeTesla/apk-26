@@ -19,19 +19,24 @@ window.addEventListener("load", function () {
 !localStorage.getItem('resultats') && localStorage.setItem('resultats', JSON.stringify({
   qcm: {
     date: new Date().toLocaleDateString('fr-FR'),
-    score: 0
+    score: 0,
+    lastSession:[]
   }, vf: {
     date: new Date().toLocaleDateString('fr-FR'),
-    score: 0
+    score: 0,
+    lastSession:[]
   }, ordrePh: {
     date: new Date().toLocaleDateString('fr-FR'),
-    score: 0
+    score: 0,
+    lastSession:[]
   }, ordreEv: {
     date: new Date().toLocaleDateString('fr-FR'),
-    score: 0
+    score: 0,
+    lastSession:[]
   }, remplir: {
     date: new Date().toLocaleDateString('fr-FR'),
-    score: 0
+    score: 0,
+    lastSession:[]
   }
 }));
 //----------------------

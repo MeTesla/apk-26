@@ -4,7 +4,7 @@ export function profile() {
     const objElv = JSON.parse(localStorage.getItem('profile'))
     const resultats = JSON.parse(localStorage.getItem('resultats')) || {}
     const div = document.createElement('div')
-    div.className = "user-profile"
+    div.className = "user-profile" 
     div.innerHTML = `<div class="profile-container">
         <img class="profile-previous" src="./assets/img/previous.svg" alt="Previous"/>
         <div class= "ligne"> NOM :</div> <h3>${objElv.nom}</h3>
@@ -134,7 +134,10 @@ export function profile() {
 
     qcmConic.appendChild(conic(resultats.qcm?.score,10))
     vfConic.appendChild(conic(resultats.vf?.score, 10))
-    remplirConic.appendChild(conic(resultats.remplir?.score.split('/')[0],resultats.remplir?.score.split('/')[1]))
+    remplirConic.appendChild(
+        conic(resultats.remplir?.score.split('/')[0],
+        resultats.remplir?.score.split('/')[1])
+    )
 
 
     userProfile.addEventListener('click', () => {
