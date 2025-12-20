@@ -5,6 +5,7 @@ import { handleResultats } from '../misc/utils.js'
 const l = console.log
 
 export function remplirVide(bloc, data) {
+  let texteTmp = {}
   const div = document.createElement('div');
   div.classList.add('vide')
   div.innerHTML = htmlCode()
@@ -30,7 +31,7 @@ export function remplirVide(bloc, data) {
   loadQuestion()
 
   function loadQuestion() {
-    let texteTmp = data[index].texte //copier le Texte = texteTmp
+    texteTmp = data[index].texte //copier le Texte = texteTmp
     listeMotsTmp = [...data[index].listeMots] // copier la liste des mots
     listeMotsTmp.sort(function (a, b) { return 0.5 - Math.random() }) // shuffle liste de mots
 
@@ -107,17 +108,16 @@ export function remplirVide(bloc, data) {
         incorrect -= 1
       }
     })
-    console.log('Corrects : ', correct)
+
     let resultatVide = {
       remplir: {
-        score: correct + "/" + gaps.length,
-        date: new Date().toLocaleDateString('fr-FR')
+        score: correct,
+        date: new Date().toLocaleDateString('fr-FR'),
+        lastSession: texteTmp
       }
     }
     handleResultats(resultatVide)
     verifier.style.display = "none";
-    // 3/6: 5/10 - 6/6 : 10/10 
-    // 
   })
   // OPTIONS 
   suivant.addEventListener('click', () => {

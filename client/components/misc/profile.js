@@ -4,15 +4,18 @@ export function profile() {
     const objElv = JSON.parse(localStorage.getItem('profile'))
     const resultats = JSON.parse(localStorage.getItem('resultats')) || {}
     const div = document.createElement('div')
-    div.className = "user-profile" 
+    div.className = "user-profile"
     div.innerHTML = `<div class="profile-container">
         <img class="profile-previous" src="./assets/img/previous.svg" alt="Previous"/>
-        <div class= "ligne"> NOM :</div> <h3>${objElv.nom}</h3>
-        <div class= "ligne"> Prenom :</div> <h3>${objElv.prenom}</h3>
-        <div class= "ligne"> Email :</div> <h3>${objElv.email}</h3>
-        <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv.freeMins) * 5}</h3>
+        <div class="profile-info">
+            <div class= "ligne"> NOM :</div> <h3>${objElv?.nom || 'Visiteur'}</h3>
+            <div class= "ligne"> Prenom :</div> <h3>${objElv?.prenom || 'Visiteur'}</h3>
+            <div class= "ligne"> Email :</div> <h3>${objElv?.email || 'Visiteur'}</h3>
+            <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv?.freeMins) * 5 || 'Visiteur'}</h3>
+        
+        </div>
         <div>
-            <h4> Mes résultats </h4>
+            <h4 class="mes-resultats"> Mes résultats </h4>
             
             <div class="res-container">
                 <div class="qcm-res">
@@ -58,32 +61,28 @@ export function profile() {
 
             .user-profile{
                 position: fixed;
-                top: 54px; left: 0;
+                top: 0; left: 0;
                 width:100%;
-                hheight: 100%;                
+                padding: 0 40px;
                 background-color: #eee;
                 display: flex;
                 align-items: flex-start;
                 justify-content: center;
-                z-index: 1000;
             }
             .profile-container{
-                position: relative;
-                width: 50%;
-                height: 90vh;
-                ddisplay: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
+
+                width: 100%;
+                height: 100vh;          
                 overflow-y: auto;
             }
             .profile-container::-webkit-scrollbar {
                 display: none;
             }
             .profile-previous{
-                position: fixed;
-                top: 10px; left: 10px;
+                position: relative;
+                top: 10px; left: 0px;
                 width: 30px; height: 30px;
+                margin-top: 30px;
                 padding: 5px;
                 border: 1px solid gray;
                 border-radius: 50%;
@@ -96,10 +95,17 @@ export function profile() {
             .profile-previous:hover{
                 background-color: rgb(240,240,240);
             }
-                
+            
+            .profile-info{
+                border: 1px solid gray;
+                border-radius: 20px;
+                padding: 20px;
+                width: 50%;
+                background-color: #fddbfbff;
+            }
             .ligne{
                 width: 100%;
-                background-color: rgb(220,220,220);
+                background-color: #c0bfff;
                 padding: 10px;
                 border-radius: 5px;
             }
@@ -109,6 +115,7 @@ export function profile() {
                 display:grid;
                 grid-template-columns: repeat(2, 6fr);
                 gap: 20px;
+                margin-bottom: 30px;
             }
             .res-container > div{
                 padding: 10px;
@@ -119,7 +126,12 @@ export function profile() {
             }
             
             .user-profile h4{
-               margin-bottom: 10px;
+               
+               text-align: center;
+               font-size: 1.4rem;
+            }
+            .mes-resultats{
+                margin: 40px auto;
             }
             .resultat-date{
                 font-size: 10px;
@@ -146,8 +158,8 @@ export function profile() {
     qcmConic.appendChild(conic(resultats.qcm?.score, 10))
     vfConic.appendChild(conic(resultats.vf?.score, 10))
     remplirConic.appendChild(
-        conic(resultats.remplir?.score.split('/')[0],
-        resultats.remplir?.score.split('/')[1])
+        conic(resultats.remplir?.score,
+            resultats.remplir?.score)
     )
 
 

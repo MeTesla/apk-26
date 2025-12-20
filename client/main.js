@@ -20,23 +20,23 @@ window.addEventListener("load", function () {
   qcm: {
     date: new Date().toLocaleDateString('fr-FR'),
     score: 0,
-    lastSession:[]
+    lastSession: []
   }, vf: {
     date: new Date().toLocaleDateString('fr-FR'),
     score: 0,
-    lastSession:[]
+    lastSession: []
   }, ordrePh: {
     date: new Date().toLocaleDateString('fr-FR'),
     score: 0,
-    lastSession:[]
+    lastSession: []
   }, ordreEv: {
     date: new Date().toLocaleDateString('fr-FR'),
     score: 0,
-    lastSession:[]
+    lastSession: []
   }, remplir: {
     date: new Date().toLocaleDateString('fr-FR'),
     score: 0,
-    lastSession:[]
+    lastSession: []
   }
 }));
 //----------------------
