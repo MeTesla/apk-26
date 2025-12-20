@@ -82,7 +82,7 @@ export function profile() {
                 position: relative;
                 top: 10px; left: 0px;
                 width: 30px; height: 30px;
-                margin-top: 30px;
+                margin-top: 10px;
                 padding: 5px;
                 border: 1px solid gray;
                 border-radius: 50%;
@@ -144,6 +144,12 @@ export function profile() {
             }
             .last-session{
                 cursor: pointer
+            }
+            
+            @media screen and (min-width: 780px) {
+                .res-container{
+                    grid-template-columns: repeat(5, 6fr);                   
+            }
             }
         </style>
         </div>`

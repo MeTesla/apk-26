@@ -15,7 +15,7 @@ window.addEventListener("load", function () {
   document.querySelector('.wrapper').style.display = "block"
 })
 
-//----------------------
+// Resultats Local Storage----------------------
 !localStorage.getItem('resultats') && localStorage.setItem('resultats', JSON.stringify({
   qcm: {
     date: new Date().toLocaleDateString('fr-FR'),
@@ -58,11 +58,7 @@ if (localStorage.getItem('role') === 'registred' || localStorage.getItem('role')
 btnHero.addEventListener('click', () => creerCompte())
 
 // -------------- Conics
-const notes = [5, 2, 7]
-const conics = document.querySelector('.conics');
-for (let i = 0; i < 3; i++) {
-  conics.appendChild(conic(notes[i]))
-}
+
 
 //-------------- Clique sur les oeuvres
 const antigone = document.querySelector('.oeuvres-container .antigone')

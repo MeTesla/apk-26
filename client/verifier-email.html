@@ -23,6 +23,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('token');
             if (!token) return;
+            console.log(token);
 
             // if(localStorage.getItem('role')=="attenteR"){
             verifierTokenEmail(token);

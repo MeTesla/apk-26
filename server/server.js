@@ -117,16 +117,22 @@ app.post('/login', async (req, res) => {
 app.post('/verifier-email', async (req, res) => {
     //AJOUTER : Votre compte est déjà actié. ne rien faire.
     const { token } = req.body
+    console.log(token)
     jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err) return res.json({
+        if (err) {return res.json({
             // navigateur: envoyer role:''
             success: false,
             role: 'attenteR',
             message: 'Le lien de vérification a expiré ou est invalide.'
-        })
+        })}else{
+            return res.json({
+                // navigateur: envoyer role:''
+                success: true,
+                role: "registred",
+                token: token
+            })
+        }
     })
-
-
 })
 
 //delete all documents
@@ -138,14 +144,13 @@ app.delete('/delete', async (req, res) => {
 //+10 mintues Middleware & route
 const freeMinsMiddleware = async (req, res, next) => {
     const token = req.headers.authorization
-    console.log('tok' + token);
 
     if (!token || (token === "")) return res.json({
         success: false,
         titre: 'noToken',
         message: 'Un problème est survenu. Veuillez contacter l\'Administareur',
     })
-    console.log('1');
+
 
     const payload = jwt.decode(token);
     if (!payload) return res.json({
@@ -153,9 +158,9 @@ const freeMinsMiddleware = async (req, res, next) => {
         titre: 'noPayload',
         message: 'Un problème est survenu. Veuillez contacter l\'Administareur',
     })
-    console.log('2');
+
     req.userEmail = payload.email
-    console.log(payload.email);
+
 
     const email = payload.email
     const eleve = await EleveModel.findOne({ email })
@@ -172,7 +177,7 @@ const freeMinsMiddleware = async (req, res, next) => {
         message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !',
     })
 
-    console.log('3');
+
     const { freeMins, dateFreeMin } = eleve
 
     const now = new Date()
@@ -191,7 +196,7 @@ const freeMinsMiddleware = async (req, res, next) => {
 
     }
     const date = new Date(dateFreeMin)
-    console.log('4');
+
     // ------------2
     if (freeMins <= 0) {
         return res.json({
@@ -201,7 +206,7 @@ const freeMinsMiddleware = async (req, res, next) => {
             freeMins
         })
     }
-    console.log('5');
+
     // ------------3   Same day 24H
     if (timeStamp(dateFreeMin) + (2 * 60 * 1000) > timeStamp(now)) {
         return res.json({
@@ -211,7 +216,7 @@ const freeMinsMiddleware = async (req, res, next) => {
             freeMins
         })
     }
-    console.log('6');
+
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err && err.name === "TokenExpiredError") {
             next();
@@ -220,8 +225,6 @@ const freeMinsMiddleware = async (req, res, next) => {
 }
 
 app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
-    console.log('7');
-    console.log(req.userEmail);
 
     if (!res.headersSent) {
         const token = await generateToken(req.userEmail, 10) // token valide 10 minutes
@@ -297,7 +300,7 @@ mongoose.connect(URL)
         console.log('Connexion à la base de données réussie !');
     })
     .catch(err => {
-        //console.error('Erreur de connexion à la base de données :', err);
+        console.error('Erreur de connexion à la base de données :', err);
     });
 
 // Dell

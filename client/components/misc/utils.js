@@ -122,7 +122,6 @@ async function freeMins() {
     modalFreeMins(data.success, data.message)
   }
 }
-//-----------------FIN Get free MINs-----------
 
 // ------------- Générer le menu utilisateur --------------
 export function generateMenu(typeAccount, pere, menu) {
@@ -211,6 +210,7 @@ export function generateMenu(typeAccount, pere, menu) {
     localStorage.removeItem('token')
     localStorage.removeItem('role')
     localStorage.removeItem('profile')
+    localStorage.removeItem('resultats')
     document.location.reload()
   })
 
@@ -224,7 +224,6 @@ export function generateMenu(typeAccount, pere, menu) {
 
   return div
 }
-// ------------- FIN Générer le menu utilisateur ----------
 
 // ---- LocalStorage resultats
 export function handleResultats(resultat) {
