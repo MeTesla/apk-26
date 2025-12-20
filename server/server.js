@@ -124,15 +124,35 @@ app.post('/verifier-email', async (req, res) => {
             success: false,
             role: 'attenteR',
             message: 'Le lien de vérification a expiré ou est invalide.'
-        })}else{
-            return res.json({
-                // navigateur: envoyer role:''
-                success: true,
-                role: "registred",
-                token: token
-            })
-        }
+        })}
     })
+
+    const eleve = await EleveModel.findOne({token})
+
+    if(!eleve) return res.json({
+        succuss: false,
+        message: 'Un problème est survenu : pas deleve de ce nom'
+    })
+
+    if(eleve.token == token){
+        const eleveUpdated = await EleveModel.findOneAndUpdate({token},
+        { $set: {role: 'registred'}},
+        {
+            new: true,
+            runValidators: true
+        })
+
+        return res.json({success : true, 
+            message: 'exist', 
+            eleveUpdated, 
+            token:generateToken(eleve.email, 1)})    
+    } else{
+        return res.json({
+            succuess:false,
+            message: 'Une erreur s\'était produite. Veuillez contacter l\'admin'
+        })
+    }
+
 })
 
 //delete all documents
