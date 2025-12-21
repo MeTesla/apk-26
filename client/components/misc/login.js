@@ -99,12 +99,12 @@ export function login() {
     })
     const data = await reponse.json()
     if (data.success) {
-      localStorage.setItem('role', 'registred')
+      localStorage.setItem('role', data.eleve.role)
       localStorage.setItem('token', data.eleve.token)
-      const { nom, prenom, email, tel, freeMins } = data.eleve
-      const objElv = { nom, prenom, email, tel, freeMins }
+      const { nom, prenom, email, tel, freeMins, resultats} = data.eleve
+      const objElv = { nom, prenom, email, tel, freeMins, resultats }
       localStorage.setItem('profile', JSON.stringify(objElv))
-      console.log(data)
+
       toast("Connecté avec succès")
       setTimeout(() => window.location.reload(), 800)
     } else {

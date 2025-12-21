@@ -2,7 +2,7 @@ import { conic } from "../../utils.js"
 
 export function profile() {
     const objElv = JSON.parse(localStorage.getItem('profile'))
-    const resultats = JSON.parse(localStorage.getItem('resultats')) || {}
+    const resultats = JSON.parse(localStorage.getItem('profile')).resultats || {}
     const div = document.createElement('div')
     div.className = "user-profile"
     div.innerHTML = `<div class="profile-container">

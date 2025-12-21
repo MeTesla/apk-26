@@ -64,8 +64,30 @@ export function listeAct(bloc){
   const accueil=document.querySelector('.index')
   const listBlc=document.querySelector('.liste-act')
   
-  accueil.onclick=()=> listBlc.remove()
+  accueil.onclick=()=> {
+    // fetch resultats to DB
+    fetchResultats()
+    listBlc.remove()
+  }
   
+  async function fetchResultats(){
+    const res = JSON.parse(localStorage.getItem('profile')).resultats
+    console.log(res);
+   
+    const reponse = await fetch('http://localhost:3000/update-resultats',{
+      method:'POST',
+      headers:{
+        "Content-Type":"application/json",
+        authorization: localStorage.getItem('token') || ''
+      },
+      body: JSON.stringify({res, token: localStorage.getItem('token')})
+    }) 
+    const data = await reponse.json()
+    const result = data
+    console.log(result)
+    
+  }
+    
   //-------Lire
   const lire=document.querySelector('.lst-lire')
   lire.onclick= async()=> {

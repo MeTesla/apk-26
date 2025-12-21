@@ -37,7 +37,7 @@ export function qcm(bloc, data) {
   let questions = []
   let currentQuestion = 0, monScore = 0
   let choosenQuestion, repondu = [], answered
-  let index = 0, nbrQst = 10, nbrSession = 1
+  let index = 0, nbrQst = 4, nbrSession = 1
   // --------------------- QUIZ logic --------------------
 
   // convert text to an array of objects

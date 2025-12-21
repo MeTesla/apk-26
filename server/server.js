@@ -51,6 +51,31 @@ function generateToken(email, expire) {
     return jwt.sign({ email }, SECRET_KEY, { expiresIn: `${expire}m` })
 }
 
+//MIDDLEWARE : get EXO
+const auth = async (req, res, next) => {
+    // Bearer Token ???   
+    //revoir la logie de ce middleware :
+
+    const { authorization } = req.headers
+    if (!authorization) {
+        return res.json('accès interdit')
+    }
+
+    try {
+        const isValidToken = jwt.verify(authorization, SECRET_KEY)
+        if (!isValidToken) return res.json('Votre session a pris fin.')
+        req.user = authorization
+    } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json('Le token a expiré, veuillez vous reconnecter.');
+        } else {
+            return res.status(401).json('Token invalide');
+        }
+    }
+    req.authorization = authorization
+    next()
+}
+
 //-------Créer compte
 app.post('/creer-compte', async (req, res) => {
     const { nom, prenom, email, tel } = req.body
@@ -154,6 +179,41 @@ app.post('/verifier-email', async (req, res) => {
     }
 
 })
+
+// Update resultats
+app.post('/update-resultats', auth, async (req, res) => {
+    const token = req.authorization
+    const result = req.body.res
+    console.log('token : ', req.body);
+    
+    try {
+        const eleve = await EleveModel.findOneAndUpdate({ token },
+        {
+            $set: {
+                resultats: result
+            },
+        },
+        {
+            new: true,
+            runValidators: true
+        }
+    )
+        if(!eleve) return res.json({
+            success:false, 
+            message:'pas d\'eleve'
+        })
+        res.json({eleve, success: true})
+        
+    } catch (error) {
+        res.json({
+            success: false, 
+            message: 'Erreur serveur. Veuillez réessayer plus tard' + error.message
+        })
+
+    }        
+})
+
+
 
 //delete all documents
 app.delete('/delete', async (req, res) => {
@@ -272,30 +332,7 @@ app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
     }
 })
 
-//MIDDLEWARE : get EXO
-const auth = async (req, res, next) => {
-    // Bearer Token ???   
-    //revoir la logie de ce middleware :
 
-    const { authorization } = req.headers
-    if (!authorization) {
-        return res.json('accès interdit')
-    }
-
-    try {
-        const isValidToken = jwt.verify(authorization, SECRET_KEY)
-        if (!isValidToken) return res.json('Votre session a pris fin.')
-        req.user = authorization
-    } catch (error) {
-        if (error.name === 'TokenExpiredError') {
-            return res.status(401).json('Le token a expiré, veuillez vous reconnecter.');
-        } else {
-            return res.status(401).json('Token invalide');
-        }
-    }
-    req.authorization = authorization
-    next()
-}
 
 app.get('/', auth, (req, res) => {
     const { exo } = req.query

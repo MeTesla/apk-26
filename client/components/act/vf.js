@@ -129,52 +129,6 @@ export function vf(bloc, data) {
       end: nbrSession
     }
     if (repondu.length == nbrQst) {
-      /*
-      function handleResultats(activity){
-
-      }
-      1-Récupérer resultats depuis LS
-      const resultatLS = JSON.stringify(localStorage.getItem('resultats'))
-      
-      2- préparer résultatQCM
-      let resultatQCM = {
-          qcm:{
-            score: monScore/10, 
-            date: new Date().toLocaleDateString('fr-FR')
-          }
-        }
-      3- update résultats
-      resultatLS={...JSON.parse(resultatLS), ...resultatQCM}
-      
-      4-réenregistrer résultats dans LS
-      localStorage.setItem('resultats', JSON.stringify(resultatLS))
-      
-      
-        
-        
-        resultatsLS={...JSON.parse(resultatLS), ...resultatQCM}}
-        
-        let resultatsLS={...JSON.parse(resultatLS), ...resultatQCM}
-        localStorage.setItem('resultats', JSON.stringify(resultatsLS))
-
-
-      resultat{qcm:{
-        date: new Date().toLocaleDateString('fr-FR'),
-        score: score / 10          
-      }, vf:{
-          date: new Date().toLocaleDateString('fr-FR'),
-          score: score / 10
-      }, ordrePh:{
-          date: new Date().toLocaleDateString('fr-FR'),
-          score: score / 10      
-      }, ordreEv:{
-          date: new Date().toLocaleDateString('fr-FR'),
-          score: score / 10      
-      }, remplir:{
-          date: new Date().toLocaleDateString('fr-FR'),
-          score: score / 10      
-      }, associer:{
-      */
 
       let resultatVF = {
         vf: {

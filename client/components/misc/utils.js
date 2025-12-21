@@ -113,8 +113,8 @@ async function freeMins() {
     localStorage.setItem('token', data.token)
     console.log(data);
 
-    const { nom, prenom, email, tel, freeMins } = data.eleveUpdated
-    const objElv = { nom, prenom, email, tel, freeMins }
+    const { nom, prenom, email, tel, freeMins, resultats } = data.eleveUpdated
+    const objElv = { nom, prenom, email, tel, freeMins, resultats }
     localStorage.setItem('profile', JSON.stringify(objElv))
 
     modalFreeMins(data.success, data.message, 'winner')
@@ -227,9 +227,11 @@ export function generateMenu(typeAccount, pere, menu) {
 
 // ---- LocalStorage resultats
 export function handleResultats(resultat) {
-  let resultatLS = JSON.parse(localStorage.getItem('resultats'))
+  let profile= JSON.parse(localStorage.getItem('profile'))
+  let resultatLS = profile.resultats
   resultatLS = { ...resultatLS, ...resultat }
-  localStorage.setItem('resultats', JSON.stringify(resultatLS))
+  // let updatedProfile = 
+  localStorage.setItem('profile', JSON.stringify({ ...profile, resultats: resultatLS }))
 }
 
 // ----Confetti
