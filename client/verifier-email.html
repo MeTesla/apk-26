@@ -51,6 +51,7 @@
                     // 1- afficherSucces('Votre email a été vérifié avec succès !');
                     // 2- logique: s'il a déjà utilisé le lien de l'émail.
                     toast('Votre email a été vérifié avec succès !')
+                    localStorage.setItem('resultats', JSON.stringify(data.eleveUpdated.resultats))
                     localStorage.setItem('role', 'registred')
                     localStorage.setItem('token', data.token)
                     const { nom, prenom, email, tel, freeMins } = data.eleveUpdated

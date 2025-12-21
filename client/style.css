@@ -315,15 +315,15 @@ svg rect {
 
 @media screen and (min-width: 780px) {
 
-  .liste-act {
-    width: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
   .wrapper {
     width: 60%;
-    margin: auto;
+    margin: auto; 
+  }
+
+  .liste-act {
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .cl,
@@ -335,7 +335,7 @@ svg rect {
   .vide,
   .resume-blc,
   .vrai-faux {
-    width: 50%;
+    width: 60%;
     left: 50%;
     transform: translateX(-50%);
   }

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const elevesSchema= new mongoose.Schema({
-    nom :{type:String, require},
-    prenom :{type: String, require},
-    email:{type: String, require},
-    tel :{type: String, require},
+    nom :{type:String, required : true},
+    prenom :{type: String, required : true},
+    email:{type: String, required : true},
+    tel :{type: String, required : true},    
     
     token:{type: String},
     
@@ -12,6 +12,23 @@ const elevesSchema= new mongoose.Schema({
     dateFreeMin:{type: Date,default: Date.now},
     
     role:{type: String},
+    resultats:{
+        qcm: {
+            score: {type: Number, default: 0}, 
+            date: {type: Date,default: Date.now}, 
+            lastSession: {type:Array, default: []}
+        },
+        vf:{
+            score: {type: Number, default: 0}, 
+            date: {type: Date,default: Date.now}, 
+            lastSession: {type:Array, default: []},
+        },
+        remplir:{
+            score: {type: Number, default: 0}, 
+            date: {type: Date,default: Date.now}, 
+            lastSession: {type:Array, default: []},
+        }
+    },   
     dateCreation: {type:Date, default: Date.now}
 }) 
 

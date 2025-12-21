@@ -1,16 +1,17 @@
 
 Ajouter graphe conic, ajouter a item LS l'historique des résultats . Ajouter icone graphe au clic afficher graphe barres. Ajouter dernier quiz (save on LS)
 
--Sugg : Login, charger résultats de BD ou
+-Sugg : resultats, 
+	login: charger res de BD (elv),
+	màj (BD)? fermeture list act.
+	màj (LS) verfication quiz.
 const eleveSchema = new mongoose.Schema({
   nom: String,
-  prenom: String,
-  date: Date,
+  email: String,
   resultats: {
-    maths: Number,
-    francais: Number,
-    commentaires: String
-    // Vous pouvez mettre autant de sous-niveaux que vous voulez
+    qcm: {score: Number, date: Date, lastSession: Array},
+    vf:{score: Number, date: Date, lastSession: Array},
+    remplir: {score: Number, date: Date, lastSession: Array},
   }
 });
 

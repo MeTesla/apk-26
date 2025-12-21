@@ -325,7 +325,7 @@ export function qcm(bloc, data) {
   font-size: 1.4rem;
   font-weight: bold;
   color: white;
-  margin: -20px auto;
+  margin: 10px auto;
   width: 50px;
   height: 50px;
   line-height: 50px;
@@ -339,7 +339,7 @@ export function qcm(bloc, data) {
    display: flex;
    justify-content: center ;
    align-items: center;
-   margin: -10px auto ;
+   margin: auto ;
    width: 100%;
 }
 
