@@ -40,7 +40,7 @@ export function vf(bloc, data) {
   const rep = document.querySelectorAll('.rep')
   const progress = document.querySelector('.vrai-faux .progress')
 
-  let index = 0, nbrQst = 10, nbrSession = 1
+  let index = 0, nbrQst = 4, nbrSession = 1
   let currentQst = 0, monScore = 0, choosenRep = false,
     repondu = [], answered, questions = []
 
