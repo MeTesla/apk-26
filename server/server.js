@@ -131,7 +131,7 @@ app.post('/verifier-email', async (req, res) => {
 
     if(!eleve) return res.json({
         succuss: false,
-        message: 'Un problème est survenu : pas deleve de ce nom'
+        message: 'Un problème est survenu : il n\'y apas d\'eleve de ce nom'
     })
 
     if(eleve.token == token){
@@ -145,7 +145,7 @@ app.post('/verifier-email', async (req, res) => {
         return res.json({success : true, 
             message: 'exist', 
             eleveUpdated, 
-            token:generateToken(eleve.email, 1)})    
+            token:generateToken(eleve.email, 10)})    
     } else{
         return res.json({
             succuess:false,
