@@ -38,6 +38,7 @@ export function qcm(bloc, data) {
   let currentQuestion = 0, monScore = 0
   let choosenQuestion, repondu = [], answered
   let index = 0, nbrQst = 4, nbrSession = 1
+
   // --------------------- QUIZ logic --------------------
 
   // convert text to an array of objects
@@ -55,6 +56,7 @@ export function qcm(bloc, data) {
   }
 
   // shuffle questions
+  // arrayOfObj.sort(function (a, b) { return 0.5 - Math.random() })
   arrayOfObj.sort(function (a, b) { return 0.5 - Math.random() })
 
   //charger n questions dans un tableau
@@ -175,7 +177,7 @@ export function qcm(bloc, data) {
         qcm: {
           score: monScore / 10,
           date: new Date().toLocaleDateString('fr-FR'),
-          lastSession: arrayOfObj          
+          lastSession: arrayOfObj
         }
       }
 

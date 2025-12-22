@@ -1,3 +1,4 @@
+import { qcm } from "../act/qcm.js"
 import { conic } from "../../utils.js"
 
 export function profile() {
@@ -160,6 +161,15 @@ export function profile() {
     const qcmConic = document.querySelector('.qcm-conic')
     const vfConic = document.querySelector('.vf-conic')
     const remplirConic = document.querySelector('.remplir-conic')
+
+    //QCM last session
+    const qcmLastSession = document.querySelector('.qcm-last-session')
+    qcmLastSession.onclick = () => {
+        const qcmData = JSON.parse(localStorage.getItem('profile')).resultats.qcm?.lastSession || []
+        if (qcmData.length === 0) return
+        qcm(div, qcmData)
+        document.body.style.overflow = "hidden"
+    }
 
     qcmConic.appendChild(conic(resultats.qcm?.score, 10))
     vfConic.appendChild(conic(resultats.vf?.score, 10))

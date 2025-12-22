@@ -1,5 +1,8 @@
 
-Ajouter graphe conic, ajouter a item LS l'historique des résultats . Ajouter icone graphe au clic afficher graphe barres. Ajouter dernier quiz (save on LS)
+Ajouter graphe conic, 
+Ajouter a item LS l'historique des résultats . 
+Ajouter icone graphe au clic afficher graphe barres. 
+Ajouter dernier quiz (save on LS)
 
 -Sugg : resultats, 
 	login: charger res de BD (elv),
