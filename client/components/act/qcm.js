@@ -176,6 +176,8 @@ export function qcm(bloc, data) {
       let resultatQCM = {
         qcm: {
           score: monScore / 10,
+          scores: [...JSON.parse(localStorage.getItem('profile')).resultats.qcm.scores, monScore / 10],
+          nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
           lastSession: arrayOfObj
         }

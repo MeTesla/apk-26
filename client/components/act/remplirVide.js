@@ -30,6 +30,7 @@ export function remplirVide(bloc, data) {
   data.sort(function (a, b) { return 0.5 - Math.random() })
   loadQuestion()
 
+  // Charger une question
   function loadQuestion() {
     texteTmp = data[index].texte //copier le Texte = texteTmp
     listeMotsTmp = [...data[index].listeMots] // copier la liste des mots
@@ -84,6 +85,7 @@ export function remplirVide(bloc, data) {
     }// fin for gestion réponses
   }
 
+  // Boutton Vérifier
   let verifier = document.querySelector('.valider')
   verifier.addEventListener('click', (ev) => {
     verified = true;
@@ -112,6 +114,8 @@ export function remplirVide(bloc, data) {
     let resultatVide = {
       remplir: {
         score: correct,
+        scores: [...JSON.parse(localStorage.getItem('profile')).resultats.remplir.scores, correct],
+        nbrQsts: listeMotsTmp.length,
         date: new Date().toLocaleDateString('fr-FR'),
         lastSession: texteTmp
       }
@@ -119,7 +123,8 @@ export function remplirVide(bloc, data) {
     handleResultats(resultatVide)
     verifier.style.display = "none";
   })
-  // OPTIONS 
+
+  // Boutton Suivant 
   suivant.addEventListener('click', () => {
     if (index < nbrTextes) {
       reinitialiser()
@@ -129,8 +134,13 @@ export function remplirVide(bloc, data) {
       // resultat.innerHTML=`<h1 style="color: var(--comp)">FIN de session</h1>`  
     }
   })
+
+  // Refaire
   refaire.addEventListener('click', () => { reinitialiser('re') })
+
+  // Voir réponse
   voirRep.addEventListener('click', () => { voirReponse() })
+
   function reinitialiser(re) {
     verified = false
     //listeMotsTmp=[]
@@ -285,3 +295,6 @@ export function remplirVide(bloc, data) {
   }
 
 } // fin fonction
+
+//remplirVide pass paramètre à handleResultats(nbrCorrect, nbrTotal)
+//

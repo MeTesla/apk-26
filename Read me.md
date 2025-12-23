@@ -1,8 +1,6 @@
 
-Ajouter graphe conic, 
-Ajouter a item LS l'historique des résultats . 
-Ajouter icone graphe au clic afficher graphe barres. 
-Ajouter dernier quiz (save on LS)
+
+PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
 
 -Sugg : resultats, 
 	login: charger res de BD (elv),

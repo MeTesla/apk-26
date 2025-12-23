@@ -1,12 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
-
-
 const EleveModel = require('./EleveModel')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const app = express()
+
 app.use(cors({
     // ne pas mettre '/' à la fin de l'origine
     origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
@@ -144,36 +143,40 @@ app.post('/verifier-email', async (req, res) => {
     const { token } = req.body
     console.log(token)
     jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err) {return res.json({
-            // navigateur: envoyer role:''
-            success: false,
-            role: 'attenteR',
-            message: 'Le lien de vérification a expiré ou est invalide.'
-        })}
+        if (err) {
+            return res.json({
+                // navigateur: envoyer role:''
+                success: false,
+                role: 'attenteR',
+                message: 'Le lien de vérification a expiré ou est invalide.'
+            })
+        }
     })
 
-    const eleve = await EleveModel.findOne({token})
+    const eleve = await EleveModel.findOne({ token })
 
-    if(!eleve) return res.json({
+    if (!eleve) return res.json({
         succuss: false,
         message: 'Un problème est survenu : il n\'y apas d\'eleve de ce nom'
     })
 
-    if(eleve.token == token){
-        const eleveUpdated = await EleveModel.findOneAndUpdate({token},
-        { $set: {role: 'registred'}},
-        {
-            new: true,
-            runValidators: true
-        })
+    if (eleve.token == token) {
+        const eleveUpdated = await EleveModel.findOneAndUpdate({ token },
+            { $set: { role: 'registred' } },
+            {
+                new: true,
+                runValidators: true
+            })
 
-        return res.json({success : true, 
-            message: 'exist', 
-            eleveUpdated, 
-            token:generateToken(eleve.email, 10)})    
-    } else{
         return res.json({
-            succuess:false,
+            success: true,
+            message: 'exist',
+            eleveUpdated,
+            token: generateToken(eleve.email, 10)
+        })
+    } else {
+        return res.json({
+            succuess: false,
             message: 'Une erreur s\'était produite. Veuillez contacter l\'admin'
         })
     }
@@ -185,32 +188,32 @@ app.post('/update-resultats', auth, async (req, res) => {
     const token = req.authorization
     const result = req.body.res
     console.log('token : ', req.body);
-    
+
     try {
         const eleve = await EleveModel.findOneAndUpdate({ token },
-        {
-            $set: {
-                resultats: result
+            {
+                $set: {
+                    resultats: result
+                },
             },
-        },
-        {
-            new: true,
-            runValidators: true
-        }
-    )
-        if(!eleve) return res.json({
-            success:false, 
-            message:'pas d\'eleve'
+            {
+                new: true,
+                runValidators: true
+            }
+        )
+        if (!eleve) return res.json({
+            success: false,
+            message: 'pas d\'eleve'
         })
-        res.json({eleve, success: true})
-        
+        res.json({ eleve, success: true })
+
     } catch (error) {
         res.json({
-            success: false, 
+            success: false,
             message: 'Erreur serveur. Veuillez réessayer plus tard' + error.message
         })
 
-    }        
+    }
 })
 
 

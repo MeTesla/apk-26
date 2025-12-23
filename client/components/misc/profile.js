@@ -21,7 +21,7 @@ export function profile() {
             <div class="res-container">
                 <div class="qcm-res">
                     <h4>QCM</h4>                    
-                    <div class="resultat-score"> ${resultats.qcm?.score + '/10' || '0'} </div>
+                    <div class="resultat-score"> ${resultats.qcm?.score + '/' + resultats.qcm?.nbrQsts || '0'} </div>
                     <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
                     <div class="qcm-conic"> </div>
                     <div class="qcm-last-session last-session" > <i class="fa-solid fa-rotate-right"></i> </div>
@@ -29,14 +29,14 @@ export function profile() {
                 </div>
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
-                    <div class="resultat-score"> ${resultats.vf?.score + '/10' || '0'} </div>
+                    <div class="resultat-score"> ${resultats.vf?.score + '/' + resultats.vf?.nbrQsts || '0'} </div>
                     <div class="resultat-date"> ${resultats.vf?.date || 'Date'} </div>
                     <div class="vf-conic"> </div>
                     <div class="vf-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                 </div>
                 <div class="remplir-res">
                     <h4>Remplir les blancs</h4>
-                    <div class="resultat-score"> ${resultats.remplir?.score || '0'} </div>
+                    <div class="resultat-score"> ${resultats.remplir?.score + '/' + resultats.remplir?.nbrQsts || '0'} </div>
                     <div class="resultat-date"> ${resultats.remplir?.date || 'Date'} </div>
                     <div class="remplir-conic"> </div>
                     <div class="remplir-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
@@ -171,11 +171,11 @@ export function profile() {
         document.body.style.overflow = "hidden"
     }
 
-    qcmConic.appendChild(conic(resultats.qcm?.score, 10))
-    vfConic.appendChild(conic(resultats.vf?.score, 10))
+    qcmConic.appendChild(conic(resultats.qcm?.score, resultats.qcm?.nbrQsts))
+    vfConic.appendChild(conic(resultats.vf?.score, resultats.vf?.nbrQsts))
     remplirConic.appendChild(
         conic(resultats.remplir?.score,
-            resultats.remplir?.score)
+            resultats.remplir?.nbrQsts)
     )
 
 

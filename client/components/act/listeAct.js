@@ -1,11 +1,11 @@
 //--------- ACTIVITIES 
-import {lecteur} from './lecteur.js' 
-import {resume} from './resume.js' 
-import {qcm} from './qcm.js'
-import {remplirVide} from './remplirVide.js'
-import {vf} from './vf.js'
-import {ordreEvenements} from './ordreEvenements.js'
-import {ordrePhrases} from './ordrePhrases.js'
+import { lecteur } from './lecteur.js'
+import { resume } from './resume.js'
+import { qcm } from './qcm.js'
+import { remplirVide } from './remplirVide.js'
+import { vf } from './vf.js'
+import { ordreEvenements } from './ordreEvenements.js'
+import { ordrePhrases } from './ordrePhrases.js'
 
 /* DYNAMIC IMPORT
 t.addEventListener('click', async ()=>{
@@ -26,25 +26,25 @@ function toast(msg) {
   }).showToast();
 }
 // const url ='https://euduka.vercel.app/'
-const url ='http://localhost:3000/'
+const url = 'http://localhost:3000/'
 
-const vffData = async (exo)=>{
-  const reponse = await fetch(url+`?exo=${exo}`,{
-    headers:{
-      "Content-Type":"application/json",
+const vffData = async (exo) => {
+  const reponse = await fetch(url + `?exo=${exo}`, {
+    headers: {
+      "Content-Type": "application/json",
       authorization: localStorage.getItem('token') || ''
     }
   })
-  const data =await reponse.json()
-  if((!reponse.ok) || (data=="accès interdit")) return modalLokedContent()
-  
+  const data = await reponse.json()
+  if ((!reponse.ok) || (data == "accès interdit")) return modalLokedContent()
+
   return data
 }
 
-const wrapper= document.querySelector('.wrapper')
+const wrapper = document.querySelector('.wrapper')
 
-export function listeAct(bloc){
-  const html=`<img class="index" src ="./assets/img/previous.svg"></svg>
+export function listeAct(bloc) {
+  const html = `<img class="index" src ="./assets/img/previous.svg"></svg>
   <div class="list">
   <li class="list-elements lst-lire">Lire le roman</li>
   <li class="list-elements lst-resume">Résumé</li>
@@ -54,87 +54,90 @@ export function listeAct(bloc){
   <li class="list-elements lst-ordre-ev">Mettre en ordre des évènements</li>
   <li class="list-elements lst-vide">Remplir le vide</li>
   </div>`
-  
-  const activites=document.createElement('ul')
-  activites.innerHTML=html
+
+  const activites = document.createElement('ul')
+  activites.innerHTML = html
   activites.classList.add('liste-act')
   bloc.appendChild(activites)
-  
+
   // Afficher la page d'accueil
-  const accueil=document.querySelector('.index')
-  const listBlc=document.querySelector('.liste-act')
-  
-  accueil.onclick=()=> {
+  const accueil = document.querySelector('.index')
+  const listBlc = document.querySelector('.liste-act')
+  let isDataFetched = false
+  accueil.onclick = async () => {
     // fetch resultats to DB
-    fetchResultats()
-    listBlc.remove()
+    await fetchResultats()
+
+
   }
-  
-  async function fetchResultats(){
+
+  //---Fetch save résultats to DB
+  async function fetchResultats() {
     const res = JSON.parse(localStorage.getItem('profile')).resultats
     console.log(res);
-   
-    const reponse = await fetch('http://localhost:3000/update-resultats',{
-      method:'POST',
-      headers:{
-        "Content-Type":"application/json",
+
+    const reponse = await fetch('http://localhost:3000/update-resultats', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
         authorization: localStorage.getItem('token') || ''
       },
-      body: JSON.stringify({res, token: localStorage.getItem('token')})
-    }) 
+      body: JSON.stringify({ res, token: localStorage.getItem('token') })
+    })
     const data = await reponse.json()
     const result = data
+    isDataFetched = true
     console.log(result)
-    
+    listBlc.remove()
   }
-    
+
   //-------Lire
-  const lire=document.querySelector('.lst-lire')
-  lire.onclick= async()=> {
-    const  {oeuvre} = await vffData('bamoeuvre')||''
-      if(!oeuvre) return console.log('lkqdflmj')
-      lecteur(wrapper, oeuvre)
-    }
+  const lire = document.querySelector('.lst-lire')
+  lire.onclick = async () => {
+    const { oeuvre } = await vffData('bamoeuvre') || ''
+    if (!oeuvre) return console.log('lkqdflmj')
+    lecteur(wrapper, oeuvre)
+  }
   //-------Résumé  
-  const res=document.querySelector('.lst-resume')
-  res.onclick= async()=> {
-    const  {resumee} = await vffData('bamresume') || ''
-    if(!resumee)return //console.log('Vou n\êtes pas autorisé')}
+  const res = document.querySelector('.lst-resume')
+  res.onclick = async () => {
+    const { resumee } = await vffData('bamresume') || ''
+    if (!resumee) return //console.log('Vou n\êtes pas autorisé')}
     resume(wrapper, resumee)
-    }
-    
-  const q=document.querySelector('.lst-qcm')
-  q.onclick=async()=> {
-    const  {qcmData} = await vffData('bamqcm') || ''
-    if(!qcmData) return
+  }
+
+  const q = document.querySelector('.lst-qcm')
+  q.onclick = async () => {
+    const { qcmData } = await vffData('bamqcm') || ''
+    if (!qcmData) return
     qcm(wrapper, qcmData)
-    }
-  
-  const vide=document.querySelector('.lst-vide')
-  vide.onclick= async()=> {
-    const  {textesVide} = await vffData('bamvide') || ''
-    if(!textesVide)return 
+  }
+
+  const vide = document.querySelector('.lst-vide')
+  vide.onclick = async () => {
+    const { textesVide } = await vffData('bamvide') || ''
+    if (!textesVide) return
     remplirVide(wrapper, textesVide)
-    }
-  
-  const vF=document.querySelector('.lst-vf')
-  vF.onclick= async()=> {
-    const  {bamvf} = await vffData('bamvf') || ''
-    if(!bamvf)return 
+  }
+
+  const vF = document.querySelector('.lst-vf')
+  vF.onclick = async () => {
+    const { bamvf } = await vffData('bamvf') || ''
+    if (!bamvf) return
     vf(wrapper, bamvf)
-    }
-  
-  const ordreEvents=document.querySelector('.lst-ordre-ev')
-  ordreEvents.onclick=async()=> {
-    const {ordreEventsData} = await vffData('bamordreev') || ''
-    if(!ordreEventsData)return 
+  }
+
+  const ordreEvents = document.querySelector('.lst-ordre-ev')
+  ordreEvents.onclick = async () => {
+    const { ordreEventsData } = await vffData('bamordreev') || ''
+    if (!ordreEventsData) return
     ordreEvenements(wrapper, ordreEventsData)
-    }
-    
-  const ordrePh=document.querySelector('.lst-ordre-ph')
-  ordrePh.onclick=async()=> {
-    const {phrases} = await vffData('bamordreph') || ''
-    if(!phrases)return 
+  }
+
+  const ordrePh = document.querySelector('.lst-ordre-ph')
+  ordrePh.onclick = async () => {
+    const { phrases } = await vffData('bamordreph') || ''
+    if (!phrases) return
     ordrePhrases(wrapper, phrases)
   }
 }

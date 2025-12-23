@@ -133,6 +133,8 @@ export function vf(bloc, data) {
       let resultatVF = {
         vf: {
           score: monScore / 10,
+          scores: [...JSON.parse(localStorage.getItem('profile')).resultats.vf.scores, monScore / 10],
+          nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
           lastSession: data
         }
