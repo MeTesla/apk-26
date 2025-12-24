@@ -85,10 +85,19 @@ export function listeAct(bloc) {
       body: JSON.stringify({ res, token: localStorage.getItem('token') })
     })
     const data = await reponse.json()
-    const result = data
-    isDataFetched = true
-    console.log(result)
-    listBlc.remove()
+    if (data.success) {
+      const result = data
+      // isDataFetched = true
+      console.log(result)
+      toast('Résultats synchronisés')
+      setTimeout(() => {
+        listBlc.remove()
+      }, 500)
+    } else {
+      listBlc.remove()
+      toast('Erreur de synchronisation des résultats')
+    }
+
   }
 
   //-------Lire

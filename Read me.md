@@ -1,5 +1,3 @@
-
-
 PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
 
 -Sugg : resultats, 
