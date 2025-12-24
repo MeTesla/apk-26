@@ -64,37 +64,41 @@ export function listeAct(bloc) {
   const accueil = document.querySelector('.index')
   const listBlc = document.querySelector('.liste-act')
   let isDataFetched = false
-  accueil.onclick = async () => {
+  accueil.onclick = () => {
     // fetch resultats to DB
-    await fetchResultats()
-
-
+    fetchResultats()
   }
 
   //---Fetch save résultats to DB
+  // Le preblème est du front end.
   async function fetchResultats() {
     const res = JSON.parse(localStorage.getItem('profile')).resultats
     console.log(res);
 
-    const reponse = await fetch('http://localhost:3000/update-resultats', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem('token') || ''
-      },
-      body: JSON.stringify({ res, token: localStorage.getItem('token') })
-    })
-    const data = await reponse.json()
-    if (data.success) {
-      const result = data
-      // isDataFetched = true
-      console.log(result)
-      toast('Résultats synchronisés')
-      setTimeout(() => {
+    try {
+      const reponse = await fetch('http://localhost:3000/update-resultats', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem('token')
+        },
+        body: JSON.stringify({ res })
+      })
+      const data = await reponse.json()
+      if (data.success) {
+        const result = data
+        // isDataFetched = true
+        console.log(result)
+        toast('Résultats synchronisés')
+        setTimeout(() => {
+          listBlc.remove()
+        }, 500)
+      } else {
         listBlc.remove()
-      }, 500)
-    } else {
-      listBlc.remove()
+        toast('Erreur de synchronisation des résultats')
+      }
+    } catch (error) {
+      console.error('Erreur lors de la synchronisation des résultats :', error);
       toast('Erreur de synchronisation des résultats')
     }
 

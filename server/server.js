@@ -187,7 +187,7 @@ app.post('/verifier-email', async (req, res) => {
 app.post('/update-resultats', auth, async (req, res) => {
     const token = req.authorization
     const result = req.body.res
-    console.log('token : ', req.body);
+    console.log('update')
 
     try {
         const eleve = await EleveModel.findOneAndUpdate({ token },
@@ -206,6 +206,7 @@ app.post('/update-resultats', auth, async (req, res) => {
             message: 'pas d\'eleve'
         })
         res.json({ eleve, success: true })
+        console.log('updated true')
 
     } catch (error) {
         res.json({
@@ -215,7 +216,6 @@ app.post('/update-resultats', auth, async (req, res) => {
 
     }
 })
-
 
 
 //delete all documents
