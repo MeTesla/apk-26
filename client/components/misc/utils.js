@@ -96,7 +96,7 @@ async function submitCreerCompte() {
     modalFreeMins(false, data.message, 'failed')
   }
 }
- 
+
 // ------------  Get free MINs -----------
 async function freeMins() {
   const url = 'http://localhost:3000'
@@ -227,7 +227,7 @@ export function generateMenu(typeAccount, pere, menu) {
 
 // ---- LocalStorage resultats
 export function handleResultats(resultat) {
-  let profile= JSON.parse(localStorage.getItem('profile'))
+  let profile = JSON.parse(localStorage.getItem('profile'))
   let resultatLS = profile.resultats
   resultatLS = { ...resultatLS, ...resultat }
   // let updatedProfile = 
@@ -252,4 +252,38 @@ export function toast(msg) {
     position: "center",
     close: true
   }).showToast();
+}
+
+//------ Fetch Resultats to DB -----
+export async function fetchResultats(listBlc) {
+  const res = JSON.parse(localStorage.getItem('profile')).resultats
+  console.log(res);
+
+  try {
+    const reponse = await fetch('http://localhost:3000/update-resultats', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem('token')
+      },
+      body: JSON.stringify({ res })
+    })
+    const data = await reponse.json()
+    if (data.success) {
+      const result = data
+      // isDataFetched = true
+      console.log(result)
+      toast('Résultats synchronisés')
+      setTimeout(() => {
+        listBlc.remove()
+      }, 300)
+    } else {
+      listBlc.remove()
+      toast('Erreur de synchronisation des résultats')
+    }
+  } catch (error) {
+    console.error('Erreur lors de la synchronisation des résultats :', error);
+    toast('Erreur de synchronisation des résultats')
+  }
+
 }
