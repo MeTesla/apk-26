@@ -6,7 +6,7 @@ import { remplirVide } from './remplirVide.js'
 import { vf } from './vf.js'
 import { ordreEvenements } from './ordreEvenements.js'
 import { ordrePhrases } from './ordrePhrases.js'
-
+import { fetchResultats } from '../misc/utils.js'
 /* DYNAMIC IMPORT
 t.addEventListener('click', async ()=>{
   let {d} = await import('./data.js')
@@ -69,6 +69,13 @@ export function listeAct(bloc) {
     fetchResultats(listBlc)
   }
 
+
+    // fetch resultats to DB
+    fetchResultats(listBlc)
+  }
+
+  //---Fetch save résultats to DB
+  // Le preblème est du front end.
 
 
   //-------Lire

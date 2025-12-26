@@ -1,4 +1,3 @@
-PROB : syncho résultats, j'ai identifié le problème. il y a trois fichier listAct. à ajouter la fonction ds les 3 fichiers
 PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
 
 -Sugg : resultats, 
