@@ -165,11 +165,13 @@ export function qcm(bloc, data) {
         reponseCorrect[0].classList.add('reponseCorrect')
       }
     }
-    function sliceScores(scores){      
-      if(scores.length>=6){
+    function sliceScores(scores) {
+      if (scores.length >= 6) {
         return [scores.slice(-6)]
+      } else {
+        return scores
       }
-      
+
     }
     let resultat = {
       score: monScore / 10,
@@ -180,7 +182,7 @@ export function qcm(bloc, data) {
       let resultatQCM = {
         qcm: {
           score: monScore / 10,
-          scores: [...JSON.parse(localStorage.getItem('profile')).resultats.qcm.scores, monScore / 10],
+          scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.qcm.scores), ...monScore / 10],
           nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
           lastSession: arrayOfObj
