@@ -9,7 +9,7 @@ import { ordrePhrases } from '../components/act/ordrePhrases.js'
 import { fetchResultats } from '../components/misc/utils.js'
 // import { modalFreeMins } from '../components/misc/modals.js'
 import { modalLokedContent } from '../components/misc/modals.js'
-import { fetchResultats } from '../components/misc/utils.js'
+
 
 // const url ='https://euduka.vercel.app/'
 const url = 'http://localhost:3000/'
@@ -42,7 +42,7 @@ export function listeActAntigone(bloc, num) {
    <li class="list-elements lst-ordre-ev">Mettre en ordre des évènements</li>   
    <li class="list-elements lst-vide">Remplir le vide</li>
  </div>`
-
+ 
   const activites = document.createElement('ul')
   activites.innerHTML = html
   activites.classList.add('liste-act')

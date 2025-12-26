@@ -165,14 +165,18 @@ export function qcm(bloc, data) {
         reponseCorrect[0].classList.add('reponseCorrect')
       }
     }
-
+    function sliceScores(scores){      
+      if(scores.length>=6){
+        return [scores.slice(-6)]
+      }
+      
+    }
     let resultat = {
       score: monScore / 10,
       nbrQst: nbrQst,
       end: nbrSession
     }
     if (repondu.length == nbrQst) {
-
       let resultatQCM = {
         qcm: {
           score: monScore / 10,
@@ -182,10 +186,7 @@ export function qcm(bloc, data) {
           lastSession: arrayOfObj
         }
       }
-
-
       handleResultats(resultatQCM)
-
       modalFinSession(div, reinitialiser, resultat)
     }
   }
