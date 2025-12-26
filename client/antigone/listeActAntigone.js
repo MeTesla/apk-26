@@ -9,6 +9,7 @@ import {ordrePhrases} from '../components/act/ordrePhrases.js'
 
 // import { modalFreeMins } from '../components/misc/modals.js'
 import { modalLokedContent } from '../components/misc/modals.js'
+import { fetchResultats } from '../components/misc/utils.js'
 
 // const url ='https://euduka.vercel.app/'
 const url ='http://localhost:3000/'
@@ -51,8 +52,7 @@ export function listeActAntigone(bloc, num){
  const accueil=document.querySelector('.index')
  const listBlc=document.querySelector('.liste-act')
  accueil.onclick=()=>{
-  document.body.style.overflow='auto';
-  listBlc.remove()
+  fetchResultats(listBlc)
 }
 
 const lire=document.querySelector('.lst-lire')

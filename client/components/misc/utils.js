@@ -234,6 +234,40 @@ export function handleResultats(resultat) {
   localStorage.setItem('profile', JSON.stringify({ ...profile, resultats: resultatLS }))
 }
 
+  //---Fetch save résultats to DB
+  export async function fetchResultats(listBlc) {
+    const res = JSON.parse(localStorage.getItem('profile')).resultats
+    console.log(res);
+
+    try {
+      const reponse = await fetch('http://localhost:3000/update-resultats', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem('token')
+        },
+        body: JSON.stringify({ res })
+      })
+      const data = await reponse.json()
+      if (data.success) {
+        const result = data
+        // isDataFetched = true
+        console.log(result)
+        toast('Résultats synchronisés')
+        setTimeout(() => {
+          listBlc.remove()
+        }, 500)
+      } else {
+        listBlc.remove()
+        toast('Erreur de synchronisation des résultats')
+      }
+    } catch (error) {
+      console.error('Erreur lors de la synchronisation des résultats :', error);
+      toast('Erreur de synchronisation des résultats')
+    }
+
+  }
+
 // ----Confetti
 export function confet() {
   confetti({

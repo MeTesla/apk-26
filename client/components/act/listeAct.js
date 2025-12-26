@@ -15,6 +15,7 @@ t.addEventListener('click', async ()=>{
 */
 // import { modalFreeMins } from '../misc/modals.js'
 import { modalLokedContent } from '../misc/modals.js'
+import { fetchResultats } from '../misc/utils.js'
 
 
 function toast(msg) {
@@ -63,46 +64,12 @@ export function listeAct(bloc) {
   // Afficher la page d'accueil
   const accueil = document.querySelector('.index')
   const listBlc = document.querySelector('.liste-act')
-  let isDataFetched = false
+  
   accueil.onclick = () => {
-    // fetch resultats to DB
-    fetchResultats()
+    fetchResultats(listBlc)
   }
 
-  //---Fetch save résultats to DB
-  // Le preblème est du front end.
-  async function fetchResultats() {
-    const res = JSON.parse(localStorage.getItem('profile')).resultats
-    console.log(res);
 
-    try {
-      const reponse = await fetch('http://localhost:3000/update-resultats', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          authorization: localStorage.getItem('token')
-        },
-        body: JSON.stringify({ res })
-      })
-      const data = await reponse.json()
-      if (data.success) {
-        const result = data
-        // isDataFetched = true
-        console.log(result)
-        toast('Résultats synchronisés')
-        setTimeout(() => {
-          listBlc.remove()
-        }, 500)
-      } else {
-        listBlc.remove()
-        toast('Erreur de synchronisation des résultats')
-      }
-    } catch (error) {
-      console.error('Erreur lors de la synchronisation des résultats :', error);
-      toast('Erreur de synchronisation des résultats')
-    }
-
-  }
 
   //-------Lire
   const lire = document.querySelector('.lst-lire')
