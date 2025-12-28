@@ -1,120 +1,141 @@
-const l=console.log
-import {closeAct, homeAct} from '../misc/closeAct.js'
-import {entete} from '../misc/entete.js'
+const l = console.log
+import { closeAct, homeAct } from '../misc/closeAct.js'
+import { entete } from '../misc/entete.js'
+import { handleResultats, sliceScores } from '../misc/utils.js'
 
-export function ordrePhrases(bloc, data){
- const div=document.createElement('div');
- div.classList.add('ordre-ph') 
- div.innerHTML = htmlCode()
- bloc.appendChild(div)
- 
- let home = document.querySelector('.home')
- home.onclick = () => { homeAct(div) }
- 
- let close= document.querySelector('.close')
- close.onclick = () => { closeAct(div); }
+export function ordrePhrases(bloc, data) {
+   const div = document.createElement('div');
+   div.classList.add('ordre-ph')
+   div.innerHTML = htmlCode()
+   bloc.appendChild(div)
 
-// let p="je suis fatigué de courir toute la journée";
+   let home = document.querySelector('.home')
+   home.onclick = () => { homeAct(div) }
 
-// console.log(p.split(" ").sort(function(a, b){return 0.5 - Math.random()}).join(" "));
+   let close = document.querySelector('.close')
+   close.onclick = () => { closeAct(div); }
 
-// --------DOM varibles
-var score = document.querySelector('.score')
-const progress = document.querySelector('.progress')
-var recepteur = document.querySelector('.recepteur')
-var emetteur = document.querySelector('.emetteur')
-var verifier = document.querySelector('.valider')
-var resultat = document.querySelector('.resultat')
-var message = document.querySelector('.message')
-var bnRep = document.querySelector('.bn-rep')
-var voirRep = document.querySelector('.voir-rep')
-var suivant = document.querySelector('.ph-suivante')
-var refaire = document.querySelector('.ph-refaire')
-// -------- GLOBALS
-var index = 0
-var monScore = 0
-const nbrPhrases= 3
-var audio
-let phraseInOrder=[]
-verifier.addEventListener('click', verifierFunc)
- 
+   // let p="je suis fatigué de courir toute la journée";
+
+   // console.log(p.split(" ").sort(function(a, b){return 0.5 - Math.random()}).join(" "));
+
+   // --------DOM varibles
+   var score = document.querySelector('.score')
+   const progress = document.querySelector('.progress')
+   var recepteur = document.querySelector('.recepteur')
+   var emetteur = document.querySelector('.emetteur')
+   var verifier = document.querySelector('.valider')
+   var resultat = document.querySelector('.resultat')
+   var message = document.querySelector('.message')
+   var bnRep = document.querySelector('.bn-rep')
+   var voirRep = document.querySelector('.voir-rep')
+   var suivant = document.querySelector('.ph-suivante')
+   var refaire = document.querySelector('.ph-refaire')
+   // -------- GLOBALS
+   var index = 0
+   var monScore = 0
+   const nbrPhrases = 5
+   var audio
+   let phraseInOrder = []
+   let sessionPhrases = []
+   verifier.addEventListener('click', verifierFunc)
+
    // Choisir 8 phrases
- data.sort(function(a, b){return 0.5 - Math.random()})
- 
- loadPhrase()
-function loadPhrase(){ 
-   // Load phrases on DOM
-  let unePhrase= data[index].split(" ")
-  phraseInOrder = [...unePhrase]
-  unePhrase.sort(function(a, b){return 0.5 - Math.random()})
-  unePhrase.forEach((item)=> {
-    let span=document.createElement('span');
-    span.innerHTML=item;
-    emetteur.appendChild(span)
-    
-    progress.style.width=(100/nbrPhrases) *(index+1) + '%'
-    bnRep.innerText=""
-    span.addEventListener('click', (ev)=> {
-    if (ev.target.parentElement == emetteur)
-    {
-     recepteur.appendChild(ev.target)
-    } else {
-     emetteur.appendChild(ev.target)
-    }
-    })
-  })
-}
+   data.sort(function (a, b) { return 0.5 - Math.random() })
 
- function verifierFunc(){
-   if(!recepteur.hasChildNodes()) return
-   resultat.style.bottom= "0"   
-   if(recepteur.innerText==phraseInOrder.join("")){
-      message.style.color= "var(--correct)"
-      message.innerText = "C'est correct"      
-      monScore += 10
-      score.innerText = monScore
-      //audio = new Audio('../../assets/audios/yay.mp3')
-      //audio.play()
-      voirRep.style.display="none"
-   } else{
-      voirRep.style.display="block"     
-      message.innerText = "C'est incorrect !"
-      bnRep.style.opacity="0";
-      bnRep.innerHTML= `La réponse est : <span> ${phraseInOrder.join(' ')}</span>`
-      message.style.color= "var(--incorrect)"
-      audio = new Audio('../../assets/audios/wrong.mp3')
-      audio.volume = "0.4"
-      audio.play()
+   loadPhrase()
+   function loadPhrase() {
+      // Load phrases on DOM
+      let unePhrase = data[index].split(" ")
+      sessionPhrases.push(data[index])
+      phraseInOrder = [...unePhrase]
+      unePhrase.sort(function (a, b) { return 0.5 - Math.random() })
+      unePhrase.forEach((item) => {
+         let span = document.createElement('span');
+         span.innerHTML = item;
+         emetteur.appendChild(span)
+
+         progress.style.width = (100 / nbrPhrases) * (index + 1) + '%'
+         bnRep.innerText = ""
+         span.addEventListener('click', (ev) => {
+            if (ev.target.parentElement == emetteur) {
+               recepteur.appendChild(ev.target)
+            } else {
+               emetteur.appendChild(ev.target)
+            }
+         })
+      })
    }
-}
 
- // addEventListernner !== onclick IMAGIIIiIIIIINE
-  suivant.addEventListener('click', () => {
-     if (index < nbrPhrases ){
-     index++
-     reinitialiser() 
-     } else{
+   function verifierFunc() {
+      if (!recepteur.hasChildNodes()) return
       resultat.style.bottom = "0"
-      resultat.innerHTML=`<h1 style="color: var(--comp)">FIN de session</h1>`      
-    } 
+      if (recepteur.innerText == phraseInOrder.join("")) {
+         message.style.color = "var(--correct)"
+         message.innerText = "C'est correct"
+         monScore += 10
+         score.innerText = monScore
+         //audio = new Audio('../../assets/audios/yay.mp3')
+         //audio.play()
+         voirRep.style.display = "none"
+      } else {
+         voirRep.style.display = "block"
+         message.innerText = "C'est incorrect !"
+         bnRep.style.opacity = "0";
+         bnRep.innerHTML = `La réponse est : <span> ${phraseInOrder.join(' ')}</span>`
+         message.style.color = "var(--incorrect)"
+         audio = new Audio('../../assets/audios/wrong.mp3')
+         audio.volume = "0.4"
+         audio.play()
+      }
+   }
+
+   // addEventListernner !== onclick IMAGIIIiIIIIINE
+   suivant.addEventListener('click', () => {
+      if (index <= nbrPhrases) {
+         index++
+         reinitialiser()
+      } else {
+         resultat.style.bottom = "0"
+         resultat.innerHTML = `<h1 style="color: var(--comp)">FIN de session</h1>`
+
+         // Créer tableau où stocker les phrases de la session
+         // score = monScore
+         // Travailler au click sur suivant et non verifier
+         let resultatOrdrePhrases = {
+            ordrePhrases: {
+               score: monScore,
+               scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.ordrePhrases.scores), monScore / 10],
+               nbrQsts: nbrPhrases,
+               date: new Date().toLocaleDateString('fr-FR'),
+               lastSession: sessionPhrases
+            }
+         }
+         console.log(resultatOrdrePhrases);
+
+         handleResultats(resultatOrdrePhrases)
+      }
+
+
    })
-  refaire.onclick = () => reinitialiser()
-  voirRep.onclick = () => {
-    bnRep.style.opacity = "1";
-    voirRep.style.display = "none"
-  }
 
-function reinitialiser(){
-  emetteur.innerHTML = ""
-  recepteur.innerHTML = ""
-  resultat.style.bottom = "-100vh"
-  loadPhrase()
-  
-}
- 
+   refaire.onclick = () => reinitialiser()
+   voirRep.onclick = () => {
+      bnRep.style.opacity = "1";
+      voirRep.style.display = "none"
+   }
 
- function htmlCode(){
- let html=`${entete()}
+   function reinitialiser() {
+      emetteur.innerHTML = ""
+      recepteur.innerHTML = ""
+      resultat.style.bottom = "-100vh"
+      loadPhrase()
+
+   }
+
+
+   function htmlCode() {
+      let html = `${entete()}
   <div class="q-header">
   <div class="progress-bar">
     <div class="progress"></div>
@@ -272,6 +293,6 @@ function reinitialiser(){
    text-align: center;
 }
  </style>`
- return html
-} 
+      return html
+   }
 }

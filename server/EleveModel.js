@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { ordrePhrases } = require('../client/components/act/ordrePhrases')
 
 const elevesSchema = new mongoose.Schema({
     nom: { type: String, required: true },
@@ -28,6 +29,20 @@ const elevesSchema = new mongoose.Schema({
             lastSession: { type: Array, default: [] },
         },
         remplir: {
+            score: { type: Number, default: 0 },
+            scores: { type: Array, default: [] },
+            nbrQsts: { type: Number, default: 0 },
+            date: { type: String },
+            lastSession: { type: Array, default: [] },
+        },
+        ordrePhrases: {
+            score: { type: Number, default: 0 },
+            scores: { type: Array, default: [] },
+            nbrQsts: { type: Number, default: 0 },
+            date: { type: String },
+            lastSession: { type: Array, default: [] },
+        },
+        ordreEvenements: {
             score: { type: Number, default: 0 },
             scores: { type: Array, default: [] },
             nbrQsts: { type: Number, default: 0 },

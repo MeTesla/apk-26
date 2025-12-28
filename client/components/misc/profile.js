@@ -42,10 +42,10 @@ export function profile() {
                     <div class="remplir-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                 </div>
                 <div class="resultat-ordreEv">
-                    <h4>Evénement</h4>
-                        <div class="resultat-score"> ${resultats.ordreEv?.score || '0'} </div>
-                        <div class="resultat-date"> ${resultats.ordreEv?.date || 'Date'} </div>
-
+                    <h4>Ordre phrases</h4>
+                        <div class="resultat-score"> ${resultats.ordrePhrases?.score + '/' + resultats.ordrePhrases?.nbrQsts || '0'} </div>
+                        <div class="resultat-date"> ${resultats.ordrePhrases?.date || 'Date'} </div>
+                        <div class="ordrePh-conic"> </div>
                         <div class="ordreevlast-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                 </div>
                 <div class="resultat-ordrePh">
@@ -161,6 +161,7 @@ export function profile() {
     const qcmConic = document.querySelector('.qcm-conic')
     const vfConic = document.querySelector('.vf-conic')
     const remplirConic = document.querySelector('.remplir-conic')
+    const ordrePhConic = document.querySelector('.ordrePh-conic')
 
     //QCM last session
     const qcmLastSession = document.querySelector('.qcm-last-session')
@@ -176,6 +177,10 @@ export function profile() {
     remplirConic.appendChild(
         conic(resultats.remplir?.score,
             resultats.remplir?.nbrQsts)
+    )
+    ordrePhConic.appendChild(
+        conic(resultats.ordrePhrases?.score / 10,
+            resultats.ordrePhrases?.nbrQsts)
     )
 
 
