@@ -2,8 +2,9 @@ const l = console.log
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js'
 import { modalFinSession } from '../../utils.js'
-import { handleResultats } from '../misc/utils.js'
 import { confet } from '../misc/utils.js'
+import { handleResultats } from '../misc/utils.js'
+import { sliceScores } from '../misc/utils.js'
 
 export function qcm(bloc, data) {
   //---Add data to resultats localStorage
@@ -165,14 +166,7 @@ export function qcm(bloc, data) {
         reponseCorrect[0].classList.add('reponseCorrect')
       }
     }
-    function sliceScores(scores) {
-      if (scores.length >= 6) {
-        return [scores.slice(-6)]
-      } else {
-        return scores
-      }
 
-    }
     let resultat = {
       score: monScore / 10,
       nbrQst: nbrQst,
@@ -182,7 +176,7 @@ export function qcm(bloc, data) {
       let resultatQCM = {
         qcm: {
           score: monScore / 10,
-          scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.qcm.scores), ...monScore / 10],
+          scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.qcm.scores), monScore / 10],
           nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
           lastSession: arrayOfObj

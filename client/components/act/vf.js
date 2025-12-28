@@ -14,7 +14,7 @@ const l = console.log
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js';
 import { modalFinSession } from '../../utils.js'
-import { handleResultats } from '../misc/utils.js';
+import { handleResultats, sliceScores } from '../misc/utils.js';
 
 export function vf(bloc, data) {
   const div = document.createElement('div')
@@ -133,7 +133,7 @@ export function vf(bloc, data) {
       let resultatVF = {
         vf: {
           score: monScore / 10,
-          scores: [...JSON.parse(localStorage.getItem('profile')).resultats.vf.scores, monScore / 10],
+          scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.vf.scores), monScore / 10],
           nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
           lastSession: data

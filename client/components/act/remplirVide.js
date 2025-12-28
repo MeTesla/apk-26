@@ -1,7 +1,7 @@
 
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js'
-import { handleResultats } from '../misc/utils.js'
+import { handleResultats, sliceScores } from '../misc/utils.js'
 const l = console.log
 
 export function remplirVide(bloc, data) {
@@ -114,7 +114,7 @@ export function remplirVide(bloc, data) {
     let resultatVide = {
       remplir: {
         score: correct,
-        scores: [...JSON.parse(localStorage.getItem('profile')).resultats.remplir.scores, correct],
+        scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.remplir.scores), correct],
         nbrQsts: listeMotsTmp.length,
         date: new Date().toLocaleDateString('fr-FR'),
         lastSession: texteTmp
