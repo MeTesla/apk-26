@@ -34,7 +34,7 @@ export function ordrePhrases(bloc, data) {
    // -------- GLOBALS
    var index = 0
    var monScore = 0
-   const nbrPhrases = 5
+   const nbrPhrases = 4
    var audio
    let phraseInOrder = []
    let sessionPhrases = []
@@ -92,7 +92,7 @@ export function ordrePhrases(bloc, data) {
 
    // addEventListernner !== onclick IMAGIIIiIIIIINE
    suivant.addEventListener('click', () => {
-      if (index <= nbrPhrases) {
+      if (index < nbrPhrases) {
          index++
          reinitialiser()
       } else {
@@ -104,9 +104,9 @@ export function ordrePhrases(bloc, data) {
          // Travailler au click sur suivant et non verifier
          let resultatOrdrePhrases = {
             ordrePhrases: {
-               score: monScore,
+               score: monScore / 10,
                scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.ordrePhrases.scores), monScore / 10],
-               nbrQsts: nbrPhrases,
+               nbrQsts: nbrPhrases+1,
                date: new Date().toLocaleDateString('fr-FR'),
                lastSession: sessionPhrases
             }
