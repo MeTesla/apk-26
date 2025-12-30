@@ -123,7 +123,7 @@ export function remplirVide(bloc, data) {
         scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.remplir.scores), correct],
         nbrQsts: listeMotsTmp.length,
         date: new Date().toLocaleDateString('fr-FR'),
-        lastSession: [...data[index]]
+        lastSession: Array(1).fill(data[index])
       }
     }
     handleResultats(resultatVide)
@@ -132,6 +132,7 @@ export function remplirVide(bloc, data) {
 
   // Boutton Suivant 
   suivant.addEventListener('click', () => {
+    if(data.length===1) return
     if (index < nbrTextes) {
       reinitialiser()
     } else {
@@ -299,7 +300,7 @@ export function remplirVide(bloc, data) {
   </style>`
     return html
   }
-
+ 
 } // fin fonction
 
 //remplirVide pass paramètre à handleResultats(nbrCorrect, nbrTotal)

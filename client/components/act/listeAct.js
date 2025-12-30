@@ -46,13 +46,13 @@ const wrapper = document.querySelector('.wrapper')
 export function listeAct(bloc) {
   const html = `<img class="index" src ="./assets/img/previous.svg"></svg>
   <div class="list">
-  <li class="list-elements lst-lire">Lire le roman</li>
-  <li class="list-elements lst-resume">Résumé</li>
-  <li class="list-elements lst-vf" >Vrai-Faux</li>
-  <li class="list-elements lst-qcm">QCM</li>
-  <li class="list-elements lst-ordre-ph">Mettre en ordre des phrases</li>
-  <li class="list-elements lst-ordre-ev">Mettre en ordre des évènements</li>
-  <li class="list-elements lst-vide">Remplir le vide</li>
+    <li class="list-elements lst-lire">Lire le roman</li>
+    <li class="list-elements lst-resume">Résumé</li>
+    <li class="list-elements lst-vf" >Vrai-Faux</li>
+    <li class="list-elements lst-qcm">QCM</li>
+    <li class="list-elements lst-ordre-ph">Mettre en ordre des phrases</li>
+    <li class="list-elements lst-ordre-ev">Mettre en ordre des évènements</li>
+    <li class="list-elements lst-vide">Remplir le vide</li>
   </div>`
 
   const activites = document.createElement('ul')
@@ -90,7 +90,6 @@ export function listeAct(bloc) {
     if (!qcmData) return
     qcm(wrapper, qcmData)
   }
-
   const vide = document.querySelector('.lst-vide')
   vide.onclick = async () => {
     const { textesVide } = await vffData('bamvide') || ''

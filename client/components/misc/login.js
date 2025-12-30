@@ -103,7 +103,7 @@ export function login() {
       localStorage.setItem('token', data.eleve.token)
       const { nom, prenom, email, tel, freeMins, resultats} = data.eleve
       const objElv = { nom, prenom, email, tel, freeMins, resultats }
-      localStorage.getItem('profile') && localStorage.setItem('profile', JSON.stringify(objElv))
+      !localStorage.getItem('profile') && localStorage.setItem('profile', JSON.stringify(objElv))
 
       toast("Connecté avec succès")
       setTimeout(() => window.location.reload(), 800)

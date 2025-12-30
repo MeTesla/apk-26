@@ -111,8 +111,6 @@ export function ordrePhrases(bloc, data) {
                lastSession: sessionPhrases
             }
          }
-         console.log(resultatOrdrePhrases);
-
          handleResultats(resultatOrdrePhrases)
       }
 

@@ -169,21 +169,12 @@ export function profile() {
         document.body.style.overflow = "hidden"
     }
 
-    //VF last session
+    //VF last session 
     const vfLastSession = document.querySelector('.vf-last-session')
     vfLastSession.onclick = () => {
         const vfData = JSON.parse(localStorage.getItem('profile')).resultats.vf?.lastSession || []
         if (vfData.length === 0) return
         vf(div, vfData)
-        document.body.style.overflow = "hidden"
-    }
-
-    //Remplir last session
-    const remplirLastSession = document.querySelector('.remplir-last-session')
-    remplirLastSession.onclick = () => {
-        const remplirData = JSON.parse(localStorage.getItem('profile')).resultats.remplir?.lastSession || []
-        if (remplirData.length === 0) return
-        remplirVide(div, remplirData)
         document.body.style.overflow = "hidden"
     }
 
@@ -195,6 +186,16 @@ export function profile() {
         ordrePhrases(div, ordrePhData)
         document.body.style.overflow = "hidden"
         console.log('mlqksjdoiaer')
+    }
+    
+    //Remplir last session
+    const remplirLastSession = document.querySelector('.remplir-last-session')
+    remplirLastSession.onclick = () => {
+        const remplirData = JSON.parse(localStorage.getItem('profile')).resultats.remplir?.lastSession || null
+        console.log(remplirData)
+        if (remplirData[0]==='') return
+        remplirVide(div, remplirData)
+        document.body.style.overflow = "hidden"
     }
 
     qcmConic.appendChild(conic(resultats.qcm?.score, resultats.qcm?.nbrQsts))

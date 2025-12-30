@@ -246,8 +246,6 @@ export function sliceScores(scores) {
 //---Fetch save résultats to DB
 export async function fetchResultats(listBlc) {
   const res = JSON.parse(localStorage.getItem('profile')).resultats
-  console.log(res);
-
   try {
     const reponse = await fetch('http://localhost:3000/update-resultats', {
       method: 'POST',
@@ -258,10 +256,7 @@ export async function fetchResultats(listBlc) {
       body: JSON.stringify({ res })
     })
     const data = await reponse.json()
-    if (data.success) {
-      const result = data
-      // isDataFetched = true
-      console.log(result)
+    if (data.success) {  
       toast('Résultats synchronisés')
       setTimeout(() => {
         listBlc.remove()

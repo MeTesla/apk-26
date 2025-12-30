@@ -16,7 +16,7 @@ App's logic
 ! probleme (for of) : j'ai utilisé FOR
 ! problem comparaison of two arrays / résolut: convert arrays toString() and compare them
 ! j'ai réussi mon algo de randomiser
-*/
+*/ 
 const l=console.log
 
 export function ordreEvenements(bloc,data) {
@@ -309,5 +309,5 @@ function code(){
     
    return html
   }
-  
+   
 } // fin ordreEvenements
