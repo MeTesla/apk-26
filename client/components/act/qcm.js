@@ -41,21 +41,32 @@ export function qcm(bloc, data) {
   let index = 0, nbrQst = 4, nbrSession = 1
 
   // --------------------- QUIZ logic --------------------
+  function convertData(dataToConvert) {
+    let arrayOfObj = []
+    if (typeof (dataToConvert) === 'object') {
+      arrayOfObj = [...dataToConvert]
+      return dataToConvert
+    } else {
+      let myArray = data.split('\n')
+      let myObj = {}
+      for (let i = 0; i < myArray.length; i += 5) {
+        myObj.qst = myArray[i]
+        myObj.c1 = myArray[i + 1]
+        myObj.c2 = myArray[i + 2]
+        myObj.c3 = myArray[i + 3]
+        myObj.rep = myArray[i + 4]
+        arrayOfObj.push(myObj)
+        myObj = {}
+      }
+      return arrayOfObj
+    }
 
-  // convert text to an array of objects
-  let myArray = data.split('\n')
-  let arrayOfObj = []
-  let myObj = {}
-  for (let i = 0; i < myArray.length; i += 5) {
-    myObj.qst = myArray[i]
-    myObj.c1 = myArray[i + 1]
-    myObj.c2 = myArray[i + 2]
-    myObj.c3 = myArray[i + 3]
-    myObj.rep = myArray[i + 4]
-    arrayOfObj.push(myObj)
-    myObj = {}
+    // convert text to an array of objects
+    console.log(typeof (data[0]))
+
   }
 
+  let arrayOfObj = convertData(data)
   // shuffle questions
   // arrayOfObj.sort(function (a, b) { return 0.5 - Math.random() })
   arrayOfObj.sort(function (a, b) { return 0.5 - Math.random() })
@@ -64,6 +75,7 @@ export function qcm(bloc, data) {
   for (let i = index; i < index + nbrQst; i++) {
     questions.push(arrayOfObj[i])
   }
+
 
   // DOM / UI
   loadQst()
@@ -179,7 +191,7 @@ export function qcm(bloc, data) {
           scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.qcm.scores), monScore / 10],
           nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
-          lastSession: arrayOfObj
+          lastSession: questions
         }
       }
       handleResultats(resultatQCM)

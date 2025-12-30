@@ -136,7 +136,7 @@ export function vf(bloc, data) {
           scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.vf.scores), monScore / 10],
           nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
-          lastSession: data
+          lastSession: questions
         }
       }
       handleResultats(resultatVF)

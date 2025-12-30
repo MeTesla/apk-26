@@ -63,9 +63,9 @@ export function listeAct(bloc) {
   // Afficher la page d'accueil
   const accueil = document.querySelector('.index')
   const listBlc = document.querySelector('.liste-act')
-  
-  accueil.onclick = () => {
-    fetchResultats(listBlc)
+
+  accueil.onclick = async () => {
+    await fetchResultats(listBlc)
   }
 
 

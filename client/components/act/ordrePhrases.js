@@ -106,7 +106,7 @@ export function ordrePhrases(bloc, data) {
             ordrePhrases: {
                score: monScore / 10,
                scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.ordrePhrases.scores), monScore / 10],
-               nbrQsts: nbrPhrases+1,
+               nbrQsts: nbrPhrases + 1,
                date: new Date().toLocaleDateString('fr-FR'),
                lastSession: sessionPhrases
             }

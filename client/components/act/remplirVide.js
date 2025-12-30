@@ -17,6 +17,7 @@ export function remplirVide(bloc, data) {
   let close = document.querySelector('.close')
   close.onclick = () => { closeAct(div); }
 
+  // DOM variables
   var paragraphe = document.querySelector('.paragraphe')
   var liste = document.querySelector('.liste')
 
@@ -32,9 +33,14 @@ export function remplirVide(bloc, data) {
 
   // Charger une question
   function loadQuestion() {
-    texteTmp = data[index].texte //copier le Texte = texteTmp
-    listeMotsTmp = [...data[index].listeMots] // copier la liste des mots
-    listeMotsTmp.sort(function (a, b) { return 0.5 - Math.random() }) // shuffle liste de mots
+    //copier le Texte = texteTmp
+    texteTmp = data[index].texte
+
+    // copier la liste des mots
+    listeMotsTmp = [...data[index].listeMots]
+
+    // shuffle liste de mots
+    listeMotsTmp.sort(function (a, b) { return 0.5 - Math.random() })
 
     // Créer paragraphe
     for (let i = 0; i < listeMotsTmp.length; i++) {
@@ -51,7 +57,7 @@ export function remplirVide(bloc, data) {
     let vides = document.querySelectorAll('.gap')
     let mots = document.querySelectorAll('.liste .mot')
 
-
+    // Gestion des cliques : liste - paragraphe
     for (let i = 0; i < mots.length; i++) {
       // clique sur les mots de la liste
       mots[i].addEventListener('click', (ev) => {
@@ -117,7 +123,7 @@ export function remplirVide(bloc, data) {
         scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.remplir.scores), correct],
         nbrQsts: listeMotsTmp.length,
         date: new Date().toLocaleDateString('fr-FR'),
-        lastSession: texteTmp
+        lastSession: [...data[index]]
       }
     }
     handleResultats(resultatVide)

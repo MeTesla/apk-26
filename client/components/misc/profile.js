@@ -1,5 +1,8 @@
 import { qcm } from "../act/qcm.js"
+import { vf } from "../act/vf.js"
 import { conic } from "../../utils.js"
+import { remplirVide } from "../act/remplirVide.js"
+import { ordrePhrases } from "../act/ordrePhrases.js"
 
 export function profile() {
     const objElv = JSON.parse(localStorage.getItem('profile'))
@@ -12,20 +15,18 @@ export function profile() {
             <div class= "ligne"> NOM :</div> <h3>${objElv?.nom || 'Visiteur'}</h3>
             <div class= "ligne"> Prenom :</div> <h3>${objElv?.prenom || 'Visiteur'}</h3>
             <div class= "ligne"> Email :</div> <h3>${objElv?.email || 'Visiteur'}</h3>
-            <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv?.freeMins) * 5 || 'Visiteur'}</h3>
-        
+            <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv?.freeMins) * 5 || 'Visiteur'}</h3>       
         </div>
+
         <div>
-            <h4 class="mes-resultats"> Mes résultats </h4>
-            
+            <h4 class="mes-resultats"> Mes résultats </h4>            
             <div class="res-container">
                 <div class="qcm-res">
                     <h4>QCM</h4>                    
                     <div class="resultat-score"> ${resultats.qcm?.score + '/' + resultats.qcm?.nbrQsts || '0'} </div>
                     <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
                     <div class="qcm-conic"> </div>
-                    <div class="qcm-last-session last-session" > <i class="fa-solid fa-rotate-right"></i> </div>
-                    
+                    <div class="qcm-last-session last-session" > <i class="fa-solid fa-rotate-right"></i> </div>                    
                 </div>
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
@@ -41,25 +42,17 @@ export function profile() {
                     <div class="remplir-conic"> </div>
                     <div class="remplir-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                 </div>
-                <div class="resultat-ordreEv">
+                <div class="resultat-ordrePh">
                     <h4>Ordre phrases</h4>
                         <div class="resultat-score"> ${resultats.ordrePhrases?.score + '/' + resultats.ordrePhrases?.nbrQsts || '0'} </div>
                         <div class="resultat-date"> ${resultats.ordrePhrases?.date || 'Date'} </div>
                         <div class="ordrePh-conic"> </div>
-                        <div class="ordreevlast-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
-                </div>
-                <div class="resultat-ordrePh">
-                    <h4>Evénement</h4>
-                        <div class="resultat-score"> ${resultats.ordrePh?.score || '0'} </div>
-                        <div class="resultat-date"> ${resultats.ordrePh?.date || 'Date'} </div>
-
-                        <div class="oredreph-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
-                </div>
+                        <div class="ordrePh-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
+                </div>               
             </div>
         </div>
        
         <style>
-
             .user-profile{
                 position: fixed;
                 top: 0; left: 0;
@@ -71,7 +64,6 @@ export function profile() {
                 justify-content: center;
             }
             .profile-container{
-
                 width: 100%;
                 height: 100vh;          
                 overflow-y: auto;
@@ -102,13 +94,18 @@ export function profile() {
                 border-radius: 20px;
                 padding: 20px;
                 width: 50%;
-                background-color: #fddbfbff;
+                background-color: #fafafaff;
             }
             .ligne{
                 width: 100%;
-                background-color: #c0bfff;
+                background-color: #ececefff;
                 padding: 10px;
                 border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            .ligne + h3{
+                margin-top: -10px;
+                margin-bottom: 20px;
             }
             
             .res-container{
@@ -172,6 +169,34 @@ export function profile() {
         document.body.style.overflow = "hidden"
     }
 
+    //VF last session
+    const vfLastSession = document.querySelector('.vf-last-session')
+    vfLastSession.onclick = () => {
+        const vfData = JSON.parse(localStorage.getItem('profile')).resultats.vf?.lastSession || []
+        if (vfData.length === 0) return
+        vf(div, vfData)
+        document.body.style.overflow = "hidden"
+    }
+
+    //Remplir last session
+    const remplirLastSession = document.querySelector('.remplir-last-session')
+    remplirLastSession.onclick = () => {
+        const remplirData = JSON.parse(localStorage.getItem('profile')).resultats.remplir?.lastSession || []
+        if (remplirData.length === 0) return
+        remplirVide(div, remplirData)
+        document.body.style.overflow = "hidden"
+    }
+
+    //oredrePhrase last session
+    const ordrePhLastSession = document.querySelector('.ordrePh-last-session')
+    ordrePhLastSession.onclick = () => {
+        const ordrePhData = JSON.parse(localStorage.getItem('profile')).resultats.ordrePhrases?.lastSession || []
+        if (ordrePhData.length === 0) return
+        ordrePhrases(div, ordrePhData)
+        document.body.style.overflow = "hidden"
+        console.log('mlqksjdoiaer')
+    }
+
     qcmConic.appendChild(conic(resultats.qcm?.score, resultats.qcm?.nbrQsts))
     vfConic.appendChild(conic(resultats.vf?.score, resultats.vf?.nbrQsts))
     remplirConic.appendChild(
@@ -179,7 +204,7 @@ export function profile() {
             resultats.remplir?.nbrQsts)
     )
     ordrePhConic.appendChild(
-        conic(resultats.ordrePhrases?.score / 10,
+        conic(resultats.ordrePhrases?.score,
             resultats.ordrePhrases?.nbrQsts)
     )
 
