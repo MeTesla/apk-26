@@ -4,7 +4,7 @@ import { entete } from '../misc/entete.js'
 import { handleResultats, sliceScores } from '../misc/utils.js'
 const l = console.log
 
-export function remplirVide(bloc, data) {
+export function remplirVide(bloc, data, callBack) {
   let texteTmp = {}
   const div = document.createElement('div');
   div.classList.add('vide')
@@ -126,6 +126,7 @@ export function remplirVide(bloc, data) {
         lastSession: Array(1).fill(data[index])
       }
     }
+    callBack(true)
     handleResultats(resultatVide)
     verifier.style.display = "none";
   })

@@ -3,7 +3,7 @@ import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js'
 import { handleResultats, sliceScores } from '../misc/utils.js'
 
-export function ordrePhrases(bloc, data) {
+export function ordrePhrases(bloc, data, callBack) {
    const div = document.createElement('div');
    div.classList.add('ordre-ph')
    div.innerHTML = htmlCode()
@@ -111,6 +111,7 @@ export function ordrePhrases(bloc, data) {
                lastSession: sessionPhrases
             }
          }
+         callBack(true)
          handleResultats(resultatOrdrePhrases)
       }
 

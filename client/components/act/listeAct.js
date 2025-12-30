@@ -44,6 +44,7 @@ const vffData = async (exo) => {
 const wrapper = document.querySelector('.wrapper')
 
 export function listeAct(bloc) {
+  let isModified = false
   const html = `<img class="index" src ="./assets/img/previous.svg"></svg>
   <div class="list">
     <li class="list-elements lst-lire">Lire le roman</li>
@@ -64,10 +65,13 @@ export function listeAct(bloc) {
   const accueil = document.querySelector('.index')
   const listBlc = document.querySelector('.liste-act')
 
-  accueil.onclick = async () => {
-    await fetchResultats(listBlc)
+  accueil.onclick = async () => { 
+    await fetchResultats(listBlc, isModified)
   }
 
+  function handleIsModified(value){
+    return isModified=value
+  }
 
   //-------Lire
   const lire = document.querySelector('.lst-lire')
@@ -88,33 +92,34 @@ export function listeAct(bloc) {
   q.onclick = async () => {
     const { qcmData } = await vffData('bamqcm') || ''
     if (!qcmData) return
-    qcm(wrapper, qcmData)
+    qcm(wrapper, qcmData, handleIsModified)
   }
+
   const vide = document.querySelector('.lst-vide')
   vide.onclick = async () => {
     const { textesVide } = await vffData('bamvide') || ''
     if (!textesVide) return
-    remplirVide(wrapper, textesVide)
+    remplirVide(wrapper, textesVide, handleIsModified)
   }
 
   const vF = document.querySelector('.lst-vf')
   vF.onclick = async () => {
     const { bamvf } = await vffData('bamvf') || ''
     if (!bamvf) return
-    vf(wrapper, bamvf)
+    vf(wrapper, bamvf, handleIsModified)
   }
 
   const ordreEvents = document.querySelector('.lst-ordre-ev')
   ordreEvents.onclick = async () => {
     const { ordreEventsData } = await vffData('bamordreev') || ''
     if (!ordreEventsData) return
-    ordreEvenements(wrapper, ordreEventsData)
+    ordreEvenements(wrapper, ordreEventsData,handleIsModified)
   }
 
   const ordrePh = document.querySelector('.lst-ordre-ph')
   ordrePh.onclick = async () => {
     const { phrases } = await vffData('bamordreph') || ''
     if (!phrases) return
-    ordrePhrases(wrapper, phrases)
+    ordrePhrases(wrapper, phrases,handleIsModified)
   }
 }

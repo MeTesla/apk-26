@@ -244,7 +244,7 @@ export function sliceScores(scores) {
 }
 
 //---Fetch save résultats to DB
-export async function fetchResultats(listBlc) {
+export async function fetchResultats(listBlc, isModified) {
   const res = JSON.parse(localStorage.getItem('profile')).resultats
   try {
     const reponse = await fetch('http://localhost:3000/update-resultats', {
@@ -255,15 +255,16 @@ export async function fetchResultats(listBlc) {
       },
       body: JSON.stringify({ res })
     })
+    
     const data = await reponse.json()
-    if (data.success) {  
+    if (data.success && isModified==true) {  
       toast('Résultats synchronisés')
       setTimeout(() => {
         listBlc.remove()
       }, 500)
     } else {
       listBlc.remove()
-      toast('Erreur de synchronisation des résultats')
+      toast('Fetch : erreur. data not success')
     }
   } catch (error) {
     console.error('Erreur lors de la synchronisation des résultats :', error);

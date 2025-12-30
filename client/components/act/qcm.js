@@ -6,7 +6,7 @@ import { confet } from '../misc/utils.js'
 import { handleResultats } from '../misc/utils.js'
 import { sliceScores } from '../misc/utils.js'
 
-export function qcm(bloc, data) {
+export function qcm(bloc, data, callBack) {
   //---Add data to resultats localStorage
 
   const div = document.createElement('div')
@@ -195,6 +195,7 @@ export function qcm(bloc, data) {
         }
       }
       handleResultats(resultatQCM)
+      callBack(true)
       modalFinSession(div, reinitialiser, resultat)
     }
   }

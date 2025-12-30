@@ -16,7 +16,7 @@ import { entete } from '../misc/entete.js';
 import { modalFinSession } from '../../utils.js'
 import { handleResultats, sliceScores } from '../misc/utils.js';
 
-export function vf(bloc, data) {
+export function vf(bloc, data, callBack) {
   const div = document.createElement('div')
   div.setAttribute('class', 'vrai-faux')
   div.innerHTML = codeHTML();
@@ -140,6 +140,7 @@ export function vf(bloc, data) {
         }
       }
       handleResultats(resultatVF)
+      callBack(true)
       modalFinSession(div, reinitialiser, resultat)
     }
   }
