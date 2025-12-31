@@ -1,18 +1,5 @@
 PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
 
--Sugg : resultats, 
-	login: charger res de BD (elv),
-	màj (BD)? fermeture list act.
-	màj (LS) verfication quiz.
-const eleveSchema = new mongoose.Schema({
-  nom: String,
-  email: String,
-  resultats: {
-    qcm: {score: Number, date: Date, lastSession: Array},
-    vf:{score: Number, date: Date, lastSession: Array},
-    remplir: {score: Number, date: Date, lastSession: Array},
-  }
-});
 
 - PROB : même sans verification, je peux accéder à mon compte surtout après expiration du token de validation. 
 		(entre création compte et vérification)
@@ -101,3 +88,18 @@ BD : 	Premium, num reçu, img reçu
 - re-register avec le même émail.	Fait : système login
 - ignorer l'émail de vérif			Fait : Token expire 3 jours
 - Prob multi browser : sign-in sign-up			Fait : système Login 
+
+
+-Sugg : resultats, 
+	login: charger res de BD (elv),
+	màj (BD)? fermeture list act.
+	màj (LS) verfication quiz.
+const eleveSchema = new mongoose.Schema({
+  nom: String,
+  email: String,
+  resultats: {
+    qcm: {score: Number, date: Date, lastSession: Array},
+    vf:{score: Number, date: Date, lastSession: Array},
+    remplir: {score: Number, date: Date, lastSession: Array},
+  }
+});
