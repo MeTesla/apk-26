@@ -6,7 +6,7 @@ import { confet } from '../misc/utils.js'
 import { handleResultats } from '../misc/utils.js'
 import { sliceScores } from '../misc/utils.js'
 
-export function qcm(bloc, data, callBack) {
+export function qcm(bloc, data, callBack=()=>false) {
   //---Add data to resultats localStorage
 
   const div = document.createElement('div')
