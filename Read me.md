@@ -1,4 +1,9 @@
-PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
+- UI : Séparer le menu en deux : 
+	profile (déconnexion, profile,  free mins) et 
+	menu général (Qui sommes-nous ? Nous contacter[email, whats, face, compte banc])
+
+
+- PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
 
 
 - PROB : même sans verification, je peux accéder à mon compte surtout après expiration du token de validation. 
@@ -27,26 +32,16 @@ PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et lo
 Accueil 	: boutton devenir
 Menu 		: Premium
 page premium 	: présentation, avantages, vidéo comment
-CTA button		: processe payment; entrer ses coordonnées, afficher mes coordonnées bancaires
+
 backEnd			: dashboard, envoyer code; réinitialiser compte
 
-Coordonnées ACCESSIBLES à tout moment mais comment ? boutton nos coordonnées dans la page PREMIUM
-SOLUTION : 	L'inclure dans la page : ## Nous contacter
-			Séparer le menu en deux : profile (déconnexion, profil, ...) et menu général (Qui sommes-nous ? Nous contacter[email, whats, face, compte banc])
+	
+Il remplit formulaire. paye. envoie reçu, attends. 
+Moi, reçu whap, dashboard, je clique: premium, statut change registred=> Premium
+Il se déconnecte puis se reconnecte pour màj son statut à "PREMIUM"
 
-Il remplit formulaire. paye. attends. Moi, J'attends la preuve du payment. 
-reçu, dashboard, je clique: premium, son statut change registred=>Premium
-BD : 	Premium, num reçu, img reçu
-		MEME table ou NOUVEAU table premium
-
-	Modal vs page
-	index : Section carrousel Premium
-
-	Modal (avantages - devenir Premium) == page payment
-	Page payment == info utilisateur + info Amdin (compte bancaire)
-	OK== envoyer émail et msg whatsApp (coordonnées bancaires)
-	Ajout l'Utilisateur à BD : reçut de payment || msg banque
-
+Backend : Premium, num reçu, img reçu
+					MEME table ou NOUVEAU table premium
 
 
 	### Sections :
@@ -77,11 +72,16 @@ BD : 	Premium, num reçu, img reçu
 		icone vidéo youtube
 	
 	### Questions fréquement posées :
-		- Combien de temps j'utilise mon compte premium ?
+		- Pour combien de temps j'utilise mon compte premium ?
+		Vous bénéficier de tous le contenu de notre applciation jusqu'au mois d'août
 		- Est-ce qu'il y a moyen de vous contacter ?
+		Oui, il y a notre numéro whatapp 087587657 et notre adresse émail : pooka
 		- Ce site est-il suffisant pour bien préparer mon régional ?
+		Le site est un outils disponible à tout moment mais il ne remplace jamais un prof.
 		- En cas de perte de mon compte, comment puis-je le récupérer ?
+		Il vous suffit de nous contacter par émail ou sur whatsapp
 		- Le contenu d'Euduka.com est-il conforme au programme du Ministère de l'Education Nationale ?
+		Oui, le contenu de d'Euduka.com est supervisé par des professeurs de français qui 
 
 ---------------------------------------------------------
 

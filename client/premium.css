@@ -1,0 +1,142 @@
+
+body{
+    background-color: rgb(41, 40, 40);
+    color: white;
+}
+/* navbar */
+#toast-id{
+        border-radius: 20px;
+      }
+      .toast-id{
+        border-radius: 10px;
+      }
+      .nav{
+          display: flex; 
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px 25px;
+        }
+        
+        .accueil img{
+          width: 60px;
+        }
+
+        .nav .menu{
+          position: relative;
+          display: flex;
+          align-items: center;
+          border: 1px solid gray;
+          border-radius: 20px;
+          padding: 5px 10px;
+        }
+        .nav .menu svg{
+          color: rgb(255, 255, 255);
+          font-size: 1.3rem;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .nav .menu:hover svg{
+          color: rgb(74, 74, 255);
+        }
+        .nav .menu .user-menu{
+          z-index: 33;
+          position: absolute;
+          top : 105%; right: 0px; 
+          /* 100% c'est nouveau pour MOI */
+          border-radius:10px;
+          overflow: hidden;
+          width: 200px;        
+          display: none;
+        }
+        .nav .menu .user-menu.show{
+          display: block;
+        }
+        .nav .menu .user-menu > div{         
+          display: flex;
+          flex-direction: column;
+          padding: 5px;
+          align-items: center;
+          transition: 0.3s;
+        }
+        .nav .menu .user-menu div img{
+          margin-right: 10px;
+        }
+        .nav .menu .user-menu div div{
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          padding: 10px;
+          background-color: #d1e7f8;
+          transition: 0.3s;
+        }
+        .nav .menu .user-menu div div:hover{
+          background-color: #94cdfc;
+          cursor: pointer;
+        }
+         .nav .menu .user-menu div img{
+          width: 30px;
+         }
+        .nav .menu .user-menu div.guest, 
+        .nav .menu .user-menu div.connected{
+          display: none;
+        }
+        .nav .menu .user-menu div.show, 
+        .nav .menu .user-menu div.show{
+          display: block;
+        }
+        .user-menu .premium, .user-menu .free-mins, 
+        .user-menu .menu-profile, .user-menu .menu-logout{        
+          cursor: pointer;
+          display: flex;
+          flex-direction: row !important;
+        }
+        .creer-compte-page{
+          position: fixed;
+          top:0; left: 0;
+          width: 100%;
+          background-color: white;
+        }
+        .modal-full{
+          position: fixed;
+          width: 100vw; height: 100vh;
+          top:0; left:0 ;
+          background-color: red;
+        }
+
+/* Hero section */
+.hero{
+    display: flex;
+}
+.hero .hero-text{
+    flex:1;
+    display: flex;
+    flex-direction : column;
+    justify-content: center;;
+}
+.hero .hero-text h2, .hero .hero-text h4{
+    margin: 5px 0 10px 10px;
+}
+.hero .hero-text button{
+    width: 160px;
+    outline: none;
+    border: 1px solid white;
+    background-color: orange;
+    font-size: 1.1rem;
+    padding: 10px 6px;
+    margin-top: 15px;
+    border-radius: 10px;
+    align-self:center;
+    transition: 0.3s
+}
+.hero .hero-text button:hover{
+    cursor: pointer;
+    background-color: rgb(255, 186, 59);
+}
+.hero .hero-img{
+    flex:1
+}
+.hero .hero-img img{
+    width: 100%;
+}
