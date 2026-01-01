@@ -1,3 +1,4 @@
+- SUGG : lancement intelligent, inscription via invitation
 - UI : Séparer le menu en deux : 
 	profile (déconnexion, profile,  free mins) et 
 	menu général (Qui sommes-nous ? Nous contacter[email, whats, face, compte banc])
@@ -82,24 +83,3 @@ Backend : Premium, num reçu, img reçu
 		Il vous suffit de nous contacter par émail ou sur whatsapp
 		- Le contenu d'Euduka.com est-il conforme au programme du Ministère de l'Education Nationale ?
 		Oui, le contenu de d'Euduka.com est supervisé par des professeurs de français qui 
-
----------------------------------------------------------
-
-- re-register avec le même émail.	Fait : système login
-- ignorer l'émail de vérif			Fait : Token expire 3 jours
-- Prob multi browser : sign-in sign-up			Fait : système Login 
-
-
--Sugg : resultats, 
-	login: charger res de BD (elv),
-	màj (BD)? fermeture list act.
-	màj (LS) verfication quiz.
-const eleveSchema = new mongoose.Schema({
-  nom: String,
-  email: String,
-  resultats: {
-    qcm: {score: Number, date: Date, lastSession: Array},
-    vf:{score: Number, date: Date, lastSession: Array},
-    remplir: {score: Number, date: Date, lastSession: Array},
-  }
-});

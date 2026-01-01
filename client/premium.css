@@ -1,7 +1,17 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}
 body{
     background-color: rgb(41, 40, 40);
     color: white;
+    width: 70%;
+    margin: auto;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
 /* navbar */
 #toast-id{
@@ -108,6 +118,8 @@ body{
 /* Hero section */
 .hero{
     display: flex;
+    background-color:  rgb(78, 78, 78);
+    border-radius: 15px;
 }
 .hero .hero-text{
     flex:1;
@@ -139,4 +151,87 @@ body{
 }
 .hero .hero-img img{
     width: 100%;
+}
+
+/* Pourquoi devnir premium */
+.prq-premium-container, .faq-container{
+  margin:30px auto;
+  position: relative;
+  background-color: #353333;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.prq-premium-container img, .faq-container img{
+  position: absolute;
+  top: 10px; left: 10px;
+  width: 60px; height: 60px;
+  transform: rotateZ(-15deg);
+  border: 1px solid white;
+  border-radius: 50%;
+  padding: 5px;
+}
+.prq-premium-container h2, .faq-container h2 {
+  padding: 50px ;
+}
+.prq-premium-container h2 span{
+  padding: 10px;
+  background-color: rgb(33, 155, 79);
+}
+.prq-premium-container .prq-premium{
+  margin: 20px auto;
+  width: 70%;
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 20px 50px;
+}
+.prq-premium-container .prq-premium div{
+  position: relative;
+  margin: 35px 0;
+  font-size: 1.3rem;
+  
+}
+.prq-premium-container .prq-premium div:before{
+  content: '';
+  position: absolute;
+  left: -35px;
+  top: -6px;
+  width: 30px;
+  height: 30px;
+  background-image: url('./assets//img/verifier.png');
+  background-size: 30px;
+  background-repeat: no-repeat;;
+}
+.prq-premium-container .prq-premium div span{
+  font-weight: bold;
+  color: orangered;
+}
+/* ----------- fréquentes ------------ */
+.faq-container{
+  position: relative;
+  background-color: #4b4b4b;
+}
+
+.faq-item .item-qst{
+  font-weight: 500;
+  background-color: rgb(66, 66, 66);
+  padding: 10px;
+  margin: 15px;
+  box-shadow: 0 0 2px 1px white, 0 0 5px 2px white;
+  cursor: pointer;
+}
+
+.faq-item .item-res{
+  font-weight: 500;
+  display: none;
+  background-color: rgb(59, 59, 59);
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: 0.5s ease-out;
+}
+@media screen and (max-width: 780px){
+  body{
+    width: 100%;
+  }
 }

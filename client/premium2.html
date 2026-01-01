@@ -36,13 +36,19 @@
     
     <!-- Poruquoi passer Premium Vos avantages -->
     <section class="prq-premium-container">
-        <div class="prq-premium-titre"></div>
+        <img src="./assets/img/trophy.png" alt="" srcset="">
+        <h2 class="prq-premium-titre">Pourquoi devenir <span>PREMIUM</span> ?</h2>
         <div class="prq-premium">
-            
+            <div><span>+600</span> questions sur les oeuvres</div>
+            <div><span>+300</span> exemples de figures de style</div>
+            <div><span>+50</span> productios écrites expiquées</div>
+            <div><span>+20</span> examens régionaux expliqués et corrigés</div>
+            <div>Un <span>simulateur</span> de l'examen régional</div>
         </div>
     </section>
     <!-- Qst fréquemment posées -->
      <section class="faq-container">
+        <img src="./assets/img/user-qst.png" alt="" srcset="">
         <h2 class="faq-">Les questions fréquemment posées</h2>
         <div class="faq">
             <div class="faq-item">
@@ -57,7 +63,7 @@
 
             
             <div class="faq-item">
-                <div class="item-qst"></div>
+                <div class="item-qst">Est-ce qu'il y a moyen de vous contacter ?</div>
                 <div class="item-res">Oui, il y a notre numéro whatapp 087587657 et notre adresse émail : pookarim@gmail.com</div>
             </div>
 
@@ -77,6 +83,28 @@
             </div>        
             
         </div>
+        <script>
+            const accordionTitles= document.querySelectorAll('.item-qst')
+            const accordionContent= document.querySelectorAll('.item-res')
+            function displayHide(div){
+                div.style.display="block"
+                setTimeout(function(){div.style.opacity = "1"}, 10)
+                
+            }
+            accordionTitles.forEach((title, index)=>{
+                title.addEventListener('click', ()=>{
+                    const clickedItem = Array.from(accordionContent)[index]
+                        for(let i=0; i<accordionContent.length; i++){
+                            Array.from(accordionContent)[i].style.display="none"  
+                            Array.from(accordionContent)[i].style.opacity="0"  
+                        }
+              
+                        // clickedItem.style.display= "block"
+                        displayHide(clickedItem)
+                    
+                })
+            })
+        </script>
      </section>
 </body>
 </html>
