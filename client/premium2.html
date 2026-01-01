@@ -7,7 +7,7 @@
      <!-- font awesome  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js" integrity="sha512-6BTOlkauINO65nLhXhthZMtepgJSghyimIalb+crKRPhvhmsCdnIuGcVbR5/aQY2A+260iC1OPy1oCdB6pSSwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -83,7 +83,9 @@
             </div>        
             
         </div>
+        <div class="chart"></div>
         <script>
+            const chart= document.querySelector('.chart')
             const accordionTitles= document.querySelectorAll('.item-qst')
             const accordionContent= document.querySelectorAll('.item-res')
             function displayHide(div){
@@ -104,6 +106,68 @@
                     
                 })
             })
+
+            // Chart.js
+            function createLineChart(dataArray) {
+                // Vérification du tableau
+                if (!Array.isArray(dataArray) || dataArray.length !== 5) {
+                    console.error('<b>Erreur : Le tableau doit contenir exactement 5 éléments</b>');
+                    return null;
+                }
+
+                // Création du canvas
+                const canvas = document.createElement('canvas');
+                canvas.id = 'myLineChart';
+                document.querySelector('.chart').appendChild(canvas);
+
+                // Configuration du graphique
+                const ctx = canvas.getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Point 1', 'Point 2', 'Point 3', 'Point 4', 'Point 5'],
+                        datasets: [{
+                            label: '<b>Données du Graphique</b>',
+                            data: dataArray,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'blue',
+                            pointRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: '<b>Graphique de Courbe Dynamique</b>'
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '<b>Valeur</b>'
+                                }
+                            }
+                        }
+                    }
+                });
+
+                return chart;
+            }
+
+            // Exemple d'utilisation
+            const messDonnees = [10, 25, 15, 30, 20];
+            createLineChart(messDonnees);
+
         </script>
      </section>
 </body>

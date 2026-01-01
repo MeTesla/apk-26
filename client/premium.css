@@ -235,3 +235,8 @@ body{
     width: 100%;
   }
 }
+.chart{
+  width: 50%;
+  margin: auto;
+
+}
