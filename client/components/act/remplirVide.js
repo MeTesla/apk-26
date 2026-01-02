@@ -126,7 +126,7 @@ export function remplirVide(bloc, data, callBack) {
         lastSession: Array(1).fill(data[index])
       }
     }
-    callBack(true)
+    callBack && callBack(true)
     handleResultats(resultatVide)
     verifier.style.display = "none";
   })

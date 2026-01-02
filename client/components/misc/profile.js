@@ -99,6 +99,7 @@ export function profile() {
                 border-radius: 20px;
                 padding: 20px;
                 width: 50%;
+                margin: auto;
                 background-color: #fafafaff;
             }
             .ligne{
