@@ -300,14 +300,15 @@ export function toast(msg) {
 // Chart.js
 export function createLineChart(dataArray, div) {
   // Vérification du tableau
-  if (!Array.isArray(dataArray) || dataArray.length !== 5) {
-    console.error('<b>Erreur : Le tableau doit contenir exactement 5 éléments</b>');
+  if (!Array.isArray(dataArray)) {
+    console.error('Erreur d\'affichage du graphique');
     return null;
   }
 
   // Création du canvas
   const canvas = document.createElement('canvas');
   canvas.id = 'myLineChart';
+  canvas.width = "150"
   div.appendChild(canvas);
 
   // Configuration du graphique
@@ -315,24 +316,24 @@ export function createLineChart(dataArray, div) {
   const chart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Point 1', 'Point 2', 'Point 3', 'Point 4', 'Point 5'],
+      labels: ['N 1', 'N 2', 'N 3', 'N 4', 'N 5', 'N 6', 'N 7', 'N 8'],
       datasets: [{
-        label: '<b>Données du Graphique</b>',
+        label: 'Mes dernières notes',
         data: dataArray,
         borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1,
+        tension: 0.3,
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderWidth: 2,
-        pointBackgroundColor: 'blue',
-        pointRadius: 5
+        borderWidth: 1,
+        pointBackgroundColor: 'lightblue',
+        pointRadius: 3
       }]
     },
     options: {
       responsive: true,
       plugins: {
         title: {
-          display: true,
-          text: '<b>Graphique de Courbe Dynamique</b>'
+          display: false,
+          text: 'Graphique de mes résultats'
         },
         tooltip: {
           mode: 'index',
@@ -344,8 +345,11 @@ export function createLineChart(dataArray, div) {
           beginAtZero: true,
           title: {
             display: true,
-            text: '<b>Valeur</b>'
+            text: 'Notes'
           }
+        },
+        x:{
+          display: false,
         }
       }
     }

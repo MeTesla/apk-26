@@ -36,6 +36,7 @@ export function profile() {
                     <div class="resultat-date"> ${resultats.vf?.date || 'Date'} </div>
                     <div class="vf-conic"> </div>
                     <div class="vf-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
+                    <div class="vf-chart"> </div>
                 </div>
                 <div class="remplir-res">
                     <h4>Remplir les blancs</h4>
@@ -43,6 +44,7 @@ export function profile() {
                     <div class="resultat-date"> ${resultats.remplir?.date || 'Date'} </div>
                     <div class="remplir-conic"> </div>
                     <div class="remplir-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
+                    <div class="remplir-chart"> </div>
                 </div>
                 <div class="resultat-ordrePh">
                     <h4>Ordre phrases</h4>
@@ -50,6 +52,7 @@ export function profile() {
                         <div class="resultat-date"> ${resultats.ordrePhrases?.date || 'Date'} </div>
                         <div class="ordrePh-conic"> </div>
                         <div class="ordrePh-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
+                        <div class="ordrePh-chart"> </div>
                 </div>               
             </div>
         </div>
@@ -113,7 +116,7 @@ export function profile() {
             .res-container{
                 width: 100%;
                 display:grid;
-                grid-template-columns: repeat(2, 6fr);
+                grid-template-columns: repeat(4, 6fr);
                 gap: 20px;
                 margin-bottom: 30px;
             }
@@ -146,10 +149,13 @@ export function profile() {
                 cursor: pointer
             }
             
-            @media screen and (min-width: 780px) {
+            @media screen and (max-width: 580px) {
                 .res-container{
-                    grid-template-columns: repeat(5, 6fr);                   
-            }
+                    grid-template-columns: repeat(1, 6fr);                   
+                }
+                .profile-info{
+                    width: 100%;
+                }
             }
         </style>
         </div>`
@@ -217,7 +223,13 @@ export function profile() {
         div.remove()
     })
 
-    //Charts
-    createLineChart([4, 2, 5, 0, 2], document.querySelector('.qcm-chart'))
-
+        //------Charts    
+    //QCM
+    createLineChart(resultats.qcm?.scores, document.querySelector('.qcm-chart'))
+    //VF
+    createLineChart(resultats.vf?.scores, document.querySelector('.vf-chart'))
+    //Ordre phrases
+    createLineChart(resultats.ordrePhrases?.scores, document.querySelector('.ordrePh-chart'))
+    //Remplir
+    createLineChart(resultats.remplir?.scores, document.querySelector('.remplir-chart'))
 }
