@@ -296,3 +296,61 @@ export function toast(msg) {
     close: true
   }).showToast();
 }
+
+// Chart.js
+export function createLineChart(dataArray, div) {
+  // Vérification du tableau
+  if (!Array.isArray(dataArray) || dataArray.length !== 5) {
+    console.error('<b>Erreur : Le tableau doit contenir exactement 5 éléments</b>');
+    return null;
+  }
+
+  // Création du canvas
+  const canvas = document.createElement('canvas');
+  canvas.id = 'myLineChart';
+  div.appendChild(canvas);
+
+  // Configuration du graphique
+  const ctx = canvas.getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Point 1', 'Point 2', 'Point 3', 'Point 4', 'Point 5'],
+      datasets: [{
+        label: '<b>Données du Graphique</b>',
+        data: dataArray,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderWidth: 2,
+        pointBackgroundColor: 'blue',
+        pointRadius: 5
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: '<b>Graphique de Courbe Dynamique</b>'
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: '<b>Valeur</b>'
+          }
+        }
+      }
+    }
+  });
+
+  return chart;
+}
+

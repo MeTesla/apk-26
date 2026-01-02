@@ -3,6 +3,7 @@ import { vf } from "../act/vf.js"
 import { conic } from "../../utils.js"
 import { remplirVide } from "../act/remplirVide.js"
 import { ordrePhrases } from "../act/ordrePhrases.js"
+import { createLineChart } from "./utils.js"
 
 export function profile() {
     const objElv = JSON.parse(localStorage.getItem('profile'))
@@ -27,6 +28,7 @@ export function profile() {
                     <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
                     <div class="qcm-conic"> </div>
                     <div class="qcm-last-session last-session" > <i class="fa-solid fa-rotate-right"></i> </div>                    
+                    <div class="qcm-chart"> </div>
                 </div>
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
@@ -187,13 +189,13 @@ export function profile() {
         document.body.style.overflow = "hidden"
         console.log('mlqksjdoiaer')
     }
-    
+
     //Remplir last session
     const remplirLastSession = document.querySelector('.remplir-last-session')
     remplirLastSession.onclick = () => {
         const remplirData = JSON.parse(localStorage.getItem('profile')).resultats.remplir?.lastSession || null
         console.log(remplirData)
-        if (remplirData[0]==='') return
+        if (remplirData[0] === '') return
         remplirVide(div, remplirData)
         document.body.style.overflow = "hidden"
     }
@@ -214,5 +216,8 @@ export function profile() {
         document.body.style.overflow = "auto"
         div.remove()
     })
+
+    //Charts
+    createLineChart([4, 2, 5, 0, 2], document.querySelector('.qcm-chart'))
 
 }
