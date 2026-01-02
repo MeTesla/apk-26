@@ -96,9 +96,7 @@
             </div>
 
         </div>
-        <div class="chart"></div>
-        <script type="module">
-            import { createLineChart } from './components/misc/utils.js'
+        <script>            
             const chart = document.querySelector('.chart')
             const accordionTitles = document.querySelectorAll('.item-qst')
             const accordionContent = document.querySelectorAll('.item-res')
@@ -120,10 +118,6 @@
 
                 })
             })
-
-            // Exemple d'utilisation            
-            createLineChart([10, 25, 15, 30, 20], document.querySelector('.chart'));
-
         </script>
     </section>
 </body>

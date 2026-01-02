@@ -278,24 +278,22 @@ body {
 
 @media screen and (max-width: 580px) {
 
-  body,
-  .prq-premium {
+  body {
     width: 100%;
   }
-
+  .prq-premium-container h2{
+    font-size: 1.2rem;
+    padding-right: 0px;
+  }
   .hero {
     flex-direction: column-reverse;
+    padding-bottom: 20px;
   }
 
-  .prq-premium {
-    padding: 10px;
-    margin: 10px;
+  .prq-premium-container .prq-premium {
+    width: 100%;
+    margin: 40px auto;
+    
+  box-shadow: 0 0 3px white, 0 0 5px white;
   }
-}
-
-.chart {
-  width: 50%;
-  margin: auto;
-
-  
 }
