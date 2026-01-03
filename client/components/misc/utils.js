@@ -308,7 +308,7 @@ export function createLineChart(dataArray, div) {
   // Création du canvas
   const canvas = document.createElement('canvas');
   canvas.id = 'myLineChart';
-  canvas.width = "150"
+  //canvas.width = 300
   div.appendChild(canvas);
 
   // Configuration du graphique
@@ -325,7 +325,7 @@ export function createLineChart(dataArray, div) {
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderWidth: 1,
         pointBackgroundColor: 'lightblue',
-        pointRadius: 3
+        pointRadius: 1
       }]
     },
     options: {
@@ -348,7 +348,7 @@ export function createLineChart(dataArray, div) {
             text: 'Notes'
           }
         },
-        x:{
+        x: {
           display: false,
         }
       }
