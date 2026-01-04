@@ -1,6 +1,8 @@
+- Exercices du jour: envoyer notification, au clique, il passe un exercice. (FB like)
 - DailyTopUsers: requête s'execute une fois par jour. envoyé aux connectés
 - node-cron pour des tâches d'arrière plan côté serveur.
 - SUGG : lancement intelligent, inscription via invitation
+
 - UI : MENU en deux : 
 	profile (déconnexion, profile,  free mins) et 
 	menu général (Qui sommes-nous ? Nous contacter[email, whats, face, compte banc])
