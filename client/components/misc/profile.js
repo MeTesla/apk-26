@@ -28,7 +28,7 @@ export function profile() {
                     <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
                     <div class="qcm-conic"> </div>
                     <div class="qcm-last-session last-session" > <i class="fa-solid fa-rotate-right"></i> </div>                    
-                    <div class="qcm-chart"> </div>
+                    <div class="qcm-chart line-chart"> </div>
                 </div>
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
@@ -36,7 +36,7 @@ export function profile() {
                     <div class="resultat-date"> ${resultats.vf?.date || 'Date'} </div>
                     <div class="vf-conic"> </div>
                     <div class="vf-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
-                    <div class="vf-chart"> </div>
+                    <div class="vf-chart line-chart"> </div>
                 </div>
                 <div class="remplir-res">
                     <h4>Remplir les blancs</h4>
@@ -44,7 +44,7 @@ export function profile() {
                     <div class="resultat-date"> ${resultats.remplir?.date || 'Date'} </div>
                     <div class="remplir-conic"> </div>
                     <div class="remplir-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
-                    <div class="remplir-chart"> </div>
+                    <div class="remplir-chart line-chart"> </div>
                 </div>
                 <div class="resultat-ordrePh">
                     <h4>Ordre phrases</h4>
@@ -52,7 +52,7 @@ export function profile() {
                         <div class="resultat-date"> ${resultats.ordrePhrases?.date || 'Date'} </div>
                         <div class="ordrePh-conic"> </div>
                         <div class="ordrePh-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
-                        <div class="ordrePh-chart"> </div>
+                        <div class="ordrePh-chart line-chart"> </div>
                 </div>               
             </div>
         </div>
@@ -149,6 +149,10 @@ export function profile() {
             .last-session{
                 cursor: pointer
             }
+            .line-chart{
+                width: 150px;}
+            .myLineChart{
+                width: 100% !important;}
             
             @media screen and (max-width: 580px) {
                 .res-container{
@@ -224,7 +228,7 @@ export function profile() {
         div.remove()
     })
 
-        //------Charts    
+    //------Charts    
     //QCM
     createLineChart(resultats.qcm?.scores, document.querySelector('.qcm-chart'))
     //VF

@@ -1,3 +1,5 @@
+- DailyTopUsers: requête s'execute une fois par jour. envoyé aux connectés
+- node-cron pour des tâches d'arrière plan côté serveur.
 - SUGG : lancement intelligent, inscription via invitation
 - UI : MENU en deux : 
 	profile (déconnexion, profile,  free mins) et 
@@ -32,6 +34,13 @@
 #############################
 freepik : devenir premium
 
+### Blocs
+	- Image
+	- Image profile
+	- Nombre de sessions (à Ajouter)
+	- Premium if free account || type de compte sous img profile
+	- Euduka.com + Logo + Logout
+	- Date du jour
 Compte (icone avatar)
 	info personnels (ajouter : type de compte(gratuit, Premium))
 Résultats (icone graphique)
