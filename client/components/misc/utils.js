@@ -203,7 +203,7 @@ export function generateMenu(typeAccount, pere, menu) {
   })
   premium && premium.addEventListener('click', () => {
     // modalDevenirPremium()
-    location.assign('./premium.html')
+    location.assign('./premium2.html')
   })
 
   logout && logout.addEventListener('click', () => {
@@ -259,11 +259,13 @@ export async function fetchResultats(listBlc, isModified) {
 
       const data = await reponse.json()
       if (data.success && isModified == true) {
+        console.log(data.success, isModified)
         toast('Résultats synchronisés')
         setTimeout(() => {
           listBlc.remove()
         }, 500)
       } else {
+        console.log(data.success, isModified)
         listBlc.remove()
         toast('Fetch : erreur. data not success')
       }

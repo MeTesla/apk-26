@@ -43,7 +43,6 @@ app.get('/admin', (req, res) => {
 
 const SECRET_KEY = 'mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
-
 // Generate TOKEN
 
 function generateToken(email, expire) {
@@ -186,11 +185,11 @@ app.post('/verifier-email', async (req, res) => {
 // Update resultats
 app.post('/update-resultats', auth, async (req, res) => {
     const token = req.authorization
+    console.log(token);
+    
     const result = req.body.res
-    console.log('update')
-
     try {
-        const eleve = await EleveModel.findOneAndUpdate({ token },
+        const eleve = await EleveModel.findOneAndUpdate({ token },            
             {
                 $set: {
                     resultats: result

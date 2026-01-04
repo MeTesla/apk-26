@@ -1,5 +1,5 @@
 - SUGG : lancement intelligent, inscription via invitation
-- UI : Séparer le menu en deux : 
+- UI : MENU en deux : 
 	profile (déconnexion, profile,  free mins) et 
 	menu général (Qui sommes-nous ? Nous contacter[email, whats, face, compte banc])
 
@@ -28,14 +28,20 @@
 
 - Repenser créer compte: nom + email + mot de passe
 
+		PROFILE
+#############################
+freepik : devenir premium
+
+Compte (icone avatar)
+	info personnels (ajouter : type de compte(gratuit, Premium))
+Résultats (icone graphique)
+	4 blocs qcm vf remplir ordrePh ordreEven
+
 		PREMIUM 
 #############################
-Accueil 	: boutton devenir
-Menu 		: Premium
-page premium 	: présentation, avantages, vidéo comment
+Ajouter vidéo comment
 
 backEnd			: dashboard, envoyer code; réinitialiser compte
-
 	
 Il remplit formulaire. paye. envoie reçu, attends. 
 Moi, reçu whap, dashboard, je clique: premium, statut change registred=> Premium
@@ -44,42 +50,10 @@ Il se déconnecte puis se reconnecte pour màj son statut à "PREMIUM"
 Backend : Premium, num reçu, img reçu
 					MEME table ou NOUVEAU table premium
 
-
-	### Sections :
-		Navbar
-		Hero + Vidéo
-		Vos Avantages
-		Qst fréquemment posées
-
 	### Etapes :
 	1- Créer un compte
 	2- Utiliser gratuitement l'application pour une durée limitée
 	3- Acheter un compte Premium sans limite
 	4- Bonne révision !
 
-	###Devenir PREMIUM || Passer PREMIUM
-		## Préparez-vous à l'examen régional || Bénéficier d'un accès illimité à tout le matériel pour préparer votre régional
-		## image
-		## boutton 
 
-	### Vos avantages (centre)
-		+600 questions sur les oeuvres
-		+300 exemples de figures de style
-		+50 productios écrites expiquées
-		+20 examens régionaux expliqués et corrigés
-		Un simulateur de l'examen régional
-	
-	### Comment passer PREMIUM ? 
-		icone vidéo youtube
-	
-	### Questions fréquement posées :
-		- Pour combien de temps j'utilise mon compte premium ?
-		Vous bénéficier de tous le contenu de notre applciation jusqu'au mois d'août
-		- Est-ce qu'il y a moyen de vous contacter ?
-		Oui, il y a notre numéro whatapp 087587657 et notre adresse émail : pooka
-		- Ce site est-il suffisant pour bien préparer mon régional ?
-		Le site est un outils disponible à tout moment mais il ne remplace jamais un prof.
-		- En cas de perte de mon compte, comment puis-je le récupérer ?
-		Il vous suffit de nous contacter par émail ou sur whatsapp
-		- Le contenu d'Euduka.com est-il conforme au programme du Ministère de l'Education Nationale ?
-		Oui, le contenu de d'Euduka.com est supervisé par des professeurs de français qui 
