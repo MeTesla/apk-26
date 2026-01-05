@@ -1,5 +1,5 @@
 - Exercices du jour: envoyer notification, au clique, il passe un exercice. (FB like)
-- DailyTopUsers: requête s'execute une fois par jour. envoyé aux connectés
+- DailyTopUsers: requête s'execute une fois par jour. envoyé aux connectés. basé sur un score = l'addition de tous les résultats [5+3+5+2+5+8]. !triche du fronteNd
 - node-cron pour des tâches d'arrière plan côté serveur.
 - SUGG : lancement intelligent, inscription via invitation
 
