@@ -117,7 +117,7 @@ export function profile() {
             .res-container{
                 width: 100%;
                 display:grid;
-                grid-template-columns: repeat(4, 6fr);
+                grid-template-columns: repeat(3, 6fr);
                 gap: 20px;
                 margin-bottom: 30px;
             }
@@ -150,9 +150,12 @@ export function profile() {
                 cursor: pointer
             }
             .line-chart{
-                width: 150px;}
+                width: 80%;
+                margin: auto;
+            }
             .myLineChart{
-                width: 100% !important;}
+                width: 100% !important;
+            }
             
             @media screen and (max-width: 580px) {
                 .res-container{

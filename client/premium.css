@@ -210,7 +210,36 @@ body {
   justify-content: center;
   ;
 }
-
+.test{
+  width: 120px;
+  height:40px;
+  background-color: red;
+  position: relative;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  cursor: pointer;
+}
+.test:before{
+  content: '';
+  position: absolute;
+  bottom:-20px;
+  left:0;
+  width: 40px;
+  height: 20px;
+  background-color: red;
+}
+.test:after{
+  content: '';
+  position: absolute;
+  bottom:-20px;
+  left:0;
+  width: 40px;
+  height: 20px;
+  background-color: rgb(41, 40, 40);
+  z-index: 28;
+  border-top-left-radius: 20px;
+}
 .hero .hero-text h2,
 .hero .hero-text h4 {
   margin: 5px 0 10px 10px;

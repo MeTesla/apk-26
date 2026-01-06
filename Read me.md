@@ -9,26 +9,22 @@
 
 
 - PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
-
+	- problème identifié : le token de verification n'est pas celui dans la BD
+	- après chaque exo, la màj ne s'effectue pas; prob de token
 
 - PROB : même sans verification, je peux accéder à mon compte surtout après expiration du token de validation. 
 		(entre création compte et vérification)
 		Le lien expiré mais je ne connecte avec succès
 		mais le token n'est pas valide: pas d'accès aux exo
-- PROB : voir obj ELEVE in Localstorage. les données ne sont pas de l'utilisateur actuel
- 		 Vérifier si onwindow load j'écris ql ch en LocalStorage. 
-		 la page affiche tjr "en attente" meme après mail verif.
+
+- PROB : des fois, "en attente" meme après mail verif.
 
 - Sugg : btn vidéo, comment utiliser le site, en arabe.
 - Sugg : Most Asked Questions : accordion, des vidéos, Qst rep, 
-- Sugg : no free-min : changer menu[profil + Premium]
 
 - Sugg : Message de bievenue après validation par émail
-- Sugg : Tous les ETATS sont gérés par le backend (menu ....)
 
 - Sugg : Loader arpès chaque appel au backEnd. De préférence dans le boutton
-- Sugg : comment ajouter fichier config à l'app : son, confetti, dark mode ?
-- Sugg : Sauvgarder (backup) les émails et les tel dans un endroit sûr
 
 - Repenser créer compte: nom + email + mot de passe
 
@@ -48,6 +44,12 @@ Compte (icone avatar)
 Résultats (icone graphique)
 	4 blocs qcm vf remplir ordrePh ordreEven
 
+QCM : 	- QCM
+		- 12/10/2026
+		- graphique dernière session
+		- refaire session
+		- graphique 7 sessions
+		
 		PREMIUM 
 #############################
 Ajouter vidéo comment
@@ -68,3 +70,5 @@ Backend : Premium, num reçu, img reçu
 	4- Bonne révision !
 
 
+- Sugg : comment ajouter fichier config à l'app : son, confetti, dark mode ?
+- Sugg : Sauvgarder (backup) les émails et les tel dans un endroit sûr
