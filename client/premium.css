@@ -211,13 +211,16 @@ body {
   ;
 }
 .test{
-  width: 120px;
+  width: 90px;
   height:40px;
   background-color: red;
   position: relative;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+  display: flex;
+  align-items: center; justify-content: center;
+  font-weight: bold;
   cursor: pointer;
 }
 .test:before{

@@ -150,8 +150,11 @@ export function profile() {
                 cursor: pointer
             }
             .line-chart{
-                width: 80%;
+                width: 90%;
                 margin: auto;
+                background-color: #fddcdc6e;
+                border-radius: 15px;
+                padding: 10px;
             }
             .myLineChart{
                 width: 100% !important;
