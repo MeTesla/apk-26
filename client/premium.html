@@ -1,161 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <section class="nav">   
-      <div class="accueil">
-        <img src="./assets/img/euduka.png" alt="" />        
-      </div>
-      <div class="menu">
-        <i class="fa-solid fa-bars"></i>
-        <i class="fa-solid fa-user"></i>        
-      </div>
+    <div class="profile-info">
+        <div class="user-info">
+            <img class="user-img" src="./assets/img/user-img.png" alt="">
+            <div class="user-name">Mohamed Karim</div>
+            <div class="user-account">Premium</div>
+            <div class="user-email">pookarim@gmail.com</div>
+        </div>
+        <style>
+            .profile-info {
+                width: 150px;
+                padding: 10px;
+                margin: 20px;
+                border-radius: 15px;
+                background-color: rgb(246, 246, 246);
+            }
 
-    <style>
-      #toast-id{
-        border-radius: 20px;
-      }
-      .toast-id{
-        border-radius: 10px;
-      }
-      .nav{
-          display: flex; 
-          justify-content: space-between;
-          align-items: center;
-          padding: 10px 25px;
-        }
-        
-        .accueil img{
-          width: 60px;
-        }
+            .user-info {
+                padding: 10px;
+                margin: auto;
+                margin-bottom: 5px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
 
-        .nav .menu{
-          position: relative;
-          display: flex;
-          align-items: center;
-          border: 1px solid gray;
-          border-radius: 20px;
-          padding: 5px 10px;
-        }
-        .nav .menu svg{
-          color: rgb(46, 45, 45);
-          font-size: 1.3rem;
-          cursor: pointer;
-          transition: 0.3s;
-        }
+            .user-info .user-img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                box-shadow: 0 0 5px gray;
+                padding: 5px;
+            }
 
-        .nav .menu:hover svg{
-          color: rgb(74, 74, 255);
-        }
-        .nav .menu .user-menu{
-          z-index: 33;
-          position: absolute;
-          top : 105%; right: 0px; 
-          /* 100% c'est nouveau pour MOI */
-          border-radius:10px;
-          overflow: hidden;
-          width: 200px;        
-          display: none;
-        }
-        .nav .menu .user-menu.show{
-          display: block;
-        }
-        .nav .menu .user-menu > div{         
-          display: flex;
-          flex-direction: column;
-          padding: 5px;
-          align-items: center;
-          transition: 0.3s;
-        }
-        .nav .menu .user-menu div img{
-          margin-right: 10px;
-        }
-        .nav .menu .user-menu div div{
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          gap: 10px;
-          padding: 10px;
-          background-color: #d1e7f8;
-          transition: 0.3s;
-        }
-        .nav .menu .user-menu div div:hover{
-          background-color: #94cdfc;
-          cursor: pointer;
-        }
-         .nav .menu .user-menu div img{
-          width: 30px;
-         }
-        .nav .menu .user-menu div.guest, 
-        .nav .menu .user-menu div.connected{
-          display: none;
-        }
-        .nav .menu .user-menu div.show, 
-        .nav .menu .user-menu div.show{
-          display: block;
-        }
-        .user-menu .premium, .user-menu .free-mins, 
-        .user-menu .menu-profile, .user-menu .menu-logout{        
-          cursor: pointer;
-          display: flex;
-          flex-direction: row !important;
-        }
-        .creer-compte-page{
-          position: fixed;
-          top:0; left: 0;
-          width: 100%;
-          background-color: white;
-        }
-        .modal-full{
-          position: fixed;
-          width: 100vw; height: 100vh;
-          top:0; left:0 ;
-          background-color: red;
-        }
-    </style>
+            .user-info .user-name {
+                font-weight: bold;
+                margin-top: 10px;
+            }
 
-    </section>
+            .user-info .user-account {
+                font-size: 0.8rem;
+                color: gray;
+                font-style: italic
+            }
+
+            .user-info .user-email {
+                font-size: 0.8rem;
+                color: rgb(50, 50, 50);
+                text-decoration: underline;
+            }
+        </style>
+    </div>
+
     <div class="container">
-        <div class="modal-video" style="position: relative ;top: 0; left:0;">
+        <!-- <div class="modal-video" style="position: relative ;top: 0; left:0;">
 
-                  <iframe 
-                    src="https://www.youtube.com/embed/gjJmh5-6l1w/?controls=1&modestbranding=0&autoplay=1" 
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-                    frameborder="0" 
-                    allowfullscreen="true">
-                  </iframe>            
-        </div>
-        
+            <iframe src="https://www.youtube.com/embed/gjJmh5-6l1w/?controls=1&modestbranding=0&autoplay=1"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0"
+                allowfullscreen="true">
+            </iframe>
+        </div> -->
+
         <div class="modal-premium">
-        <div class="prem-header">        
-            <div class="prem-logo"> Euduka </div>    
-            <h2 class="prem-titre"> Compte Premium  </h2>
-            <p class="percent"><span>20%</span> pour toute inscription </p>
-        </div>            
-        <div class="prem-corps">
-            <ul>
-                <li>Accès illimité </li>
-                <li>+300 exemples de figures de style </li>
-                <li>+50 productios écrites expiquées </li>
-                <li>+600 exercices des oeuvres </li>
-            </ul>
-            <div class="msg">
-                <span class="num">972</span> élèves nous font confiance
+            <div class="prem-header">
+                <div class="prem-logo"> Euduka </div>
+                <h2 class="prem-titre"> Compte Premium </h2>
+                <p class="percent"><span>20%</span> pour toute inscription </p>
             </div>
-            <div class="prem-cta">Devenir Premium</div>
-        </div>
+            <div class="prem-corps">
+                <ul>
+                    <li>Accès illimité </li>
+                    <li>+300 exemples de figures de style </li>
+                    <li>+50 productios écrites expiquées </li>
+                    <li>+600 exercices des oeuvres </li>
+                </ul>
+                <div class="msg">
+                    <span class="num">972</span> élèves nous font confiance
+                </div>
+                <div class="prem-cta">Devenir Premium</div>
+            </div>
         </div>
 
         <div class="coordonnees">
-            <div class="prem-header">        
-                <div class="prem-logo" > Euduka </div>    
-                <h2 class="prem-titre"> Compte Premium  </h2>
+            <div class="prem-header">
+                <div class="prem-logo"> Euduka </div>
+                <h2 class="prem-titre"> Compte Premium </h2>
                 <p class="percent"><span>20%</span> pour toute inscription </p>
-            </div>        
+            </div>
             <div class="coord-corps">
                 <h3>Veuillez confirmer vos coordonnées</h3>
                 <div class="cord-eleve">
@@ -163,7 +103,7 @@
                         <div class="form-item">
                             <label for="nom">Nom</label>
                             <input type="text" name="nom" id="nom">
-                        </div>               
+                        </div>
                         <div class="form-item">
                             <label for="prenom">Prenom</label>
                             <input type="text" name="prenom" id="prenom">
@@ -178,101 +118,115 @@
                         </div>
                         <div class="coord-btn">Confirmer</div>
                     </form>
-                </div>            
+                </div>
             </div>
         </div>
 
         <div class="mes-coord">
-            <div class="prem-header">        
-                <div class="prem-logo"> Euduka </div>    
-                <h2 class="prem-titre"> Compte Premium  </h2>
+            <div class="prem-header">
+                <div class="prem-logo"> Euduka </div>
+                <h2 class="prem-titre"> Compte Premium </h2>
                 <p class="percent"><span>20%</span> pour toute inscription </p>
             </div>
             <div class="mes-coord-corps">
                 <div class="voir-plus">
-                    <img class="" src="./assets/img/tout-en-bas.png" alt="" srcset="">            
-                    <img class="" src="./assets/img/voir-plus.png" alt="" srcset="">            
+                    <img class="" src="./assets/img/tout-en-bas.png" alt="" srcset="">
+                    <img class="" src="./assets/img/voir-plus.png" alt="" srcset="">
                 </div>
                 <h3>Mes coordonnées bancaires :</h3>
                 <div>Banque : <span>Barid Bank</span></div>
                 <div>Numéro de compte : <span>984 076</span></div>
-                <div>Titulaire du compte : <span>Mohamed KARIM</span></div>            
+                <div>Titulaire du compte : <span>Mohamed KARIM</span></div>
                 <div class="mes-coord-btn">Confirmer</div>
             </div>
         </div>
 
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-        
-        .container{
-            width: 90vw;
-            display: flex;
-            gap: 30px;
-            flex-direction: column;
-            align-items: center;
-            overflow: auto;
-        }
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-        .modal-premium, .coordonnees, .mes-coord, .modal-video{
-            height: 80vh;
-            font-family: "Poppins", sans-serif;
-            font-size: 0.7rem;
-            width: 250px;
-            /* border: 1px solid gray;
+            .container {
+                width: 90vw;
+                display: flex;
+                gap: 30px;
+                flex-direction: column;
+                align-items: center;
+                overflow: auto;
+            }
+
+            .modal-premium,
+            .coordonnees,
+            .mes-coord,
+            .modal-video {
+                height: 80vh;
+                font-family: "Poppins", sans-serif;
+                font-size: 0.7rem;
+                width: 250px;
+                /* border: 1px solid gray;
             border-radius:20px;
             overflow: hidden; */
-        }
-        .prem-header, .prem-header, .prem-header{
-            height: 110px;
-            padding : 20px 0;
-            background-color: rgba(236, 236, 236, 0.568);
-            background-image : url('./assets/img/waves-premium2.png'); 
-            background-repeat: no-repeat;
-        }
-        .prem-logo{
-            position :relative ;
-            right :80px;
-            width: 50px;
-            text-align: center;
-            font-size: 0.6rem;
-            margin: auto;
-            padding:2px;
-            border-radius: 10px;
-            background-color: white ;
-            transform :rotateZ(10deg);
-        }
-        .prem-titre{
-            text-align: center;
-            margin: 5px;
-            font-weight: bold;
-            color: rgb(43, 43, 43);    
-        }
-        .percent {
-            width :60%;
-            margin :auto ;
-            margin-top: 10px;
-            text-align :center ;
-            font-size :0.7rem;
-            padding :3px ;
-            background-color: white ;
-            border-radius: 10px ;
-        }
-        .percent span {
-            color:green;
-            font-weight: bold ;
-        }
-        .prem-corps, .coord-corps, .mes-coord-corps{
-            background-color: rgba(236, 236, 236, 0.568);
-            padding: 15px 0px;
-            position: relative;
-        }
-
-
-        .mes-coord-corps h3,
-            .mes-coord-corps div:not(:last-child){
-                padding:0 20px;
             }
-            .mes-coord-corps div span{
+
+            .prem-header,
+            .prem-header,
+            .prem-header {
+                height: 110px;
+                padding: 20px 0;
+                background-color: rgba(236, 236, 236, 0.568);
+                background-image: url('./assets/img/waves-premium2.png');
+                background-repeat: no-repeat;
+            }
+
+            .prem-logo {
+                position: relative;
+                right: 80px;
+                width: 50px;
+                text-align: center;
+                font-size: 0.6rem;
+                margin: auto;
+                padding: 2px;
+                border-radius: 10px;
+                background-color: white;
+                transform: rotateZ(10deg);
+            }
+
+            .prem-titre {
+                text-align: center;
+                margin: 5px;
+                font-weight: bold;
+                color: rgb(43, 43, 43);
+            }
+
+            .percent {
+                width: 60%;
+                margin: auto;
+                margin-top: 10px;
+                text-align: center;
+                font-size: 0.7rem;
+                padding: 3px;
+                background-color: white;
+                border-radius: 10px;
+            }
+
+            .percent span {
+                color: green;
+                font-weight: bold;
+            }
+
+            .prem-corps,
+            .coord-corps,
+            .mes-coord-corps {
+                background-color: rgba(236, 236, 236, 0.568);
+                padding: 15px 0px;
+                position: relative;
+            }
+
+
+            .mes-coord-corps h3,
+            .mes-coord-corps div:not(:last-child) {
+                padding: 0 20px;
+            }
+
+            .mes-coord-corps div span {
                 display: block;
                 font-size: 1.1rem;
                 font-weight: bold;
@@ -280,98 +234,114 @@
                 justify-content: flex-end;
             }
 
-            .voir-plus{
+            .voir-plus {
                 display: flex;
                 position: absolute;
-                top: -20px; left: 50%;
+                top: -20px;
+                left: 50%;
                 transform: translateX(-50%);
-                    }
-            .voir-plus img{
-                width:50px;
+            }
+
+            .voir-plus img {
+                width: 50px;
                 aanimation: sc 0.3s alternate infinite;
             }
-            @keyframes sc{
-                to{scale: 0.9}
-            }
-        
-        .prem-corps ul{
-            margin-left: 30px;
-            padding: 0;
-        }
-        .prem-corps ul li{
-            position :relative ;
-            padding: 0px;
-            margin :15px ;
-            list-style-type: none;
-        }
-        .prem-corps ul li:before{
-            content:'';
-            width :20px ; height :20px ;
-            position: absolute ;
-            top :0px;
-            left:-30px;
-            background-image: url(./assets/img/verifier.png);
-            background-size: cover ;
-        }
-        .msg{
-            /* width: 85%; */
-            margin: 20px auto;
-            padding: 8px 0;
 
-            background-color: beige;
-            text-align: center;
-            /* border-radius: 10px; */
-        }
-        .msg .num{         
-            color: white;
-            font-weight: bold;
-            padding: 02px 5px;
-            background-color: rgb(46, 138, 43);
-            border-radius: 10px;
-        }
-    
-        .coordonnees h3{
-            font-size: 1.2rem;
-            text-align: center;
-        }
-        .coordonnees form div{
-            margin: 10px 0;
-            padding-left: 15px;
-        }
-        .coordonnees form label{
-            display: inline-block;
-            width: 30%;
-        }
-        .coordonnees form input[type="text"],
-        .coordonnees form input[type="email"],
-        .coordonnees form input[type="tel"]{
-            width: 50%;
-            padding: 5px;
-            outline: none;
-            border: 1px solid gray;
-            border-radius: 5px;
-            color: rgb(94, 94, 94)
-        }
-        .prem-cta, 
-        .coordonnees form .coord-btn,
-        .mes-coord-btn{
-            margin: 20px auto 0px;
-            width: 60%;
-            background-color: #FF9800 ;
-            color :white ;
-            font-weight :bold;
-            border-radius: 15px;
-            text-align:center;
-            padding: 10px;     
-            cursor: pointer;       
-            transition: 100ms;
-        }        
-        .prem-cta:active,
-        .coordonnees form .coord-btn:active,
-        .mes-coord-btn:active{
-            transform: scale(0.96);
-        }
+            @keyframes sc {
+                to {
+                    scale: 0.9
+                }
+            }
+
+            .prem-corps ul {
+                margin-left: 30px;
+                padding: 0;
+            }
+
+            .prem-corps ul li {
+                position: relative;
+                padding: 0px;
+                margin: 15px;
+                list-style-type: none;
+            }
+
+            .prem-corps ul li:before {
+                content: '';
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                top: 0px;
+                left: -30px;
+                background-image: url(./assets/img/verifier.png);
+                background-size: cover;
+            }
+
+            .msg {
+                /* width: 85%; */
+                margin: 20px auto;
+                padding: 8px 0;
+
+                background-color: beige;
+                text-align: center;
+                /* border-radius: 10px; */
+            }
+
+            .msg .num {
+                color: white;
+                font-weight: bold;
+                padding: 02px 5px;
+                background-color: rgb(46, 138, 43);
+                border-radius: 10px;
+            }
+
+            .coordonnees h3 {
+                font-size: 1.2rem;
+                text-align: center;
+            }
+
+            .coordonnees form div {
+                margin: 10px 0;
+                padding-left: 15px;
+            }
+
+            .coordonnees form label {
+                display: inline-block;
+                width: 30%;
+            }
+
+            .coordonnees form input[type="text"],
+            .coordonnees form input[type="email"],
+            .coordonnees form input[type="tel"] {
+                width: 50%;
+                padding: 5px;
+                outline: none;
+                border: 1px solid gray;
+                border-radius: 5px;
+                color: rgb(94, 94, 94)
+            }
+
+            .prem-cta,
+            .coordonnees form .coord-btn,
+            .mes-coord-btn {
+                margin: 20px auto 0px;
+                width: 60%;
+                background-color: #FF9800;
+                color: white;
+                font-weight: bold;
+                border-radius: 15px;
+                text-align: center;
+                padding: 10px;
+                cursor: pointer;
+                transition: 100ms;
+            }
+
+            .prem-cta:active,
+            .coordonnees form .coord-btn:active,
+            .mes-coord-btn:active {
+                transform: scale(0.96);
+            }
         </style>
     </div>
 </body>
+
 </html>

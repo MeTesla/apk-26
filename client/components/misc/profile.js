@@ -11,14 +11,18 @@ export function profile() {
     const div = document.createElement('div')
     div.className = "user-profile"
     div.innerHTML = `<div class="profile-container">
-        <img class="profile-previous" src="./assets/img/previous.svg" alt="Previous"/>
+        
+    
+    <img class="profile-previous" src="./assets/img/previous.svg" alt="Previous"/>
+        
+        <!-- 
         <div class="profile-info">
             <div class= "ligne"> NOM :</div> <h3>${objElv?.nom || 'Visiteur'}</h3>
             <div class= "ligne"> Prenom :</div> <h3>${objElv?.prenom || 'Visiteur'}</h3>
             <div class= "ligne"> Email :</div> <h3>${objElv?.email || 'Visiteur'}</h3>
             <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv?.freeMins) * 5 || 'Visiteur'}</h3>       
         </div>
-
+        -->
         <div>
             <h4 class="mes-resultats"> Mes résultats </h4>            
             <div class="res-container">
