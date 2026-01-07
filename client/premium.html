@@ -4,36 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ChartJs -->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
     <title>Document</title>
 </head>
 
 <body>
-    <div class="profile-info">
-        <div class="user-info">
-            <img class="user-img" src="./assets/img/user-img.png" alt="">
-            <div class="user-name">Mohamed Karim</div>
-            <div class="user-account">Premium</div>
-            <div class="user-email">pookarim@gmail.com</div>
+    
+
+    <div class="profile-infos">
+        <div class="profile-header">
+            <div class="profile-logo">Euduka.com</div>
+            <div class="profile-date">12/01/2025</div>
         </div>
-        <style>
-            .profile-info {
-                width: 150px;
-                padding: 10px;
-                margin: 20px;
-                border-radius: 15px;
-                background-color: rgb(246, 246, 246);
-            }
+        <div class="profile-data">
+            <div class="user-info">
+                <img class="user-img" src="./assets/img/user-img.png" alt="">
+                <div class="user-name">Mohamed Karim</div>
+                <div class="user-account">Premium</div>
+                <div class="user-email">pookarim@gmail.com</div>
+            </div>
+            <div class="user-resultats">
 
-            .user-info {
-                padding: 10px;
-                margin: auto;
-                margin-bottom: 5px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
+            </div>
+        </div>
+    </div>
+    <style>
+        .profile-header{
+            display: flex;
+            justify-content: space-between
+        }
+        .profile-data{
+            display: flex;
+            gap: 10px;
+            
+        }
+        .user-info{
+            flex:1;
+            align-self: flex-start;
+            background-color: rgb(236, 236, 236);
+            border-radius: 20px;               
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
+        }
             .user-info .user-img {
                 width: 40px;
                 height: 40px;
@@ -41,7 +59,6 @@
                 box-shadow: 0 0 5px gray;
                 padding: 5px;
             }
-
             .user-info .user-name {
                 font-weight: bold;
                 margin-top: 10px;
@@ -57,9 +74,16 @@
                 font-size: 0.8rem;
                 color: rgb(50, 50, 50);
                 text-decoration: underline;
-            }
-        </style>
-    </div>
+            }            
+        .user-resultats{
+            flex:3;
+            background-color: rgb(226, 221, 221);
+            border-radius: 20px;
+            min-height: 70vh;
+        }
+    </style>
+   
+  
 
     <div class="container">
         <!-- <div class="modal-video" style="position: relative ;top: 0; left:0;">
