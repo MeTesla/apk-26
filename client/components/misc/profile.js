@@ -9,29 +9,30 @@ export function profile() {
     const objElv = JSON.parse(localStorage.getItem('profile'))
     const resultats = JSON.parse(localStorage.getItem('profile')).resultats || {}
     const div = document.createElement('div')
-    div.className = "user-profile"
+    div.className = "profile-infos"
     div.innerHTML = `<div class="profile-container">
-        
-    
-    <img class="profile-previous" src="./assets/img/previous.svg" alt="Previous"/>
-        
-        <!-- 
-        <div class="profile-info">
-            <div class= "ligne"> NOM :</div> <h3>${objElv?.nom || 'Visiteur'}</h3>
-            <div class= "ligne"> Prenom :</div> <h3>${objElv?.prenom || 'Visiteur'}</h3>
-            <div class= "ligne"> Email :</div> <h3>${objElv?.email || 'Visiteur'}</h3>
-            <div class= "ligne"> Minutes :</div> <h3>${parseInt(objElv?.freeMins) * 5 || 'Visiteur'}</h3>       
+       <div class="profile-header">
+            <div class="profile-logo">
+                <img src="./assets/img/euduka.png" alt="">
+            </div>
+            <div class="profile-date"></div>
         </div>
-        -->
-        <div>
-            <h4 class="mes-resultats"> Mes résultats </h4>            
-            <div class="res-container">
+        <div class="profile-data">
+            <div class="user-info">
+                <img class="user-img" src="./assets/img/user-img.png" alt="">
+                <div class="user-name">Mohamed Karim</div>
+                <div class="user-account">Premium</div>
+                <div class="user-email">pookarim@gmail.com</div>
+            </div>
+            <div class="user-resultats">
                 <div class="qcm-res">
                     <h4>QCM</h4>                    
                     <div class="resultat-score"> ${resultats.qcm?.score + '/' + resultats.qcm?.nbrQsts || '0'} </div>
                     <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
                     <div class="qcm-conic"> </div>
-                    <div class="qcm-last-session last-session" > <i class="fa-solid fa-rotate-right"></i> </div>                    
+                    <div class="qcm-last-session last-session"> 
+                        <i class="fa-solid fa-rotate-right"></i> 
+                    </div>                    
                     <div class="qcm-chart line-chart"> </div>
                 </div>
                 <div class="v-f-res">
@@ -57,80 +58,87 @@ export function profile() {
                         <div class="ordrePh-conic"> </div>
                         <div class="ordrePh-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
                         <div class="ordrePh-chart line-chart"> </div>
-                </div>               
+                </div>
             </div>
         </div>
-       
-        <style>
-            .user-profile{
-                position: fixed;
-                top: 0; left: 0;
-                width:100%;
-                padding: 0 40px;
-                background-color: #eee;
-                display: flex;
-                align-items: flex-start;
-                justify-content: center;
-            }
-            .profile-container{
-                width: 100%;
-                height: 100vh;          
-                overflow-y: auto;
-            }
-            .profile-container::-webkit-scrollbar {
-                display: none;
-            }
-            .profile-previous{
-                position: relative;
-                top: 10px; left: 0px;
-                width: 30px; height: 30px;
-                margin-top: 10px;
-                padding: 5px;
-                border: 1px solid gray;
-                border-radius: 50%;
-                cursor: pointer;
-                align-self: flex-start;
-                margin-bottom: 20px;
-                transition: background-color 0.3s ease;
-            }
+         <style>
+        .profile-infos{
+            position: absolute;
+            height: 100vh;
+            width: 100%;
+            padding: 20px 40px;
+            top: 0; left: 0;
+            background-color: white;
+            overflow: auto;
+        }
+        .profile-header{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .profile-logo{
+            width: 60px;
+        }
+        .profile-logo img{
+            width: 100%;
+        }
+        .profile-data{
+            display: flex;
+            gap: 10px;
             
-            .profile-previous:hover{
-                background-color: rgb(240,240,240);
-            }
-            
-            .profile-info{
-                border: 1px solid gray;
-                border-radius: 20px;
-                padding: 20px;
-                width: 50%;
-                margin: auto;
-                background-color: #fafafaff;
-            }
-            .ligne{
-                width: 100%;
-                background-color: #ececefff;
-                padding: 10px;
-                border-radius: 5px;
-                margin-bottom: 10px;
-            }
-            .ligne + h3{
-                margin-top: -10px;
-                margin-bottom: 20px;
-            }
-            
-            .res-container{
-                width: 100%;
-                display:grid;
-                grid-template-columns: repeat(3, 6fr);
-                gap: 20px;
-                margin-bottom: 30px;
-            }
-            .res-container > div{
-                padding: 10px;
-                border: 1px solid gray;
-                border-radius: 5px;
-                text-align: center;
+        }
+        .user-info{
+            flex:1;
+            align-self: flex-start;
+            background-color: rgb(236, 236, 236);
+            border-radius: 20px;               
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
+        }
+            .user-info .user-img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                box-shadow: 0 0 5px gray;
+                padding: 5px;
+            }
+            .user-info .user-name {
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            .user-info .user-account {
+                font-size: 0.8rem;
+                color: gray;
+                font-style: italic
+            }
+
+            .user-info .user-email {
+                font-size: 0.8rem;
+                color: rgb(50, 50, 50);
+                text-decoration: underline;
+            }            
+        .user-resultats{
+            flex:3;
+            background-color: rgb(236, 236, 236);
+            border-radius: 20px;
+            min-height: 70vh;
+            padding: 20px;
+            margin: 0 10px;
+            display: grid;           
+            grid-template-columns: repeat(3, 6fr);
+            gap: 20px;
+
+        }
+            .user-resultats > div{
+                padding: 10px;
+                box-shadow: 0 0 4px rgba(153, 153, 153, 1);
+                border-radius: 15px;
+                text-align: center;
             }
             
             .user-profile h4{
@@ -156,7 +164,7 @@ export function profile() {
             .line-chart{
                 width: 90%;
                 margin: auto;
-                background-color: #fddcdc6e;
+                background-color: #d1d1d16e;
                 border-radius: 15px;
                 padding: 10px;
             }
@@ -165,23 +173,34 @@ export function profile() {
             }
             
             @media screen and (max-width: 580px) {
-                .res-container{
+                .user-resultats{
                     grid-template-columns: repeat(1, 6fr);                   
                 }
                 .profile-info{
                     width: 100%;
                 }
             }
-        </style>
-        </div>`
+        </style>            
+    </div>`
     document.body.style.overflow = "hidden"
     document.body.appendChild(div)
 
-    const userProfile = document.querySelector('.profile-previous')
+    const profileDate= document.querySelector('.profile-date')
+    const userProfile = document.querySelector('.profile-logo')
     const qcmConic = document.querySelector('.qcm-conic')
     const vfConic = document.querySelector('.vf-conic')
     const remplirConic = document.querySelector('.remplir-conic')
     const ordrePhConic = document.querySelector('.ordrePh-conic')
+
+    // Date
+    const date = new Date()
+    const options = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }
+    profileDate.innerHTML = date.toLocaleDateString('fr-FR', options)
+
 
     //QCM last session
     const qcmLastSession = document.querySelector('.qcm-last-session')

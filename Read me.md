@@ -32,6 +32,21 @@
 #############################
 freepik : devenir premium
 
+parent 
+------
+let reseivedData
+function handleData(val)
+	{reseivedData = val
+}
+child(handleData)
+
+
+child(callBack){
+-----
+	const data = 34
+	callBack(data)
+}
+
 ### Blocs
 	- Image
 	- Image profile

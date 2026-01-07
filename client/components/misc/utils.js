@@ -320,9 +320,9 @@ export function createLineChart(dataArray, div) {
     data: {
       labels: ['N 1', 'N 2', 'N 3', 'N 4', 'N 5', 'N 6', 'N 7', 'N 8'],
       datasets: [{
-        label: 'Mes dernières notes',
+        label: 'Mes notes',
         data: dataArray,
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgba(109, 109, 109, 1)',
         tension: 0.3,
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderWidth: 1,
