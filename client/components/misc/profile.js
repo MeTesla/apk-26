@@ -6,7 +6,8 @@ import { ordrePhrases } from "../act/ordrePhrases.js"
 import { createLineChart } from "./utils.js"
 
 export function profile() {
-    const objElv = JSON.parse(localStorage.getItem('profile'))
+    const { nom, prenom, email } = JSON.parse(localStorage.getItem('profile'))
+    const { role } = JSON.parse(localStorage.getItem('profile'))
     const resultats = JSON.parse(localStorage.getItem('profile')).resultats || {}
     const div = document.createElement('div')
     div.className = "profile-infos"
@@ -20,21 +21,27 @@ export function profile() {
         <div class="profile-data">
             <div class="user-info">
                 <img class="user-img" src="./assets/img/user-img.png" alt="">
-                <div class="user-name">Mohamed Karim</div>
-                <div class="user-account">Premium</div>
-                <div class="user-email">pookarim@gmail.com</div>
+                <div class="user-name">${nom + ' ' + prenom}</div>
+                <div class="user-account">${role === 'registred' ? 'Premium' : 'Basic'}</div>
+                <div class="user-email">${email}</div>
             </div>
             <div class="user-resultats">
+               
                 <div class="qcm-res">
-                    <h4>QCM</h4>                    
-                    <div class="resultat-score"> ${resultats.qcm?.score + '/' + resultats.qcm?.nbrQsts || '0'} </div>
-                    <div class="resultat-date"> ${resultats.qcm?.date || 'Date'} </div>
-                    <div class="qcm-conic"> </div>
-                    <div class="qcm-last-session last-session"> 
-                        <i class="fa-solid fa-rotate-right"></i> 
-                    </div>                    
+                    <h4>QCM</h4>
+                    <div class="last-session-container">
+                        <h5 class="last-session-title">Dernière session</h5>                
+                        <div class="last-session-data">                    
+                            <div class="qcm-conic"> </div>
+                            <div class="qcm-last-session last-session"> 
+                                <i class="fa-solid fa-rotate-right"></i> 
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="qcm-chart line-chart"> </div>
                 </div>
+                
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
                     <div class="resultat-score"> ${resultats.vf?.score + '/' + resultats.vf?.nbrQsts || '0'} </div>
@@ -61,7 +68,7 @@ export function profile() {
                 </div>
             </div>
         </div>
-         <style>
+        <style>
         .profile-infos{
             position: absolute;
             height: 100vh;
@@ -85,6 +92,7 @@ export function profile() {
         .profile-data{
             display: flex;
             gap: 10px;
+            
             
         }
         .user-info{
@@ -121,7 +129,8 @@ export function profile() {
                 font-size: 0.8rem;
                 color: rgb(50, 50, 50);
                 text-decoration: underline;
-            }            
+            }
+    /*---------------------*/          
         .user-resultats{
             flex:3;
             background-color: rgb(236, 236, 236);
@@ -134,33 +143,50 @@ export function profile() {
             gap: 20px;
 
         }
-            .user-resultats > div{
-                padding: 10px;
-                box-shadow: 0 0 4px rgba(153, 153, 153, 1);
-                border-radius: 15px;
-                text-align: center;
-            }
-            
-            .user-profile h4{
-               
-               text-align: center;
-               font-size: 1.4rem;
-            }
-            .mes-resultats{
-                margin: 40px auto;
-            }
-            .resultat-date{
-                font-size: 10px;
-                text-align: right;
-                color: gray;
-            }
-            .qcm-conic{
+        .user-resultats > div{
+            padding: 10px;
+            box-shadow: 0 0 4px rgba(153, 153, 153, 1);
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .user-resultats h4{               
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .last-session-container{
+            width: 90%;        
+            margin: 15px auto;         
+            padding: 10px;
+            border-radius: 5px 10px;
+            background-color: #d1d1d16e;
+            border: 3px solid white;
+        }
+
+        .last-session-data{
+            width: 90%;        
+            margin: auto;        
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 10px;
+            border-radius: 10px;
+
+        }
+
+
+            .qcm-conic, .last-session {
                 width: 40px;
                 height: 40px;
+                display:flex; align-items: center;                
             }
-            .last-session{
+            .last-session .fa-rotate-right{
+                width: 80%;
+                height: 80%;
                 cursor: pointer
             }
+
             .line-chart{
                 width: 90%;
                 margin: auto;
@@ -172,7 +198,15 @@ export function profile() {
                 width: 100% !important;
             }
             
-            @media screen and (max-width: 580px) {
+            @media screen and (min-width: 340px) {
+                .profile-data{
+                    flex-direction: column;
+                    
+                    }
+                .user-info{
+                    align-self: flex-end;
+                    margin: 10px;
+                }
                 .user-resultats{
                     grid-template-columns: repeat(1, 6fr);                   
                 }
@@ -180,12 +214,23 @@ export function profile() {
                     width: 100%;
                 }
             }
+            @media screen and (min-width: 769px){
+            .user-resultats{
+                    grid-template-columns: repeat(2, 6fr);                   
+                }
+            }
+
+            @media screen and (min-width: 1200px){
+            .user-resultats{
+                    grid-template-columns: repeat(3, 6fr);                   
+                }
+            }
         </style>            
     </div>`
     document.body.style.overflow = "hidden"
     document.body.appendChild(div)
 
-    const profileDate= document.querySelector('.profile-date')
+    const profileDate = document.querySelector('.profile-date')
     const userProfile = document.querySelector('.profile-logo')
     const qcmConic = document.querySelector('.qcm-conic')
     const vfConic = document.querySelector('.vf-conic')

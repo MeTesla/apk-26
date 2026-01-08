@@ -1,3 +1,6 @@
+/* Mobile	481 - 768 px	Navigation mobile simplifiée
+Tablette	   - 1024 px	Mise en page à deux colonnes
+PC	1025 - 1200 px	Mise en page classique à trois colonnes */
 .conics {
   display: flex;
   justify-content: space-evenly;
@@ -317,7 +320,7 @@ svg rect {
 
   .wrapper {
     width: 60%;
-    margin: auto; 
+    margin: auto;
   }
 
   .liste-act {
