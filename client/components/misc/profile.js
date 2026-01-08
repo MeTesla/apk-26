@@ -162,7 +162,7 @@ export function profile() {
             padding: 10px;
             border-radius: 5px 10px;
             background-color: #d1d1d16e;
-            border: 3px solid white;
+            box-shadow: 0 0 5px white;
         }
 
         .last-session-data{
@@ -196,6 +196,7 @@ export function profile() {
                 width: 90%;
                 margin: auto;
                 background-color: #d1d1d16e;
+                box-shadow: 0 0 5px white;
                 border-radius: 15px;
                 padding: 10px;
             }

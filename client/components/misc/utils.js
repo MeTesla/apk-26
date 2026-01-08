@@ -129,10 +129,16 @@ export function generateMenu(typeAccount, pere, menu) {
   div.className = "user-menu"
   switch (typeAccount) {
     case 'attenteR':
-      div.innerHTML = `<div><div>
+      div.innerHTML = `<div>
+        <div>
           <img src="./assets/img/verifyEmail.png" />
           <span>En attente</span>
-        </div></div>`
+        </div>
+        <div>
+          <img src="./assets/img/annuler.png" />
+          <span>Annuler</span>
+        </div>
+        </div>`
       break;
     case 'registred':
       div.innerHTML = `
