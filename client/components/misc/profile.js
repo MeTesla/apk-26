@@ -37,6 +37,7 @@ export function profile() {
                                 <i class="fa-solid fa-rotate-right"></i> 
                             </div>
                         </div>
+                        <div class="last-session-date"> </div>
                     </div>
                     
                     <div class="qcm-chart line-chart"> </div>
@@ -92,7 +93,7 @@ export function profile() {
         .profile-data{
             display: flex;
             gap: 10px;
-            
+            align-self: flex-start;
             
         }
         .user-info{
@@ -168,22 +169,26 @@ export function profile() {
             width: 90%;        
             margin: auto;        
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            ppadding: 10px;
             border-radius: 10px;
 
         }
 
 
             .qcm-conic, .last-session {
-                width: 40px;
-                height: 40px;
+                width: 60px;
+                height: 60px;
                 display:flex; align-items: center;                
             }
+            .qcm-conic .conic{
+                width: 90%;
+                height: 90%;
+            }
             .last-session .fa-rotate-right{
-                width: 80%;
-                height: 80%;
+                width: 70%;
+                height: 70%;
                 cursor: pointer
             }
 
@@ -200,11 +205,10 @@ export function profile() {
             
             @media screen and (min-width: 340px) {
                 .profile-data{
-                    flex-direction: column;
-                    
-                    }
+                    fflex-direction: column;                    
+                }
                 .user-info{
-                    align-self: flex-end;
+                    aalign-self: flex-end;
                     margin: 10px;
                 }
                 .user-resultats{
