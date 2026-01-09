@@ -32,41 +32,89 @@ export function profile() {
                     <div class="last-session-container">
                         <h5 class="last-session-title">Dernière session</h5>                
                         <div class="last-session-data">                    
-                            <div class="qcm-conic"> </div>
-                            <div class="qcm-last-session last-session"> 
-                                <i class="fa-solid fa-rotate-right"></i> 
+                            <div> 
+                                <div class="qcm-conic user-conic"> </div>
+                                <div class="last-session-data-title">Graphique</div>
                             </div>
+                            <div>
+                                <div class="qcm-last-session last-session"> 
+                                    <i class="fa-solid fa-rotate-right"></i> 
+                                </div>
+                                <div class="last-session-data-title">Refaire</div>
+                            </div>                        
                         </div>
                         <div class="last-session-date"> </div>
                     </div>
                     
                     <div class="qcm-chart line-chart"> </div>
                 </div>
-                
+
                 <div class="v-f-res">
                     <h4>Vrai/Faux</h4>
-                    <div class="resultat-score"> ${resultats.vf?.score + '/' + resultats.vf?.nbrQsts || '0'} </div>
-                    <div class="resultat-date"> ${resultats.vf?.date || 'Date'} </div>
-                    <div class="vf-conic"> </div>
-                    <div class="vf-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
+                    <div class="last-session-container">
+                        <h5 class="last-session-title">Dernière session</h5>                
+                        <div class="last-session-data">                    
+                            <div> 
+                                <div class="vf-conic"> </div>
+                                <div class="last-session-data-title">Graphique</div>
+                            </div>
+                            <div>
+                                <div class="vf-last-session last-session"> 
+                                    <i class="fa-solid fa-rotate-right"></i> 
+                                </div>
+                                <div class="last-session-data-title">Refaire</div>
+                            </div>                        
+                        </div>
+                        <div class="last-session-date"> </div>
+                    </div>
+                    
                     <div class="vf-chart line-chart"> </div>
                 </div>
+
                 <div class="remplir-res">
                     <h4>Remplir les blancs</h4>
-                    <div class="resultat-score"> ${resultats.remplir?.score + '/' + resultats.remplir?.nbrQsts || '0'} </div>
-                    <div class="resultat-date"> ${resultats.remplir?.date || 'Date'} </div>
-                    <div class="remplir-conic"> </div>
-                    <div class="remplir-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
+                    <div class="last-session-container">
+                        <h5 class="last-session-title">Dernière session</h5>                
+                        <div class="last-session-data">                    
+                            <div> 
+                                <div class="remplir-conic"> </div>
+                                <div class="last-session-data-title">Graphique</div>
+                            </div>
+                            <div>
+                                <div class="remplir-last-session last-session"> 
+                                    <i class="fa-solid fa-rotate-right"></i> 
+                                </div>
+                                <div class="last-session-data-title">Refaire</div>
+                            </div>                        
+                        </div>
+                        <div class="last-session-date"> </div>
+                    </div>
+                    
                     <div class="remplir-chart line-chart"> </div>
                 </div>
-                <div class="resultat-ordrePh">
+
+
+                <div class="ordrePh-res">
                     <h4>Ordre phrases</h4>
-                        <div class="resultat-score"> ${resultats.ordrePhrases?.score + '/' + resultats.ordrePhrases?.nbrQsts || '0'} </div>
-                        <div class="resultat-date"> ${resultats.ordrePhrases?.date || 'Date'} </div>
-                        <div class="ordrePh-conic"> </div>
-                        <div class="ordrePh-last-session last-session"> <i class="fa-solid fa-rotate-right"></i> </div>
-                        <div class="ordrePh-chart line-chart"> </div>
-                </div>
+                    <div class="last-session-container">
+                        <h5 class="last-session-title">Dernière session</h5>                
+                        <div class="last-session-data">                    
+                            <div> 
+                                <div class="ordrePh-conic"> </div>
+                                <div class="last-session-data-title">Graphique</div>
+                            </div>
+                            <div>
+                                <div class="ordrePh-last-session last-session"> 
+                                    <i class="fa-solid fa-rotate-right"></i> 
+                                </div>
+                                <div class="last-session-data-title">Refaire</div>
+                            </div>                        
+                        </div>
+                        <div class="last-session-date"> </div>
+                    </div>
+                    
+                    <div class="ordrePh-chart line-chart"> </div>
+                </div>              
             </div>
         </div>
         <style>
@@ -169,28 +217,37 @@ export function profile() {
             width: 90%;        
             margin: auto;        
             display: flex;
-            justify-content: space-between;
+            justify-content: space-evenly;
             align-items: center;
-            ppadding: 10px;
             border-radius: 10px;
-
+        }
+        .last-session-data>div{
+            margin-top: 10px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 5px;
+            align-items: center;
+        }
+        .last-session-data .last-session-data-title{
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: gray;
+            font-weight: bold;
         }
 
-
-            .qcm-conic, .last-session {
-                width: 60px;
-                height: 60px;
-                display:flex; align-items: center;                
-            }
-            .qcm-conic .conic{
-                width: 90%;
-                height: 90%;
-            }
-            .last-session .fa-rotate-right{
-                width: 70%;
-                height: 70%;
-                cursor: pointer
-            }
+        .user-resultats .user-conic .conic{
+                width: 40px;
+                height: 40px;
+        }
+        .user-resultats .fa-rotate-right{
+            width: 35px;
+            height: 35px;
+            fill: gray
+        }
+            .user-resultats .fa-rotate-right path{
+            fill: #222;}
 
             .line-chart{
                 width: 90%;
