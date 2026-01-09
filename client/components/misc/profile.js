@@ -24,6 +24,8 @@ export function profile() {
                 <div class="user-name">${nom + ' ' + prenom}</div>
                 <div class="user-account">${role === 'registred' ? 'Premium' : 'Basic'}</div>
                 <div class="user-email">${email}</div>
+                <div class="minutes"></div>
+
             </div>
             <div class="user-resultats">
                
@@ -118,6 +120,13 @@ export function profile() {
             </div>
         </div>
         <style>
+        .minutes{
+        
+        width: 60%;
+        height: 5px;
+        margin: 10px 0;
+        background-color: lime;
+        }
         .profile-infos{
             position: absolute;
             height: 100vh;
