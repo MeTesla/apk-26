@@ -101,8 +101,9 @@ export function login() {
     if (data.success) {
       localStorage.setItem('role', data.eleve.role)
       localStorage.setItem('token', data.eleve.token)
-      const { nom, prenom, email, tel, freeMins, resultats} = data.eleve
-      const objElv = { nom, prenom, email, tel, freeMins, resultats }
+      console.log(data.eleve)
+      const { _id, nom, prenom, email, tel, freeMins, resultats } = data.eleve
+      const objElv = { _id, nom, prenom, email, tel, freeMins, resultats }
       localStorage.setItem('profile', JSON.stringify(objElv))
 
       toast("Connecté avec succès")

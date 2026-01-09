@@ -6,6 +6,25 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const app = express()
 
+
+// New: Import Socket.IO
+const { Server } = require('socket.io')
+const http = require('http')
+
+// Create HTTP server and attach Express
+const server = http.createServer(app)
+
+// New: Initialize Socket.IO with the HTTP server
+const io = new Server(server, {
+    cors: {
+        origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
+            'https://euduka.vercel.app', 'https://euduka.page.gd',
+            'http://localhost:5500'
+        ]
+    }
+})
+
+
 app.use(cors({
     // ne pas mettre '/' à la fin de l'origine
     origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
@@ -43,6 +62,7 @@ app.get('/admin', (req, res) => {
 
 const SECRET_KEY = 'mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
+//visual studio code : mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/
 // Generate TOKEN
 
 function generateToken(email, expire) {
@@ -110,7 +130,10 @@ app.post('/creer-compte', async (req, res) => {
 
 //-------Login----------------
 app.post('/login', async (req, res) => {
+
+
     const { email, password } = req.body
+
     if (!email || !password) return res.json({
         success: false,
         message: 'Email et mot de passe sont requis'
@@ -131,6 +154,8 @@ app.post('/login', async (req, res) => {
         // })
 
         return res.json({ eleve, success: true, titre: eleve.role })
+        console.log(eleve);
+
     } catch (error) {
         res.json({ success: false, message: 'Erreur serveur. Veuillez réessayer plus tard' })
     }
@@ -185,11 +210,10 @@ app.post('/verifier-email', async (req, res) => {
 // Update resultats
 app.post('/update-resultats', auth, async (req, res) => {
     const token = req.authorization
-    console.log(token);
-    
+
     const result = req.body.res
     try {
-        const eleve = await EleveModel.findOneAndUpdate({ token },            
+        const eleve = await EleveModel.findOneAndUpdate({ token },
             {
                 $set: {
                     resultats: result
@@ -204,8 +228,12 @@ app.post('/update-resultats', auth, async (req, res) => {
             success: false,
             message: 'pas d\'eleve'
         })
+        // New: Emit real-time notification to the user
+        io.to(eleve._id.toString()).emit('notification', { message: 'Votre score a été mis à jour', score: result.score || result })
+
+
         res.json({ eleve, success: true })
-        console.log('updated true')
+
 
     } catch (error) {
         res.json({
@@ -353,6 +381,9 @@ app.get('/', auth, (req, res) => {
 
 // })
 
+// <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+
+
 //DB connection
 mongoose.connect(URL)
     .then(() => {
@@ -365,6 +396,29 @@ mongoose.connect(URL)
 // Dell
 const url = '3000'
 // const url='https://euduka.vercel.app'
-app.listen(url, () => {
+server.listen(url, () => {
     console.log('Connected to server');
+})
+
+
+// websocket
+
+// New: Handle Socket.IO connections
+io.on('connection', (socket) => {
+    console.log('A user connected:', socket.id)
+
+    // Example: Listen for a custom event from client (e.g., join a room based on user ID)
+    socket.on('join', (userId) => {
+        socket.join(userId)  // Join a room for targeted notifications
+    })
+
+    // Example: Send a notification to a specific user
+    socket.on('send-notification', (data) => {
+        // Emit to the user's room
+        io.to(data.userId).emit('notification', { message: data.message, score: data.score })
+    })
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id)
+    })
 })
