@@ -134,7 +134,7 @@ export function generateMenu(typeAccount, pere, menu) {
           <img src="./assets/img/verifyEmail.png" />
           <span>En attente</span>
         </div>
-        <div>
+        <div class="annuler">
           <img src="./assets/img/annuler.png" />
           <span>Annuler</span>
         </div>
@@ -213,13 +213,21 @@ export function generateMenu(typeAccount, pere, menu) {
   })
 
   logout && logout.addEventListener('click', () => {
+    disconnect()
+  })
+
+  const annuler = document.querySelector('.annuler')
+  annuler && annuler.addEventListener('click', () => {
+    disconnect()
+  })
+
+  function disconnect() {
     localStorage.removeItem('token')
     localStorage.removeItem('role')
     localStorage.removeItem('profile')
     localStorage.removeItem('resultats')
     document.location.reload()
-  })
-
+  }
   // show hide menu + Type menus
   menu.addEventListener('click', (e) => {
     e.stopPropagation()

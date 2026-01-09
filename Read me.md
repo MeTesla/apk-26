@@ -1,3 +1,4 @@
+- PROB : modifier le clique sur le menu, rendre tout l'élément cliquable
 - PROB : si verif expire: le route envoie le msg mais la fonction continue de exécuter
 - Exercices du jour: envoyer notification, au clique, il passe un exercice. (FB like)
 - DailyTopUsers: requête s'execute une fois par jour. envoyé aux connectés. basé sur un score = l'addition de tous les résultats [5+3+5+2+5+8]. !triche du fronteNd
