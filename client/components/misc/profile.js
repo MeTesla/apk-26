@@ -95,7 +95,6 @@ export function profile() {
                     <div class="remplir-chart line-chart"> </div>
                 </div>
 
-
                 <div class="ordrePh-res">
                     <h4>Ordre phrases</h4>
                     <div class="last-session-container">
@@ -270,9 +269,9 @@ export function profile() {
                 width: 100% !important;
             }
             
-            @media screen and (min-width: 340px) {
+            @media screen and (max-width: 760px) {
                 .profile-data{
-                    fflex-direction: column;                    
+                    flex-direction: column;                    
                 }
                 .user-info{
                     aalign-self: flex-end;
@@ -285,7 +284,7 @@ export function profile() {
                     width: 100%;
                 }
             }
-            @media screen and (min-width: 769px){
+            @media (min-width: 769px) and (max-width: 1024px){
             .user-resultats{
                     grid-template-columns: repeat(2, 6fr);                   
                 }

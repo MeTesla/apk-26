@@ -1,4 +1,7 @@
-- PROB : modifier le clique sur le menu, rendre tout l'élément cliquable
+Je veux ajouter un système de notification à mon web app. je veux envoyer à chaque utilisateur une notification sous forme d'un message contenant des données (son score)
+
+- Annuler n'est pas facile comme je l'ai cru : il faut annuler le token au B.E
+
 - PROB : si verif expire: le route envoie le msg mais la fonction continue de exécuter
 - Exercices du jour: envoyer notification, au clique, il passe un exercice. (FB like)
 - DailyTopUsers: requête s'execute une fois par jour. envoyé aux connectés. basé sur un score = l'addition de tous les résultats [5+3+5+2+5+8]. !triche du fronteNd
