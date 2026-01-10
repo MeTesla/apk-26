@@ -13,6 +13,9 @@ export function profile() {
     div.className = "profile-infos"
     div.innerHTML = `<div class="profile-container">
        <div class="profile-header">
+            <div class="profile-close">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
+            </div>
             <div class="profile-logo">
                 <img src="./assets/img/euduka.png" alt="">
             </div>
@@ -138,10 +141,21 @@ export function profile() {
         .profile-header{
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 10px;
+            margin-bottom: 20px;
         }
+        .profile-close{
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+        .profile-close svg{
+            width: 100%;
+            height: 100%;}
+        
         .profile-logo{
-            width: 60px;
+            width: 100px;
         }
         .profile-logo img{
             width: 100%;
@@ -301,7 +315,7 @@ export function profile() {
     document.body.appendChild(div)
 
     const profileDate = document.querySelector('.profile-date')
-    const userProfile = document.querySelector('.profile-logo')
+    const profileClose = document.querySelector('.profile-close')
     const qcmConic = document.querySelector('.qcm-conic')
     const vfConic = document.querySelector('.vf-conic')
     const remplirConic = document.querySelector('.remplir-conic')
@@ -367,7 +381,7 @@ export function profile() {
     )
 
 
-    userProfile.addEventListener('click', () => {
+    profileClose.addEventListener('click', () => {
         document.body.style.overflow = "auto"
         div.remove()
     })

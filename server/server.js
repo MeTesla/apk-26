@@ -406,9 +406,9 @@ server.listen(url, () => {
 
 // Fonction pour envoyer une liste
 function envoyerListe() {
-    const liste = ['Karim', 'Ali', 'Marouane']; // Exemple de liste
+    const liste = ['Zair', 'Zouhair', 'Rabii']; // Exemple de liste
     io.emit('liste', liste);
 }
 
 // envoyer toutes les 24 heures
-setInterval(envoyerListe, 1000 * 60 * 60 * 24)
+setInterval(envoyerListe, 10000)
