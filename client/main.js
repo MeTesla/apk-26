@@ -15,54 +15,17 @@ window.addEventListener("load", function () {
   document.querySelector('.wrapper').style.display = "block"
 })
 
-const socket = io('http://localhost:3000')
+//-----------------Socket.io------------------------
+function socketCommunication() {
+  const socket = io('http://localhost:3000')
 
-// Join a room on connection (replace with actual user ID)
-const userId = JSON.parse(localStorage.getItem('profile'))._id
-socket.emit('join', userId)
+  socket.on('liste', function (liste) {
+    localStorage.setItem('liste', JSON.stringify(liste))
+  });
+}
+socketCommunication()
 
-// Listen for notifications
-socket.on('notification', (data) => {
-  console.log('Notification received:', data.message, 'Score:', data.score)
-  // Display the notification in your UI (e.g., alert or update DOM)
-  alert(`${data.message}. Score: ${data.score}`)
-})
-
-// Example: Send a notification (from client to server)
-socket.emit('send-notification', { userId: userId, message: 'Test', score: 100 })
-
-// Resultats Local Storage----------------------
-// !localStorage.getItem('resultats') && localStorage.setItem('resultats', JSON.stringify({
-//   qcm: {
-//     date: new Date().toLocaleDateString('fr-FR'),
-//     score: 0,
-//     lastSession: []
-//   }, 
-//   vf: {
-//     date: new Date().toLocaleDateString('fr-FR'),
-//     score: 0,
-//     lastSession: []
-//   }, 
-//   ordrePh: {
-//     date: new Date().toLocaleDateString('fr-FR'),
-//     score: 0,
-//     lastSession: []
-//   }, 
-//   ordreEv: {
-//     date: new Date().toLocaleDateString('fr-FR'),
-//     score: 0,
-//     lastSession: []
-//   }, 
-//   remplir: {
-//     date: new Date().toLocaleDateString('fr-FR'),
-//     score: 0,
-//     lastSession: []
-//   }
-// }));
 //----------------------
-
-
-
 
 
 // -------------------Menu-------------------------------

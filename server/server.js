@@ -228,8 +228,9 @@ app.post('/update-resultats', auth, async (req, res) => {
             success: false,
             message: 'pas d\'eleve'
         })
+
         // New: Emit real-time notification to the user
-        io.to(eleve._id.toString()).emit('notification', { message: 'Votre score a été mis à jour', score: result.score || result })
+        // io.to(eleve._id.toString()).emit('notification', { message: 'Votre score a été mis à jour', score: result.score || result })
 
 
         res.json({ eleve, success: true })
@@ -403,22 +404,11 @@ server.listen(url, () => {
 
 // websocket
 
-// New: Handle Socket.IO connections
-io.on('connection', (socket) => {
-    console.log('A user connected:', socket.id)
+// Fonction pour envoyer une liste
+function envoyerListe() {
+    const liste = ['Karim', 'Ali', 'Marouane']; // Exemple de liste
+    io.emit('liste', liste);
+}
 
-    // Example: Listen for a custom event from client (e.g., join a room based on user ID)
-    socket.on('join', (userId) => {
-        socket.join(userId)  // Join a room for targeted notifications
-    })
-
-    // Example: Send a notification to a specific user
-    socket.on('send-notification', (data) => {
-        // Emit to the user's room
-        io.to(data.userId).emit('notification', { message: data.message, score: data.score })
-    })
-
-    socket.on('disconnect', () => {
-        console.log('User disconnected:', socket.id)
-    })
-})
+// envoyer toutes les 24 heures
+setInterval(envoyerListe, 1000 * 60 * 60 * 24)
