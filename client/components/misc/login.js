@@ -78,7 +78,11 @@ export function login() {
     submitLogin(e, div);
   };
   const btnAnnuler = document.querySelector('.buttons-login .annuler')
-  btnAnnuler.onclick = function () { div.remove() }
+  btnAnnuler.onclick = function () {
+    // Supprimer l'élève de la base de données
+    // fetch('http://localhost:3000/delete-eleve', {})
+    div.remove()
+  }
 
   const creerCompteLink = document.querySelector('.creer-compte-link');
   creerCompteLink.onclick = function () {
