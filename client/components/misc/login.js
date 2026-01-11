@@ -12,7 +12,8 @@ export function login() {
         <button type="submit" class="btn-login">Login</button>
         <button class="annuler">Annuler</button>
       </div>
-      <div class="redirect">Vous n'avez pas de compte <span class="creer-compte-link">inscrivez-vous</span></div>
+      <div class="redirect">Vous n'avez pas de compte <span class="creer-compte-link">Créer un compte</span></div>
+      <div class="redirect"><span class="creer-compte-link">Mot de passe oublié ?</span></div>
     </form>
   <style>
     .login-container {
@@ -63,8 +64,13 @@ export function login() {
       font-size: 14px;
     }
     .redirect span {
-      color: blue;
-      cursor: pointer;      
+      display: inline-block;
+      padding: 5px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer; 
+      background-color: blue;
+      border-radius: 3px;     
     }
     .redirect span:hover{
     text-decoration: underline;

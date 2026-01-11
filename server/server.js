@@ -1,3 +1,4 @@
+const { postEmail, prepareData } = require('./utils');
 const express = require('express')
 const mongoose = require('mongoose')
 
@@ -24,7 +25,6 @@ const io = new Server(server, {
     }
 })
 
-
 app.use(cors({
     // ne pas mettre '/' à la fin de l'origine
     origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
@@ -34,11 +34,7 @@ app.use(cors({
 }))
 app.use(express.json())
 
-
-const { postEmail, prepareData } = require('./utils');
-
-// ----------------------------------
-// Configuration de EJS comme moteur de template
+// Test EJS HTML engine.
 app.set('view engine', 'ejs');
 // Exemple de données des élèves
 const eleves = [
@@ -46,6 +42,12 @@ const eleves = [
     { nom: 'Martin', prenom: 'Sophie', age: 22 },
     { nom: 'Tremblay', prenom: 'Julien', age: 19 },
 ];
+
+// Generate TOKEN
+
+function generateToken(email, expire) {
+    return jwt.sign({ email }, SECRET_KEY, { expiresIn: `${expire}m` })
+}
 
 // Route pour l'admin
 app.get('/admin', (req, res) => {
@@ -57,17 +59,9 @@ app.get('/admin', (req, res) => {
 });
 // ----------------------------------
 
-
-
-
 const SECRET_KEY = 'mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
 //visual studio code : mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/
-// Generate TOKEN
-
-function generateToken(email, expire) {
-    return jwt.sign({ email }, SECRET_KEY, { expiresIn: `${expire}m` })
-}
 
 //MIDDLEWARE : get EXO
 const auth = async (req, res, next) => {
@@ -364,7 +358,6 @@ app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
 })
 
 
-
 app.get('/', auth, (req, res) => {
     const { exo } = req.query
     const data = prepareData(exo)
@@ -394,7 +387,6 @@ mongoose.connect(URL)
         console.error('Erreur de connexion à la base de données :', err);
     });
 
-// Dell
 const url = '3000'
 // const url='https://euduka.vercel.app'
 server.listen(url, () => {
@@ -405,10 +397,19 @@ server.listen(url, () => {
 // websocket
 
 // Fonction pour envoyer une liste
-function envoyerListe() {
-    const liste = ['Zair', 'Zouhair', 'Rabii']; // Exemple de liste
-    io.emit('liste', liste);
-}
+const djcvf = [
+    { 'question': `Maupassant est un écrivain du 20ème siècle`, 'rep': 'Faux' },
+    { 'question': `Victor Hugo est un écrivain du 19ème siècle`, 'rep': 'Vrai' },
+    { 'question': `Le dernier jour d'un condamné est paru en 1929`, 'rep': 'Faux' },
+    { 'question': `Le dernier jour d'un condamné est paru en 1829`, 'rep': 'Vrai' },
+    { 'question': `Le dernier jour d'un condamné est un roman autobiographique`, 'rep': 'Faux' },
+    { 'question': `Le dernier jour d'un condamné est un journal intime`, 'rep': 'Faux' },
+    { 'question': `Le dernier jour d'un condamné est un roman à thèse`, 'rep': 'Vrai' },
+    { 'question': `Le narrateur dans le dernier jour d'un condamné est un condamné à mort`, 'rep': 'Vrai' },
+    { 'question': `Le narrateur dans le dernier jour d'un condamné est Victor Hugo`, 'rep': 'Faux' },
+    { 'question': `Le dernier jour d'un condamné est contre la peine de mort.`, 'rep': 'Faux' },
+    { 'question': `La thse dfendue dans Le dernier jour dun condamné est labolition de la peine de mort`, 'rep': 'Faux' },
+    { 'question': `Le condamné du roman est condamné aux travaux forcés.`, 'rep': 'Faux' }
+]
 
-// envoyer toutes les 24 heures
-setInterval(envoyerListe, 10000)
+setInterval(() => io.emit('liste', djcvf), 4000)

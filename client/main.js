@@ -16,15 +16,10 @@ window.addEventListener("load", function () {
 })
 
 //-----------------Socket.io------------------------
-function socketCommunication() {
-  const socket = io('http://localhost:3000')
-
-  socket.on('liste', function (liste) {
-    localStorage.setItem('liste', JSON.stringify(liste))
-  });
-}
-socketCommunication()
-
+const socket = io('http://localhost:3000')
+socket.on('liste', (liste) => {
+  localStorage.setItem('liste', JSON.stringify(liste))
+})
 //----------------------
 
 

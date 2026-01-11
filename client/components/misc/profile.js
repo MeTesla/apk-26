@@ -285,10 +285,9 @@ export function profile() {
             
             @media screen and (max-width: 760px) {
                 .profile-data{
-                    flex-direction: column;                    
+                    display: block;                                            
                 }
                 .user-info{
-                    aalign-self: flex-end;
                     margin: 10px;
                 }
                 .user-resultats{
@@ -296,12 +295,15 @@ export function profile() {
                 }
                 .profile-info{
                     width: 100%;
-                }
+
+                }            .profile-infos{ padding: 10px 20px;}
+                
             }
             @media (min-width: 769px) and (max-width: 1024px){
             .user-resultats{
                     grid-template-columns: repeat(2, 6fr);                   
                 }
+
             }
 
             @media screen and (min-width: 1200px){
