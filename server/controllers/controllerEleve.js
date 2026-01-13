@@ -33,6 +33,7 @@ const creerCompte = async (req, res) => {
     await postEmail(req, res, nom, prenom, email, token)
     return res.json({
         success: true,
+        token,
         titre: "attenteR",
         role: eleve.role,
         message: "Un mail vous a été envoyés. Pour finaliser votre inscription cliquez sur le lien du mail."
@@ -83,6 +84,20 @@ const verifierEmail = async (req, res) => {
 
 }
 
+const annulerCompte = async (req, res) => {
+    const { token } = req.body
+
+    try {
+        const eleve = await EleveModel.findOneAndDelete({ token })
+
+    } catch (error) {
+        res.json({
+            succuss: false,
+            message: 'Une erreur s\'était produite. Veuillez réessayer plus tard'
+        })
+    }
+}
+
 const login = async (req, res) => {
 
 
@@ -113,6 +128,12 @@ const login = async (req, res) => {
     } catch (error) {
         res.json({ success: false, message: 'Erreur serveur. Veuillez réessayer plus tard' })
     }
+}
+
+const getExo = (req, res) => {
+    const { exo } = req.query
+    const data = prepareData(exo)
+    res.json(data)
 }
 
 const updateResultats = async (req, res) => {
@@ -179,11 +200,7 @@ const freeMins = async (req, res) => {
     }
 }
 
-const getExo = (req, res) => {
-    const { exo } = req.query
-    const data = prepareData(exo)
-    res.json(data)
-}
+
 
 
 module.exports = {

@@ -88,6 +88,7 @@ async function submitCreerCompte() {
   const data = await reponse.json()
   if (data.success) {
     localStorage.setItem('role', data.role)
+    localStorage.setItem('token', data.token)
     document.querySelector('.user-menu').remove()
     generateMenu(data.role, document.querySelector('.menu'), document.querySelector('.menu'))
     modalFreeMins(true, data.message, 'verifyEmail')
