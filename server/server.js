@@ -3,14 +3,19 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const EleveModel = require('./models/EleveModel')
+const jwt = require('jsonwebtoken')
+const cors = require('cors')
+const app = express()
 
+app.use(express.json())
 // Middlewares
 const auth = require('./middlewares/auth')
 const freeMinsMiddleware = require('./middlewares/freeMinsMiddleware')
 
-const jwt = require('jsonwebtoken')
-const cors = require('cors')
-const app = express()
+// Routes
+const router = require('./routes/routeEleve')
+
+
 
 
 // New: Import Socket.IO
@@ -29,7 +34,6 @@ const io = new Server(server, {
         ]
     }
 })
-
 app.use(cors({
     // ne pas mettre '/' à la fin de l'origine
     origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
@@ -37,11 +41,12 @@ app.use(cors({
         'http://localhost:5500'
     ]
 }))
-app.use(express.json())
+
+app.use('/', router)
+
 
 // Test EJS HTML engine.
 app.set('view engine', 'ejs');
-// Exemple de données des élèves
 const eleves = [
     { nom: 'Dupont', prenom: 'Jean', age: 20 },
     { nom: 'Martin', prenom: 'Sophie', age: 22 },
@@ -63,38 +68,38 @@ const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.ne
 //visual studio code : mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/
 
 //-------Créer compte
-app.post('/creer-compte', async (req, res) => {
-    const { nom, prenom, email, tel } = req.body
-    if (!nom || !prenom || !email || !tel) return res.json({
-        success: false,
-        titre: 'infoManquantes',
-        message: 'Tous les champs sont obligatoires',
-    })
-    const eleveExists = await EleveModel.findOne({ email })
-    if (eleveExists) return res.json({
-        success: false,
-        titre: 'compteExiste',
-        message: 'Vous êtes avez déjà un compte !'
-    })
+// app.post('/creer-compte', async (req, res) => {
+//     const { nom, prenom, email, tel } = req.body
+//     if (!nom || !prenom || !email || !tel) return res.json({
+//         success: false,
+//         titre: 'infoManquantes',
+//         message: 'Tous les champs sont obligatoires',
+//     })
+//     const eleveExists = await EleveModel.findOne({ email })
+//     if (eleveExists) return res.json({
+//         success: false,
+//         titre: 'compteExiste',
+//         message: 'Vous êtes avez déjà un compte !'
+//     })
 
 
-    const today = new Date()
-    const tomorrow = new Date(today)
-    tomorrow.setDate(today.getDate() + 1)
+//     const today = new Date()
+//     const tomorrow = new Date(today)
+//     tomorrow.setDate(today.getDate() + 1)
 
-    const token = await generateToken(email, 1) // token valide 3 jours
-    const eleve = new EleveModel({ nom, prenom, email, tel, role: 'attenteR', token })
-    await eleve.save()
+//     const token = await generateToken(email, 1) // token valide 3 jours
+//     const eleve = new EleveModel({ nom, prenom, email, tel, role: 'attenteR', token })
+//     await eleve.save()
 
-    await postEmail(req, res, nom, prenom, email, token)
-    return res.json({
-        success: true,
-        titre: "attenteR",
-        role: eleve.role,
-        message: "Un mail vous a été envoyés. Pour finaliser votre inscription cliquez sur le lien du mail."
-    })
-    // => token creer comte == token verifier
-})
+//     await postEmail(req, res, nom, prenom, email, token)
+//     return res.json({
+//         success: true,
+//         titre: "attenteR",
+//         role: eleve.role,
+//         message: "Un mail vous a été envoyés. Pour finaliser votre inscription cliquez sur le lien du mail."
+//     })
+//     // => token creer comte == token verifier
+// })
 
 // Vérifier email
 app.post('/verifier-email', async (req, res) => {

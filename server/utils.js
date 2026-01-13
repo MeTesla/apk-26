@@ -110,7 +110,17 @@ Routes :
     - update-resultat
     - freeMins
     - /
-Middlewares :
-    - auth
-    - freeMins
+
+SERVER :
+     import express from "express";
+     import routerNotes from "./routes/routerNotes.js";
+     app.use("/", routerNotes);
+
+ROUTER:
+     import express from "express"; 
+     const router = express.Router();
+     import {notesController} from '....'
+     
+     router.get('/', notesController)
+
 */
