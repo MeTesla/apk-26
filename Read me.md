@@ -1,6 +1,5 @@
 
 - SUGG : ajouter logique MDP oublié
-- Annuler : supprimer l'utilisateur de la BD. supppppppper
 
 - PROB : si verif expire: le route envoie le msg mais la fonction continue de exécuter
 - Exercices du jour: envoyer notification, au clique, il passe un exercice. (FB like)

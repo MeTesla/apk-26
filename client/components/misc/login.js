@@ -123,3 +123,13 @@ export function login() {
     }
   }
 }
+
+export function mpdOublie(){
+  // afficher modal de confirmation+ émail || entrer nouveau émail + bouton confirmer
+      // BE : verifier émail, si oui, envoi émail
+  // envoie d'émail + token + maj token in BD
+
+  // clique émail = form : saisir nouveau mot de passe + clique bouton
+    //BE : update mdp 
+
+}
