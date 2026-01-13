@@ -100,7 +100,14 @@ async function submitCreerCompte() {
 }
 
 export async function annulerCompte() {
+  console.log('Heloi');
+
   const token = localStorage.getItem('token')
+  if (!token) {
+    localStorage.clear()
+    toast('Aucun compte trouvé !')
+    setTimeout(() => location.reload(), 1000)
+  }
   const reponse = await fetch(url + '/annuler-compte', {
     method: "POST",
     headers: { "content-type": "application/json" },
