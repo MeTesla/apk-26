@@ -1,8 +1,13 @@
-const { postEmail, prepareData } = require('./utils');
+const { postEmail, prepareData, generateToken } = require('./utils');
 const express = require('express')
 const mongoose = require('mongoose')
 
-const EleveModel = require('./EleveModel')
+const EleveModel = require('./models/EleveModel')
+
+// Middlewares
+const auth = require('./middlewares/auth')
+const freeMinsMiddleware = require('./middlewares/freeMinsMiddleware')
+
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const app = express()
@@ -43,13 +48,7 @@ const eleves = [
     { nom: 'Tremblay', prenom: 'Julien', age: 19 },
 ];
 
-// Generate TOKEN
-
-function generateToken(email, expire) {
-    return jwt.sign({ email }, SECRET_KEY, { expiresIn: `${expire}m` })
-}
-
-// Route pour l'admin
+// Route admin
 app.get('/admin', (req, res) => {
     /*
         1- chercher les élèves dans la BDD
@@ -62,31 +61,6 @@ app.get('/admin', (req, res) => {
 const SECRET_KEY = 'mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
 //visual studio code : mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/
-
-//MIDDLEWARE : get EXO
-const auth = async (req, res, next) => {
-    // Bearer Token ???   
-    //revoir la logie de ce middleware :
-
-    const { authorization } = req.headers
-    if (!authorization) {
-        return res.json('accès interdit')
-    }
-
-    try {
-        const isValidToken = jwt.verify(authorization, SECRET_KEY)
-        if (!isValidToken) return res.json('Votre session a pris fin.')
-        req.user = authorization
-    } catch (error) {
-        if (error.name === 'TokenExpiredError') {
-            return res.status(401).json('Le token a expiré, veuillez vous reconnecter.');
-        } else {
-            return res.status(401).json('Token invalide');
-        }
-    }
-    req.authorization = authorization
-    next()
-}
 
 //-------Créer compte
 app.post('/creer-compte', async (req, res) => {
@@ -119,6 +93,52 @@ app.post('/creer-compte', async (req, res) => {
         role: eleve.role,
         message: "Un mail vous a été envoyés. Pour finaliser votre inscription cliquez sur le lien du mail."
     })
+    // => token creer comte == token verifier
+})
+
+// Vérifier email
+app.post('/verifier-email', async (req, res) => {
+    //AJOUTER : Votre compte est déjà activé. ne rien faire.
+    const { token } = req.body
+    console.log(token)
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+        if (err) {
+            return res.json({
+                // navigateur: envoyer role:''
+                success: false,
+                role: 'attenteR',
+                message: 'Le lien de vérification a expiré ou il est invalide.'
+            })
+        }
+    })
+
+    const eleve = await EleveModel.findOne({ token })
+
+    if (!eleve) return res.json({
+        succuss: false,
+        message: 'Un problème est survenu : il n\'y apas d\'eleve de ce nom'
+    })
+
+    if (eleve.token == token) {
+        const eleveUpdated = await EleveModel.findOneAndUpdate({ token },
+            { $set: { role: 'registred' } },
+            {
+                new: true,
+                runValidators: true
+            })
+
+        return res.json({
+            success: true,
+            message: 'exist',
+            eleveUpdated,
+            token: generateToken(eleve.email, 10)
+        })
+    } else {
+        return res.json({
+            succuess: false,
+            message: 'Une erreur s\'était produite. Veuillez contacter l\'admin'
+        })
+    }
 
 })
 
@@ -153,52 +173,6 @@ app.post('/login', async (req, res) => {
     } catch (error) {
         res.json({ success: false, message: 'Erreur serveur. Veuillez réessayer plus tard' })
     }
-})
-
-// Vérifier email
-app.post('/verifier-email', async (req, res) => {
-    //AJOUTER : Votre compte est déjà actié. ne rien faire.
-    const { token } = req.body
-    console.log(token)
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err) {
-            return res.json({
-                // navigateur: envoyer role:''
-                success: false,
-                role: 'attenteR',
-                message: 'Le lien de vérification a expiré ou est invalide.'
-            })
-        }
-    })
-
-    const eleve = await EleveModel.findOne({ token })
-
-    if (!eleve) return res.json({
-        succuss: false,
-        message: 'Un problème est survenu : il n\'y apas d\'eleve de ce nom'
-    })
-
-    if (eleve.token == token) {
-        const eleveUpdated = await EleveModel.findOneAndUpdate({ token },
-            { $set: { role: 'registred' } },
-            {
-                new: true,
-                runValidators: true
-            })
-
-        return res.json({
-            success: true,
-            message: 'exist',
-            eleveUpdated,
-            token: generateToken(eleve.email, 10)
-        })
-    } else {
-        return res.json({
-            succuess: false,
-            message: 'Une erreur s\'était produite. Veuillez contacter l\'admin'
-        })
-    }
-
 })
 
 // Update resultats
@@ -246,88 +220,6 @@ app.delete('/delete', async (req, res) => {
     res.json('all decument deletedddd')
 })
 
-//+10 mintues Middleware & route
-const freeMinsMiddleware = async (req, res, next) => {
-    const token = req.headers.authorization
-
-    if (!token || (token === "")) return res.json({
-        success: false,
-        titre: 'noToken',
-        message: 'Un problème est survenu. Veuillez contacter l\'Administareur',
-    })
-
-
-    const payload = jwt.decode(token);
-    if (!payload) return res.json({
-        success: false,
-        titre: 'noPayload',
-        message: 'Un problème est survenu. Veuillez contacter l\'Administareur',
-    })
-
-    req.userEmail = payload.email
-
-
-    const email = payload.email
-    const eleve = await EleveModel.findOne({ email })
-    if (!eleve) return res.json({
-        success: false,
-        titre: 'noEleve',
-        // Je dois gérer le cas d'un élève qui n'a pas vérifié son email, cas larbi@larbi.co
-        // Token evoyé par émail dois avoir une durée de validité plus longue (4jours)
-        message: 'Vous n\'avez pas de compte. Veuillez vous enregistrer !',
-    })
-    if (eleve.role == 'attenteR') return res.json({
-        success: false,
-        titre: 'notVerified',
-        message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !',
-    })
-
-
-    const { freeMins, dateFreeMin } = eleve
-
-    const now = new Date()
-    function timeStamp(d) {
-        const time = d.getTime()
-        return time
-    }
-
-    // ------------1   IS VALID Token
-    if ((timeStamp(dateFreeMin) + 1000 * 60) > timeStamp(now)) {
-        return res.json({
-            success: false,
-            titre: 'validToken',
-            message: 'Les 15 minutes ne sont pas encore écoulées !'
-        })
-
-    }
-    const date = new Date(dateFreeMin)
-
-    // ------------2
-    if (freeMins <= 0) {
-        return res.json({
-            success: false,
-            titre: 'noMoreMins',
-            message: 'Vous n\'avez plus de solde minutes. Passer Prmium',
-            freeMins
-        })
-    }
-
-    // ------------3   Same day 24H
-    if (timeStamp(dateFreeMin) + (2 * 60 * 1000) > timeStamp(now)) {
-        return res.json({
-            success: false,
-            titre: 'waitDay',
-            message: 'Vous devez attendre 24h avant d\'avoir des minutes gratuites',
-            freeMins
-        })
-    }
-
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err && err.name === "TokenExpiredError") {
-            next();
-        }
-    });
-}
 
 app.get('/freeMins', freeMinsMiddleware, async (req, res) => {
 

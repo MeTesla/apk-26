@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken')
 
-// postEmail(req, res, nom, prenom, email, token)
+const SECRET_KEY = 'mkljaz_çè(__j'
+// postEmail
 async function postEmail(req, res, nom, prenom, email, token) {
     // Configuration du transporteur Nodemailer
     const transporter = nodemailer.createTransport({
@@ -37,6 +39,7 @@ async function postEmail(req, res, nom, prenom, email, token) {
     });
 }
 
+// server DB data
 const { bamvf,
     bamoeuvre,
     bamresume,
@@ -59,8 +62,7 @@ const { bamvf,
     djcordreev,
     djcvide } = require('./bd/data');
 
-
-
+// prepare data
 function prepareData(exo) {
     switch (exo) {
         case 'bamvf': return bamvf; break;
@@ -93,6 +95,22 @@ function prepareData(exo) {
     }
 }
 
+// Generate TOKEN
+function generateToken(email, expire) {
+    return jwt.sign({ email }, SECRET_KEY, { expiresIn: `${expire}m` })
+}
 
+module.exports = { postEmail, prepareData, generateToken }
 
-module.exports = { postEmail, prepareData }
+/*
+Routes :
+    - creer-compte
+    - verifier-email
+    - login
+    - update-resultat
+    - freeMins
+    - /
+Middlewares :
+    - auth
+    - freeMins
+*/

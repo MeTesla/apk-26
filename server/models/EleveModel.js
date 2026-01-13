@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { ordrePhrases } = require('../client/components/act/ordrePhrases')
 
 const elevesSchema = new mongoose.Schema({
     nom: { type: String, required: true },
