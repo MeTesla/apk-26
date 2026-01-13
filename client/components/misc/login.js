@@ -125,11 +125,13 @@ export function login() {
 }
 
 export function mpdOublie(){
-  // afficher modal de confirmation+ émail || entrer nouveau émail + bouton confirmer
-      // BE : verifier émail, si oui, envoi émail
-  // envoie d'émail + token + maj token in BD
+  // modal 
+      // Titre + message(Un email serai envoyé à votre adresse) + email + bouton confirmer (fetch './verifier-email)
+      // BE : verifier émail, si oui, envoi émail+token (15min), si non : toast()
+        //gérer clique apèrs changement de mdp.
 
-  // clique émail = form : saisir nouveau mot de passe + clique bouton
-    //BE : update mdp 
+  // clique émail = newMDP.html + form : saisir nouveau mot de passe + clique bouton
+      //+ fetch '/updateMdp'
+    // BE : update mdp + maj token in BD
 
 }

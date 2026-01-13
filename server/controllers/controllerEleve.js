@@ -6,8 +6,6 @@ const EleveModel = require('../models/EleveModel')
 const SECRET_KEY = 'mkljaz_çè(__j'
 
 const creerCompte = async (req, res) => {
-
-
     const { nom, prenom, email, tel } = req.body
     if (!nom || !prenom || !email || !tel) return res.json({
         success: false,
@@ -26,7 +24,7 @@ const creerCompte = async (req, res) => {
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
 
-    const token = await generateToken(email, 1) // token valide 3 jours
+    const token = await generateToken(email, 1)
     const eleve = new EleveModel({ nom, prenom, email, tel, role: 'attenteR', token })
     await eleve.save()
 

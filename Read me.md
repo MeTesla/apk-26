@@ -1,19 +1,13 @@
+- après expiration du token verification , supprimer élève de DB || LS.clear||rien faire
+- LS || cookies
+- validator , hash password, travailler sur mot de passe
+- dotenv
 
-- SUGG : ajouter logique MDP oublié
-
-- PROB : si verif expire: le route envoie le msg mais la fonction continue de exécuter
-- Exercices du jour: envoyer notification, au clique, il passe un exercice. (FB like)
-- DailyTopUsers: requête s'execute une fois par jour. envoyé aux connectés. basé sur un score = l'addition de tous les résultats [5+3+5+2+5+8]. !triche du fronteNd
-
+- PROB : si verif expire: le route envoie le msg mais la fonction continue de exécuter. PIRE: il devient 'REGISTRED': pas sûr, à verfier le cas de conn de deux compte sur le mem navgateur et gestion de LS
 
 - PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
 	- problème identifié : le token de verification n'est pas celui dans la BD
 	- après chaque exo, la màj ne s'effectue pas; prob de token
-
-- UI : MENU en deux : 
-	profile (déconnexion, profile,  free mins) et 
-	menu général (Qui sommes-nous ? Nous contacter[email, whats, face, compte banc])
-
 
 - PROB : même sans verification, je peux accéder à mon compte surtout après expiration du token de validation. 
 		(entre création compte et vérification)
@@ -21,6 +15,18 @@
 		mais le token n'est pas valide: pas d'accès aux exo
 
 - PROB : des fois, "en attente" meme après mail verif.
+
+
+- Exercices du jour: envoyer notification, au clique, il passe un exercice. (FB like)
+- DailyTopUsers: requête s'execute une fois par jour. envoyé aux connectés. basé sur un score = l'addition de tous les résultats [5+3+5+2+5+8]. !triche du fronteNd
+
+
+
+- UI : MENU en deux : 
+	profile (déconnexion, profile,  free mins) et 
+	menu général (Qui sommes-nous ? Nous contacter[email, whats, face, compte banc])
+
+
 
 - Sugg : btn vidéo, comment utiliser le site, en arabe.
 

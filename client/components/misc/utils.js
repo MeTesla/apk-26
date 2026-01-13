@@ -231,7 +231,8 @@ export function generateMenu(typeAccount, pere, menu) {
   })
 
   logout && logout.addEventListener('click', () => {
-    disconnect()
+    localStorage.clear()
+    location.reload()
   })
 
   const annuler = document.querySelector('.annuler')
