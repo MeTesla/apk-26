@@ -3,6 +3,7 @@ import { profile } from './profile.js'
 import { modalDevenirPremium, modalFreeMins } from './modals.js'
 import { login } from './login.js'
 
+const url = 'http://localhost:3000'
 
 export function creerCompte() {
   //if(localStorage.getItem('token')) return
@@ -98,6 +99,23 @@ async function submitCreerCompte() {
   }
 }
 
+export async function annulerCompte() {
+  const token = localStorage.getItem('token')
+  const reponse = await fetch(url + '/annuler-compte', {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ token })
+  })
+  const data = await reponse.json()
+  if (data.success) {
+    localStorage.clear()
+    toast(data.message)
+    setTimeout(() => { document.location.reload() }, 1000)
+  }
+  else {
+    toast(data.message)
+  }
+}
 // ------------  Get free MINs -----------
 async function freeMins() {
   const url = 'http://localhost:3000'
@@ -217,17 +235,10 @@ export function generateMenu(typeAccount, pere, menu) {
   })
 
   const annuler = document.querySelector('.annuler')
-  annuler && annuler.addEventListener('click', () => {
-    disconnect()
+  annuler && annuler.addEventListener('click', async () => {
+    await annulerCompte()
   })
 
-  function disconnect() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('role')
-    localStorage.removeItem('profile')
-    localStorage.removeItem('resultats')
-    document.location.reload()
-  }
   // show hide menu + Type menus
   menu.addEventListener('click', (e) => {
     e.stopPropagation()

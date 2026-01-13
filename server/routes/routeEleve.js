@@ -6,11 +6,15 @@ const auth = require('../middlewares/auth')
 const freeMinsMiddleware = require('../middlewares/freeMinsMiddleware')
 
 // Controllers
-const { creerCompte, verifierEmail, login, updateResultats, freeMins, getExo } = require('../controllers/controllerEleve')
+const { creerCompte, verifierEmail, login,
+    updateResultats, freeMins,
+    getExo, annulerCompte } = require('../controllers/controllerEleve')
 
 router.post('/creer-compte', creerCompte)
 
 router.post('/verifier-email', verifierEmail)
+
+router.post('/annuler-compte', annulerCompte)
 
 router.post('/login', login)
 

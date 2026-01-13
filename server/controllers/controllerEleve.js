@@ -89,9 +89,14 @@ const annulerCompte = async (req, res) => {
 
     try {
         const eleve = await EleveModel.findOneAndDelete({ token })
-
+        if (eleve) {
+            return res.json({
+                success: true,
+                message: 'Votre compte a été supprimé avec succès.'
+            })
+        }
     } catch (error) {
-        res.json({
+        return res.json({
             succuss: false,
             message: 'Une erreur s\'était produite. Veuillez réessayer plus tard'
         })
@@ -206,5 +211,6 @@ const freeMins = async (req, res) => {
 module.exports = {
     creerCompte,
     verifierEmail,
-    login, updateResultats, freeMins, getExo
+    login, updateResultats, freeMins,
+    getExo, annulerCompte
 };
