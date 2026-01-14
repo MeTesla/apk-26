@@ -5,12 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- ChartJs -->
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <title>Document</title>
 </head>
 
 <body>
+    <div class="modal-mdp-oublie">
+        <div class="modal-mdp-container">
+            <div class="mdp-close-btn">X</div>
+            <h2 class="mdp-titre">Mot de passe oublié</h2>
+            <p class="mdp-instruction">Un email sera envoyé à votre adresse pour réinitialiser votre mot de passe.</p>
+            <input type="email" class="mdp-email" placeholder="Entrez votre email" required>
+            <button class="mdp-confirmer">Confirmer</button>
+        </div>
+        <style>
+            .modal-mdp-oublie {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgb(0, 0, 0, 0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal-mdp-container {
+                background-color: white;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .mdp-close-btn {
+                padding: 10px;
+                text-align: right;
+                cursor: pointer;
+                background-color: aqua;
+            }
+
+            .mdp-titre {
+                text-align: center;
+                margin: 0;
+                padding: 10px;
+            }
+
+            .mdp-instruction {
+                padding: 5px 20px;
+            }
+
+            .mdp-email {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
+                padding: 10px;
+                border: 1px solid gray;
+                border-radius: 5px;
+                outline: none;
+            }
+
+            .mdp-confirmer {
+                display: block;
+                padding: 10px 20px;
+                margin: 10px auto;
+
+            }
+        </style>
+    </div>
     <div class="profile-infos">
         <div class="profile-header">
             <div class="profile-logo">Euduka.com</div>
@@ -29,20 +91,22 @@
         </div>
     </div>
     <style>
-        .profile-header{
+        .profile-header {
             display: flex;
             justify-content: space-between
         }
-        .profile-data{
+
+        .profile-data {
             display: flex;
             gap: 10px;
-            
+
         }
-        .user-info{
-            flex:1;
+
+        .user-info {
+            flex: 1;
             align-self: flex-start;
             background-color: rgb(236, 236, 236);
-            border-radius: 20px;               
+            border-radius: 20px;
             padding: 10px;
             display: flex;
             flex-direction: column;
@@ -50,38 +114,41 @@
             align-items: center;
 
         }
-            .user-info .user-img {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                box-shadow: 0 0 5px gray;
-                padding: 5px;
-            }
-            .user-info .user-name {
-                font-weight: bold;
-                margin-top: 10px;
-            }
 
-            .user-info .user-account {
-                font-size: 0.8rem;
-                color: gray;
-                font-style: italic
-            }
+        .user-info .user-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 0 5px gray;
+            padding: 5px;
+        }
 
-            .user-info .user-email {
-                font-size: 0.8rem;
-                color: rgb(50, 50, 50);
-                text-decoration: underline;
-            }            
-        .user-resultats{
-            flex:3;
+        .user-info .user-name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .user-info .user-account {
+            font-size: 0.8rem;
+            color: gray;
+            font-style: italic
+        }
+
+        .user-info .user-email {
+            font-size: 0.8rem;
+            color: rgb(50, 50, 50);
+            text-decoration: underline;
+        }
+
+        .user-resultats {
+            flex: 3;
             background-color: rgb(226, 221, 221);
             border-radius: 20px;
             min-height: 70vh;
         }
     </style>
-   
-  
+
+
 
     <div class="container">
         <!-- <div class="modal-video" style="position: relative ;top: 0; left:0;">

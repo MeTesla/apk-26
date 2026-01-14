@@ -203,12 +203,45 @@ const freeMins = async (req, res) => {
     }
 }
 
-
+const mdpOublie = async (req, res) => {
+    const { email } = req.body
+    try {
+        const eleve = await EleveModel.findOne({ email })
+        if (!eleve) return res.json({
+            success: false,
+            message: 'Aucun compte associé à cet email.'
+        })
+        const token = await generateToken(email, 15)
+        const eleveUpdated = await EleveModel.findOneAndUpdate({ email },
+            {
+                $set: {
+                    token
+                }
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        )
+        // send email with token
+        postEmail(req, res, eleve.nom, eleve.prenom, email, token)
+        return res.json({
+            success: true,
+            message: 'Un email a été envoyé à votre adresse pour réinitialiser votre mot de passe.'
+        })
+    } catch (error) {
+        return res.json({
+            success: false,
+            message: error.message
+        })
+    }
+}
 
 
 module.exports = {
     creerCompte,
     verifierEmail,
     login, updateResultats, freeMins,
-    getExo, annulerCompte
+    getExo, annulerCompte,
+    mdpOublie
 };

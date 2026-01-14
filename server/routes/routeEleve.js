@@ -8,7 +8,8 @@ const freeMinsMiddleware = require('../middlewares/freeMinsMiddleware')
 // Controllers
 const { creerCompte, verifierEmail, login,
     updateResultats, freeMins,
-    getExo, annulerCompte } = require('../controllers/controllerEleve')
+    getExo, annulerCompte,
+    mdpOublie } = require('../controllers/controllerEleve')
 
 router.post('/creer-compte', creerCompte)
 
@@ -23,5 +24,7 @@ router.post('/update-resultats', auth, updateResultats)
 router.get('/freeMins', freeMinsMiddleware, freeMins)
 
 router.get('/', auth, getExo)
+
+router.post('/mdp-oublie', mdpOublie)
 
 module.exports = router

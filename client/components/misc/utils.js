@@ -266,8 +266,8 @@ export function handleResultats(resultat) {
   // let updatedProfile = 
   localStorage.setItem('profile', JSON.stringify({ ...profile, resultats: resultatLS }))
 }
-// Slice scores to keep only last 6 items
 
+// Slice scores to keep only last 6 items
 export function sliceScores(scores) {
   if (scores.length >= 6) {
     return scores.slice(-6)

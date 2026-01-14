@@ -9,6 +9,7 @@ import { generateMenu } from './components/misc/utils.js'
 
 import { creerCompte, toast } from './components/misc/utils.js'
 
+//------------------Loader -------------------
 const loader = document.querySelector('.loader')
 window.addEventListener("load", function () {
   loader.style.display = "none";
@@ -20,8 +21,6 @@ const socket = io('http://localhost:3000')
 socket.on('liste', (liste) => {
   localStorage.setItem('liste', JSON.stringify(liste))
 })
-//----------------------
-
 
 // -------------------Menu-------------------------------
 const menu = document.querySelector('.nav .menu')
@@ -35,9 +34,6 @@ if (localStorage.getItem('role') === 'registred' || localStorage.getItem('role')
 }
 btnHero.addEventListener('click', () => creerCompte())
 
-// -------------- Conics
-
-
 //-------------- Clique sur les oeuvres
 const antigone = document.querySelector('.oeuvres-container .antigone')
 const djc = document.querySelector('.oeuvres-container .djc')
@@ -49,7 +45,7 @@ antigone.onclick = () => { listeActAntigone(document.body, 0) }
 djc.onclick = () => { listeActDjc(document.body, 0) }
 figure.onclick = () => { qcmFigures(document.body) }
 
-// ----------------- Date examen
+// ----------------- Date examen --------------------
 const mois = document.querySelector('.mois .chiffre')
 const jours = document.querySelector('.jours .chiffre')
 const heures = document.querySelector('.heures .chiffre')
@@ -106,18 +102,3 @@ envoyer.addEventListener('click', () => {
   userSuggests(nom, suggest)
 })
 
-
-// Nombre connexions
-
-let nbrConnect
-if (localStorage.getItem('nbrConnect')) {
-  nbrConnect = +(localStorage.getItem('nbrConnect')) + 1
-  localStorage.setItem('nbrConnect', nbrConnect)
-} else {
-  nbrConnect = 1
-  localStorage.setItem('nbrConnect', nbrConnect)
-}
-if (nbrConnect == 4) {
-  l('POP-UP : Vous êtes connecté ' + nbrConnect + ' foix')
-  localStorage.removeItem('nbrConnect')
-}

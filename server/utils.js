@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken')
 
 const SECRET_KEY = 'mkljaz_çè(__j'
+
 // postEmail
 async function postEmail(req, res, nom, prenom, email, token) {
     // Configuration du transporteur Nodemailer

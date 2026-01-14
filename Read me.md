@@ -3,6 +3,7 @@
 - validator , hash password, travailler sur mot de passe
 - dotenv
 
+- ptt PROB : après expiration des minutes, impossible de mettre à jour "resultats" : unauthorized
 - PROB : si verif expire: le route envoie le msg mais la fonction continue de exécuter. PIRE: il devient 'REGISTRED': pas sûr, à verfier le cas de conn de deux compte sur le mem navgateur et gestion de LS
 
 - PROB : après verif, le serveur ne reconnait pas l'élv. je me déconnecte et login
