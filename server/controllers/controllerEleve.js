@@ -28,7 +28,7 @@ const creerCompte = async (req, res) => {
     const eleve = new EleveModel({ nom, prenom, email, tel, role: 'attenteR', token })
     await eleve.save()
 
-    await postEmail(req, res, nom, prenom, email, token)
+    await postEmail(req, res, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier-email')
     return res.json({
         success: true,
         token,
@@ -224,7 +224,7 @@ const mdpOublie = async (req, res) => {
             }
         )
         // send email with token
-        postEmail(req, res, eleve.nom, eleve.prenom, email, token)
+        postEmail(req, res, eleve.nom, eleve.prenom, email, token, 'Réinitialisation de mot de passe', 'mdp-reinitialiser')
         return res.json({
             success: true,
             message: 'Un email a été envoyé à votre adresse pour réinitialiser votre mot de passe.'
@@ -237,7 +237,9 @@ const mdpOublie = async (req, res) => {
     }
 }
 
+const mdpReinitialiser = async (req, res) => {
 
+}
 module.exports = {
     creerCompte,
     verifierEmail,
