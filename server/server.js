@@ -9,9 +9,6 @@ const cors = require('cors')
 const app = express()
 
 app.use(express.json())
-// Middlewares
-// const auth = require('./middlewares/auth')
-// const freeMinsMiddleware = require('./middlewares/freeMinsMiddleware')
 
 // Routes
 const router = require('./routes/routeEleve')
@@ -50,24 +47,17 @@ const eleves = [
 ];
 
 // Route admin
-app.get('/admin', (req, res) => {
+app.get('/admin/euduka/admin', (req, res) => {
     /*
-        1- chercher les élèves dans la BDD
-        2- inclure les données dans le template EJS
+    - envoyer form connexion ejs
+        verifier email et password et répondre par True.
+    - fetch dashboard
     */
     res.render('admin', { eleves: eleves });
 });
 
 const SECRET_KEY = 'mkljaz_çè(__j'
 const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
-//visual studio code : mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/
-
-// Créer compte
-// Vérifier email
-// Login
-// Update resultats
-// freeMins
-// get exo
 
 //delete all documents
 app.delete('/delete', async (req, res) => {
@@ -76,13 +66,13 @@ app.delete('/delete', async (req, res) => {
 })
 
 // BD connexion
-mongoose.connect(URL)
-    .then(() => {
-        console.log('Connexion à la base de données réussie !');
-    })
-    .catch(err => {
-        console.error('Erreur de connexion à la base de données :', err);
-    });
+// mongoose.connect(URL)
+//     .then(() => {
+//         console.log('Connexion à la base de données réussie !');
+//     })
+//     .catch(err => {
+//         console.error('Erreur de connexion à la base de données :', err);
+//     });
 
 const url = '3000'
 // const url='https://euduka.vercel.app'

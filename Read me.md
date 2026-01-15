@@ -1,3 +1,5 @@
+
+
 - après expiration du token verification , supprimer élève de DB || LS.clear||rien faire
 - LS || cookies
 - validator , hash password, travailler sur mot de passe

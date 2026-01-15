@@ -6,6 +6,14 @@ PC	1025 - 1200 px	Mise en page classique à trois colonnes */
   justify-content: space-evenly;
 }
 
+.div-ejs {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+
 * {
   padding: 0;
   margin: 0;

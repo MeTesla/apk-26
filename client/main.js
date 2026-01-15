@@ -79,9 +79,12 @@ function calculerTempsRestant(dateDonnee) {
 // Langue 
 const langue = document.querySelectorAll('.langue')[1]
 langue.addEventListener('click', async () => {
-  const reponse = await fetch('http://localhost:3000/admin')
+  const reponse = await fetch('http://localhost:3000/admin/euduka/admin')
   const data = await reponse.text()
-  document.body.innerHTML = data
+  const div = document.createElement('DIV')
+  div.className = "div-ejs"
+  div.innerHTML = data
+  document.body.appendChild(div)
 })
 
 //---------- Suggestion FIREBASE -----------

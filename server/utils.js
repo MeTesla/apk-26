@@ -103,26 +103,3 @@ function generateToken(email, expire) {
 }
 
 module.exports = { postEmail, prepareData, generateToken }
-
-/*
-Routes :
-    - creer-compte
-    - verifier-email
-    - login
-    - update-resultat
-    - freeMins
-    - /
-
-SERVER :
-     import express from "express";
-     import routerNotes from "./routes/routerNotes.js";
-     app.use("/", routerNotes);
-
-ROUTER:
-     import express from "express"; 
-     const router = express.Router();
-     import {notesController} from '....'
-     
-     router.get('/', notesController)
-
-*/
