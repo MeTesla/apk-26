@@ -16,7 +16,8 @@ const router = require('./routes/routeEleve')
 
 // Socket.IO
 const { Server } = require('socket.io')
-const http = require('http')
+const http = require('http');
+const EleveModel = require('./models/EleveModel');
 const server = http.createServer(app)
 
 const io = new Server(server, {
@@ -47,13 +48,27 @@ const eleves = [
 ];
 
 // Route admin
-app.get('/admin/euduka/admin', (req, res) => {
+app.post('/admin/euduka/admin', async (req, res) => {
+    const { email, password } = req.body
+    if (email == "a@a.com" && password == "a") {
+        // return res.render('admin', { eleves: eleves });
+        const reponse = await EleveModel.find({})
+        return res.json({
+            success: true,
+            message: 'data sent',
+            data: reponse
+        })
+    } else {
+        return res.json({
+            success: false,
+            message: 'Email ou mot de passe incorrect'
+        })
+    }
     /*
     - envoyer form connexion ejs
         verifier email et password et répondre par True.
     - fetch dashboard
     */
-    res.render('admin', { eleves: eleves });
 });
 
 const SECRET_KEY = 'mkljaz_çè(__j'
@@ -66,13 +81,13 @@ app.delete('/delete', async (req, res) => {
 })
 
 // BD connexion
-// mongoose.connect(URL)
-//     .then(() => {
-//         console.log('Connexion à la base de données réussie !');
-//     })
-//     .catch(err => {
-//         console.error('Erreur de connexion à la base de données :', err);
-//     });
+mongoose.connect(URL)
+    .then(() => {
+        console.log('Connexion à la base de données réussie !');
+    })
+    .catch(err => {
+        console.error('Erreur de connexion à la base de données :', err);
+    });
 
 const url = '3000'
 // const url='https://euduka.vercel.app'

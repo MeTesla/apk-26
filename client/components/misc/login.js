@@ -3,8 +3,7 @@ import { creerCompte, toast } from './utils.js';
 export function login() {
   const div = document.createElement('div');
   div.className = 'login-container';
-  div.innerHTML = `<div class="login-container">
-    <form class="form-login">
+  div.innerHTML = `<form class="form-login">
       <h1 class="title-login">Login</h1>
       <input type="email" class="input-email" placeholder="Email" required>
       <input type="password" class="input-pass" placeholder="Password" required>
@@ -14,7 +13,6 @@ export function login() {
       </div>
       <div class="redirect">Vous n'avez pas de compte <span class="creer-compte-link">Créer un compte</span></div>
       <div class="redirect"><span class="mdp-oublie-link">Mot de passe oublié ?</span></div>
-    </form>
   <style>
     .login-container {
       position: fixed;
@@ -76,7 +74,7 @@ export function login() {
     text-decoration: underline;
     }
   </style>
-  </div>`
+  </form>`
 
   document.body.appendChild(div);
   const btnLogin = document.querySelector('.btn-login');
@@ -228,4 +226,129 @@ export function mpdOublie(parent) {
   //+ fetch '/updateMdp'
   // BE : update mdp + maj token in BD
 
+}
+
+function renderData(data) {
+  const container = document.createElement('div')
+
+  data.map(eleve => {
+    container.innerHTML += `<div><span>${eleve.nom} </span><span>${eleve.email}</span></div>`
+    //return container
+  })
+
+
+  return container
+}
+export function adminLogin() {
+  const div = document.createElement('div');
+  div.className = 'login-container';
+  div.innerHTML = `<form class="form-login">
+      <h1 class="title-login">Admin</h1>
+      <input type="email" class="input-email" placeholder="Email" required>
+      <input type="password" class="input-pass" placeholder="Password" required>
+      <div class="buttons-login">
+        <button type="submit" class="btn-login">Login</button>
+        <button class="btn-annuler">Annuler</button>
+      </div>
+  <style>
+
+        table {
+            width: 70%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: yellow;
+        }
+
+        th,
+        td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    .login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;      
+      background-color: #f0f0f0;
+    }
+    .form-login {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;      
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    }
+    .form-login .title-login {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .input-pass, .input-email, .btn-login {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+    .buttons-login {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .buttons-login button{
+      padding: 10px 20px;
+    }
+    .btn-login, .btn-annuler{
+      cursor: pointer;
+    }
+  </style>
+  </form>`
+  document.body.appendChild(div);
+  const adminLoginFormContainer = document.querySelector('.login-container')
+  const adminLoginForm = document.querySelector('.form-login')
+  const btnLogin = document.querySelector('.btn-login');
+  const btnAnnuler = document.querySelector('.btn-annuler');
+  btnLogin.onclick = async function (e) {
+    e.preventDefault();
+    const email = document.querySelector('.input-email').value;
+    const password = document.querySelector('.input-pass').value;
+    if (email && password) {
+      try {
+        const reponse = await fetch('http://localhost:3000/admin/euduka/admin', {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ email, password })
+        })
+
+
+        const data = await reponse.json()
+
+        if (data.success) {
+          toast(data.message)
+          console.log(data.data)
+          adminLoginForm.style.display = "none"
+
+          // const divAdminDashboard = document.createElement('div')
+          // divAdminDashboard.innerHTML = data
+          adminLoginFormContainer.appendChild(renderData(data.data))
+
+
+        }
+        else { toast("data.message") }
+      } catch (error) {
+        console.log(error.message)
+      }
+
+    }
+  }
 }

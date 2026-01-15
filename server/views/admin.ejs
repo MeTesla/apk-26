@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin - Gestion des Élèves</title>
-</head>
-<body>
+<div class="data-ejs">
     <h1>Tableau des Élèves</h1>
     <table border="1">
         <thead>
@@ -15,13 +9,19 @@
             </tr>
         </thead>
         <tbody>
-            <% eleves.forEach(elève => { %>
+            <% eleves.forEach(elève=> { %>
                 <tr>
-                    <td><%= elève.nom %></td>
-                    <td><%= elève.prenom %></td>
-                    <td><%= elève.age %></td>
+                    <td>
+                        <%= elève.nom %>
+                    </td>
+                    <td>
+                        <%= elève.prenom %>
+                    </td>
+                    <td>
+                        <%= elève.age %>
+                    </td>
                 </tr>
-            <% }); %>
+                <% }); %>
         </tbody>
     </table>
     <style>
@@ -31,13 +31,15 @@
             border-collapse: collapse;
             background-color: yellow;
         }
-        th, td {
+
+        th,
+        td {
             padding: 8px 12px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
     </style>
-</body>
-</html>
+</div>

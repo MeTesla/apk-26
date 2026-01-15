@@ -8,6 +8,7 @@ import { userSuggests } from './auth/login.js'
 import { generateMenu } from './components/misc/utils.js'
 
 import { creerCompte, toast } from './components/misc/utils.js'
+import { adminLogin } from './components/misc/login.js'
 
 //------------------Loader -------------------
 const loader = document.querySelector('.loader')
@@ -79,12 +80,13 @@ function calculerTempsRestant(dateDonnee) {
 // Langue 
 const langue = document.querySelectorAll('.langue')[1]
 langue.addEventListener('click', async () => {
-  const reponse = await fetch('http://localhost:3000/admin/euduka/admin')
-  const data = await reponse.text()
-  const div = document.createElement('DIV')
-  div.className = "div-ejs"
-  div.innerHTML = data
-  document.body.appendChild(div)
+  // const reponse = await fetch('http://localhost:3000/admin/euduka/admin')
+  // const data = await reponse.text()
+  // const div = document.createElement('DIV')
+  // div.className = "div-ejs"
+  // div.innerHTML = data
+  // document.body.appendChild(div)
+  adminLogin()
 })
 
 //---------- Suggestion FIREBASE -----------
