@@ -40,6 +40,8 @@ export function vf(bloc, data, callBack) {
   const rep = document.querySelectorAll('.rep')
   const progress = document.querySelector('.vrai-faux .progress')
 
+  
+
   let index = 0, nbrQst = 4, nbrSession = 1
   let currentQst = 0, monScore = 0, choosenRep = false,
     repondu = [], answered, questions = []
@@ -57,16 +59,25 @@ export function vf(bloc, data, callBack) {
   }
   // LOAD QUESTIONS on DOM
   loadQst()
+ 
   function loadQst() {
     selection()
     answered = false
     choosenRep = ""
     // Changer 300 par une valeur dynamique pour le responsif
     progress.style.width = (300 / questions.length) * (currentQst + 1) + 'px'
-    question.innerHTML = ` <div> ${questions[currentQst].question}</div>
-        <div class="ar"><img src="./assets/img/ar-translate.png" /></div>`
+    question.innerHTML = ` <div class="francais"> ${questions[currentQst].question}</div>
+      <div class="arabe"> ${questions[currentQst].question_ar}</div>
+      <div class="ar"><img src="./assets/img/ar-translate.png" /></div>`
 
-    //questions[currentQst].question + questions[currentQst].question_ar
+    const arBtn=document.querySelector('.ar')
+    const arabe=document.querySelector('.arabe')
+    arBtn.addEventListener('click',()=>{
+      arabe.style.display==='block'?
+      (arabe.style.display='none'):
+      (arabe.style.display='block')
+    })
+    
 
     // TEST des réponses faites
     if (repondu.includes(currentQst + 1)) {
@@ -279,7 +290,15 @@ export function vf(bloc, data, callBack) {
     width: 100%; height: 100%;
 
   }
-
+  .question .ar:hover{
+    transform: rotateZ(-30deg);
+  }
+  .question .ar:active{
+    transform: scale(0.8);
+  }
+  .arabe{
+    display: none;}
+  
   .choix{
     display: flex;
     justify-content: center;
