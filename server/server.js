@@ -50,7 +50,7 @@ const eleves = [
 // Route admin
 app.post('/admin/euduka/admin', async (req, res) => {
     const { email, password } = req.body
-    if (email == "a@a.com" && password == "a") {
+    if (email == "a" && password == "a") {
         // return res.render('admin', { eleves: eleves });
         const reponse = await EleveModel.find({})
         return res.json({

@@ -231,11 +231,11 @@ export function mpdOublie(parent) {
 function renderData(data) {
   const container = document.createElement('div')
 
-  data.map(eleve => {
-    container.innerHTML += `<div><span>${eleve.nom} </span><span>${eleve.email}</span></div>`
-    //return container
-  })
-
+  // data.map(eleve => {
+  //   container.innerHTML += `<div><span>${eleve.nom} </span><span>${eleve.email}</span></div>`
+  //   //return container
+  // })
+  container.innerHTML = `<div> ${data.map(elv => { return `<div>${elv.nom}</div>` })}</div>`
 
   return container
 }
@@ -344,7 +344,7 @@ export function adminLogin() {
 
 
         }
-        else { toast("data.message") }
+        else { toast(data.message) }
       } catch (error) {
         console.log(error.message)
       }
