@@ -63,7 +63,10 @@ export function vf(bloc, data, callBack) {
     choosenRep = ""
     // Changer 300 par une valeur dynamique pour le responsif
     progress.style.width = (300 / questions.length) * (currentQst + 1) + 'px'
-    question.innerHTML = questions[currentQst].question
+    question.innerHTML = ` <div> ${questions[currentQst].question}</div>
+        <div class="ar"><img src="./assets/img/ar-translate.png" /></div>`
+
+    //questions[currentQst].question + questions[currentQst].question_ar
 
     // TEST des réponses faites
     if (repondu.includes(currentQst + 1)) {
@@ -199,7 +202,10 @@ export function vf(bloc, data, callBack) {
     </div>
 
     <div class="vf-qst-container">
-      <div class="question">Sidi Mohammed était un enfant solitaire. </div>
+      
+      <div class="question">
+       
+      </div>
         <div class="choix">
           <div class="vrai rep">Vrai</div>
           <div class="faux rep">Faux</div>
@@ -250,6 +256,7 @@ export function vf(bloc, data, callBack) {
   }
 
   .question{
+    position: relative;
     font-size: 1.2rem;
     width: 100%;
     height: 100px;
@@ -259,6 +266,18 @@ export function vf(bloc, data, callBack) {
     padding: 10px;
     margin: 30px auto;
     color: #333;
+  }
+  .question .ar{
+    position: absolute;
+    bottom: 10px; right: 10px;
+    width: 30px; height: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .question .ar img{
+    width: 100%; height: 100%;
+
   }
 
   .choix{

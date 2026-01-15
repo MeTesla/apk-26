@@ -338,8 +338,7 @@ export function adminLogin() {
           console.log(data.data)
           adminLoginForm.style.display = "none"
 
-          // const divAdminDashboard = document.createElement('div')
-          // divAdminDashboard.innerHTML = data
+
           adminLoginFormContainer.appendChild(renderData(data.data))
 
 
