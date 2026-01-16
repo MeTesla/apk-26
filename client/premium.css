@@ -201,9 +201,11 @@ body {
   border-radius: 15px;
   padding-bottom: 20px;
 }
-.hero-top{
+
+.hero-top {
   display: flex;
 }
+
 .hero .hero-text {
   flex: 1;
   display: flex;
@@ -215,11 +217,13 @@ body {
 .hero .hero-text h4 {
   margin: 5px 0 10px 10px;
 }
-.hero-actions{
-  display:flex;
+
+.hero-actions {
+  display: flex;
   justify-content: center;
   gap: 20px;
 }
+
 .hero-actions .cta-premium {
   width: 160px;
   outline: none;
@@ -301,7 +305,7 @@ body {
   cursor: pointer;
 }
 
-/* Pourquoi devnir premium */
+/* ------------------- Pourquoi devnir premium */
 .prq-premium-container,
 .faq-container {
   margin: 30px auto;
@@ -335,11 +339,34 @@ body {
 }
 
 .prq-premium-container .prq-premium {
+  position: relative;
   margin: 20px auto;
   width: 70%;
   border: 1px solid white;
   border-radius: 20px;
   padding: 20px 50px;
+  /* background: url(./assets/img/cinquente.webp); */
+  background-size: cover;
+  /* color: black; */
+}
+
+.prq-premium .cinquente {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  box-shadow: 0 0 5px gray, 0 0 10px white;
+  background: url(./assets/img/cinquente.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: rgb(4, 77, 0);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  font-size: 1.6rem;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .prq-premium-container .prq-premium div {
