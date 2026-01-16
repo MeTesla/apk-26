@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Dashboard</h1>
+    <section class="dashbroard-container">
+        <div class="ligne">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Nom</td>
+                        <td>Prénom</td>
+                        <td>Email</td>
+                        <td>Compte</td>
+                        <!-- <td>Actions</td> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Karim</td>
+                        <td>Mohamed</td>
+                        <td>karim@gmail.com</td>
+                        <td>
+                            <div class="type-compte">Basic</div>
+                            <div class="more"><img src="./assets/img/more.png" alt=""></div>
+
+                        </td>
+                        
+                    </tr>
+                    <tr class="recu">
+                        <td>Jamal</td>
+                        <td>Salmi hichima alawi</td>
+                        <td>Jamal@gmail.com</td>
+                        <td>
+                            <div class="type-compte">En attente</div>
+                            <div class="more"><img src="./assets/img/more.png" alt=""></div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>Hicham</td>
+                        <td>Arazi</td>
+                        <td>arazi@gmail.com</td>
+                        <td>
+                            <div class="type-compte">Premium</div>
+                            <div class="more"><img src="./assets/img/more.png" alt=""></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="menu-more">
+        <div class="menu-more-container">
+            <div class="details"></div>
+            <div class="details"></div>
+        </div>
+        <script>
+            let recu = true
+            const trs= document.querySelectorAll('tbody tr')
+            console.log(trs.length);
+            
+            trs.forEach((tr, index)=>{
+                tr.className=== 'recu'?
+                tr.style.backgroundColor="rgb(255, 146, 146)":
+                tr.style.backgroundColor="white"                
+            })
+        </script>
+        <!-- 
+            voir détails :graphique ?
+            clic to upgrade to premium
+            num reçu, img reçu
+            num reçu && tr.bgclr: red 
+        -->
+    </section>
+    <style>
+        .recu{
+            background-color: rgb(255, 146, 146);
+        }
+        h1{
+            text-align: center;
+        }
+        table{
+            border-collapse: collapse;
+            margin: 30px auto;
+            width: 70%;
+           
+        }
+        thead tr{
+            font-weight: bold;
+        }
+        tr{
+            border-bottom: 1px solid gray;                        
+        }
+        td{
+            padding: 5px;
+        }
+        table tbody tr > td:nth-child(4){            
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 10px;
+        }
+         .type-compte{
+            width: 80px;
+            padding:10px;
+            color: rgb(55, 117, 83);  
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 0.8rem;        
+            font-weight: bold;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(150, 255, 197);
+            
+        }
+        .more{
+            height: 30px; width: 30px;            
+        }
+        .more img{
+            width:100%;
+        }
+        @media  (max-width: 700px)  {
+            table{
+                width: 90%;
+            }
+            table tr > td:nth-child(2){
+                display: none;
+            }
+        }
+    </style>
+</body>
+
+</html>
