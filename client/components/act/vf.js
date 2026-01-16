@@ -215,7 +215,7 @@ if (index !== -1) {
 
   // Réinitialisation
   function reinitialiser(re) {
-    monScore = 0; repondu = []; currentQst = 0;
+    monScore = 0; repondu = []; currentQst = 0; translationCounter = []
     progress.style.width = (300 / questions.length) * (currentQst + 1) + 'px'
     score.innerText = "00"
     if (re) {
