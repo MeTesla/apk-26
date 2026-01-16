@@ -14,7 +14,7 @@ const l = console.log
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js';
 import { modalFinSession } from '../../utils.js'
-import { handleResultats, sliceScores } from '../misc/utils.js';
+import { handleResultats, sliceScores, toast } from '../misc/utils.js';
 
 export function vf(bloc, data, callBack) {
   const div = document.createElement('div')
@@ -40,11 +40,11 @@ export function vf(bloc, data, callBack) {
   const rep = document.querySelectorAll('.rep')
   const progress = document.querySelector('.vrai-faux .progress')
 
-  
+
 
   let index = 0, nbrQst = 4, nbrSession = 1
   let currentQst = 0, monScore = 0, choosenRep = false,
-    repondu = [], answered, questions = []
+    repondu = [], answered, questions = [], translationCounter = []
 
   // repenser cette logique : alea tout le tableau, puis choix 10 qst. 
   //en cas de session suiv. passer le pointeur à 10 ...
@@ -59,7 +59,7 @@ export function vf(bloc, data, callBack) {
   }
   // LOAD QUESTIONS on DOM
   loadQst()
- 
+
   function loadQst() {
     selection()
     answered = false
@@ -70,14 +70,44 @@ export function vf(bloc, data, callBack) {
       <div class="arabe"> ${questions[currentQst].question_ar}</div>
       <div class="ar"><img src="./assets/img/ar-translate.png" /></div>`
 
-    const arBtn=document.querySelector('.ar')
-    const arabe=document.querySelector('.arabe')
-    arBtn.addEventListener('click',()=>{
-      arabe.style.display==='block'?
-      (arabe.style.display='none'):
-      (arabe.style.display='block')
+    const arBtn = document.querySelector('.ar')
+    const arabe = document.querySelector('.arabe')
+
+    function translationCount(arr) {
+      if (!arr.includes(currentQst)) {
+        arr.push(currentQst)
+      } else {
+        const ind = arr.indexOf(currentQst)
+        if (ind !== -1) return //arr.splice(ind, 1)
+      }
+      console.log(arr);
+
+    }
+
+    arBtn.addEventListener('click', () => {
+      if (translationCounter.length === 2) return toast('Plus droit à la traduction')
+      translationCount(translationCounter)
+      /*  
+        
+
+          countTranslation.contains(numQst)?
+          countTranslation.push(numQst):
+          countTranlation.shift(numQst)
+
+
+let tableau = [1, 2, 3, 4, 5];
+const valeurASupprimer = 3;
+
+const index = tableau.indexOf(valeurASupprimer);
+if (index !== -1) {
+    tableau.splice(index, 1);
+}
+      */
+      arabe.style.display === 'block' ?
+        (arabe.style.display = 'none') :
+        (arabe.style.display = 'block')
     })
-    
+
 
     // TEST des réponses faites
     if (repondu.includes(currentQst + 1)) {
