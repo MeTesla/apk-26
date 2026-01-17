@@ -57,9 +57,77 @@
     </section>
     <section class="menu-more">
         <div class="menu-more-container">
-            <div class="details"></div>
-            <div class="details"></div>
+            <div class="details">
+                <div class="nom">Hamza Blaounes</div> 
+                <div class="email">blaounes@hotmail.com</div>
+                <hr style="margin:20px 0"/>
+
+            </div>
+            <div class="recue">
+                <div class="num-recu">
+                    <span class="libel-num">N° du reçu : </span> 
+                    <span class="num">8876765764653</span>
+                </div>
+                <div class="img-recu">
+                    <div class="libel-img-recu">Upload reçu </div>
+                    <!-- <img src="./assets/img/upload-image.png" alt=""> -->
+                    <div class="show-img"></div>
+                </div>
+            </div>
         </div>
+        <style>
+            .menu-more{
+                width: 240px;
+                bborder: 1px solid;
+                box-shadow: 0 0 5px black;
+                border-radius: 15px;
+                padding: 10px;
+                margin: 30px auto;
+                background-color: rgb(253, 248, 248);
+            }
+            .menu-more .details{
+                padding-top: 15px;
+                text-align: center;
+                font-weight: bold;
+                color: rgb(61, 61, 61);
+            }
+            .menu-more .details .email{
+                font-size: 0.7rem;
+                font-style: italic;
+            }
+            .libel-num, .libel-img-recu{
+                font-weight: bold;
+            }
+            .menu-more .num{
+                font-weight: bold;
+                font-size: 1.2rem;
+                padding-left: 30px;
+            }
+            .img-recu{
+
+            }
+            .img-recu img{
+                display: block;
+                box-shadow: 0 0 3px white, 0 0 6px white, 0 0 10px white;
+                width: 50px; height: 50px;
+                margin: 15px auto;
+                cursor: pointer;
+            }
+            .show-img{
+                width: 50%;
+                min-height: 180px;
+                background-color: white;
+                margin: 10px auto;
+                box-shadow: 0 0 5px rgb(180, 180, 180);
+                border-radius: 15px;
+                background: url(./assets/img/reçu.jpg);
+                background-size: 100%;
+                background-repeat: no-repeat;
+                background-position: center;;
+            }
+        </style>
+
+
         <script>
             let recu = true
             const trs = document.querySelectorAll('tbody tr')
@@ -70,6 +138,23 @@
                     tr.style.backgroundColor = "rgb(255, 146, 146)" :
                     tr.style.backgroundColor = "white"
             })
+
+            const typeCompte=document.querySelectorAll('.type-compte')
+            typeCompte.forEach((item, indexx)=>{
+                switch (item.innerHTML) {
+                    case 'Basic':
+                        item.classList.add('basic')
+                        break;
+                    case 'En attente':
+                        item.classList.add('attente')
+                        break;
+                    case 'Premium':
+                        item.classList.add('premium')
+                        break
+                    
+                }
+            })
+            
         </script>
         <!-- 
         1- il me contacte
@@ -93,6 +178,12 @@
         -->
     </section>
     <style>
+        *{
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        .type-compte.basic{background-color: rgb(241, 241, 114);color: rgb(126, 126, 0)}
+        .type-compte.attente{background-color: rgb(147, 185, 255); color:rgb(51, 48, 253)}
+        .type-compte.premium{background-color: rgb(255, 166, 166); color: rgb(197, 74, 74)}
         .recu {
             background-color: rgb(255, 146, 146);
         }
@@ -117,11 +208,9 @@
         tr {
             border-bottom: 1px solid rgb(218, 218, 218);
         }
-
-        td {
-            padding: 5px
+        td{
+            padding: 5px;
         }
-
         table tbody tr>td:nth-child(1) {
             font-weight: bold;
         }
@@ -135,7 +224,7 @@
 
         .type-compte {
             width: 80px;
-            padding: 3px 10px;
+            padding: 5px;
             color: rgb(55, 117, 83);
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             font-size: 0.6rem;

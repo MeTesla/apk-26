@@ -1,4 +1,14 @@
+searchInput.addeventlister('input', searchTable)
+function serachTable(){
+	tableRows.forEach((row,i)={
+		let tableData=row.textContent.toLowerCase()
+		let searchData = search.value
+		
+		row.classList.toggle('hide', table_data.indexOf(serachData)<0)
+		row.style.setProperty('--delay', i/25 + 's')
+	})
 
+}
 
 - après expiration du token verification , supprimer élève de DB || LS.clear||rien faire
 - LS || cookies
