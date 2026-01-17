@@ -6,7 +6,7 @@ import { confet } from '../misc/utils.js'
 import { handleResultats } from '../misc/utils.js'
 import { sliceScores } from '../misc/utils.js'
 
-export function qcm(bloc, data, callBack=()=>false) {
+export function qcm(bloc, data, callBack = () => false) {
   //---Add data to resultats localStorage
 
   const div = document.createElement('div')
@@ -60,13 +60,10 @@ export function qcm(bloc, data, callBack=()=>false) {
       }
       return arrayOfObj
     }
-
-    // convert text to an array of objects
-    console.log(typeof (data[0]))
-
   }
 
   let arrayOfObj = convertData(data)
+
   // shuffle questions
   // arrayOfObj.sort(function (a, b) { return 0.5 - Math.random() })
   arrayOfObj.sort(function (a, b) { return 0.5 - Math.random() })

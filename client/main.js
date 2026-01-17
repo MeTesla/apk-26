@@ -1,4 +1,5 @@
 const l = console.log
+
 import { listeActDjc } from './djc/listeActDjc.js'
 import { listeActAntigone } from './antigone/listeActAntigone.js'
 import { listeAct } from './components/act/listeAct.js'
