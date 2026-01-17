@@ -102,8 +102,6 @@ const annulerCompte = async (req, res) => {
 }
 
 const login = async (req, res) => {
-
-
     const { email, password } = req.body
 
     if (!email || !password) return res.json({

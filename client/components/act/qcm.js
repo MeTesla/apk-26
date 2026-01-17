@@ -8,7 +8,6 @@ import { sliceScores } from '../misc/utils.js'
 
 export function qcm(bloc, data, callBack = () => false) {
   //---Add data to resultats localStorage
-
   const div = document.createElement('div')
   div.innerHTML = codeHtml()
   div.classList.add('qcm')

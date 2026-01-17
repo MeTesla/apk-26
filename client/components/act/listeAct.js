@@ -12,7 +12,6 @@ t.addEventListener('click', async ()=>{
   console.log(d)
 })
 */
-// import { modalFreeMins } from '../misc/modals.js'
 import { modalLokedContent } from '../misc/modals.js'
 import { fetchResultats } from '../misc/utils.js'
 
@@ -45,6 +44,10 @@ const wrapper = document.querySelector('.wrapper')
 
 export function listeAct(bloc) {
   let isModified = false
+
+  function handleIsModified(value){
+    return isModified=value
+  }
   const html = `<img class="index" src ="./assets/img/previous.svg"></svg>
   <div class="list">
     <li class="list-elements lst-lire">Lire le roman</li>
@@ -69,9 +72,7 @@ export function listeAct(bloc) {
     await fetchResultats(listBlc, isModified)
   }
 
-  function handleIsModified(value){
-    return isModified=value
-  }
+
 
   //-------Lire
   const lire = document.querySelector('.lst-lire')

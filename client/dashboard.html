@@ -90,7 +90,7 @@
 
                 .menu-more-close img {
                     display: block;
-                    width: 20px;
+                    width: 15px;
                     cursor: pointer;
                 }
 
@@ -103,8 +103,7 @@
                     background-color: rgb(253, 248, 248);
                 }
 
-                .menu-more .details {
-                    padding-top: 15px;
+                .menu-more .details {                    
                     text-align: center;
                     font-weight: bold;
                     color: rgb(61, 61, 61);
@@ -215,8 +214,8 @@
                 </div>
                 <div class="recue">
                     <div class="num-recu">
-                        <span class="libel-num">N° du reçu : </span>
-                        <span class="num">8876765764653</span>
+                        <div class="libel-num">N° du reçu : </div>
+                        <div class="num">8876765764653</div>
                     </div>
                     <div class="img-recu">
                         <form action="">
@@ -245,15 +244,14 @@
                             const img = document.createElement('img');
                             img.src = e.target.result;
                             img.className = 'img-uploaded'; // Vider le conteneur
+                            if(showImg.children.length>=1){showImg.innerHTML=''}
                             showImg.appendChild(img); // Ajouter l'image
-
+                            console.log()
                             img.addEventListener('click', () => {
                                 //show modal image
-                                img.style.position = "fixed"
-                                img.style.height = "100vh"
-                                img.style.width = "100vw"
-                                img.style.top = "0"
-                                img.style.left = "0"
+                                img.classList.contains('img-full')?
+                                img.classList.remove('img-full'):
+                                img.classList.add('img-full')
                             })
                         };
                         reader.readAsDataURL(file);
@@ -269,7 +267,7 @@
 
                 .menu-more-close img {
                     display: block;
-                    width: 20px;
+                    width: 15px;
                     cursor: pointer;
                 }
 
@@ -283,26 +281,28 @@
                 }
 
                 .menu-more .details {
-                    padding-top: 15px;
                     text-align: center;
                     font-weight: bold;
                     color: rgb(61, 61, 61);
+                    margin-top:-10px;
                 }
 
                 .menu-more .details .email {
                     font-size: 0.7rem;
                     font-style: italic;
                 }
-
+                .num-recu{
+                    text-align: center;
+                }
                 .libel-num,
                 .libel-img-recu {
+
                     font-weight: bold;
                 }
 
                 .menu-more .num {
                     font-weight: bold;
                     font-size: 1.2rem;
-                    padding-left: 30px;
                 }
 
                 .img-recu .upload-icon {
@@ -318,15 +318,22 @@
                     width: 100%;
                     background-color: white;
                     margin: 10px auto;
-                    bbox-shadow: 0 0 5px rgb(180, 180, 180);
                     border-radius: 15px;
-
-
                 }
 
                 .img-uploaded {
-                    width: 100%;
+                    display: block;
+                    margin: auto;
+                    width: 50%;
                     border-radius: 10px;
+                }
+                .img-full{
+                    position : fixed;
+                    height: 100vh;
+                    width: auto;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%)
                 }
             </style>
 

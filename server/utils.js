@@ -70,7 +70,7 @@ function prepareData(exo) {
         case 'bamvf': return bamvf; break;
         case 'bamoeuvre': return bamoeuvre; break;
         case 'bamresume': return bamresume; break;
-        case 'bamqcm': return bamqcm; break;
+        case 'bamqcm': return bamqcm; break; //.slice(0,10)
         case 'bamordreph': return bamordreph; break;
         case 'bamordreev': return bamordreev; break;
         case 'bamvide': return bamvide; break;
