@@ -1,5 +1,5 @@
 import { creerCompte, toast } from './utils.js';
-//import { generateMenu } from './misc/utils.js';
+
 export function login() {
   const div = document.createElement('div');
   div.className = 'login-container';
@@ -228,23 +228,24 @@ export function mpdOublie(parent) {
 
 }
 
-function renderData(data) {
-  const container = document.createElement('div')
-
-  // data.map(eleve => {
-  //   container.innerHTML += `<div><span>${eleve.nom} </span><span>${eleve.email}</span></div>`
-  //   //return container
-  // })
-  container.innerHTML = `<div> ${data.map(elv => {
-    return `<div>${elv.nom}</div>`
-  })}</div>`
-
-  return container
-}
 export function adminLogin() {
   const div = document.createElement('div');
   div.className = 'login-container';
-  div.innerHTML = `<form class="form-login">
+  div.innerHTML = `<table>
+    <thead>
+        <tr>
+          <td>Nom</td>
+          <td>Prénom</td>
+          <td>Email</td>
+          <td>Compte</td>
+          <!-- <td>Actions</td> -->
+        </tr>
+    </thead>
+    <tbody>
+
+      </tbody>        
+  </table>
+    <form class="form-login">
       <h1 class="title-login">Admin</h1>
       <input type="email" class="input-email" placeholder="Email" required>
       <input type="password" class="input-pass" placeholder="Password" required>
@@ -252,23 +253,76 @@ export function adminLogin() {
         <button type="submit" class="btn-login">Login</button>
         <button class="btn-annuler">Annuler</button>
       </div>
+      
   <style>
-
         table {
-            width: 70%;
-            margin: auto;
+            display:none;
             border-collapse: collapse;
-            background-color: yellow;
+            margin: 30px auto;
+            width: 80%;
+            color: rgb(74, 74, 74);
+            font-size: 0.8rem;
+
         }
 
-        th,
+        thead tr {
+            font-weight: bold;
+        }
+        thead td{
+          font-weight: bold;
+          padding: 10px;
+          background-color: yellow;
+        }
+        thead td:nth-child(4){
+          text-align: center
+        }
+        tr {
+            border-bottom: 1px solid rgb(218, 218, 218);
+        }
+
+        tr:hover {
+            background-color: rgb(228, 228, 228);
+        }
+         .recu {
+            background-color: rgb(255, 146, 146);
+        }
+
         td {
-            padding: 8px 12px;
-            text-align: left;
+            padding: 5px;
         }
 
-        th {
-            background-color: #f2f2f2;
+        table tbody tr>td:nth-child(1) {
+            font-weight: bold;
+        }
+
+        table tbody tr>td:nth-child(4) {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
+        .type-compte {
+            width: 80px;
+            padding: 5px;
+            color: rgb(55, 117, 83);
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 0.6rem;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(161, 222, 189);
+
+        }
+
+        .more {
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+        }
+
+        .more img {
+            width: 100%;
         }
     .login-container {
       position: fixed;
@@ -320,6 +374,7 @@ export function adminLogin() {
   const adminLoginForm = document.querySelector('.form-login')
   const btnLogin = document.querySelector('.btn-login');
   const btnAnnuler = document.querySelector('.btn-annuler');
+  const tableBody= document.querySelector('table tbody')
   btnLogin.onclick = async function (e) {
     e.preventDefault();
     const email = document.querySelector('.input-email').value;
@@ -337,19 +392,210 @@ export function adminLogin() {
 
         if (data.success) {
           toast(data.message)
-          console.log(data.data)
+
           adminLoginForm.style.display = "none"
+          document.querySelector('table').style.display = "table"
 
-
-          adminLoginFormContainer.appendChild(renderData(data.data))
-
-
+          data.data.map((elv)=>{
+            const tr= document.createElement('tr')
+            tr.className=elv.role=='registred'?'registred':'recu'
+            tr.innerHTML = `<td>${elv.nom}</td><td>${elv.prenom}</td>
+            <td>${elv.email}</td>
+            <td>
+              <div class="type-compte">${elv.role=='registred'?'Basic':'En attente'}</div>
+              <div class="more"><img src="./assets/img/more.png" alt=""></div>
+            </td>`
+            tableBody.appendChild(tr)
+          })
+          const moreBtns = document.querySelectorAll('td .more')
+          moreBtns.forEach((more, index) => {
+            more.addEventListener('click', () => {              
+              !document.querySelector('.menu-more') && showMoreModal(adminLoginFormContainer, index,data.data)   
+            })
+          })
+        } else { 
+          toast(data.message) 
         }
-        else { toast(data.message) }
       } catch (error) {
         console.log(error.message)
+        
       }
 
     }
   }
+}
+
+function showMoreModal(bloc, index, data){
+    const div = document.createElement('div')
+    div.className = "menu-more"
+    div.innerHTML = `<div class="menu-more-container">
+    <div class="menu-more-close">
+        <img src="./assets/img/times.svg" alt="">
+    </div>
+
+    <div class="details">
+        <div class="nom">${data[index].nom} ${data[index].prenom}</div>
+        <div class="email">${data[index].email}</div>
+        <hr style="margin:20px 0" />
+
+    </div>
+    <div class="recue">
+        <div class="num-recu">
+            <div class="libel-num">N° du reçu : </div>
+            <div class="num">8876765764653</div>
+        </div>
+        <div class="img-recu">
+            <!-- form>
+                <input type="file" accept="image/*" style="display: none;" name="upload-img" id="upload-img">
+                <label for="upload-img" class="label-upload" >
+                    <img class="upload-icon" src="./assets/img/upload-image.png" alt="">
+                </label>
+            </form -->
+            <div class="libel-img-recu">L'image du reçu </div>
+
+            <div class="show-img">
+              <img src= "./assets/img/reçu.jpg" alt="qsd" />
+            </div>
+            <div class="devenir-premium">
+              Premium
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    .menu-more-close {
+        display: flex;
+        justify-content: flex-end;
+        padding: 5px;
+    }
+
+    .menu-more-close img {
+        display: block;
+        width: 15px;
+        cursor: pointer;
+    }
+
+    .menu-more {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 240px;
+      box-shadow: 0 0 5px black;
+      border-radius: 15px;
+      padding: 10px;
+      margin: 30px auto;
+      background-color: rgb(253, 248, 248);
+    }
+
+    .menu-more .details {
+        text-align: center;
+        font-weight: bold;
+        color: rgb(61, 61, 61);
+        margin-top: -10px;
+    }
+
+    .menu-more .details .email {
+        font-size: 0.7rem;
+        font-style: italic;
+    }
+
+    .num-recu {
+        text-align: center;
+    }
+
+    .libel-num,
+    .libel-img-recu {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .menu-more .num {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .img-recu .upload-icon {
+        display: block;
+        box-shadow: 0 0 3px white, 0 0 6px white, 0 0 10px white;
+        width: 50px;
+        height: 50px;
+        margin: 15px auto;
+        cursor: pointer;
+    }
+
+    .show-img {
+        width: 150px;
+        hheight: 150px;
+        background-color: rgb(218, 218, 218);
+        margin: 10px auto;
+        border-radius: 15px;
+    }
+    .show-img img {
+        width: 100%;
+    }
+    .img-uploaded {
+        display: block;
+        margin: auto;
+        width: 50%;
+        border-radius: 10px;
+    }
+
+    .img-full {
+        position: fixed;
+        height: 100vh;
+        width: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+    }
+    .devenir-premium{
+      width: 90px;
+      padding: 10px;
+      margin:15px auto;
+      text-align: center;
+      border-radius: 10px;
+      background-color: rgb(161, 222, 189);
+      cursor: pointer;
+      }
+    </style>`     
+    bloc.appendChild(div)
+
+    const menuMoreClose = document.querySelector('.menu-more-close')
+    menuMoreClose.addEventListener('click',()=>{
+        div.remove()
+    })
+
+    // const uploadImgInput = document.querySelector('.label-upload');
+    // const showImg = document.querySelector('.show-img');
+    // showImg.addEventListener('click', () => {
+    //     console.log('qsdfiari');
+        
+    // })
+    // console.log(typeof(uploadImgInput));
+    
+    // uploadImgInput.addEventListener('change', function (event) {
+    //   const file = event.target.files[0];
+    //   if (file) {
+    //       const reader = new FileReader();
+    //       reader.onload = function (e) {
+    //           // Créer une nouvelle image et l'ajouter au conteneur
+    //           const img = document.createElement('img');
+    //           img.src = e.target.result;
+    //           img.className = 'img-uploaded'; // Vider le conteneur
+    //           if (showImg.children.length >= 1) { showImg.innerHTML = '' }
+    //           showImg.appendChild(img); // Ajouter l'image
+    //           console.log()
+    //           img.addEventListener('click', () => {
+    //               //show modal image
+    //               img.classList.contains('img-full') ?
+    //                   img.classList.remove('img-full') :
+    //                   img.classList.add('img-full')
+    //           })
+    //       };
+    //       reader.readAsDataURL(file);
+    //   }
+    // });
+    
+
+    
 }

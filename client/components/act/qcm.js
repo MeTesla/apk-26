@@ -49,7 +49,7 @@ export function qcm(bloc, data, callBack = () => false) {
 
   let close = document.querySelector('.close')
   close.onclick = () => {
-    history.pushState({ modal: false }, '', '/'); // Remet l'URL à l'original;
+    history.pushState({ modal: false }, '', '/client'); // Remet l'URL à l'original;
     closeAct(div);
   }
 
