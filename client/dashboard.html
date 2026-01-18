@@ -658,11 +658,19 @@
                 })
 
                 let trs = dataEleves.map((elv, index) => {
-                    return (`<tr><td>${elv.nom}</td><td>${elv.prenom}</td>
-                        <td>${elv.email}</td><td>${elv.role}</td></tr> `
-                    )
+                    const tr = document.createElement('tr')
+                    tr.innerHTML = `<td>${elv.nom}</td>
+                        <td>${elv.prenom}</td>
+                        <td>${elv.email}</td>
+                        <td>
+                            <div class="type-compte">${elv.role == "registred" ? 'Basic' : 'En attente'}</div>
+                            <div class="more"><img src="./assets/img/more.png" alt=""></div>
+                        </td>`
+                    tableData.appendChild(tr)
                 })
-                tableData.innerHTML += trs
+
+
+
 
                 const uploadImgInput = document.querySelector('#upload-img');
                 const showImg = document.querySelector('.show-img');
@@ -762,6 +770,10 @@
 
         tr {
             border-bottom: 1px solid rgb(218, 218, 218);
+        }
+
+        tr:hover {
+            background-color: rgb(228, 228, 228);
         }
 
         td {
