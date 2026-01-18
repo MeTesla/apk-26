@@ -1,3 +1,25 @@
+// // Change l'URL
+//     history.pushState({ modal: true }, '', '/client/quiz');
+
+//     closeQuizButton.addEventListener('click', () => {
+//         document.body.removeChild(quizModal); // Supprime le modal
+//         history.pushState({ modal: false }, '', '/'); // Remet l'URL à l'original
+//     });
+
+//     // Gestionnaire d'événements pour la navigation avec le bouton "Précédent"
+//     window.addEventListener('popstate', (event) => {
+//         if (event.state && event.state.modal) {
+//             // Si l'état indique que le modal doit être ouvert
+//             document.body.appendChild(quizModal);
+//         } else {
+//             // Cache le modal (s'il est ouvert)
+//             if (document.body.contains(quizModal)) {
+//                 document.body.removeChild(quizModal);
+//             }
+//         }
+//     });
+// }
+
 const l = console.log
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js'
@@ -7,18 +29,29 @@ import { handleResultats } from '../misc/utils.js'
 import { sliceScores } from '../misc/utils.js'
 
 export function qcm(bloc, data, callBack = () => false) {
-  //---Add data to resultats localStorage
   const div = document.createElement('div')
   div.innerHTML = codeHtml()
   div.classList.add('qcm')
   bloc.appendChild(div)
 
+  history.pushState({ modal: true }, '', '/client/quiz'); // Change l'URL
+  // Gestionnaire d'événements pour la navigation avec le bouton "Précédent"
+  window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.modal) {
+      div.style.display = 'block'; // Réaffiche le modal si on revient en arrière
+    } else {
+      div.style.display = 'none'; // Cache le modal si on sort
+    }
+  });
   // entete close / home
   let home = document.querySelector('.home')
   home.onclick = () => { homeAct(div) }
 
   let close = document.querySelector('.close')
-  close.onclick = () => { closeAct(div); }
+  close.onclick = () => {
+    history.pushState({ modal: false }, '', '/'); // Remet l'URL à l'original;
+    closeAct(div);
+  }
 
   // DOM variables: 
   const qst = document.querySelector('.qst')
