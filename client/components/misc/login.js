@@ -235,7 +235,9 @@ function renderData(data) {
   //   container.innerHTML += `<div><span>${eleve.nom} </span><span>${eleve.email}</span></div>`
   //   //return container
   // })
-  container.innerHTML = `<div> ${data.map(elv => { return `<div>${elv.nom}</div>` })}</div>`
+  container.innerHTML = `<div> ${data.map(elv => {
+    return `<div>${elv.nom}</div>`
+  })}</div>`
 
   return container
 }
