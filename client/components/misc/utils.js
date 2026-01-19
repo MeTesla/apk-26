@@ -2,8 +2,10 @@
 import { profile } from './profile.js'
 import { modalDevenirPremium, modalFreeMins } from './modals.js'
 import { login } from './login.js'
-
-const url = 'http://localhost:3000'
+import { API_URL } from '../../config/env.js'
+import { getProfile, setProfile, getResults } from '../../utils/storage.js'
+import { safeFetchPost, safeFetchGet } from '../../utils/api.js'
+import { validateSignupForm, sanitizeInput } from '../../utils/validation.js'
 
 export function creerCompte() {
   //if(localStorage.getItem('token')) return
@@ -78,16 +80,28 @@ async function submitCreerCompte() {
   const prenom = document.querySelector('.prenom').value
   const email = document.querySelector('.email').value
   const tel = document.querySelector('.tel').value
-  // e.preventDefault()
-  //  const url = 'https://euduka.vercel.app'      
-  const url = 'http://localhost:3000'
-  const reponse = await fetch(url + '/creer-compte', {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ nom, prenom, email, tel })
-  })
-  const data = await reponse.json()
-  if (data.success) {
+  
+  // 1️⃣ Valider formulaire
+  const validation = validateSignupForm({ nom, prenom, email, tel })
+  if (!validation.valid) {
+    const errorMsg = Object.values(validation.errors).join('\n')
+    modalFreeMins(false, errorMsg, 'failed')
+    return
+  }
+  
+  // 2️⃣ Nettoyer inputs
+  const cleanData = {
+    nom: sanitizeInput(nom, 50),
+    prenom: sanitizeInput(prenom, 50),
+    email: sanitizeInput(email, 254),
+    tel: sanitizeInput(tel, 20)
+  }
+  
+  // 3️⃣ Envoyer données validées
+  const result = await safeFetchPost(API_URL + '/creer-compte', cleanData)
+  
+  if (result.success) {
+    const data = result.data
     localStorage.setItem('role', data.role)
     localStorage.setItem('token', data.token)
     document.querySelector('.user-menu').remove()
@@ -95,7 +109,7 @@ async function submitCreerCompte() {
     modalFreeMins(true, data.message, 'verifyEmail')
     document.querySelector('.creer-compte-page').remove()
   } else {
-    modalFreeMins(false, data.message, 'failed')
+    modalFreeMins(false, result.error || 'Erreur lors de la création du compte', 'failed')
   }
 }
 
@@ -125,9 +139,7 @@ export async function annulerCompte() {
 }
 // ------------  Get free MINs -----------
 async function freeMins() {
-  const url = 'http://localhost:3000'
-  // const url ='https://euduka.vercel.app'
-  const reponse = await fetch(url + '/freeMins', {
+  const reponse = await fetch(API_URL + '/freeMins', {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -260,11 +272,14 @@ export function generateMenu(typeAccount, pere, menu) {
 
 // ---- LocalStorage resultats
 export function handleResultats(resultat) {
-  let profile = JSON.parse(localStorage.getItem('profile'))
+  let profile = getProfile()
+  if (!profile) {
+    console.error('❌ Profile not found when updating results')
+    return
+  }
   let resultatLS = profile.resultats
   resultatLS = { ...resultatLS, ...resultat }
-  // let updatedProfile = 
-  localStorage.setItem('profile', JSON.stringify({ ...profile, resultats: resultatLS }))
+  setProfile({ ...profile, resultats: resultatLS })
 }
 
 // Slice scores to keep only last 6 items
@@ -279,9 +294,13 @@ export function sliceScores(scores) {
 //---Fetch save résultats to DB
 export async function fetchResultats(listBlc, isModified) {
   if (isModified) {
-    const res = JSON.parse(localStorage.getItem('profile')).resultats
+    const res = getResults()
+    if (!res) {
+      console.error('❌ No results found to sync')
+      return
+    }
     try {
-      const reponse = await fetch('http://localhost:3000/update-resultats', {
+      const reponse = await fetch(API_URL + '/update-resultats', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

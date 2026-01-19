@@ -2,11 +2,16 @@
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js'
 import { handleResultats, sliceScores } from '../misc/utils.js'
+import { getProfile } from '../../utils/storage.js'
+import { EventManager } from '../../utils/eventManager.js'
 const l = console.log
 
 export function remplirVide(bloc, data, callBack) {
   // Pousser l'état pour le routage
   history.pushState({ page: 'remplir' }, '', '/client/remplir');
+
+  // Gestionnaire d'événements avec cleanup automatique
+  const events = new EventManager()
 
   let texteTmp = {}
   const div = document.createElement('div');
@@ -63,7 +68,7 @@ export function remplirVide(bloc, data, callBack) {
     // Gestion des cliques : liste - paragraphe
     for (let i = 0; i < mots.length; i++) {
       // clique sur les mots de la liste
-      mots[i].addEventListener('click', (ev) => {
+      events.on(mots[i], 'click', (ev) => {
         if (verified || motsChoisis.includes(ev.target.innerText)) return
         mots.forEach((item) => item.style.backgroundColor = "rgba(0,0,0, .08)")
         //color selected list word
@@ -72,7 +77,7 @@ export function remplirVide(bloc, data, callBack) {
         mot = ev.target
       })
       // clique sur les mots du paragraphe
-      vides[i].addEventListener('click', (e) => {
+      events.on(vides[i], 'click', (e) => {
         if (e.target.innerText != "") {
           const m = Array.from(mots).filter(mot => {
             return mot.innerText == e.target.innerText
@@ -96,7 +101,7 @@ export function remplirVide(bloc, data, callBack) {
 
   // Boutton Vérifier
   let verifier = document.querySelector('.valider')
-  verifier.addEventListener('click', (ev) => {
+  events.on(verifier, 'click', (ev) => {
     verified = true;
     let correct = 0, incorrect = 0
 
@@ -120,10 +125,11 @@ export function remplirVide(bloc, data, callBack) {
       }
     })
 
+    const profileScores = getProfile()?.resultats?.remplir?.scores || []
     let resultatVide = {
       remplir: {
         score: correct,
-        scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.remplir.scores), correct],
+        scores: [...sliceScores(profileScores), correct],
         nbrQsts: listeMotsTmp.length,
         date: new Date().toLocaleDateString('fr-FR'),
         lastSession: Array(1).fill(data[index])
@@ -138,6 +144,7 @@ export function remplirVide(bloc, data, callBack) {
   suivant.addEventListener('click', () => {
     if (data.length === 1) return
     if (index < nbrTextes) {
+      events.cleanup()
       reinitialiser()
     } else {
       document.querySelector('.fin-session').style.display = "flex"

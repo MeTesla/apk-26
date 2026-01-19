@@ -4,11 +4,17 @@ import { conic } from "../../utils.js"
 import { remplirVide } from "../act/remplirVide.js"
 import { ordrePhrases } from "../act/ordrePhrases.js"
 import { createLineChart } from "./utils.js"
+import { getProfile } from "../../utils/storage.js"
 
 export function profile() {
-    const { nom, prenom, email } = JSON.parse(localStorage.getItem('profile'))
-    const { role } = JSON.parse(localStorage.getItem('profile'))
-    const resultats = JSON.parse(localStorage.getItem('profile')).resultats || {}
+    const profileData = getProfile()
+    if (!profileData) {
+      console.error('❌ Profile data not found in localStorage')
+      return
+    }
+    const { nom, prenom, email } = profileData
+    const { role } = profileData
+    const resultats = profileData.resultats || {}
     const div = document.createElement('div')
     div.className = "profile-infos"
     div.innerHTML = `<div class="profile-container">
@@ -336,7 +342,7 @@ export function profile() {
     //QCM last session
     const qcmLastSession = document.querySelector('.qcm-last-session')
     qcmLastSession.onclick = () => {
-        const qcmData = JSON.parse(localStorage.getItem('profile')).resultats.qcm?.lastSession || []
+        const qcmData = getProfile()?.resultats?.qcm?.lastSession || []
         if (qcmData.length === 0) return
         qcm(div, qcmData)
         document.body.style.overflow = "hidden"
@@ -345,7 +351,7 @@ export function profile() {
     //VF last session 
     const vfLastSession = document.querySelector('.vf-last-session')
     vfLastSession.onclick = () => {
-        const vfData = JSON.parse(localStorage.getItem('profile')).resultats.vf?.lastSession || []
+        const vfData = getProfile()?.resultats?.vf?.lastSession || []
         if (vfData.length === 0) return
         vf(div, vfData)
         document.body.style.overflow = "hidden"
@@ -354,7 +360,7 @@ export function profile() {
     //oredrePhrase last session
     const ordrePhLastSession = document.querySelector('.ordrePh-last-session')
     ordrePhLastSession.onclick = () => {
-        const ordrePhData = JSON.parse(localStorage.getItem('profile')).resultats.ordrePhrases?.lastSession || []
+        const ordrePhData = getProfile()?.resultats?.ordrePhrases?.lastSession || []
         if (ordrePhData.length === 0) return
         ordrePhrases(div, ordrePhData)
         document.body.style.overflow = "hidden"
@@ -364,9 +370,9 @@ export function profile() {
     //Remplir last session
     const remplirLastSession = document.querySelector('.remplir-last-session')
     remplirLastSession.onclick = () => {
-        const remplirData = JSON.parse(localStorage.getItem('profile')).resultats.remplir?.lastSession || null
+        const remplirData = getProfile()?.resultats?.remplir?.lastSession || null
         console.log(remplirData)
-        if (remplirData[0] === '') return
+        if (remplirData?.[0] === '') return
         remplirVide(div, remplirData)
         document.body.style.overflow = "hidden"
     }

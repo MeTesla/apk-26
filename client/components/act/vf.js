@@ -15,6 +15,7 @@ import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js';
 import { modalFinSession } from '../../utils.js'
 import { handleResultats, sliceScores, toast } from '../misc/utils.js';
+import { getProfile } from '../../utils/storage.js';
 
 export function vf(bloc, data, callBack) {
   // Pousser l'état pour le routage
@@ -179,11 +180,11 @@ if (index !== -1) {
       end: nbrSession
     }
     if (repondu.length == nbrQst) {
-
+      const profileScores = getProfile()?.resultats?.vf?.scores || []
       let resultatVF = {
         vf: {
           score: monScore / 10,
-          scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.vf.scores), monScore / 10],
+          scores: [...sliceScores(profileScores), monScore / 10],
           nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
           lastSession: questions
@@ -274,156 +275,6 @@ if (index !== -1) {
         </svg>
       </div>
    
-
-    <style>
-  .vrai-faux .progress-bar{
-      width:300px;
-      height: 10px;
-      border: 1px solid var(--secc);
-      position: relative;
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 15px auto;
-    }
-
-    .vrai-faux .progress{
-      position: absolute;
-      top: 0; left: 0;
-      height: 100%;
-      transition: .5s ease-out;
-      background-color: var(--comp);
-      width: 30%;
-    }
-
-  .vf-qst-container{
-    width: 90%;
-    height: 300px;
-    margin:  auto;
-    border-radius: 20px;
-  }
-
-  .question{
-    position: relative;
-    font-size: 1.2rem;
-    width: 100%;
-    height: 100px;
-    overflow: auto;
-    border: 1px solid var(--secc);
-    border-radius: 10px;
-    padding: 10px;
-    margin: 30px auto;
-    color: #333;
-  }
-  .question .ar{
-    position: absolute;
-    bottom: 10px; right: 10px;
-    width: 30px; height: 30px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .question .ar img{
-    width: 100%; height: 100%;
-
-  }
-  .question .ar:hover{
-    transform: rotateZ(-30deg);
-  }
-  .question .ar:active{
-    transform: scale(0.8);
-  }
-  .arabe{
-    display: none;}
-  
-  .choix{
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    font-size: 1.3rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: bolder;
-    margin-top: 60px;
-    
-  }
-  .vrai, .faux{
-    width: 40%;
-    height: 70px;
-    background-color: var(--secc);
-    color: var(--secf);
-    bborder: 2px solid var(--sec);
-    font-size: 1rem;
-    line-height: 70px;
-    text-align: center;
-    border-radius: 30px;
-  } 
-  .vrai:active,.faux:active{
-    ftransform : scale(0.98);
-    transition :.3s;
-  }
-
-  .selected{
-    background-color: var(--sec);
-    color: var(--pr);
-  }
-
-  .score{
-    font-size: 2rem;
-    margin:20px auto;
-    width: 10vh;
-    height: 10vh;
-    line-height: 10vh;
-    text-align: center;
-    border-radius: 50%;
-    border: 2px solid var(--comp);
-    color: var(--secf);
-  }
-
-  .vf-foot{
-    display: flex;
-    justify-content: center ;
-    align-items: center;
-    width: 100%;
-    height: 10vh;
-  }
-
-  .vf-foot .precedent, .vf-foot .suivant{
-    border-radius: 20px;
-    width: 20px;
-    height: 20px;
-    line-height: 40px;
-    text-align: center;
-    color:rgb(255, 255, 255);
-    margin: 0 20px;
-  }
-  .suivant, .precedent{
-    position: relative;
-  }
-  .suivant span, .precedent span{
-    display:none;
-    font-size: 9px;
-    position: absolute; bottom: 20px; right: 0;
-    border-radius: 10px;
-    height: 30px;
-    line-height: 30px;
-    width: 90px;
-    background-color: var(--secf);
-    color: var(--pr);
-    z-index: 10;
-  }
- 
-  .precedent span{
-    left: 0;  
-  }
-  .precedent svg, .suivant svg{
-    fill: var(--comp);
-  }
- .reponseCorrect{
-  background-color: var(--correct);
- }
- .reponseIncorrect{
-  background-color: var(--incorrect);
- }
-  </style>
 </div>`
     return html
   }

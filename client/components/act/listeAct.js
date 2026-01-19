@@ -24,18 +24,25 @@ function toast(msg) {
     close: true
   }).showToast();
 }
-// const url ='https://euduka.vercel.app/'
-const url = 'http://localhost:3000/'
+
+import { API_URL } from '../../config/env.js'
+import { safeFetch } from '../../utils/api.js'
 
 const vffData = async (exo) => {
-  const reponse = await fetch(url + `?exo=${exo}`, {
+  const result = await safeFetch(API_URL + `?exo=${exo}`, {
     headers: {
       "Content-Type": "application/json",
       authorization: localStorage.getItem('token') || ''
     }
   })
-  const data = await reponse.json()
-  if ((!reponse.ok) || (data == "accès interdit")) return modalLokedContent()
+  
+  if (!result.success) {
+    console.error('⚠️ Erreur chargement données:', result.error)
+    return modalLokedContent()
+  }
+  
+  const data = result.data
+  if (data === "accès interdit") return modalLokedContent()
 
   return data
 }

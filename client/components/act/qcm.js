@@ -12,7 +12,7 @@
 //             // Si l'état indique que le modal doit être ouvert
 //             document.body.appendChild(quizModal);
 //         } else {
-//             // Cache le modal (s'il est ouvert)
+//             // Cache le modal (s'il est ouvert))
 //             if (document.body.contains(quizModal)) {
 //                 document.body.removeChild(quizModal);
 //             }
@@ -27,6 +27,7 @@ import { modalFinSession } from '../../utils.js'
 import { confet } from '../misc/utils.js'
 import { handleResultats } from '../misc/utils.js'
 import { sliceScores } from '../misc/utils.js'
+import { getProfile } from '../../utils/storage.js'
 
 export function qcm(bloc, data, callBack = () => false) {
   // Pousser l'état pour le routage
@@ -211,10 +212,11 @@ export function qcm(bloc, data, callBack = () => false) {
       end: nbrSession
     }
     if (repondu.length == nbrQst) {
+      const profileScores = getProfile()?.resultats?.qcm?.scores || []
       let resultatQCM = {
         qcm: {
           score: monScore / 10,
-          scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.qcm.scores), monScore / 10],
+          scores: [...sliceScores(profileScores), monScore / 10],
           nbrQsts: nbrQst,
           date: new Date().toLocaleDateString('fr-FR'),
           lastSession: questions
@@ -281,146 +283,6 @@ export function qcm(bloc, data, callBack = () => false) {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/> </svg>
   </div>
  </div>
-
- <style>
-@ffont-face {
-  font-family: josefin;
-  src: url(../assets/fonts/josefin.ttf);
-}
-
-.quiz-container{
-  padding-bottom: 20px;
-}
-.q-head .progress-bar{
-   width:300px;
-   height: 10px;
-   border: 1px solid var(--secc);
-   position: relative;
-   border-radius: 10px;
-   overflow: hidden;
-   margin: auto;
-}
-
-.q-head .progress{
-  position: absolute;
-  top: 0; left: 0;
-  height: 100%;
-  width: 30%;
-  transition: .5s ease-out;
-  background-color: var(--comp);
-}
-
-.num-qst{
-  padding: 5px;
-  font-size: 1.2em;
-  text-align: center;
-  color: rgb(212, 212, 212);
-}
-.q-content{
-  width: 100%;
-}
-
-.qst{
-   font-size: 1.2rem;
-   margin: 15px auto;
-   padding: 15px;
-   color: var(--secf);
-   border: 1px solid var(--secc);
-   border-radius: 10px;
-   width: 90%;
-   min-height: 150px;
-}
-.les-choix{
-  height:180px;
-} 
-.c1, .c2, .c3{
-  color: var(--secf);
-  background-color: var(--pr);
-  border: 1px solid var(--comp);
-  width: 90%;
-  padding: 8px 15px ;
-  margin: 10px auto;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: .2s;
-}
-.c1:hover, .c2:hover, .c3:hover{
-  border: 1px solid #8482823e;
-}
-.selected{
-  color: var(--secf);
-  background-color: var(--secc);
-  border: 1px solid var(--comp);
- }
-
-.reponseCorrect{
-  background-color: var(--correct);
-}
-.reponseIncorrect{
-  background-color: var(--incorrect);
-}
-
-.score{
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: white;
-  margin: 10px auto;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  border-radius: 50%;
-  box-sizing: content-box;
-  border: 3px solid var(--sec);
-  color: var(--secf)
-}
-.q-foot{
-   display: flex;
-   justify-content: center ;
-   align-items: center;
-   margin: auto ;
-   width: 100%;
-}
-
-.q-foot .precedent, .q-foot .suivant{
-   border-radius: 20px;
-   width: 20px;
-   height: 20px;
-   line-height: 40px;
-   text-align: center;
-   margin: 0 20px;
-   background-repeat : no-repeat
-}
-
-.suivant, .precedent{
-  position: relative;
-  cursor: pointer;
-}
-.suivant span, .precedent span{
-  display:none;
-  font-size: 9px;
-  position: absolute; bottom: 20px; right: 0;
-  border-radius: 10px;
-  height: 30px;
-  line-height: 30px;
-  width: 90px;
-  background-color: var(--secf);
-  color: var(--pr);
-  z-index: 10;
-}
-
-.precedent span{
-  left: 0;  
-}
-
-.precedent svg, .suivant svg{
-  fill: var(--comp);
-}
-.center{
-  display: flex;
-}
-</style> 
 </section>`
     return html
   }

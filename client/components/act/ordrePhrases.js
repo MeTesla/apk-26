@@ -2,10 +2,15 @@ const l = console.log
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js'
 import { handleResultats, sliceScores } from '../misc/utils.js'
+import { getProfile } from '../../utils/storage.js'
+import { EventManager } from '../../utils/eventManager.js'
 
 export function ordrePhrases(bloc, data, callBack) {
    // Pousser l'état pour le routage
    history.pushState({ page: 'ordre-phrases' }, '', '/client/ordre-phrases');
+
+   // Gestionnaire d'événements avec cleanup automatique
+   const events = new EventManager()
 
    const div = document.createElement('div');
    div.classList.add('ordre-ph')
@@ -60,7 +65,7 @@ export function ordrePhrases(bloc, data, callBack) {
 
          progress.style.width = (100 / nbrPhrases) * (index + 1) + '%'
          bnRep.innerText = ""
-         span.addEventListener('click', (ev) => {
+         events.on(span, 'click', (ev) => {
             if (ev.target.parentElement == emetteur) {
                recepteur.appendChild(ev.target)
             } else {
@@ -105,10 +110,11 @@ export function ordrePhrases(bloc, data, callBack) {
          // Créer tableau où stocker les phrases de la session
          // score = monScore
          // Travailler au click sur suivant et non verifier
+         const profileScores = getProfile()?.resultats?.ordrePhrases?.scores || []
          let resultatOrdrePhrases = {
             ordrePhrases: {
                score: monScore / 10,
-               scores: [...sliceScores(JSON.parse(localStorage.getItem('profile')).resultats.ordrePhrases.scores), monScore / 10],
+               scores: [...sliceScores(profileScores), monScore / 10],
                nbrQsts: nbrPhrases + 1,
                date: new Date().toLocaleDateString('fr-FR'),
                lastSession: sessionPhrases
@@ -128,6 +134,7 @@ export function ordrePhrases(bloc, data, callBack) {
    }
 
    function reinitialiser() {
+      events.cleanup()
       emetteur.innerHTML = ""
       recepteur.innerHTML = ""
       resultat.style.bottom = "-100vh"

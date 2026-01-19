@@ -1,4 +1,7 @@
 import { creerCompte, toast } from './utils.js';
+import { validateLoginForm, sanitizeInput } from '../../utils/validation.js';
+import { safeFetchPost } from '../../utils/api.js';
+import { API_URL } from '../../config/env.js';
 
 export function login() {
   const div = document.createElement('div');
@@ -103,15 +106,26 @@ export function login() {
     e.preventDefault();
     const email = document.querySelector('.input-email').value;
     const password = document.querySelector('.input-pass').value;
-    // const url = 'https://euduka.vercel.app'      
-    const url = 'http://localhost:3000'
-    const reponse = await fetch(url + '/login', {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ email, password })
-    })
-    const data = await reponse.json()
-    if (data.success) {
+    
+    // 1️⃣ Valider formulaire
+    const validation = validateLoginForm({ email, password })
+    if (!validation.valid) {
+      const errorMsg = Object.values(validation.errors).join('\n')
+      toast(errorMsg)
+      return
+    }
+    
+    // 2️⃣ Nettoyer inputs
+    const cleanData = {
+      email: sanitizeInput(email, 254),
+      password: password // Ne pas échapper le mot de passe
+    }
+    
+    // 3️⃣ Envoyer données validées
+    const result = await safeFetchPost(API_URL + '/login', cleanData)
+    
+    if (result.success) {
+      const data = result.data
       localStorage.setItem('role', data.eleve.role)
       localStorage.setItem('token', data.eleve.token)
       console.log(data.eleve)
@@ -122,7 +136,10 @@ export function login() {
       toast("Connecté avec succès")
       setTimeout(() => window.location.reload(), 800)
     } else {
-      toast(data.message)
+      // Afficher message d'erreur détaillé
+      const errorMsg = result.error || 'Erreur de connexion'
+      toast(errorMsg)
+      console.error('Login failed:', result)
     }
   }
 }
@@ -202,7 +219,7 @@ export function mpdOublie(parent) {
   mdpConfirmer.addEventListener('click', async () => {
     const mdpOublieEmail = document.querySelector('.mdp-email').value
     try {
-      const reponse = await fetch('http://localhost:3000/mdp-oublie', {
+      const reponse = await fetch(API_URL + '/mdp-oublie', {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email: mdpOublieEmail })
@@ -382,7 +399,7 @@ export function adminLogin() {
     const password = document.querySelector('.input-pass').value;
     if (email && password) {
       try {
-        const reponse = await fetch('http://localhost:3000/admin/euduka/admin', {
+        const reponse = await fetch(API_URL + '/admin/euduka/admin', {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ email, password })

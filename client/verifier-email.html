@@ -34,10 +34,10 @@
         });
 
         async function verifierTokenEmail(token) {
-            const url = 'http://localhost:3000'
-            // const url ='https://euduka.vercel.app'
+            const API_URL = 'http://localhost:3000'
+            // const API_URL ='https://euduka.vercel.app'
             try {
-                const reponse = await fetch(url + '/verifier-email', {
+                const reponse = await fetch(API_URL + '/verifier-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

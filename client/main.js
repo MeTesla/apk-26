@@ -1,5 +1,6 @@
 const l = console.log
 
+import { API_URL } from './config/env.js'
 import { listeActDjc } from './djc/listeActDjc.js'
 import { listeActAntigone } from './antigone/listeActAntigone.js'
 import { listeAct } from './components/act/listeAct.js'
@@ -21,7 +22,7 @@ window.addEventListener("load", function () {
 })
 
 //-----------------Socket.io------------------------
-const socket = io('http://localhost:3000')
+const socket = io(API_URL)
 socket.on('liste', (liste) => {
   localStorage.setItem('liste', JSON.stringify(liste))
 })
