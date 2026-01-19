@@ -16,6 +16,8 @@ const loader = document.querySelector('.loader')
 window.addEventListener("load", function () {
   loader.style.display = "none";
   document.querySelector('.wrapper').style.display = "block"
+  // Initialiser l'état de base pour la SPA
+  history.replaceState({ page: 'home' }, '', '/client');
 })
 
 //-----------------Socket.io------------------------
@@ -26,13 +28,17 @@ socket.on('liste', (liste) => {
 
 //-----------------History API ----------------------
 window.addEventListener('popstate', (event) => {
-
-  //history.replaceState(event.state, "", "/");
-  // if (event.state && event.state.modal) {
-  //   div.style.display = 'block'; // Réaffiche le modal si on revient en arrière
-  // } else {
-  //   div.style.display = 'none'; // Cache le modal si on sort
-  // }
+  if (event.state && event.state.page !== 'home') {
+    // Fermer l'activité actuelle
+    const activityDiv = document.querySelector('.qcm, .vrai-faux, .vide, .ordre-ph, .ordre-events, .lecteur');
+    if (activityDiv) {
+      activityDiv.remove();
+    }
+  }
+  // Remettre l'état à home si nécessaire
+  if (!event.state || event.state.page === 'home') {
+    history.replaceState({ page: 'home' }, '', '/client');
+  }
 });
 
 // -------------------Menu-------------------------------

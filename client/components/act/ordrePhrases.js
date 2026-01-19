@@ -4,6 +4,9 @@ import { entete } from '../misc/entete.js'
 import { handleResultats, sliceScores } from '../misc/utils.js'
 
 export function ordrePhrases(bloc, data, callBack) {
+   // Pousser l'état pour le routage
+   history.pushState({ page: 'ordre-phrases' }, '', '/client/ordre-phrases');
+
    const div = document.createElement('div');
    div.classList.add('ordre-ph')
    div.innerHTML = htmlCode()

@@ -29,6 +29,9 @@ import { handleResultats } from '../misc/utils.js'
 import { sliceScores } from '../misc/utils.js'
 
 export function qcm(bloc, data, callBack = () => false) {
+  // Pousser l'état pour le routage
+  history.pushState({ page: 'qcm' }, '', '/client/qcm');
+
   const div = document.createElement('div')
   div.innerHTML = codeHtml()
   div.classList.add('qcm')

@@ -159,6 +159,9 @@ const phrases = [
 
 const l = console.log
 export function qcmFigures(bloc) {
+  // Pousser l'état pour le routage
+  history.pushState({ page: 'figures' }, '', '/client/figures');
+
   const div = document.createElement('div')
   div.innerHTML = codeHtml()
   div.classList.add('qcm')

@@ -5,6 +5,9 @@ import { handleResultats, sliceScores } from '../misc/utils.js'
 const l = console.log
 
 export function remplirVide(bloc, data, callBack) {
+  // Pousser l'état pour le routage
+  history.pushState({ page: 'remplir' }, '', '/client/remplir');
+
   let texteTmp = {}
   const div = document.createElement('div');
   div.classList.add('vide')
@@ -133,7 +136,7 @@ export function remplirVide(bloc, data, callBack) {
 
   // Boutton Suivant 
   suivant.addEventListener('click', () => {
-    if(data.length===1) return
+    if (data.length === 1) return
     if (index < nbrTextes) {
       reinitialiser()
     } else {
@@ -301,7 +304,7 @@ export function remplirVide(bloc, data, callBack) {
   </style>`
     return html
   }
- 
+
 } // fin fonction
 
 //remplirVide pass paramètre à handleResultats(nbrCorrect, nbrTotal)

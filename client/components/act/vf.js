@@ -17,6 +17,9 @@ import { modalFinSession } from '../../utils.js'
 import { handleResultats, sliceScores, toast } from '../misc/utils.js';
 
 export function vf(bloc, data, callBack) {
+  // Pousser l'état pour le routage
+  history.pushState({ page: 'vf' }, '', '/client/vf');
+
   const div = document.createElement('div')
   div.setAttribute('class', 'vrai-faux')
   div.innerHTML = codeHTML();
