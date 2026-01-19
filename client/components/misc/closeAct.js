@@ -1,21 +1,22 @@
-export function closeAct(el){
-  const div=document.createElement('div')
-  div.innerHTML= codeHTML();
+export function closeAct(el) {
+  const div = document.createElement('div')
+  div.innerHTML = codeHTML();
   el.appendChild(div);
-  
+
   // معززة هادي MIRACLE
-  let oui=document.querySelector('.oui')
-  let non=document.querySelector('.non')
-  
-  oui.addEventListener('click', ()=> {
-    el.style.animation="close .3s"
-    setTimeout(()=> {el.remove()},200)
+  let oui = document.querySelector('.oui')
+  let non = document.querySelector('.non')
+
+  oui.addEventListener('click', () => {
+    //history.pushState({ modal: false }, '', '/client'); // Remet l'URL à l'original;
+    el.style.animation = "close .3s"
+    setTimeout(() => { el.remove() }, 200)
   })
-  non.addEventListener('click', ()=> {
-    div.style.animation="close .6s"
-    setTimeout(()=>{div.remove()}, 500)
+  non.addEventListener('click', () => {
+    div.style.animation = "close .6s"
+    setTimeout(() => { div.remove() }, 500)
   })
-    function codeHTML(){
+  function codeHTML() {
     const html = `<div class="fermer">
       <div class="modal">
       <div class="msg">
@@ -76,36 +77,36 @@ export function closeAct(el){
       </style>
     </div>`
     return html;
-    } 
-    return div.innerHTML
   }
+  return div.innerHTML
+}
 
-  export function homeAct(el) {
-    const div = document.createElement('div')
-    div.innerHTML = codeHTML();
-    el.appendChild(div);
+export function homeAct(el) {
+  const div = document.createElement('div')
+  div.innerHTML = codeHTML();
+  el.appendChild(div);
 
 
-    console.log(el);
-    
-    // معززة هادي MIRACLE
-    let oui = document.querySelector('.oui')
-    let non = document.querySelector('.non')
+  console.log(el);
 
-    oui.addEventListener('click', () => {
-      
-      
-      setTimeout(() => {
+  // معززة هادي MIRACLE
+  let oui = document.querySelector('.oui')
+  let non = document.querySelector('.non')
+
+  oui.addEventListener('click', () => {
+
+
+    setTimeout(() => {
       location.assign('./index.html')
-      }, 100)
-    })
-    non.addEventListener('click', () => {
-      div.style.animation = "close .6s"
-      setTimeout(() => { div.remove() }, 500)
-    })
+    }, 100)
+  })
+  non.addEventListener('click', () => {
+    div.style.animation = "close .6s"
+    setTimeout(() => { div.remove() }, 500)
+  })
 
-    function codeHTML() {
-      const html = `<div class="fermer">
+  function codeHTML() {
+    const html = `<div class="fermer">
         <div class="modal">
         <div class="msg">
           <div>Voulez-vous revenir à la page d'accueil ?</div>
@@ -163,7 +164,7 @@ export function closeAct(el){
         }
         </style>
       </div>`
-      return html;
-    }
-    return div.innerHTML
+    return html;
   }
+  return div.innerHTML
+}

@@ -24,6 +24,17 @@ socket.on('liste', (liste) => {
   localStorage.setItem('liste', JSON.stringify(liste))
 })
 
+//-----------------History API ----------------------
+window.addEventListener('popstate', (event) => {
+
+  //history.replaceState(event.state, "", "/");
+  // if (event.state && event.state.modal) {
+  //   div.style.display = 'block'; // Réaffiche le modal si on revient en arrière
+  // } else {
+  //   div.style.display = 'none'; // Cache le modal si on sort
+  // }
+});
+
 // -------------------Menu-------------------------------
 const menu = document.querySelector('.nav .menu')
 generateMenu(localStorage.getItem('role'), menu, menu)

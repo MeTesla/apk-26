@@ -374,7 +374,8 @@ export function adminLogin() {
   const adminLoginForm = document.querySelector('.form-login')
   const btnLogin = document.querySelector('.btn-login');
   const btnAnnuler = document.querySelector('.btn-annuler');
-  const tableBody= document.querySelector('table tbody')
+  const tableBody = document.querySelector('table tbody')
+
   btnLogin.onclick = async function (e) {
     e.preventDefault();
     const email = document.querySelector('.input-email').value;
@@ -392,43 +393,46 @@ export function adminLogin() {
 
         if (data.success) {
           toast(data.message)
+          console.log(data.data);
 
           adminLoginForm.style.display = "none"
           document.querySelector('table').style.display = "table"
 
-          data.data.map((elv)=>{
-            const tr= document.createElement('tr')
-            tr.className=elv.role=='registred'?'registred':'recu'
+          data.data.map((elv) => {
+            const tr = document.createElement('tr')
+            tr.className = elv.role == 'registred' ? 'registred' : 'recu'
             tr.innerHTML = `<td>${elv.nom}</td><td>${elv.prenom}</td>
             <td>${elv.email}</td>
             <td>
-              <div class="type-compte">${elv.role=='registred'?'Basic':'En attente'}</div>
+              <div class="type-compte">${elv.role == 'registred' ? 'Basic' : 'En attente'}</div>
               <div class="more"><img src="./assets/img/more.png" alt=""></div>
             </td>`
             tableBody.appendChild(tr)
           })
           const moreBtns = document.querySelectorAll('td .more')
           moreBtns.forEach((more, index) => {
-            more.addEventListener('click', () => {              
-              !document.querySelector('.menu-more') && showMoreModal(adminLoginFormContainer, index,data.data)   
+            more.addEventListener('click', () => {
+
+
+              !document.querySelector('.menu-more') && showMoreModal(adminLoginFormContainer, index, data.data)
             })
           })
-        } else { 
-          toast(data.message) 
+        } else {
+          toast(data.message)
         }
       } catch (error) {
         console.log(error.message)
-        
+
       }
 
     }
   }
 }
 
-function showMoreModal(bloc, index, data){
-    const div = document.createElement('div')
-    div.className = "menu-more"
-    div.innerHTML = `<div class="menu-more-container">
+function showMoreModal(bloc, index, data) {
+  const div = document.createElement('div')
+  div.className = "menu-more"
+  div.innerHTML = `<div class="menu-more-container">
     <div class="menu-more-close">
         <img src="./assets/img/times.svg" alt="">
     </div>
@@ -456,7 +460,7 @@ function showMoreModal(bloc, index, data){
             <div class="show-img">
               <img src= "./assets/img/reçu.jpg" alt="qsd" />
             </div>
-            <div class="devenir-premium">
+            <div class="devenir-premium ${data[index].role === 'attenteR' ? 'hide-devenir-premium' : null}">
               Premium
             </div>
 
@@ -464,6 +468,7 @@ function showMoreModal(bloc, index, data){
     </div>
 </div>
 <style>
+    .hide-devenir-premium{display:none}
     .menu-more-close {
         display: flex;
         justify-content: flex-end;
@@ -557,45 +562,45 @@ function showMoreModal(bloc, index, data){
       background-color: rgb(161, 222, 189);
       cursor: pointer;
       }
-    </style>`     
-    bloc.appendChild(div)
+    </style>`
+  bloc.appendChild(div)
 
-    const menuMoreClose = document.querySelector('.menu-more-close')
-    menuMoreClose.addEventListener('click',()=>{
-        div.remove()
-    })
+  const menuMoreClose = document.querySelector('.menu-more-close')
+  menuMoreClose.addEventListener('click', () => {
+    div.remove()
+  })
 
-    // const uploadImgInput = document.querySelector('.label-upload');
-    // const showImg = document.querySelector('.show-img');
-    // showImg.addEventListener('click', () => {
-    //     console.log('qsdfiari');
-        
-    // })
-    // console.log(typeof(uploadImgInput));
-    
-    // uploadImgInput.addEventListener('change', function (event) {
-    //   const file = event.target.files[0];
-    //   if (file) {
-    //       const reader = new FileReader();
-    //       reader.onload = function (e) {
-    //           // Créer une nouvelle image et l'ajouter au conteneur
-    //           const img = document.createElement('img');
-    //           img.src = e.target.result;
-    //           img.className = 'img-uploaded'; // Vider le conteneur
-    //           if (showImg.children.length >= 1) { showImg.innerHTML = '' }
-    //           showImg.appendChild(img); // Ajouter l'image
-    //           console.log()
-    //           img.addEventListener('click', () => {
-    //               //show modal image
-    //               img.classList.contains('img-full') ?
-    //                   img.classList.remove('img-full') :
-    //                   img.classList.add('img-full')
-    //           })
-    //       };
-    //       reader.readAsDataURL(file);
-    //   }
-    // });
-    
+  // const uploadImgInput = document.querySelector('.label-upload');
+  // const showImg = document.querySelector('.show-img');
+  // showImg.addEventListener('click', () => {
+  //     console.log('qsdfiari');
 
-    
+  // })
+  // console.log(typeof(uploadImgInput));
+
+  // uploadImgInput.addEventListener('change', function (event) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //       const reader = new FileReader();
+  //       reader.onload = function (e) {
+  //           // Créer une nouvelle image et l'ajouter au conteneur
+  //           const img = document.createElement('img');
+  //           img.src = e.target.result;
+  //           img.className = 'img-uploaded'; // Vider le conteneur
+  //           if (showImg.children.length >= 1) { showImg.innerHTML = '' }
+  //           showImg.appendChild(img); // Ajouter l'image
+  //           console.log()
+  //           img.addEventListener('click', () => {
+  //               //show modal image
+  //               img.classList.contains('img-full') ?
+  //                   img.classList.remove('img-full') :
+  //                   img.classList.add('img-full')
+  //           })
+  //       };
+  //       reader.readAsDataURL(file);
+  //   }
+  // });
+
+
+
 }

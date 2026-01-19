@@ -34,22 +34,16 @@ export function qcm(bloc, data, callBack = () => false) {
   div.classList.add('qcm')
   bloc.appendChild(div)
 
-  history.pushState({ modal: true }, '', '/client/quiz'); // Change l'URL
-  // Gestionnaire d'événements pour la navigation avec le bouton "Précédent"
-  window.addEventListener('popstate', (event) => {
-    if (event.state && event.state.modal) {
-      div.style.display = 'block'; // Réaffiche le modal si on revient en arrière
-    } else {
-      div.style.display = 'none'; // Cache le modal si on sort
-    }
-  });
+
+
+
   // entete close / home
   let home = document.querySelector('.home')
   home.onclick = () => { homeAct(div) }
 
   let close = document.querySelector('.close')
   close.onclick = () => {
-    history.pushState({ modal: false }, '', '/client'); // Remet l'URL à l'original;
+    // history.pushState({ modal: false }, '', '/client'); // Remet l'URL à l'original;
     closeAct(div);
   }
 

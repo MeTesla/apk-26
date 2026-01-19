@@ -22,6 +22,9 @@ export function vf(bloc, data, callBack) {
   div.innerHTML = codeHTML();
   bloc.appendChild(div);
 
+  // --- ROUTE
+  // history.pushState({ modal: true }, '', '/client/vrai-faux'); // Change l'URL
+
   // Home & Close buttons 
   const home = document.querySelector('.home')
   home.onclick = () => { homeAct(div) }
