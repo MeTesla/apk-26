@@ -169,11 +169,11 @@ export function generateMenu(typeAccount, pere, menu) {
     case 'attenteR':
       div.innerHTML = `<div>
         <div>
-          <img src="./assets/img/verifyEmail.png" />
+          <img src="/client/assets/img/verifyEmail.png" />
           <span>En attente</span>
         </div>
         <div class="annuler">
-          <img src="./assets/img/annuler.png" />
+          <img src="/client/assets/img/annuler.png" />
           <span>Annuler</span>
         </div>
         </div>`
@@ -181,19 +181,19 @@ export function generateMenu(typeAccount, pere, menu) {
     case 'registred':
       div.innerHTML = `<div class="registred">
             <div class="premium">
-              <img src="./assets/img/diamond.png" />
+              <img src="/client/assets/img/diamond.png" />
               <span>Premium</span>
             </div>           
             <div class="free-mins">
-              <img src="./assets/img/freeMins.png" />
+              <img src="/client/assets/img/freeMins.png" />
               <span>+10 minutes</span>
             </div>  
             <div class="menu-profile">
-              <img src="./assets/img/profile.png" />
+              <img src="/client/assets/img/profile.png" />
               <span>Profile</span>
             </div>
             <div class="menu-logout">
-              <img src="./assets/img/logout.png" />
+              <img src="/client/assets/img/logout.png" />
               <span class="logout">Se déconnecter</span>
             </div>
           </div>`
@@ -209,11 +209,11 @@ export function generateMenu(typeAccount, pere, menu) {
       div.innerHTML = `
         <div class="menu-compte">
           <div class="creer-compte">
-            <img src="./assets/img/creerCompte.png" />
+            <img src="/client/assets/img/creerCompte.png" />
             <span>Créer un compte</span>
           </div>
           <div class="login">
-            <img src="./assets/img/login.png" />
+            <img src="/client/assets/img/login.png" />
             <span>Login</span>          
           </div>
         </div>`

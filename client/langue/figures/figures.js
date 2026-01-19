@@ -159,8 +159,6 @@ const phrases = [
 
 const l = console.log
 export function qcmFigures(bloc) {
-  // Pousser l'état pour le routage
-  history.pushState({ page: 'figures' }, '', '/client/figures');
 
   const div = document.createElement('div')
   div.innerHTML = codeHtml()
@@ -300,7 +298,7 @@ export function qcmFigures(bloc) {
         <div class="explication">
           <div class="explication-msg"> </div>
           <div class="suivant">
-            <img src="./assets/img/next.svg" alt="suivant">
+            <img src="/client/assets/img/next.svg" alt="suivant">
           </div>
         </div>
         
@@ -314,7 +312,7 @@ export function qcmFigures(bloc) {
 .fermerImg{
   width: 30px;
   height: 30px;
-  background: url('../../assets/img/home.svg');
+  background: url('/client/assets/img/home.svg');
   background-repeat: no-repeat;
   background-size: contain;
 }

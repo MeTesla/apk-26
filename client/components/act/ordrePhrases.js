@@ -6,9 +6,6 @@ import { getProfile } from '../../utils/storage.js'
 import { EventManager } from '../../utils/eventManager.js'
 
 export function ordrePhrases(bloc, data, callBack) {
-   // Pousser l'état pour le routage
-   history.pushState({ page: 'ordre-phrases' }, '', '/client/ordre-phrases');
-
    // Gestionnaire d'événements avec cleanup automatique
    const events = new EventManager()
 

@@ -35,7 +35,7 @@ const wrapper = document.querySelector('.wrapper')
 
 export function listeActDjc(bloc) {
   document.body.style.overflow = 'hidden';
-  const html = `<img class="index" src ="./assets/img/previous.svg"></svg>
+  const html = `<img class="index" src ="/client/assets/img/previous.svg"></svg>
  
  <div class="list">
  <li class="list-elements lst-lire">Lire le roman</li>

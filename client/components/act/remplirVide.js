@@ -7,9 +7,6 @@ import { EventManager } from '../../utils/eventManager.js'
 const l = console.log
 
 export function remplirVide(bloc, data, callBack) {
-  // Pousser l'état pour le routage
-  history.pushState({ page: 'remplir' }, '', '/client/remplir');
-
   // Gestionnaire d'événements avec cleanup automatique
   const events = new EventManager()
 

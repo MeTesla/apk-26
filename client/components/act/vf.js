@@ -18,8 +18,7 @@ import { handleResultats, sliceScores, toast } from '../misc/utils.js';
 import { getProfile } from '../../utils/storage.js';
 
 export function vf(bloc, data, callBack) {
-  // Pousser l'état pour le routage
-  history.pushState({ page: 'vf' }, '', '/client/vf');
+
 
   const div = document.createElement('div')
   div.setAttribute('class', 'vrai-faux')
@@ -27,7 +26,7 @@ export function vf(bloc, data, callBack) {
   bloc.appendChild(div);
 
   // --- ROUTE
-  // history.pushState({ modal: true }, '', '/client/vrai-faux'); // Change l'URL
+
 
   // Home & Close buttons 
   const home = document.querySelector('.home')

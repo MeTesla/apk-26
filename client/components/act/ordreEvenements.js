@@ -20,9 +20,6 @@ App's logic
 const l = console.log
 
 export function ordreEvenements(bloc, data) {
-  // Pousser l'état pour le routage
-  history.pushState({ page: 'ordre-evenements' }, '', '/client/ordre-evenements');
-
   const div = document.createElement('div');
   div.classList.add('ordre-events');
   div.innerHTML = code();

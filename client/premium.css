@@ -345,7 +345,7 @@ body {
   border: 1px solid white;
   border-radius: 20px;
   padding: 20px 50px;
-  /* background: url(./assets/img/cinquente.webp); */
+  /* background: url(/client/assets/img/cinquente.webp); */
   background-size: cover;
   /* color: black; */
 }
@@ -358,7 +358,7 @@ body {
   top: -20px;
   right: -20px;
   box-shadow: 0 0 5px gray, 0 0 10px white;
-  background: url(./assets/img/cinquente.webp);
+  background: url(/client/assets/img/cinquente.webp);
   background-size: cover;
   background-repeat: no-repeat;
   color: rgb(4, 77, 0);

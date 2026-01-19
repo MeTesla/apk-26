@@ -8,8 +8,6 @@ export function closeAct(el) {
   let non = document.querySelector('.non')
 
   oui.addEventListener('click', () => {
-    // Remettre l'état à home pour le routage
-    history.replaceState({ page: 'home' }, '', '/client');
     el.style.animation = "close .3s"
     setTimeout(() => { el.remove() }, 200)
   })

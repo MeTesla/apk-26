@@ -17,8 +17,7 @@ const loader = document.querySelector('.loader')
 window.addEventListener("load", function () {
   loader.style.display = "none";
   document.querySelector('.wrapper').style.display = "block"
-  // Initialiser l'état de base pour la SPA
-  history.replaceState({ page: 'home' }, '', '/client');
+
 })
 
 //-----------------Socket.io------------------------
@@ -27,20 +26,7 @@ socket.on('liste', (liste) => {
   localStorage.setItem('liste', JSON.stringify(liste))
 })
 
-//-----------------History API ----------------------
-window.addEventListener('popstate', (event) => {
-  if (event.state && event.state.page !== 'home') {
-    // Fermer l'activité actuelle
-    const activityDiv = document.querySelector('.qcm, .vrai-faux, .vide, .ordre-ph, .ordre-events, .lecteur');
-    if (activityDiv) {
-      activityDiv.remove();
-    }
-  }
-  // Remettre l'état à home si nécessaire
-  if (!event.state || event.state.page === 'home') {
-    history.replaceState({ page: 'home' }, '', '/client');
-  }
-});
+
 
 // -------------------Menu-------------------------------
 const menu = document.querySelector('.nav .menu')

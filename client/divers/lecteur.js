@@ -15,8 +15,6 @@ import { chapitre11 } from '../../bd/roman/chapitre11.js'
 import { chapitre12 } from '../../bd/roman/chapitre12.js'
 
 export function lecteur(n) {
-  // Pousser l'état pour le routage
-  history.pushState({ page: 'lecteur' }, '', '/client/lecteur');
   const lect = document.createElement('div')
   lect.classList.add('lecteur')
   lect.innerHTML = codeHtml()
@@ -133,9 +131,9 @@ export function lecteur(n) {
     const html = `${entete(n)}
  <div class="r-container">
   <div class="controls-h hide">
-   <span class="m"><img src="./assets/img/minus.svg" alt="minus"></span>
-   <span class="p"><img src="./assets/img/plus.svg" alt=""></span>
-   <span class="dots"><img src="./assets/img/dots.svg" alt=""></span>
+   <span class="m"><img src="/client/assets/img/minus.svg" alt="minus"></span>
+   <span class="p"><img src="/client/assets/img/plus.svg" alt=""></span>
+   <span class="dots"><img src="/client/assets/img/dots.svg" alt=""></span>
   </div>
   
  <div class="r-content">  </div>

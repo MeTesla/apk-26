@@ -30,8 +30,7 @@ import { sliceScores } from '../misc/utils.js'
 import { getProfile } from '../../utils/storage.js'
 
 export function qcm(bloc, data, callBack = () => false) {
-  // Pousser l'état pour le routage
-  history.pushState({ page: 'qcm' }, '', '/client/qcm');
+
 
   const div = document.createElement('div')
   div.innerHTML = codeHtml()
@@ -47,7 +46,7 @@ export function qcm(bloc, data, callBack = () => false) {
 
   let close = document.querySelector('.close')
   close.onclick = () => {
-    // history.pushState({ modal: false }, '', '/client'); // Remet l'URL à l'original;
+
     closeAct(div);
   }
 

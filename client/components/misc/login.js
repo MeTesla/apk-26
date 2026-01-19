@@ -422,7 +422,7 @@ export function adminLogin() {
             <td>${elv.email}</td>
             <td>
               <div class="type-compte">${elv.role == 'registred' ? 'Basic' : 'En attente'}</div>
-              <div class="more"><img src="./assets/img/more.png" alt=""></div>
+              <div class="more"><img src="/client/assets/img/more.png" alt=""></div>
             </td>`
             tableBody.appendChild(tr)
           })
@@ -451,7 +451,7 @@ function showMoreModal(bloc, index, data) {
   div.className = "menu-more"
   div.innerHTML = `<div class="menu-more-container">
     <div class="menu-more-close">
-        <img src="./assets/img/times.svg" alt="">
+        <img src="/client/assets/img/times.svg" alt="">
     </div>
 
     <div class="details">
@@ -469,13 +469,13 @@ function showMoreModal(bloc, index, data) {
             <!-- form>
                 <input type="file" accept="image/*" style="display: none;" name="upload-img" id="upload-img">
                 <label for="upload-img" class="label-upload" >
-                    <img class="upload-icon" src="./assets/img/upload-image.png" alt="">
+                    <img class="upload-icon" src="/client/assets/img/upload-image.png" alt="">
                 </label>
             </form -->
             <div class="libel-img-recu">L'image du reçu </div>
 
             <div class="show-img">
-              <img src= "./assets/img/reçu.jpg" alt="qsd" />
+              <img src= "/client/assets/img/reçu.jpg" alt="qsd" />
             </div>
             <div class="devenir-premium ${data[index].role === 'attenteR' ? 'hide-devenir-premium' : null}">
               Premium
