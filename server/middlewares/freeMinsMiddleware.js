@@ -1,8 +1,7 @@
 const express = require('express')
 const EleveModel = require('../models/EleveModel')
 const jwt = require('jsonwebtoken')
-
-const SECRET_KEY = 'mkljaz_çè(__j'
+const config = require('../config/env')
 
 //+10 mintues Middleware & route
 const freeMinsMiddleware = async (req, res, next) => {
@@ -80,7 +79,7 @@ const freeMinsMiddleware = async (req, res, next) => {
         })
     }
 
-    jwt.verify(token, SECRET_KEY, (err, user) => {
+    jwt.verify(token, config.SECRET_KEY, (err, user) => {
         if (err && err.name === "TokenExpiredError") {
             next();
         }

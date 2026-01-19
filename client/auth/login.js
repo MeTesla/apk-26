@@ -1,60 +1,90 @@
-const l=console.log
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  
-  const firebaseConfig = {
-    apiKey: "AIzaSyB7ZEZqKD_tc6sKHkYs7DXnoLNn62RiZBs",
-    authDomain: "eudukabam.firebaseapp.com",
-    databaseURL: "https://eudukabam-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "eudukabam",
-    storageBucket: "eudukabam.appspot.com",
-    messagingSenderId: "583629574211",
-    appId: "1:583629574211:web:376ee3afcc3777a1ba44f6"
-  };
+const l = console.log;
 
-  const app = initializeApp(firebaseConfig);
-  import {getDatabase, ref, set, child, get} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"
-  const db = getDatabase()
-  // -------------------- Authentication ----------------
-   export function authenticateUser(){
-    const dbref = ref(getDatabase())
-    
-    get(child(dbref, "userList/Hakim")).then((snapshot)=>{   
-      let dbName = snapshot.val().username
-      if(dbName!=="Hakim"){location.assign("https://www.google.com") }
-        else{ 
-          document.body.style.opacity="1"
-          console.log('connected')  }
+// ⚠️ DEPRECATED: Firebase client-side code has been moved to backend
+// All Firebase operations now go through Express routes in server/routes/firebaseRoutes.js
+
+/**
+ * Authenticate user via backend
+ * @deprecated Uses backend route instead of direct Firebase
+ */
+export async function authenticateUser() {
+  try {
+    const API_URL = 'http://localhost:3000'; // or use from config/env.js
+
+    const response = await fetch(`${API_URL}/api/firebase/authenticate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: 'Hakim' // Hardcoded for now, adjust as needed
       })
-      .catch((error)=>{
-        location.assign("./figures.html")
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      document.body.style.opacity = '1';
+      console.log('✅ Connected:', data.message);
+      return true;
+    } else {
+      console.error('❌ Authentication failed:', data.message);
+      location.assign('https://www.google.com');
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Authentication error:', error);
+    location.assign('./figures.html');
+    return false;
+  }
+}
+
+/**
+ * Submit user suggestions via backend
+ * @deprecated Uses backend route instead of direct Firebase
+ */
+export async function userSuggests(nom, suggest) {
+  try {
+    if (!nom.value || !suggest.value) {
+      alert('Veuillez remplir tous les champs');
+      return;
+    }
+
+    const API_URL = 'http://localhost:3000'; // or use from config/env.js
+
+    const response = await fetch(`${API_URL}/api/firebase/suggestions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nom: nom.value,
+        suggestion: suggest.value
       })
-   }
+    });
 
-export function userSuggests(nom, suggest){
-    const dbRef= ref(db)
-    get(child(dbRef, "suggestions/" + nom.value))
-    .then(()=>{
-            set(ref(db, "suggestions/" + nom.value),{
-                nom: nom.value,
-                suggestion: suggest.value,
-            })
-    .then(()=>{
-                alert("Merci, votre suggestion a été bien envoyé")
-            })
-    .then(()=>{
-            viderchamps()
-            })
-    .catch((error)=>{
-                alert("error" + error)
-            })
-        
-    })// fin first then
-}
-     //-----------------Register user in Firebase --------------------
+    const data = await response.json();
 
-   
-const viderchamps=()=>{
-    nom.value=""
-    suggest.value=""
+    if (data.success) {
+      alert('✅ Merci, votre suggestion a été bien envoyée');
+      viderchamps();
+    } else {
+      alert('❌ Erreur: ' + (data.message || 'Unknown error'));
+    }
+  } catch (error) {
+    console.error('❌ Suggestion error:', error);
+    alert('❌ Erreur lors de l\'envoi: ' + error.message);
+  }
 }
+
+/**
+ * Clear form fields
+ */
+const viderchamps = () => {
+  const nom = document.getElementById('nom');
+  const suggest = document.getElementById('suggest');
+  if (nom) nom.value = '';
+  if (suggest) suggest.value = '';
+};
+
 

@@ -235,12 +235,9 @@
 
 .choix {
   display: flex;
-  justify-content: center;
-  gap: 30px;
-  font-size: 1.3rem;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: bolder;
-  margin-top: 60px;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;  
 }
 
 .vrai,

@@ -1,28 +1,26 @@
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken')
-
-const SECRET_KEY = 'mkljaz_çè(__j'
+const config = require('./config/env')
 
 // postEmail
 async function postEmail(req, res, nom, prenom, email, token, message = "", pageHtml = 'verifier-email',) {
     // Configuration du transporteur Nodemailer
     const transporter = nodemailer.createTransport({
-        service: 'gmail', // ou un autre service de messagerie
+        service: config.EMAIL_SERVICE,
         auth: {
-            user: 'pookarim@gmail.com', // votre adresse email
-            pass: 'ynsl tthr kcoq hpdg' // votre mot de passe ou un mot de passe d'application
+            user: config.EMAIL_USER,
+            pass: config.EMAIL_PASS
         },
         tls: {
             rejectUnauthorized: false // Ignorer les erreurs de certificat
         }
     });
     //const { to, subject, text } = req.body;
-    //<h1><a href="http://localhost:5500/client/verifier-email.html?token=${token}">Valider votre Email </a></h1>
-    // const client = "https://euduka.page.gd"
-    const client = "http://localhost:5500/client"
+    //<h1><a href="${config.CLIENT_URL}/verifier-email.html?token=${token}">Valider votre Email </a></h1>
+    const client = config.CLIENT_URL
     const mailOptions = {
-        from: 'pookarim@gmail.com',
-        to: 'pookarim@gmail.com',
+        from: config.EMAIL_USER,
+        to: config.EMAIL_USER,
         subject: 'Mot de passe',
         html: `<div style="border: 1px solid gray;border-radius: 20px; width: 70%; margin: auto; padding: 50px;">
             <p style="font-size:1.2rem; "> Bonjour ${nom + ' ' + prenom}</p>
@@ -99,7 +97,7 @@ function prepareData(exo) {
 
 // Generate TOKEN
 function generateToken(email, expire) {
-    return jwt.sign({ email }, SECRET_KEY, { expiresIn: `${expire}m` })
+    return jwt.sign({ email }, config.SECRET_KEY, { expiresIn: `${expire}m` })
 }
 
 module.exports = { postEmail, prepareData, generateToken }

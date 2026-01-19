@@ -1,9 +1,8 @@
 const { postEmail, generateToken, prepareData } = require('../utils')
 const jwt = require('jsonwebtoken')
 const EleveModel = require('../models/EleveModel')
+const config = require('../config/env')
 // const { prepareData } = require('../utiles')
-
-const SECRET_KEY = 'mkljaz_çè(__j'
 
 const creerCompte = async (req, res) => {
     const { nom, prenom, email, tel } = req.body
@@ -41,7 +40,7 @@ const creerCompte = async (req, res) => {
 const verifierEmail = async (req, res) => {
     //AJOUTER : Votre compte est déjà activé. ne rien faire.
     const { token } = req.body
-    jwt.verify(token, SECRET_KEY, (err, user) => {
+    jwt.verify(token, config.SECRET_KEY, (err, user) => {
         if (err) {
             return res.json({
                 // navigateur: envoyer role:''

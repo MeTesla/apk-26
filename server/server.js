@@ -1,6 +1,7 @@
 const { postEmail, prepareData, generateToken } = require('./utils');
 const express = require('express')
 const mongoose = require('mongoose')
+const config = require('./config/env')
 
 // const EleveModel = require('./models/EleveModel')
 
@@ -12,6 +13,7 @@ app.use(express.json())
 
 // Routes
 const router = require('./routes/routeEleve')
+const firebaseRouter = require('./routes/firebaseRoutes')
 
 
 // Socket.IO
@@ -22,21 +24,15 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
-            'https://euduka.vercel.app', 'https://euduka.page.gd',
-            'http://localhost:5500'
-        ]
+        origin: config.CORS_ORIGINS
     }
 })
 app.use(cors({
-    // ne pas mettre '/' à la fin de l'origine
-    origin: ['http://127.0.0.1:5500', 'http://localhost:3000',
-        'https://euduka.vercel.app', 'https://euduka.page.gd',
-        'http://localhost:5500'
-    ]
+    origin: config.CORS_ORIGINS
 }))
 
 app.use('/', router)
+app.use('/api/firebase', firebaseRouter)
 
 
 // Test EJS HTML engine.
@@ -71,9 +67,6 @@ app.post('/admin/euduka/admin', async (req, res) => {
     */
 });
 
-const SECRET_KEY = 'mkljaz_çè(__j'
-const URL = `mongodb+srv://pookarim:UJyLoPjoP0UjbruY@notesapp.prtaxaf.mongodb.net/test?ssl=true&authSource=admin&w=majority`
-
 //delete all documents
 app.delete('/delete', async (req, res) => {
     const delet = await EleveModel.deleteMany({});
@@ -81,7 +74,7 @@ app.delete('/delete', async (req, res) => {
 })
 
 // BD connexion
-mongoose.connect(URL)
+mongoose.connect(config.MONGODB_URL)
     .then(() => {
         console.log('Connexion à la base de données réussie !');
     })
@@ -89,10 +82,9 @@ mongoose.connect(URL)
         console.error('Erreur de connexion à la base de données :', err);
     });
 
-const url = '3000'
 // const url='https://euduka.vercel.app'
-server.listen(url, () => {
-    console.log('Connected to server');
+server.listen(config.PORT, () => {
+    console.log(`✅ Server listening on port ${config.PORT}`);
 })
 
 

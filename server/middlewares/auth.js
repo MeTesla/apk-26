@@ -1,7 +1,7 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
+const config = require('../config/env')
 
-const SECRET_KEY = 'mkljaz_çè(__j'
 const auth = async (req, res, next) => {
     // Bearer Token ???   
     //revoir la logie de ce middleware :
@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
     }
 
     try {
-        const isValidToken = jwt.verify(authorization, SECRET_KEY)
+        const isValidToken = jwt.verify(authorization, config.SECRET_KEY)
         if (!isValidToken) return res.json('Votre session a pris fin.')
         req.user = authorization
     } catch (error) {

@@ -1,8 +1,6 @@
 const l = console.log
 
 import { API_URL } from './config/env.js'
-import { listeActDjc } from './djc/listeActDjc.js'
-import { listeActAntigone } from './antigone/listeActAntigone.js'
 import { listeAct } from './components/act/listeAct.js'
 import { conic } from './utils.js'
 import { qcmFigures } from './langue/figures/figures.js'
@@ -46,9 +44,9 @@ const djc = document.querySelector('.oeuvres-container .djc')
 const bam = document.querySelector('.oeuvres-container .bam')
 const figure = document.querySelector('.figure')
 
-bam.onclick = () => { listeAct(document.body, 0) }
-antigone.onclick = () => { listeActAntigone(document.body, 0) }
-djc.onclick = () => { listeActDjc(document.body, 0) }
+bam.onclick = () => { listeAct(document.body, 'bam') }
+antigone.onclick = () => { listeAct(document.body, 'antigone') }
+djc.onclick = () => { listeAct(document.body, 'djc') }
 figure.onclick = () => { qcmFigures(document.body) }
 
 // ----------------- Date examen --------------------
