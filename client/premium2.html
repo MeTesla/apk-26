@@ -140,24 +140,30 @@
                 })
             })
             const html = `<div class="modal-video-container">
-            <iframe 
-            src="https://www.youtube.com/embed/gjJmh5-6l1w/?controls=1&modestbranding=0&autoplay=1" 
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-            frameborder="0" 
-            allowfullscreen="true">
-            </iframe> 
-            <div class="fermer-video">CLOSE</div>   
-            </div>
+                <iframe 
+                    src="https://www.youtube.com/embed/gjJmh5-6l1w/?controls=1&modestbranding=0&autoplay=1" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                    frameborder="0" 
+                    allowfullscreen="true">
+                </iframe> 
+                <div class="fermer-video">CLOSE</div>   
+                </div>
             `
             const modal = document.createElement('div')
             modal.innerHTML = html
             modal.className = "modal-video"
             const videoBtn = document.querySelector('.video')
             videoBtn.onclick = () => {
+                document.body.style.overflow = "hidden"
                 document.body.appendChild(modal)
+                window.scrollTo({
+                    top: 0,
+                    //behavior: 'smooth'
+                })
 
                 const fermerVideo = document.querySelector('.fermer-video')
                 fermerVideo.addEventListener('click', () => {
+                    document.body.style.overflow = "auto"
                     modal.remove()
                     console.log("yes")
                 })

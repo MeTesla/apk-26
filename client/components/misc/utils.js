@@ -80,7 +80,7 @@ async function submitCreerCompte() {
   const prenom = document.querySelector('.prenom').value
   const email = document.querySelector('.email').value
   const tel = document.querySelector('.tel').value
-  
+
   // 1️⃣ Valider formulaire
   const validation = validateSignupForm({ nom, prenom, email, tel })
   if (!validation.valid) {
@@ -88,7 +88,7 @@ async function submitCreerCompte() {
     modalFreeMins(false, errorMsg, 'failed')
     return
   }
-  
+
   // 2️⃣ Nettoyer inputs
   const cleanData = {
     nom: sanitizeInput(nom, 50),
@@ -96,10 +96,10 @@ async function submitCreerCompte() {
     email: sanitizeInput(email, 254),
     tel: sanitizeInput(tel, 20)
   }
-  
+
   // 3️⃣ Envoyer données validées
   const result = await safeFetchPost(API_URL + '/creer-compte', cleanData)
-  
+
   if (result.success) {
     const data = result.data
     localStorage.setItem('role', data.role)
@@ -122,7 +122,7 @@ export async function annulerCompte() {
     toast('Aucun compte trouvé !')
     setTimeout(() => location.reload(), 1000)
   }
-  const reponse = await fetch(url + '/annuler-compte', {
+  const reponse = await fetch(API_URL + '/annuler-compte', {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ token })
