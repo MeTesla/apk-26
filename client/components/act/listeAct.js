@@ -43,12 +43,12 @@ const vffData = async (exo) => {
       authorization: localStorage.getItem('token') || ''
     }
   })
-  
+
   if (!result.success) {
     console.error('⚠️ Erreur chargement données:', result.error)
     return modalLokedContent()
   }
-  
+
   const data = result.data
   if (data === "accès interdit") return modalLokedContent()
 
@@ -66,10 +66,10 @@ export function listeAct(bloc, oeuvre = 'bam') {
   const config = OEUVRES_CONFIG[oeuvre] || OEUVRES_CONFIG.bam
   let isModified = false
 
-  function handleIsModified(value){
+  function handleIsModified(value) {
     return isModified = value
   }
-  
+
   const html = `<img class="index" src ="/client/assets/img/previous.svg"></svg>
   <div class="list">
     <li class="list-elements lst-lire">${config.readLabel}</li>
@@ -94,7 +94,8 @@ export function listeAct(bloc, oeuvre = 'bam') {
 
 
 
-  accueil.onclick = async () => { 
+  accueil.onclick = async () => {
+    document.body.style.overflow = "auto"
     await fetchResultats(listBlc, isModified)
   }
 
