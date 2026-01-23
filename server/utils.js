@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const config = require('./config/env')
 
 // postEmail
-async function postEmail(req, res, nom, prenom, email, token, message = "", pageHtml = 'verifier-email',) {
+async function postEmail(req, nom, prenom, email, token, message = "", pageHtml = 'verifier-email',) {
     // Configuration du transporteur Nodemailer
     const transporter = nodemailer.createTransport({
         service: config.EMAIL_SERVICE,
@@ -31,12 +31,7 @@ async function postEmail(req, res, nom, prenom, email, token, message = "", page
             </div>`
     };
 
-    return transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return res.status(500).send(error.toString());
-        }
-        res.status(200).send({ message: 'Email envoyé' });
-    });
+    return transporter.sendMail(mailOptions);
 }
 
 // server DB data

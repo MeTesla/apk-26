@@ -106,8 +106,8 @@ async function submitCreerCompte() {
     localStorage.setItem('token', data.token)
     document.querySelector('.user-menu').remove()
     generateMenu(data.role, document.querySelector('.menu'), document.querySelector('.menu'))
-    modalFreeMins(true, data.message, 'verifyEmail')
     document.querySelector('.creer-compte-page').remove()
+    modalFreeMins(true, data.message, 'verifyEmail')
   } else {
     modalFreeMins(false, result.error || 'Erreur lors de la création du compte', 'failed')
   }
@@ -137,6 +137,7 @@ export async function annulerCompte() {
     toast(data.message)
   }
 }
+
 // ------------  Get free MINs -----------
 async function freeMins() {
   const reponse = await fetch(API_URL + '/freeMins', {

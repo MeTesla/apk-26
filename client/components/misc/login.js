@@ -106,7 +106,7 @@ export function login() {
     e.preventDefault();
     const email = document.querySelector('.input-email').value;
     const password = document.querySelector('.input-pass').value;
-    
+
     // 1️⃣ Valider formulaire
     const validation = validateLoginForm({ email, password })
     if (!validation.valid) {
@@ -114,16 +114,16 @@ export function login() {
       toast(errorMsg)
       return
     }
-    
+
     // 2️⃣ Nettoyer inputs
     const cleanData = {
       email: sanitizeInput(email, 254),
       password: password // Ne pas échapper le mot de passe
     }
-    
+
     // 3️⃣ Envoyer données validées
     const result = await safeFetchPost(API_URL + '/login', cleanData)
-    
+
     if (result.success) {
       const data = result.data
       localStorage.setItem('role', data.eleve.role)
@@ -259,8 +259,7 @@ export function adminLogin() {
         </tr>
     </thead>
     <tbody>
-
-      </tbody>        
+    </tbody>        
   </table>
     <form class="form-login">
       <h1 class="title-login">Admin</h1>
@@ -337,9 +336,58 @@ export function adminLogin() {
             width: 25px;
             cursor: pointer;
         }
-
         .more img {
             width: 100%;
+        }
+        .btn-delete-eleve {
+          cursor: pointer;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s;
+        }
+        .btn-delete-eleve:hover {
+          transform: scale(1.2);
+        }
+        .btn-delete-eleve svg {
+          fill: #ff4d4d;
+        }
+        .modal-confirm-delete {
+          position: fixed;
+          top: 0; left: 0; width: 100%; height: 100%;
+          background: rgba(0,0,0,0.7);
+          display: flex; justify-content: center; align-items: center;
+          z-index: 1000;
+        }
+        .confirm-container {
+          background: white;
+          padding: 20px;
+          border-radius: 12px;
+          max-width: 400px;
+          text-align: center;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .confirm-buttons {
+          margin-top: 20px;
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+        }
+        .btn-conf-annuler {
+          padding: 8px 16px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        .btn-conf-valider {
+          padding: 8px 16px;
+          background: #ff4d4d;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
         }
     .login-container {
       position: fixed;
@@ -415,7 +463,7 @@ export function adminLogin() {
           adminLoginForm.style.display = "none"
           document.querySelector('table').style.display = "table"
 
-          data.data.map((elv) => {
+          data.data.map((elv, index) => {
             const tr = document.createElement('tr')
             tr.className = elv.role == 'registred' ? 'registred' : 'recu'
             tr.innerHTML = `<td>${elv.nom}</td><td>${elv.prenom}</td>
@@ -423,16 +471,49 @@ export function adminLogin() {
             <td>
               <div class="type-compte">${elv.role == 'registred' ? 'Basic' : 'En attente'}</div>
               <div class="more"><img src="/client/assets/img/more.png" alt=""></div>
+            </td>
+            <td>
+              <div class="btn-delete-eleve" data-id="${index}">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+              </div>
             </td>`
             tableBody.appendChild(tr)
           })
+
+          // Plus de détails
           const moreBtns = document.querySelectorAll('td .more')
           moreBtns.forEach((more, index) => {
             more.addEventListener('click', () => {
-
-
               !document.querySelector('.menu-more') && showMoreModal(adminLoginFormContainer, index, data.data)
             })
+          })
+
+          // Suppression d'élève
+          const deleteBtns = document.querySelectorAll('.btn-delete-eleve')
+          deleteBtns.forEach((btn) => {
+            btn.onclick = () => {
+              const index = btn.getAttribute('data-id')
+              const elv = data.data[index]
+              showDeleteConfirmModal(elv, async () => {
+                // Appel API suppression
+                try {
+                  const res = await fetch(API_URL + '/annuler-compte', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: elv.token })
+                  })
+                  const result = await res.json()
+                  if (result.success) {
+                    toast('Élève supprimé avec succès')
+                    btn.closest('tr').remove()
+                  } else {
+                    toast(result.message || 'Erreur lors de la suppression')
+                  }
+                } catch (err) {
+                  toast('Erreur serveur')
+                }
+              })
+            }
           })
         } else {
           toast(data.message)
@@ -620,4 +701,26 @@ function showMoreModal(bloc, index, data) {
 
 
 
+}
+
+function showDeleteConfirmModal(eleve, onConfirm) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-confirm-delete';
+  modal.innerHTML = `
+    <div class="confirm-container">
+      <h3>Confirmer la suppression</h3>
+      <p>Voulez-vous vraiment supprimer l'élève <strong>${eleve.nom} ${eleve.prenom}</strong> ?</p>
+      <div class="confirm-buttons">
+        <button class="btn-conf-annuler">Annuler</button>
+        <button class="btn-conf-valider">Supprimer</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.querySelector('.btn-conf-annuler').onclick = () => modal.remove();
+  modal.querySelector('.btn-conf-valider').onclick = () => {
+    onConfirm();
+    modal.remove();
+  };
 }

@@ -27,7 +27,7 @@ const creerCompte = async (req, res) => {
     const eleve = new EleveModel({ nom, prenom, email, tel, role: 'attenteR', token })
     await eleve.save()
 
-    await postEmail(req, res, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier-email')
+    await postEmail(req, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier-email')
     return res.json({
         success: true,
         token,
@@ -38,48 +38,45 @@ const creerCompte = async (req, res) => {
 }
 
 const verifierEmail = async (req, res) => {
-    //AJOUTER : Votre compte est déjà activé. ne rien faire.
     const { token } = req.body
-    jwt.verify(token, config.SECRET_KEY, async (err, user) => {
-        if (err) {
+    try {
+        // Verify token
+        jwt.verify(token, config.SECRET_KEY)
+
+        // Find the student with this token
+        const eleve = await EleveModel.findOne({ token })
+
+        if (!eleve) {
             return res.json({
-                // navigateur: envoyer role:''
                 success: false,
-                role: 'attenteR',
-                message: 'Le lien de vérification a expiré ou il est invalide.'
+                message: 'Aucun compte correspondant à ce lien de vérification.'
             })
         }
-        await EleveModel.findOneAndDelete({token})
-    })
 
-    const eleve = await EleveModel.findOne({ token })
-
-    if (!eleve) return res.json({
-        succuss: false,
-        message: 'Un problème est survenu : il n\'y apas d\'eleve de ce nom'
-    })
-
-    if (eleve.token == token) {
-        const eleveUpdated = await EleveModel.findOneAndUpdate({ token },
+        // Update student role to 'registred'
+        const eleveUpdated = await EleveModel.findOneAndUpdate(
+            { token },
             { $set: { role: 'registred' } },
-            {
-                new: true,
-                runValidators: true
-            })
+            { new: true, runValidators: true }
+        )
 
         return res.json({
             success: true,
-            message: 'exist',
+            message: 'Votre email a été vérifié avec succès.',
             eleveUpdated,
             token: generateToken(eleve.email, 10)
         })
-    } else {
+
+    } catch (err) {
+        // Supprimer l'élève si le token est expiré ou invalide
+        await EleveModel.findOneAndDelete({ token })
+
         return res.json({
-            succuess: false,
-            message: 'Une erreur s\'était produite. Veuillez contacter l\'admin'
+            success: false,
+            role: 'attenteR',
+            message: 'Le lien de vérification a expiré ou il est invalide. Votre pré-inscription a été annulée, veuillez recommencer.'
         })
     }
-
 }
 
 const annulerCompte = async (req, res) => {
@@ -222,7 +219,7 @@ const mdpOublie = async (req, res) => {
             }
         )
         // send email with token
-        postEmail(req, res, eleve.nom, eleve.prenom, email, token, 'Réinitialisation de mot de passe', 'mdp-reinitialiser')
+        await postEmail(req, eleve.nom, eleve.prenom, email, token, 'Réinitialisation de mot de passe', 'mdp-reinitialiser')
         return res.json({
             success: true,
             message: 'Un email a été envoyé à votre adresse pour réinitialiser votre mot de passe.'
