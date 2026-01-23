@@ -24,8 +24,6 @@ socket.on('liste', (liste) => {
   localStorage.setItem('liste', JSON.stringify(liste))
 })
 
-
-
 // -------------------Menu-------------------------------
 const menu = document.querySelector('.nav .menu')
 generateMenu(localStorage.getItem('role'), menu, menu)

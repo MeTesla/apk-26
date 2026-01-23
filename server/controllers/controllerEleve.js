@@ -40,7 +40,7 @@ const creerCompte = async (req, res) => {
 const verifierEmail = async (req, res) => {
     //AJOUTER : Votre compte est déjà activé. ne rien faire.
     const { token } = req.body
-    jwt.verify(token, config.SECRET_KEY, (err, user) => {
+    jwt.verify(token, config.SECRET_KEY, async (err, user) => {
         if (err) {
             return res.json({
                 // navigateur: envoyer role:''
@@ -49,6 +49,7 @@ const verifierEmail = async (req, res) => {
                 message: 'Le lien de vérification a expiré ou il est invalide.'
             })
         }
+        await EleveModel.findOneAndDelete({token})
     })
 
     const eleve = await EleveModel.findOne({ token })
