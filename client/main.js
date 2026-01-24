@@ -80,7 +80,7 @@ function calculerTempsRestant(dateDonnee) {
 
 // Langue 
 const langue = document.querySelectorAll('.langue')[1]
-langue.addEventListener('click', async () => {
+langue.addEventListener('click', () => {
   // const reponse = await fetch('http://localhost:3000/admin/euduka/admin')
   // const data = await reponse.text()
   // const div = document.createElement('DIV')

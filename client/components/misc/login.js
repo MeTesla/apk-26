@@ -246,203 +246,88 @@ export function mpdOublie(parent) {
 }
 
 export function adminLogin() {
-  window.location.href = API_URL + '/admin/euduka/admin';
-}
+  const targetUrl = '/client/euduka/admin';
 
-function showMoreModal(bloc, index, data) {
-  const div = document.createElement('div')
-  div.className = "menu-more"
-  div.innerHTML = `<div class="menu-more-container">
-    <div class="menu-more-close">
-        <img src="/client/assets/img/times.svg" alt="">
-    </div>
+  let overlay = document.getElementById('admin-login-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'admin-login-overlay';
+    // Style the overlay as a fixed full-screen container
+    Object.assign(overlay.style, {
+      position: 'fixed',
+      top: '0',
+      left: '0',
+      width: '100%',
+      height: '100vh',
+      backgroundColor: '#f0f0f0',
+      zIndex: '10000',
+      overflowY: 'auto',
+      display: 'block'
+    });
+    document.body.appendChild(overlay);
+  }
 
-    <div class="details">
-        <div class="nom">${data[index].nom} ${data[index].prenom}</div>
-        <div class="email">${data[index].email}</div>
-        <hr style="margin:20px 0" />
+  const render = async (html) => {
+    // This replaces the old content (form) with the new one (results)
+    overlay.innerHTML = html;
 
-    </div>
-    <div class="recue">
-        <div class="num-recu">
-            <div class="libel-num">N° du reçu : </div>
-            <div class="num">8876765764653</div>
-        </div>
-        <div class="img-recu">
-            <!-- form>
-                <input type="file" accept="image/*" style="display: none;" name="upload-img" id="upload-img">
-                <label for="upload-img" class="label-upload" >
-                    <img class="upload-icon" src="/client/assets/img/upload-image.png" alt="">
-                </label>
-            </form -->
-            <div class="libel-img-recu">L'image du reçu </div>
+    // 1. Setup Form Logic (Click on Login button)
+    const btnLogin = overlay.querySelector('.btn-login');
+    if (btnLogin) {
+      btnLogin.onclick = async (e) => {
+        e.preventDefault();
+        const emailInput = overlay.querySelector('input[name="email"]');
+        const passwordInput = overlay.querySelector('input[name="password"]');
 
-            <div class="show-img">
-              <img src= "/client/assets/img/reçu.jpg" alt="qsd" />
-            </div>
-            <div class="devenir-premium ${data[index].role === 'attenteR' ? 'hide-devenir-premium' : null}">
-              Premium
-            </div>
+        if (!emailInput || !passwordInput) return;
 
-        </div>
-    </div>
-</div>
-<style>
-    .hide-devenir-premium{display:none}
-    .menu-more-close {
-        display: flex;
-        justify-content: flex-end;
-        padding: 5px;
+        const data = {
+          email: emailInput.value,
+          password: passwordInput.value
+        };
+
+        try {
+          const res = await fetch(API_URL + targetUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'text/html'
+            },
+            body: JSON.stringify(data)
+          });
+          const nextHtml = await res.text();
+          render(nextHtml);
+        } catch (err) {
+          console.error('[AdminLogin] Submit Error:', err);
+          toast('Erreur de connexion');
+        }
+      };
     }
 
-    .menu-more-close img {
-        display: block;
-        width: 15px;
-        cursor: pointer;
-    }
+    // 2. Setup Close/Annuler Logic
+    const closeButtons = overlay.querySelectorAll('.btn-annuler, .logout-btn');
+    closeButtons.forEach(btn => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        overlay.remove();
+      };
+    });
 
-    .menu-more {
-      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 240px;
-      box-shadow: 0 0 5px black;
-      border-radius: 15px;
-      padding: 10px;
-      margin: 30px auto;
-      background-color: rgb(253, 248, 248);
-    }
-
-    .menu-more .details {
-        text-align: center;
-        font-weight: bold;
-        color: rgb(61, 61, 61);
-        margin-top: -10px;
-    }
-
-    .menu-more .details .email {
-        font-size: 0.7rem;
-        font-style: italic;
-    }
-
-    .num-recu {
-        text-align: center;
-    }
-
-    .libel-num,
-    .libel-img-recu {
-      margin-top: 20px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .menu-more .num {
-        font-weight: bold;
-        font-size: 1.2rem;
-    }
-
-    .img-recu .upload-icon {
-        display: block;
-        box-shadow: 0 0 3px white, 0 0 6px white, 0 0 10px white;
-        width: 50px;
-        height: 50px;
-        margin: 15px auto;
-        cursor: pointer;
-    }
-
-    .show-img {
-        width: 150px;
-        hheight: 150px;
-        background-color: rgb(218, 218, 218);
-        margin: 10px auto;
-        border-radius: 15px;
-    }
-    .show-img img {
-        width: 100%;
-    }
-    .img-uploaded {
-        display: block;
-        margin: auto;
-        width: 50%;
-        border-radius: 10px;
-    }
-
-    .img-full {
-        position: fixed;
-        height: 100vh;
-        width: auto;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%)
-    }
-    .devenir-premium{
-      width: 90px;
-      padding: 10px;
-      margin:15px auto;
-      text-align: center;
-      border-radius: 10px;
-      background-color: rgb(161, 222, 189);
-      cursor: pointer;
-      }
-    </style>`
-  bloc.appendChild(div)
-
-  const menuMoreClose = document.querySelector('.menu-more-close')
-  menuMoreClose.addEventListener('click', () => {
-    div.remove()
-  })
-
-  // const uploadImgInput = document.querySelector('.label-upload');
-  // const showImg = document.querySelector('.show-img');
-  // showImg.addEventListener('click', () => {
-  //     console.log('qsdfiari');
-
-  // })
-  // console.log(typeof(uploadImgInput));
-
-  // uploadImgInput.addEventListener('change', function (event) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //       const reader = new FileReader();
-  //       reader.onload = function (e) {
-  //           // Créer une nouvelle image et l'ajouter au conteneur
-  //           const img = document.createElement('img');
-  //           img.src = e.target.result;
-  //           img.className = 'img-uploaded'; // Vider le conteneur
-  //           if (showImg.children.length >= 1) { showImg.innerHTML = '' }
-  //           showImg.appendChild(img); // Ajouter l'image
-  //           console.log()
-  //           img.addEventListener('click', () => {
-  //               //show modal image
-  //               img.classList.contains('img-full') ?
-  //                   img.classList.remove('img-full') :
-  //                   img.classList.add('img-full')
-  //           })
-  //       };
-  //       reader.readAsDataURL(file);
-  //   }
-  // });
-
-
-
-}
-
-function showDeleteConfirmModal(eleve, onConfirm) {
-  const modal = document.createElement('div');
-  modal.className = 'modal-confirm-delete';
-  modal.innerHTML = `
-    <div class="confirm-container">
-      <h3>Confirmer la suppression</h3>
-      <p>Voulez-vous vraiment supprimer l'élève <strong>${eleve.nom} ${eleve.prenom}</strong> ?</p>
-      <div class="confirm-buttons">
-        <button class="btn-conf-annuler">Annuler</button>
-        <button class="btn-conf-valider">Supprimer</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  modal.querySelector('.btn-conf-annuler').onclick = () => modal.remove();
-  modal.querySelector('.btn-conf-valider').onclick = () => {
-    onConfirm();
-    modal.remove();
+    // 3. Execute scripts (for dashboard)
+    overlay.querySelectorAll('script').forEach(oldScript => {
+      const newScript = document.createElement('script');
+      Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+      newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+      oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
   };
+
+  // Initial Load
+  fetch(API_URL + targetUrl)
+    .then(res => res.text())
+    .then(render)
+    .catch(err => {
+      console.error('[AdminLogin] Load Error:', err);
+      toast('Erreur de chargement');
+    });
 }

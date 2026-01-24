@@ -102,7 +102,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 102200;
         }
 
         .confirm-container {
@@ -207,7 +207,7 @@
 </head>
 
 <body>
-    <a href="/" class="logout-btn">Retour</a>
+    <button class="logout-btn">Fermer</button>
     <div class="container">
         <h1>Tableau des Élèves</h1>
         <table>
@@ -237,18 +237,16 @@
                                 <div class="type-compte">
                                     <%= elv.role=='registred' ? 'Basic' : 'En attente' %>
                                 </div>
-                                <div class="more" onclick="showMore(<%= JSON.stringify(elv) %>)">
-                                    <svg viewBox="0 0 24 24" width="20" height="20">
-                                        <path
-                                            d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2.9 2-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                                    </svg>
+                                <div class="btn-more-details" data-elv='<%= JSON.stringify(elv) %>'>
+                                    <img src="/client/assets/img/more.png" alt="Plus"
+                                        style="width: 20px; cursor: pointer;">
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div class="btn-delete-eleve"
-                                onclick="confirmDelete('<%= elv.token %>', '<%= elv.nom %> <%= elv.prenom %>')">
-                                <svg viewBox="0 0 24 24" width="20" height="20">
+                            <div class="btn-delete-eleve" data-token="<%= elv.token %>"
+                                data-name="<%= elv.nom %> <%= elv.prenom %>">
+                                <svg viewBox="0 0 24 24" width="20" height="20" style="cursor:pointer">
                                     <path
                                         d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
                                 </svg>
@@ -275,38 +273,63 @@
                         <div style="font-weight:bold">8876765764653</div>
                     </div>
                     <div class="show-img">
-                        <img src="/client/assets/img/re&ccedil;u.jpg" alt="Recu">
+                        <img src="http://localhost:3000/client/assets/img/re&ccedil;u.jpg" alt="Recu">
                     </div>
-                    <div class="devenir-premium" onclick="makePremium('${elv.token}')">Premium</div>
+                    <div class="devenir-premium">Premium</div>
                 </div>
             `;
             document.body.appendChild(modal);
         }
 
-        async function confirmDelete(token, name) {
-            if (confirm(`Voulez-vous vraiment supprimer l'élève ${name} ?`)) {
+        async function confirmDelete(token, name, row) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-confirm-delete';
+            modal.innerHTML = `
+                <div class="confirm-container">
+                    <h3>Confirmer la suppression</h3>
+                    <p>Voulez-vous vraiment supprimer l'élève <strong>${name}</strong> ?</p>
+                    <div class="confirm-buttons">
+                        <button class="btn-conf-annuler">Annuler</button>
+                        <button class="btn-conf-valider">Confirmer</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            modal.querySelector('.btn-conf-annuler').onclick = () => modal.remove();
+
+            modal.querySelector('.btn-conf-valider').onclick = async () => {
                 try {
-                    const res = await fetch('/annuler-compte', {
+                    const res = await fetch('http://localhost:3000/annuler-compte', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ token })
                     });
                     const result = await res.json();
                     if (result.success) {
-                        location.reload();
+                        row.remove();
+                        modal.remove();
                     } else {
                         alert(result.message || 'Erreur lors de la suppression');
                     }
                 } catch (err) {
                     alert('Erreur serveur');
                 }
-            }
+            };
         }
 
-        async function makePremium(token) {
-            // Placeholder for premium logic
-            alert('Fonctionnalité Premium bientôt disponible pour token: ' + token);
-        }
+        // Initialize listeners
+        document.querySelectorAll('.btn-more-details').forEach(btn => {
+            btn.onclick = () => showMore(JSON.parse(btn.getAttribute('data-elv')));
+        });
+
+        document.querySelectorAll('.btn-delete-eleve').forEach(btn => {
+            btn.onclick = () => confirmDelete(
+                btn.getAttribute('data-token'),
+                btn.getAttribute('data-name'),
+                btn.closest('tr')
+            );
+        });
     </script>
 </body>
 
