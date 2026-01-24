@@ -1,45 +1,313 @@
-<div class="data-ejs">
-    <h1>Tableau des Élèves</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Age</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% eleves.forEach(elève=> { %>
-                <tr>
-                    <td>
-                        <%= elève.nom %>
-                    </td>
-                    <td>
-                        <%= elève.prenom %>
-                    </td>
-                    <td>
-                        <%= elève.age %>
-                    </td>
-                </tr>
-                <% }); %>
-        </tbody>
-    </table>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
     <style>
-        table {
-            width: 70%;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
             margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
             border-collapse: collapse;
-            background-color: yellow;
+            margin: 30px auto;
+            width: 100%;
+            color: rgb(74, 74, 74);
+            font-size: 0.9rem;
         }
 
-        th,
+        thead td {
+            font-weight: bold;
+            padding: 12px;
+            background-color: #ffd700;
+        }
+
+        tr {
+            border-bottom: 1px solid rgb(218, 218, 218);
+        }
+
+        tr:hover {
+            background-color: rgb(240, 240, 240);
+        }
+
         td {
-            padding: 8px 12px;
-            text-align: left;
+            padding: 10px;
         }
 
-        th {
-            background-color: #f2f2f2;
+        .type-compte {
+            width: 80px;
+            padding: 5px;
+            color: rgb(55, 117, 83);
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(161, 222, 189);
+        }
+
+        .more {
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+        }
+
+        .more img {
+            width: 100%;
+        }
+
+        .btn-delete-eleve {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .btn-delete-eleve:hover {
+            transform: scale(1.2);
+        }
+
+        .btn-delete-eleve svg {
+            fill: #ff4d4d;
+        }
+
+        .modal-confirm-delete {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .confirm-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .confirm-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-conf-annuler {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-conf-valider {
+            padding: 8px 16px;
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* More Modal Styles */
+        .menu-more {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            background-color: white;
+            z-index: 1001;
+        }
+
+        .menu-more-close {
+            display: flex;
+            justify-content: flex-end;
+            cursor: pointer;
+        }
+
+        .details {
+            text-align: center;
+        }
+
+        .details .nom {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .details .email {
+            font-size: 0.8rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        .show-img {
+            width: 100%;
+            margin: 10px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .show-img img {
+            width: 100%;
+            display: block;
+        }
+
+        .devenir-premium {
+            padding: 10px;
+            margin-top: 15px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(161, 222, 189);
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
         }
     </style>
-</div>
+</head>
+
+<body>
+    <a href="/" class="logout-btn">Retour</a>
+    <div class="container">
+        <h1>Tableau des Élèves</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>Nom</td>
+                    <td>Prénom</td>
+                    <td>Email</td>
+                    <td>Compte</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% eleves.forEach((elv, index)=> { %>
+                    <tr class="<%= elv.role == 'registred' ? 'registred' : 'recu' %>">
+                        <td>
+                            <%= elv.nom %>
+                        </td>
+                        <td>
+                            <%= elv.prenom %>
+                        </td>
+                        <td>
+                            <%= elv.email %>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="type-compte">
+                                    <%= elv.role=='registred' ? 'Basic' : 'En attente' %>
+                                </div>
+                                <div class="more" onclick="showMore(<%= JSON.stringify(elv) %>)">
+                                    <svg viewBox="0 0 24 24" width="20" height="20">
+                                        <path
+                                            d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2.9 2-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-delete-eleve"
+                                onclick="confirmDelete('<%= elv.token %>', '<%= elv.nom %> <%= elv.prenom %>')">
+                                <svg viewBox="0 0 24 24" width="20" height="20">
+                                    <path
+                                        d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function showMore(elv) {
+            const modal = document.createElement('div');
+            modal.className = 'menu-more';
+            modal.innerHTML = `
+                <div class="menu-more-close" onclick="this.parentElement.remove()">✕</div>
+                <div class="details">
+                    <div class="nom">${elv.nom} ${elv.prenom}</div>
+                    <div class="email">${elv.email}</div>
+                    <hr/>
+                    <div class="num-recu">
+                        <div>N° du reçu :</div>
+                        <div style="font-weight:bold">8876765764653</div>
+                    </div>
+                    <div class="show-img">
+                        <img src="/client/assets/img/re&ccedil;u.jpg" alt="Recu">
+                    </div>
+                    <div class="devenir-premium" onclick="makePremium('${elv.token}')">Premium</div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        async function confirmDelete(token, name) {
+            if (confirm(`Voulez-vous vraiment supprimer l'élève ${name} ?`)) {
+                try {
+                    const res = await fetch('/annuler-compte', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ token })
+                    });
+                    const result = await res.json();
+                    if (result.success) {
+                        location.reload();
+                    } else {
+                        alert(result.message || 'Erreur lors de la suppression');
+                    }
+                } catch (err) {
+                    alert('Erreur serveur');
+                }
+            }
+        }
+
+        async function makePremium(token) {
+            // Placeholder for premium logic
+            alert('Fonctionnalité Premium bientôt disponible pour token: ' + token);
+        }
+    </script>
+</body>
+
+</html>

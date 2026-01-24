@@ -10,6 +10,7 @@ const cors = require('cors')
 const app = express()
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // Routes
 const router = require('./routes/routeEleve')
@@ -43,28 +44,33 @@ const eleves = [
     { nom: 'Tremblay', prenom: 'Julien', age: 19 },
 ];
 
+// Route GET admin login
+app.get('/client/euduka/admin', (req, res) => {
+    res.render('login_admin');
+});
+
 // Route admin
-app.post('/admin/euduka/admin', async (req, res) => {
+app.post('/client/euduka/admin', async (req, res) => {
     const { email, password } = req.body
-    if (email == "a" && password == "a") {
-        // return res.render('admin', { eleves: eleves });
+    if (email == "a@a.com" && password == "a") { // Admin credentials
         const reponse = await EleveModel.find({})
+        if (req.accepts('html')) {
+            return res.render('admin', { eleves: reponse });
+        }
         return res.json({
             success: true,
             message: 'data sent',
             data: reponse
         })
     } else {
+        if (req.accepts('html')) {
+            return res.render('login_admin', { error: 'Email ou mot de passe incorrect' });
+        }
         return res.json({
             success: false,
             message: 'Email ou mot de passe incorrect'
         })
     }
-    /*
-    - envoyer form connexion ejs
-        verifier email et password et répondre par True.
-    - fetch dashboard
-    */
 });
 
 //delete all documents
