@@ -1,14 +1,7 @@
-searchInput.addeventlister('input', searchTable)
-function serachTable(){
-	tableRows.forEach((row,i)={
-		let tableData=row.textContent.toLowerCase()
-		let searchData = search.value
-		
-		row.classList.toggle('hide', table_data.indexOf(serachData)<0)
-		row.style.setProperty('--delay', i/25 + 's')
-	})
-
-}
+Todo : 
+	1- écrans de payement : a- mes coordonées  b- form (reçu, num reçu)
+		enovyer data à BD
+		alerter admin
 
 - après expiration du token verification , supprimer élève de DB || LS.clear||rien faire
 - LS || cookies
