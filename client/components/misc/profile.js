@@ -9,8 +9,8 @@ import { getProfile } from "../../utils/storage.js"
 export function profile() {
     const profileData = getProfile()
     if (!profileData) {
-      console.error('❌ Profile data not found in localStorage')
-      return
+        console.error('❌ Profile data not found in localStorage')
+        return
     }
     const { nom, prenom, email } = profileData
     const { role } = profileData
@@ -31,11 +31,40 @@ export function profile() {
             <div class="user-info">
                 <img class="user-img" src="/client/assets/img/user-img.png" alt="">
                 <div class="user-name">${nom + ' ' + prenom}</div>
-                <div class="user-account">${role === 'registred' ? 'Premium' : 'Basic'}</div>
+                <div class="user-account ${role === 'premium' ? 'status-premium' : ''}">
+                    ${role === 'premium' ? '<span class="crown">👑</span> Membre PREMIUM' : 'Compte Basic'}
+                </div>
                 <div class="user-email">${email}</div>
-                <div class="minutes"></div>
-
+                <div class="minutes-container">
+                    <div class="minutes" style="${role === 'premium' ? 'background: linear-gradient(90deg, #ffd700, #ff8c00);' : ''}"></div>
+                </div>
             </div>
+            <style>
+                .status-premium {
+                    color: #b8860b !important;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 1.5px;
+                    border: 2px solid #ffd700;
+                    padding: 4px 15px;
+                    border-radius: 25px;
+                    margin: 8px 0;
+                    background: linear-gradient(145deg, #fff9e6, #fff);
+                    box-shadow: 0 2px 5px rgba(212, 175, 55, 0.3);
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                .crown {
+                    font-size: 1.2rem;
+                }
+                .minutes-container {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 10px;
+                }
+            </style>
             <div class="user-resultats">
                
                 <div class="qcm-res">
@@ -336,6 +365,16 @@ export function profile() {
         month: '2-digit',
         year: 'numeric'
     }
+    const minutesDiv = div.querySelector('.minutes')
+    if (role === 'premium') {
+        minutesDiv.innerHTML = '<span style="font-size: 0.8rem; font-weight: 900; color: #b8860b; white-space: nowrap;">ACCÈS ILLIMITÉ ⚡</span>'
+        minutesDiv.style.width = "auto"
+        minutesDiv.style.padding = "5px 15px"
+        minutesDiv.style.borderRadius = "15px"
+        minutesDiv.style.boxShadow = "0 0 10px rgba(255, 215, 0, 0.4)"
+        minutesDiv.style.background = "linear-gradient(90deg, #fff9e6, #ffd700)"
+    }
+
     profileDate.innerHTML = date.toLocaleDateString('fr-FR', options)
 
 

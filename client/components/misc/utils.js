@@ -1,6 +1,6 @@
 // Afficher une notification simple
 import { profile } from './profile.js'
-import { modalDevenirPremium, modalFreeMins, toast } from './modals.js'
+import { modalDevenirPremium, modalFreeMins } from './modals.js'
 import { login } from './login.js'
 import { API_URL } from '../../config/env.js'
 import { getProfile, setProfile, getResults } from '../../utils/storage.js'
@@ -152,8 +152,8 @@ async function freeMins() {
     localStorage.setItem('token', data.token)
     console.log(data);
 
-    const { nom, prenom, email, tel, freeMins, resultats } = data.eleveUpdated
-    const objElv = { nom, prenom, email, tel, freeMins, resultats }
+    const { nom, prenom, email, tel, freeMins, resultats, role } = data.eleveUpdated
+    const objElv = { nom, prenom, email, tel, freeMins, resultats, role }
     localStorage.setItem('profile', JSON.stringify(objElv))
 
     modalFreeMins(data.success, data.message, 'winner')
@@ -201,10 +201,42 @@ export function generateMenu(typeAccount, pere, menu) {
       break;
     case 'premium':
       div.innerHTML = `
-          <div class="premium">
-            <div>Le code</div> 
-            <div>Profile</div>
-          </div>`
+          <div class="premium-active">
+            <div class="premium-badge">
+              <img src="/client/assets/img/diamond.png" />
+              <span>COMPTE PREMIUM 👑</span>
+            </div> 
+            <div class="menu-profile">
+              <img src="/client/assets/img/profile.png" />
+              <span>Profile</span>
+            </div>
+            <div class="menu-logout">
+              <img src="/client/assets/img/logout.png" />
+              <span class="logout">Se déconnecter</span>
+            </div>
+          </div>
+          <style>
+            .premium-active {
+              background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+              border: 1px solid #ffd700;
+              border-radius: 10px;
+            }
+            .premium-badge {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              padding: 12px;
+              background: #ffd700;
+              color: #333;
+              font-weight: bold;
+              font-size: 0.75rem;
+              letter-spacing: 0.5px;
+            }
+            .premium-badge img {
+              width: 20px !important;
+              filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+            }
+          </style>`
       break;
     default: 'guest'
       div.innerHTML = `
