@@ -9,7 +9,9 @@ const freeMinsMiddleware = require('../middlewares/freeMinsMiddleware')
 const { creerCompte, verifierEmail, login,
     updateResultats, freeMins,
     getExo, annulerCompte,
-    mdpOublie } = require('../controllers/controllerEleve')
+    mdpOublie, demandePremium, validerPremium } = require('../controllers/controllerEleve')
+
+const upload = require('../middlewares/upload')
 
 router.post('/creer-compte', creerCompte)
 
@@ -20,6 +22,9 @@ router.post('/annuler-compte', annulerCompte)
 router.post('/login', login)
 
 router.post('/update-resultats', auth, updateResultats)
+
+router.post('/demande-premium', auth, upload.single('recuImage'), demandePremium)
+router.post('/valider-premium', validerPremium)
 
 router.get('/freeMins', freeMinsMiddleware, freeMins)
 

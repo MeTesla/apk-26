@@ -147,7 +147,7 @@
             border-radius: 15px;
             padding: 20px;
             background-color: white;
-            z-index: 1001;
+            z-index: 11001;
         }
 
         .menu-more-close {
@@ -268,17 +268,50 @@
                     <div class="nom">${elv.nom} ${elv.prenom}</div>
                     <div class="email">${elv.email}</div>
                     <hr/>
-                    <div class="num-recu">
-                        <div>N° du reçu :</div>
-                        <div style="font-weight:bold">8876765764653</div>
-                    </div>
-                    <div class="show-img">
-                        <img src="http://localhost:3000/client/assets/img/re&ccedil;u.jpg" alt="Recu">
-                    </div>
-                    <div class="devenir-premium">Premium</div>
+                    ${elv.premiumRequest ? `
+                        <div class="num-recu">
+                            <div>N° du reçu :</div>
+                            <div style="font-weight:bold">${elv.premiumRequest.numeroRecu}</div>
+                            <div style="font-size:0.8rem; color: #888;">Demandé le : ${new Date(elv.premiumRequest.date).toLocaleDateString()}</div>
+                        </div>
+                        <div class="show-img">
+                            <img src="${elv.premiumRequest.imageRecu}" alt="Recu" style="max-height: 300px; object-fit: contain;">
+                        </div>
+                        ${elv.role !== 'premium' ? `
+                            <div class="devenir-premium" onclick="validerPremium('${elv.token}', this)">Valider Premium</div>
+                        ` : '<div class="type-compte" style="margin: 10px auto; background: #gold; color: black;">DÉJÀ PREMIUM</div>'}
+                    ` : '<p>Aucune demande premium pour cet élève.</p>'}
                 </div>
             `;
             document.body.appendChild(modal);
+        }
+
+        async function validerPremium(token, btn) {
+            if (!confirm('Voulez-vous vraiment passer ce compte en PREMIUM ?')) return;
+
+            btn.innerText = 'Chargement...';
+            btn.style.pointerEvents = 'none';
+
+            try {
+                const res = await fetch('/valider-premium', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token })
+                });
+                const result = await res.json();
+                if (result.success) {
+                    alert(result.message);
+                    location.reload(); // Recharger pour voir les changements
+                } else {
+                    alert(result.message);
+                    btn.innerText = 'Valider Premium';
+                    btn.style.pointerEvents = 'auto';
+                }
+            } catch (err) {
+                alert('Erreur lors de la validation');
+                btn.innerText = 'Valider Premium';
+                btn.style.pointerEvents = 'auto';
+            }
         }
 
         async function confirmDelete(token, name, row) {

@@ -120,6 +120,10 @@ const login = async (req, res) => {
         //     message: 'Mot de passe incorrect'
         // })
 
+        const token = await generateToken(email, 120); // Token valide 2 heures (120 min)
+        eleve.token = token;
+        await eleve.save();
+
         return res.json({ eleve, success: true, titre: eleve.role })
         console.log(eleve);
 
@@ -235,10 +239,92 @@ const mdpOublie = async (req, res) => {
 const mdpReinitialiser = async (req, res) => {
 
 }
+
+const demandePremium = async (req, res) => {
+    const { numeroRecu } = req.body;
+    const token = req.authorization; // Ou req.authorization selon comment votre middleware auth le gère
+
+    // Le middleware 'auth' devrait normalement injecter l'email ou l'ID dans req
+    // Mais ici on dirait que vous utilisez le token pour trouver l'élève dans updateResultats
+
+    try {
+        if (!numeroRecu || !req.file) {
+            return res.json({
+                success: false,
+                message: 'Le numéro de reçu et l\'image sont obligatoires.'
+            });
+        }
+
+        const imagePath = `/client/assets/img/recus/${req.file.filename}`;
+
+        const eleve = await EleveModel.findOneAndUpdate(
+            { token: token },
+            {
+                $set: {
+                    premiumRequest: {
+                        date: new Date(),
+                        numeroRecu: numeroRecu,
+                        imageRecu: imagePath,
+                        statut: 'en_attente'
+                    }
+                }
+            },
+            { new: true }
+        );
+
+        if (!eleve) {
+            return res.json({
+                success: false,
+                message: 'Élève non trouvé. Veuillez vous reconnecter.'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'Votre demande a été envoyée avec succès. Elle sera traitée sous 24h.',
+            eleve
+        });
+
+    } catch (error) {
+        res.json({
+            success: false,
+            message: 'Erreur lors de l\'envoi de la demande : ' + error.message
+        });
+    }
+}
+
+const validerPremium = async (req, res) => {
+    const { token } = req.body; // Token de l'élève à valider
+    try {
+        const eleve = await EleveModel.findOneAndUpdate(
+            { token: token },
+            {
+                $set: {
+                    role: 'premium',
+                    'premiumRequest.statut': 'valide'
+                }
+            },
+            { new: true }
+        );
+
+        if (!eleve) return res.json({ success: false, message: 'Élève non trouvé' });
+
+        res.json({
+            success: true,
+            message: `Le compte de ${eleve.nom} est maintenant PREMIUM`,
+            eleve
+        });
+    } catch (error) {
+        res.json({ success: false, message: 'Erreur : ' + error.message });
+    }
+}
+
 module.exports = {
     creerCompte,
     verifierEmail,
     login, updateResultats, freeMins,
     getExo, annulerCompte,
-    mdpOublie
+    mdpOublie,
+    demandePremium,
+    validerPremium
 };

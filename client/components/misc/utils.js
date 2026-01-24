@@ -1,6 +1,6 @@
 // Afficher une notification simple
 import { profile } from './profile.js'
-import { modalDevenirPremium, modalFreeMins } from './modals.js'
+import { modalDevenirPremium, modalFreeMins, toast } from './modals.js'
 import { login } from './login.js'
 import { API_URL } from '../../config/env.js'
 import { getProfile, setProfile, getResults } from '../../utils/storage.js'

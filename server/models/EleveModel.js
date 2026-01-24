@@ -12,6 +12,12 @@ const elevesSchema = new mongoose.Schema({
     dateFreeMin: { type: Date, default: Date.now },
 
     role: { type: String },
+    premiumRequest: {
+        date: { type: Date },
+        numeroRecu: { type: String },
+        imageRecu: { type: String },
+        statut: { type: String, enum: ['en_attente', 'valide', 'refuse'], default: null }
+    },
     resultats: {
         qcm: {
             score: { type: Number, default: 0 },

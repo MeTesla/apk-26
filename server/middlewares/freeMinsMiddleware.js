@@ -39,6 +39,16 @@ const freeMinsMiddleware = async (req, res, next) => {
         message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !',
     })
 
+    if (eleve.role == 'premium') {
+        return res.json({
+            success: true,
+            titre: 'Premium',
+            message: 'Accès illimité pour les membres Premium !',
+            token, // On renvoie le token pour rester cohérent
+            eleveUpdated: eleve
+        })
+    }
+
 
     const { freeMins, dateFreeMin } = eleve
 
