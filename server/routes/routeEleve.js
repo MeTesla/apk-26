@@ -28,7 +28,7 @@ router.post('/valider-premium', validerPremium)
 
 router.get('/freeMins', freeMinsMiddleware, freeMins)
 
-router.get('/', auth, getExo)
+router.get('/', freeMinsMiddleware, getExo)
 
 router.post('/mdp-oublie', mdpOublie)
 

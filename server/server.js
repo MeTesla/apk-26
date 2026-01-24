@@ -12,6 +12,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/client/assets', express.static('../client/assets'))
+app.use('/uploads', express.static('uploads'))
 
 // Routes
 const router = require('./routes/routeEleve')

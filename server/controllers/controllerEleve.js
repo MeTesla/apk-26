@@ -255,7 +255,7 @@ const demandePremium = async (req, res) => {
             });
         }
 
-        const imagePath = `/client/assets/img/recus/${req.file.filename}`;
+        const imagePath = `/uploads/${req.file.filename}`;
 
         const eleve = await EleveModel.findOneAndUpdate(
             { token: token },

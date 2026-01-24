@@ -39,16 +39,10 @@ const freeMinsMiddleware = async (req, res, next) => {
         message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !',
     })
 
-    if (eleve.role == 'premium') {
-        return res.json({
-            success: true,
-            titre: 'Premium',
-            message: 'Accès illimité pour les membres Premium !',
-            token, // On renvoie le token pour rester cohérent
-            eleveUpdated: eleve
-        })
+    // Premium users get unlimited access
+    if (eleve.role === 'premium') {
+        return next(); // Let them through without consuming minutes
     }
-
 
     const { freeMins, dateFreeMin } = eleve
 
@@ -58,29 +52,25 @@ const freeMinsMiddleware = async (req, res, next) => {
         return time
     }
 
-    // ------------1   IS VALID Token
-    if ((timeStamp(dateFreeMin) + 1000 * 60) > timeStamp(now)) {
-        return res.json({
-            success: false,
-            titre: 'validToken',
-            message: 'Les 15 minutes ne sont pas encore écoulées !'
-        })
-
+    // ------------1   IS VALID Token (user still has active session)
+    if ((timeStamp(dateFreeMin) + 1000 * 60 * 15) > timeStamp(now)) {
+        return next(); // Token still valid, let them through
     }
+
     const date = new Date(dateFreeMin)
 
-    // ------------2
+    // ------------2   No more minutes left
     if (freeMins <= 0) {
         return res.json({
             success: false,
             titre: 'noMoreMins',
-            message: 'Vous n\'avez plus de solde minutes. Passer Prmium',
+            message: 'Vous n\'avez plus de solde minutes. Passez Premium',
             freeMins
         })
     }
 
-    // ------------3   Same day 24H
-    if (timeStamp(dateFreeMin) + (2 * 60 * 1000) > timeStamp(now)) {
+    // ------------3   Same day 24H check (must wait before getting new free minutes)
+    if (timeStamp(dateFreeMin) + (24 * 60 * 60 * 1000) > timeStamp(now)) {
         return res.json({
             success: false,
             titre: 'waitDay',
@@ -89,9 +79,17 @@ const freeMinsMiddleware = async (req, res, next) => {
         })
     }
 
+    // If token is expired, proceed to freeMins controller
     jwt.verify(token, config.SECRET_KEY, (err, user) => {
         if (err && err.name === "TokenExpiredError") {
             next();
+        } else {
+            // Token is still valid but shouldn't be here
+            return res.json({
+                success: false,
+                titre: 'invalidState',
+                message: 'État invalide. Veuillez vous reconnecter.'
+            })
         }
     });
 }
