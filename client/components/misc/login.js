@@ -125,11 +125,11 @@ export function login() {
     const result = await safeFetchPost(API_URL + '/login', cleanData)
 
     if (result.success) {
-      const data = result.data
-      localStorage.setItem('role', data.eleve.role)
-      localStorage.setItem('token', data.eleve.token)
-      console.log(data.eleve)
-      const { _id, nom, prenom, email, tel, freeMins, resultats, role } = data.eleve
+      console.log(result)
+      localStorage.setItem('role', result.data.eleve.role)
+      localStorage.setItem('token', result.data.eleve.token)
+      console.log(result.data.eleve)
+      const { _id, nom, prenom, email, tel, freeMins, resultats, role } = result.data.eleve
       const objElv = { _id, nom, prenom, email, tel, freeMins, resultats, role }
       localStorage.setItem('profile', JSON.stringify(objElv))
 

@@ -2,6 +2,7 @@ const { postEmail, generateToken, prepareData } = require('../utils')
 const jwt = require('jsonwebtoken')
 const EleveModel = require('../models/EleveModel')
 const config = require('../config/env')
+const ROLES = require('../config/roles')
 // const { prepareData } = require('../utiles')
 
 const creerCompte = async (req, res) => {
@@ -24,14 +25,14 @@ const creerCompte = async (req, res) => {
     tomorrow.setDate(today.getDate() + 1)
 
     const token = await generateToken(email, 1)
-    const eleve = new EleveModel({ nom, prenom, email, tel, role: 'attenteR', token })
+    const eleve = new EleveModel({ nom, prenom, email, tel, role: ROLES.NON_VERIFIE, token })
     await eleve.save()
 
     await postEmail(req, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier-email')
     return res.json({
         success: true,
         token,
-        titre: "attenteR",
+        titre: "non_verifie",
         role: eleve.role,
         message: "Un mail vous a été envoyés. Pour finaliser votre inscription cliquez sur le lien du mail."
     })
@@ -53,10 +54,10 @@ const verifierEmail = async (req, res) => {
             })
         }
 
-        // Update student role to 'registred'
+        // Update student role to 'basic'
         const eleveUpdated = await EleveModel.findOneAndUpdate(
             { token },
-            { $set: { role: 'registred' } },
+            { $set: { role: ROLES.BASIC } },
             { new: true, runValidators: true }
         )
 
@@ -73,7 +74,7 @@ const verifierEmail = async (req, res) => {
 
         return res.json({
             success: false,
-            role: 'attenteR',
+            role: ROLES.NON_VERIFIE,
             message: 'Le lien de vérification a expiré ou il est invalide. Votre pré-inscription a été annulée, veuillez recommencer.'
         })
     }
@@ -111,7 +112,7 @@ const login = async (req, res) => {
             success: false,
             message: 'Aucun compte associé à cet émail. Veuillez créer un compte'
         })
-        if (eleve.role === 'attenteR') return res.json({
+        if (eleve.role === ROLES.NON_VERIFIE) return res.json({
             success: false,
             message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !'
         })
@@ -236,6 +237,29 @@ const mdpOublie = async (req, res) => {
     }
 }
 
+const adminLogin = async (req, res) => {
+    const { email, password } = req.body
+    if (email == "a@a.com" && password == "a") { // Admin credentials
+        const reponse = await EleveModel.find({})
+        if (req.accepts('html')) {
+            return res.render('admin', { eleves: reponse });
+        }
+        return res.json({
+            success: true,
+            message: 'data sent',
+            data: reponse
+        })
+    } else {
+        if (req.accepts('html')) {
+            return res.render('login_admin', { error: 'Email ou mot de passe incorrect' });
+        }
+        return res.json({
+            success: false,
+            message: 'Email ou mot de passe incorrect'
+        })
+    }
+}
+
 const mdpReinitialiser = async (req, res) => {
 
 }
@@ -266,7 +290,8 @@ const demandePremium = async (req, res) => {
                         numeroRecu: numeroRecu,
                         imageRecu: imagePath,
                         statut: 'en_attente'
-                    }
+                    },
+                    role: ROLES.ATTENTE_PREMIUM
                 }
             },
             { new: true }
@@ -300,7 +325,7 @@ const validerPremium = async (req, res) => {
             { token: token },
             {
                 $set: {
-                    role: 'premium',
+                    role: ROLES.PREMIUM,
                     'premiumRequest.statut': 'valide'
                 }
             },
@@ -326,5 +351,6 @@ module.exports = {
     getExo, annulerCompte,
     mdpOublie,
     demandePremium,
-    validerPremium
+    validerPremium,
+    adminLogin
 };

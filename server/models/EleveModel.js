@@ -11,7 +11,7 @@ const elevesSchema = new mongoose.Schema({
     freeMins: { type: Number, default: 2 },
     dateFreeMin: { type: Date, default: Date.now },
 
-    role: { type: String },
+    role: { type: String, enum: ['non_verifie', 'basic', 'attente_premium', 'premium'], required: true },
     premiumRequest: {
         date: { type: Date },
         numeroRecu: { type: String },

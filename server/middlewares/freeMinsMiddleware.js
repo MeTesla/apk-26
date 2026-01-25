@@ -2,6 +2,7 @@ const express = require('express')
 const EleveModel = require('../models/EleveModel')
 const jwt = require('jsonwebtoken')
 const config = require('../config/env')
+const ROLES = require('../config/roles')
 
 //+10 mintues Middleware & route
 const freeMinsMiddleware = async (req, res, next) => {
@@ -33,14 +34,14 @@ const freeMinsMiddleware = async (req, res, next) => {
         // Token evoyé par émail dois avoir une durée de validité plus longue (4jours)
         message: 'Vous n\'avez pas de compte. Veuillez vous enregistrer !',
     })
-    if (eleve.role == 'attenteR') return res.json({
+    if (eleve.role == ROLES.NON_VERIFIE) return res.json({
         success: false,
         titre: 'notVerified',
         message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !',
     })
 
     // Premium users get unlimited access
-    if (eleve.role === 'premium') {
+    if (eleve.role === ROLES.PREMIUM) {
         return next(); // Let them through without consuming minutes
     }
 

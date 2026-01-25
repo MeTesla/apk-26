@@ -4,9 +4,10 @@
 
 // États utilisateur
 export const USER_ROLES = {
-  AWAITING_VERIFICATION: 'attenteR',
-  REGISTERED: 'registred',
-  PREMIUM: 'PREMIUM'
+  NON_VERIFIE: 'non_verifie',       // État 1: Compte créé, email non vérifié
+  BASIC: 'basic',                    // État 2: Email vérifié, compte de base
+  ATTENTE_PREMIUM: 'attente_premium', // État 3: Demande premium en cours
+  PREMIUM: 'premium'                 // État 4: Compte premium validé
 }
 
 // Configuration des exercices

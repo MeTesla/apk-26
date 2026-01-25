@@ -42,7 +42,7 @@ export function setProfile(profile) {
 
 /**
  * Récupérer le rôle utilisateur
- * @returns {string|null} Role (attenteR, registred, PREMIUM) ou null
+ * @returns {string|null} Role (non_verifie, basic, attente_premium, premium) ou null
  */
 export function getRole() {
   return localStorage.getItem(STORAGE_KEYS.ROLE)

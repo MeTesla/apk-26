@@ -18,7 +18,6 @@ app.use('/uploads', express.static('uploads'))
 const router = require('./routes/routeEleve')
 const firebaseRouter = require('./routes/firebaseRoutes')
 
-
 // Socket.IO
 const { Server } = require('socket.io')
 const http = require('http');
@@ -40,46 +39,11 @@ app.use('/api/firebase', firebaseRouter)
 
 // Test EJS HTML engine.
 app.set('view engine', 'ejs');
-const eleves = [
-    { nom: 'Dupont', prenom: 'Jean', age: 20 },
-    { nom: 'Martin', prenom: 'Sophie', age: 22 },
-    { nom: 'Tremblay', prenom: 'Julien', age: 19 },
-];
 
 // Route GET admin login
 app.get('/client/euduka/admin', (req, res) => {
     res.render('login_admin');
 });
-
-// Route admin
-app.post('/client/euduka/admin', async (req, res) => {
-    const { email, password } = req.body
-    if (email == "a@a.com" && password == "a") { // Admin credentials
-        const reponse = await EleveModel.find({})
-        if (req.accepts('html')) {
-            return res.render('admin', { eleves: reponse });
-        }
-        return res.json({
-            success: true,
-            message: 'data sent',
-            data: reponse
-        })
-    } else {
-        if (req.accepts('html')) {
-            return res.render('login_admin', { error: 'Email ou mot de passe incorrect' });
-        }
-        return res.json({
-            success: false,
-            message: 'Email ou mot de passe incorrect'
-        })
-    }
-});
-
-//delete all documents
-app.delete('/delete', async (req, res) => {
-    const delet = await EleveModel.deleteMany({});
-    res.json('all decument deletedddd')
-})
 
 // BD connexion
 mongoose.connect(config.MONGODB_URL)
@@ -90,7 +54,6 @@ mongoose.connect(config.MONGODB_URL)
         console.error('Erreur de connexion à la base de données :', err);
     });
 
-// const url='https://euduka.vercel.app'
 server.listen(config.PORT, () => {
     console.log(`✅ Server listening on port ${config.PORT}`);
 })
@@ -111,4 +74,4 @@ const djcvf = [
     { 'question': `La thse dfendue dans Le dernier jour dun condamné est labolition de la peine de mort`, 'rep': 'Faux' },
     { 'question': `Le condamné du roman est condamné aux travaux forcés.`, 'rep': 'Faux' }
 ]
-setInterval(() => io.emit('liste', djcvf), 4000)
+setInterval(() => io.emit('liste', djcvf), 1000 * 60 * 5)

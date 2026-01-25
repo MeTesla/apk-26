@@ -278,7 +278,7 @@
         <h1>Euduka Dashboard</h1>
 
         <% const total=eleves.length; const premiums=eleves.filter(e=> e.role === 'premium').length;
-            const waitings = eleves.filter(e => e.role !== 'premium' && e.premiumRequest).length;
+            const enAttente = eleves.filter(e => e.role !== 'premium' && e.premiumRequest).length;
             %>
 
             <div class="stats-grid">
@@ -291,7 +291,7 @@
                 <div class="stat-card waiting">
                     <h3>En Attente</h3>
                     <div class="value" style="color: #007bff;">
-                        <%= waitings %>
+                        <%= enAttente %>
                     </div>
                 </div>
                 <div class="stat-card premium">
@@ -311,7 +311,7 @@
                     <select id="admin-filter" onchange="filterEleves()">
                         <option value="all">Tous les comptes</option>
                         <option value="premium">Premium 👑</option>
-                        <option value="waiting">En attente ⏳</option>
+                        <option value="attente">En attente ⏳</option>
                         <option value="basic">Basic</option>
                     </select>
                 </div>
@@ -328,36 +328,39 @@
                 </thead>
                 <tbody id="eleves-table-body">
                     <% const sortedEleves=[...eleves].sort((a, b)=> {
-                        const aWaiting = (a.role !== 'premium' && a.premiumRequest) ? 1 : 0;
-                        const bWaiting = (b.role !== 'premium' && b.premiumRequest) ? 1 : 0;
-                        if (aWaiting !== bWaiting) return bWaiting - aWaiting;
+                        const aEnAttente = (a.role !== 'premium' && a.premiumRequest) ? 1 : 0;
+                        const bEnAttente = (b.role !== 'premium' && b.premiumRequest) ? 1 : 0;
+                        if (aEnAttente !== bEnAttente) return bEnAttente - aEnAttente;
                         if (a.role === 'premium' && b.role !== 'premium') return -1;
                         if (a.role !== 'premium' && b.role === 'premium') return 1;
                         return 0;
                         });
 
                         sortedEleves.forEach((elv) => {
-                        const isPremium = elv.role === 'premium';
-                        const isWaiting = !isPremium && elv.premiumRequest;
-                        let rowClass = '';
-                        if (isPremium) rowClass = 'premium-row';
-                        if (isWaiting) rowClass = 'waiting-row';
+                        const estPremium = elv.role === 'premium';
+                        const estEnAttente = !estPremium && elv.premiumRequest;
+                        let classeRangee = '';
+                        if (estPremium) classeRangee = 'premium-row';
+                        if (estEnAttente) classeRangee = 'waiting-row';
 
-                        let statusBadge = '<span class="badge badge-basic">Basic</span>';
-                        let statusType = 'basic';
-                        if (isPremium) {
-                        statusBadge = '<span class="badge badge-premium">Premium 👑</span>';
-                        statusType = 'premium';
-                        } else if (isWaiting) {
-                        statusBadge = '<span class="badge badge-waiting">En attente ⏳</span>';
-                        statusType = 'waiting';
+                        let badgeStatut = '<span class="badge badge-basic">Basic</span>';
+                        let typeStatut = 'basic';
+                        if (estPremium) {
+                        badgeStatut = '<span class="badge badge-premium">Premium 👑</span>';
+                        typeStatut = 'premium';
+                        } else if (estEnAttente) {
+                        badgeStatut = '<span class="badge badge-waiting">En attente ⏳</span>';
+                        typeStatut = 'attente';
+                        } else if (elv.role === 'non_verifie') {
+                        badgeStatut = '<span class="badge badge-waiting">À vérifier</span>';
+                        typeStatut = 'attente';
                         }
 
                         const elvData = JSON.stringify(elv).replace(/'/g, "&#39;");
                         %>
-                        <tr class="<%= rowClass %>"
+                        <tr class="<%= classeRangee %>"
                             data-search="<%= (elv.nom + ' ' + elv.prenom + ' ' + elv.email).toLowerCase() %>"
-                            data-role="<%= statusType %>">
+                            data-role="<%= typeStatut %>">
                             <td>
                                 <strong>
                                     <%= elv.nom %>
@@ -367,7 +370,7 @@
                             <td>
                                 <%= elv.email %>
                             </td>
-                            <td><%- statusBadge %></td>
+                            <td><%- badgeStatut %></td>
                             <td class="actions-cell">
                                 <button class="btn-icon btn-details" data-elv='<%- elvData %>'
                                     onclick="showMore(JSON.parse(this.dataset.elv))">
