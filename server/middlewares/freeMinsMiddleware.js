@@ -30,7 +30,7 @@ const freeMinsMiddleware = async (req, res, next) => {
     if (!eleve) return res.json({
         success: false,
         titre: 'noEleve',
-        // Je dois gérer le cas d'un élève qui n'a pas vérifié son email, cas larbi@larbi.co
+        // Je dois gérer le cas d'un élève qui n'a pas vérifié son email
         // Token evoyé par émail dois avoir une durée de validité plus longue (4jours)
         message: 'Vous n\'avez pas de compte. Veuillez vous enregistrer !',
     })
@@ -71,7 +71,7 @@ const freeMinsMiddleware = async (req, res, next) => {
     }
 
     // ------------3   Same day 24H check (must wait before getting new free minutes)
-    if (timeStamp(dateFreeMin) + (24 * 60 * 60 * 1000) > timeStamp(now)) {
+    if (timeStamp(dateFreeMin) + (60 * 1000) > timeStamp(now)) {
         return res.json({
             success: false,
             titre: 'waitDay',

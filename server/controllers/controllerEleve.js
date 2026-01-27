@@ -176,7 +176,6 @@ const updateResultats = async (req, res) => {
 }
 
 const freeMins = async (req, res) => {
-
     if (!res.headersSent) {
         const token = await generateToken(req.userEmail, 10) // token valide 10 minutes
         // --------- UPDATE DOCUMENT       

@@ -179,7 +179,7 @@ export function generateMenu(typeAccount, pere, menu) {
         </div>
         </div>`
       break;
-    case 'registred':
+    case 'basic':
       div.innerHTML = `<div class="registred">
             <div class="premium">
               <img src="/client/assets/img/diamond.png" />
