@@ -3,7 +3,6 @@ import { vf } from "../act/vf.js"
 import { conic } from "../../utils.js"
 import { remplirVide } from "../act/remplirVide.js"
 import { ordrePhrases } from "../act/ordrePhrases.js"
-import { createLineChart } from "./utils.js"
 import { getProfile } from "../../utils/storage.js"
 
 export function profile() {
@@ -156,6 +155,7 @@ export function profile() {
                 font-size: 0.9rem;
                 color: #6f6f6f;
                 font-weight: 500;
+                margin-right: 60px;
             }
 
             .profile-content {
@@ -386,9 +386,65 @@ export function profile() {
                 margin-top: 12px;
                 background: linear-gradient(135deg, #fff9f0, #fff);
                 border-radius: 10px;
-                padding: 10px;
-                height: 80px;
+                padding: 12px;
+                height: 150px;
                 border: 1px solid #ffe4c4;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .chart-title {
+                font-size: 0.7rem;
+                color: #d48220;
+                font-weight: 600;
+                margin-bottom: 6px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .bars-container {
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                gap: 6px;
+                height: 24px;
+            }
+
+            .bar {
+                width: 18px;
+                background: linear-gradient(180deg, #ffd700, #e89332);
+                border-radius: 3px 3px 0 0;
+                transition: all 0.3s ease;
+                position: relative;
+                min-height: 4px;
+            }
+
+            .bar:hover {
+                background: linear-gradient(180deg, #ffb700, #d48220);
+                transform: scaleY(1.1);
+            }
+
+            .bar::after {
+                content: attr(data-score);
+                position: absolute;
+                top: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.65rem;
+                font-weight: 700;
+                color: #e89332;
+                opacity: 0;
+                transition: opacity 0.2s;
+                white-space: nowrap;
+            }
+
+            .bar:hover::after {
+                opacity: 1;
+            }
+
+            .bar.empty {
+                background: #e8e8e8;
             }
 
             .myLineChart {
@@ -486,6 +542,15 @@ export function profile() {
         const lastSession = data?.lastSession || [];
         const score = data?.score || 0;
         const nbrQsts = data?.nbrQsts || 0;
+        const maxScore = nbrQsts || 10;
+        
+        // Generate bars HTML (last 6 scores, reversed to show oldest to newest)
+        const reversedScores = [...scores].slice(-6).reverse();
+        const barsHTML = reversedScores.map((s, i) => {
+            const percentage = Math.min((s / maxScore) * 100, 100);
+            const height = Math.max(percentage, 10);
+            return `<div class="bar ${s === 0 ? 'empty' : ''}" style="height: ${height}%" data-score="${s}/${maxScore}"></div>`;
+        }).join('');
         
         return `
             <div class="result-card">
@@ -502,7 +567,10 @@ export function profile() {
                     </button>
                 </div>
                 <div class="result-chart">
-                    <canvas id="${type}Chart" class="myLineChart"></canvas>
+                    <div class="chart-title">Évolution (6 sessions)</div>
+                    <div class="bars-container">
+                        ${barsHTML}
+                    </div>
                 </div>
             </div>
         `;
@@ -519,19 +587,6 @@ export function profile() {
         });
     }
 
-    // Create charts
-    setTimeout(() => {
-        createChartIfExists('qcm', resultats.qcm?.scores);
-        createChartIfExists('vf', resultats.vf?.scores);
-        createChartIfExists('remplir', resultats.remplir?.scores);
-        createChartIfExists('ordrePh', resultats.ordrePhrases?.scores);
-    }, 200);
-
-    function createChartIfExists(type, scores) {
-        const container = document.querySelector(`.result-card:has(#${type}Chart)`);
-        const canvas = container?.querySelector(`#${type}Chart`);
-        if (canvas && scores && scores.length > 0) {
-            createLineChart(scores, canvas.parentElement);
-        }
-    }
+    // No more Chart.js - using CSS bars instead
+    // Charts are now rendered directly in HTML via createResultCard function
 }
