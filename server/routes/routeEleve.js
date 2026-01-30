@@ -26,7 +26,7 @@ router.post('/update-resultats', auth, updateResultats)
 router.post('/demande-premium', auth, upload.single('recuImage'), demandePremium)
 router.post('/valider-premium', validerPremium)
 
-router.get('/freeMins', freeMinsMiddleware, freeMins)
+router.post('/freeMins', freeMinsMiddleware, freeMins)
 
 router.get('/', freeMinsMiddleware, getExo)
 

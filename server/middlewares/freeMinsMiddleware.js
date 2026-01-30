@@ -54,7 +54,7 @@ const freeMinsMiddleware = async (req, res, next) => {
     }
 
     // ------------1   IS VALID Token (user still has active session)
-    if ((timeStamp(dateFreeMin) + 1000 * 60 * 15) > timeStamp(now)) {
+    if ((timeStamp(dateFreeMin) + 1000 * 60 * 10) > timeStamp(now)) {
         return next(); // Token still valid, let them through
     }
 
@@ -71,7 +71,7 @@ const freeMinsMiddleware = async (req, res, next) => {
     }
 
     // ------------3   Same day 24H check (must wait before getting new free minutes)
-    if (timeStamp(dateFreeMin) + (60 * 1000) > timeStamp(now)) {
+    if (timeStamp(dateFreeMin) + (24 * 60 * 60 * 1000) > timeStamp(now)) {
         return res.json({
             success: false,
             titre: 'waitDay',

@@ -141,7 +141,7 @@ export async function annulerCompte() {
 // ------------  Get free MINs -----------
 async function freeMins() {
   const reponse = await fetch(API_URL + '/freeMins', {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       authorization: localStorage.getItem('token') || ""

@@ -178,8 +178,9 @@ const updateResultats = async (req, res) => {
 const freeMins = async (req, res) => {
     if (!res.headersSent) {
         const token = await generateToken(req.userEmail, 10) // token valide 10 minutes
-        // --------- UPDATE DOCUMENT       
-        const eleveUpdated = await EleveModel.findOneAndUpdate({ email: req.userEmail },
+        // --------- UPDATE DOCUMENT (opération atomique)
+        const eleveUpdated = await EleveModel.findOneAndUpdate(
+            { email: req.userEmail, freeMins: { $gt: 0 } },
             {
                 $inc: { freeMins: -1 },
                 $set: {
@@ -192,10 +193,19 @@ const freeMins = async (req, res) => {
                 runValidators: true
             })
 
+        if (!eleveUpdated) {
+            return res.json({
+                success: false,
+                titre: 'noMoreMins',
+                message: 'Vous n\'avez plus de solde minutes. Passez Premium',
+                freeMins: 0
+            })
+        }
+
         return res.json({
             success: true,
             titre: 'Félicitation',
-            message: 'Vous avez 15 minutes gratuites !',
+            message: 'Vous avez 10 minutes gratuites !',
             token,
             eleveUpdated
         })
