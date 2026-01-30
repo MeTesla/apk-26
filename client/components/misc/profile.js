@@ -12,434 +12,526 @@ export function profile() {
         console.error('❌ Profile data not found in localStorage')
         return
     }
-    const { nom, prenom, email } = profileData
+    const { nom, prenom, email, freeMins } = profileData
     const { role } = profileData
     const resultats = profileData.resultats || {}
+    
     const div = document.createElement('div')
-    div.className = "profile-infos"
-    div.innerHTML = `<div class="profile-container">
-       <div class="profile-header">
-            <div class="profile-close">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
-            </div>
-            <div class="profile-logo">
-                <img src="/client/assets/img/euduka.png" alt="">
-            </div>
-            <div class="profile-date"></div>
-        </div>
-        <div class="profile-data">
-            <div class="user-info">
-                <img class="user-img" src="/client/assets/img/user-img.png" alt="">
-                <div class="user-name">${nom + ' ' + prenom}</div>
-                <div class="user-account ${role === 'premium' ? 'status-premium' : ''}">
-                    ${role === 'premium' ? '<span class="crown">👑</span> Membre PREMIUM' : 'Compte Basic'}
+    div.className = "profile-overlay"
+    div.innerHTML = `
+        <div class="profile-modal">
+            <div class="profile-header">
+                <div class="profile-logo">
+                    <img src="/client/assets/img/euduka.png" alt="EUDUKA" />
                 </div>
-                <div class="user-email">${email}</div>
-                <div class="minutes-container">
-                    <div class="minutes" style="${role === 'premium' ? 'background: linear-gradient(90deg, #ffd700, #ff8c00);' : ''}"></div>
+                <div class="profile-header-right">
+                    <div class="profile-date"></div>
+                    <button class="profile-close-btn"><i class="fas fa-times"></i></button>
                 </div>
             </div>
-            <style>
-                .status-premium {
-                    color: #b8860b !important;
-                    font-weight: 800;
-                    text-transform: uppercase;
-                    letter-spacing: 1.5px;
-                    border: 2px solid #ffd700;
-                    padding: 4px 15px;
-                    border-radius: 25px;
-                    margin: 8px 0;
-                    background: linear-gradient(145deg, #fff9e6, #fff);
-                    box-shadow: 0 2px 5px rgba(212, 175, 55, 0.3);
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                }
-                .crown {
-                    font-size: 1.2rem;
-                }
-                .minutes-container {
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 10px;
-                }
-            </style>
-            <div class="user-resultats">
-               
-                <div class="qcm-res">
-                    <h4>QCM</h4>
-                    <div class="last-session-container">
-                        <h5 class="last-session-title">Dernière session</h5>                
-                        <div class="last-session-data">                    
-                            <div> 
-                                <div class="qcm-conic user-conic"> </div>
-                                <div class="last-session-data-title">Graphique</div>
-                            </div>
-                            <div>
-                                <div class="qcm-last-session last-session"> 
-                                    <i class="fa-solid fa-rotate-right"></i> 
-                                </div>
-                                <div class="last-session-data-title">Refaire</div>
-                            </div>                        
-                        </div>
-                        <div class="last-session-date"> </div>
-                    </div>
-                    
-                    <div class="qcm-chart line-chart"> </div>
-                </div>
-
-                <div class="v-f-res">
-                    <h4>Vrai/Faux</h4>
-                    <div class="last-session-container">
-                        <h5 class="last-session-title">Dernière session</h5>                
-                        <div class="last-session-data">                    
-                            <div> 
-                                <div class="vf-conic"> </div>
-                                <div class="last-session-data-title">Graphique</div>
-                            </div>
-                            <div>
-                                <div class="vf-last-session last-session"> 
-                                    <i class="fa-solid fa-rotate-right"></i> 
-                                </div>
-                                <div class="last-session-data-title">Refaire</div>
-                            </div>                        
-                        </div>
-                        <div class="last-session-date"> </div>
-                    </div>
-                    
-                    <div class="vf-chart line-chart"> </div>
-                </div>
-
-                <div class="remplir-res">
-                    <h4>Remplir les blancs</h4>
-                    <div class="last-session-container">
-                        <h5 class="last-session-title">Dernière session</h5>                
-                        <div class="last-session-data">                    
-                            <div> 
-                                <div class="remplir-conic"> </div>
-                                <div class="last-session-data-title">Graphique</div>
-                            </div>
-                            <div>
-                                <div class="remplir-last-session last-session"> 
-                                    <i class="fa-solid fa-rotate-right"></i> 
-                                </div>
-                                <div class="last-session-data-title">Refaire</div>
-                            </div>                        
-                        </div>
-                        <div class="last-session-date"> </div>
-                    </div>
-                    
-                    <div class="remplir-chart line-chart"> </div>
-                </div>
-
-                <div class="ordrePh-res">
-                    <h4>Ordre phrases</h4>
-                    <div class="last-session-container">
-                        <h5 class="last-session-title">Dernière session</h5>                
-                        <div class="last-session-data">                    
-                            <div> 
-                                <div class="ordrePh-conic"> </div>
-                                <div class="last-session-data-title">Graphique</div>
-                            </div>
-                            <div>
-                                <div class="ordrePh-last-session last-session"> 
-                                    <i class="fa-solid fa-rotate-right"></i> 
-                                </div>
-                                <div class="last-session-data-title">Refaire</div>
-                            </div>                        
-                        </div>
-                        <div class="last-session-date"> </div>
-                    </div>
-                    
-                    <div class="ordrePh-chart line-chart"> </div>
-                </div>              
-            </div>
-        </div>
-        <style>
-        .minutes{
-        
-        width: 60%;
-        height: 5px;
-        margin: 10px 0;
-        background-color: lime;
-        }
-        .profile-infos{
-            position: absolute;
-            height: 100vh;
-            width: 100%;
-            padding: 20px 40px;
-            top: 0; left: 0;
-            background-color: white;
-            overflow: auto;
-        }
-        .profile-header{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .profile-close{
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-        .profile-close svg{
-            width: 100%;
-            height: 100%;}
-        
-        .profile-logo{
-            width: 100px;
-        }
-        .profile-logo img{
-            width: 100%;
-        }
-        .profile-data{
-            display: flex;
-            gap: 10px;
-            align-self: flex-start;
             
-        }
-        .user-info{
-            flex:1;
-            align-self: flex-start;
-            background-color: rgb(236, 236, 236);
-            border-radius: 20px;               
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-        }
-            .user-info .user-img {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                box-shadow: 0 0 5px gray;
-                padding: 5px;
-            }
-            .user-info .user-name {
-                font-weight: bold;
-                margin-top: 10px;
-            }
-
-            .user-info .user-account {
-                font-size: 0.8rem;
-                color: gray;
-                font-style: italic
-            }
-
-            .user-info .user-email {
-                font-size: 0.8rem;
-                color: rgb(50, 50, 50);
-                text-decoration: underline;
-            }
-    /*---------------------*/          
-        .user-resultats{
-            flex:3;
-            background-color: rgb(236, 236, 236);
-            border-radius: 20px;
-            min-height: 70vh;
-            padding: 20px;
-            margin: 0 10px;
-            display: grid;           
-            grid-template-columns: repeat(3, 6fr);
-            gap: 20px;
-
-        }
-        .user-resultats > div{
-            padding: 10px;
-            box-shadow: 0 0 4px rgba(153, 153, 153, 1);
-            border-radius: 15px;
-            text-align: center;
-        }
-        
-        .user-resultats h4{               
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        .last-session-container{
-            width: 90%;        
-            margin: 15px auto;         
-            padding: 10px;
-            border-radius: 5px 10px;
-            background-color: #d1d1d16e;
-            box-shadow: 0 0 5px white;
-        }
-
-        .last-session-data{
-            width: 90%;        
-            margin: auto;        
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            border-radius: 10px;
-        }
-        .last-session-data>div{
-            margin-top: 10px;
-            height: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            gap: 5px;
-            align-items: center;
-        }
-        .last-session-data .last-session-data-title{
-            margin-top: 5px;
-            font-size: 0.8rem;
-            color: gray;
-            font-weight: bold;
-        }
-
-        .user-resultats .user-conic .conic{
-                width: 40px;
-                height: 40px;
-        }
-        .user-resultats .fa-rotate-right{
-            width: 35px;
-            height: 35px;
-            fill: gray
-        }
-            .user-resultats .fa-rotate-right path{
-            fill: #222;}
-
-            .line-chart{
-                width: 90%;
-                margin: auto;
-                background-color: #d1d1d16e;
-                box-shadow: 0 0 5px white;
-                border-radius: 15px;
-                padding: 10px;
-            }
-            .myLineChart{
-                width: 100% !important;
-            }
-            
-            @media screen and (max-width: 760px) {
-                .profile-data{
-                    display: block;                                            
-                }
-                .user-info{
-                    margin: 10px;
-                }
-                .user-resultats{
-                    grid-template-columns: repeat(1, 6fr);                   
-                }
-                .profile-info{
-                    width: 100%;
-
-                }            .profile-infos{ padding: 10px 20px;}
+            <div class="profile-content">
+                <div class="user-info-card">
+                    <div class="user-avatar">
+                        <img src="/client/assets/img/user-img.png" alt="${nom}" />
+                    </div>
+                    <h2 class="user-name">${nom} ${prenom}</h2>
+                    <div class="user-status ${role === 'premium' ? 'status-premium' : role === 'attente_premium' ? 'status-waiting' : ''}">
+                        ${getStatusBadge(role)}
+                    </div>
+                    <p class="user-email"><i class="fas fa-envelope"></i> ${email}</p>
+                    <div class="user-minutes">
+                        ${getMinutesDisplay(role, freeMins)}
+                    </div>
+                </div>
                 
+                <div class="results-section">
+                    <h3 class="section-title"><i class="fas fa-chart-line"></i> Mes résultats</h3>
+                    
+                    <div class="results-grid">
+                        ${createResultCard('QCM', 'qcm', resultats.qcm)}
+                        ${createResultCard('Vrai/Faux', 'vf', resultats.vf)}
+                        ${createResultCard('Remplir les blancs', 'remplir', resultats.remplir)}
+                        ${createResultCard('Ordre phrases', 'ordrePh', resultats.ordrePhrases)}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+            .profile-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: linear-gradient(135deg, rgba(232, 147, 50, 0.1), rgba(126, 87, 194, 0.1));
+                backdrop-filter: blur(8px);
+                z-index: 1000;
+                animation: fadeIn 0.3s ease-out;
             }
-            @media (min-width: 769px) and (max-width: 1024px){
-            .user-resultats{
-                    grid-template-columns: repeat(2, 6fr);                   
-                }
 
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
             }
 
-            @media screen and (min-width: 1200px){
-            .user-resultats{
-                    grid-template-columns: repeat(3, 6fr);                   
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
                 }
             }
-        </style>            
+
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+
+            .profile-modal {
+                position: relative;
+                width: 95%;
+                max-width: 1200px;
+                height: 90vh;
+                background: white;
+                border-radius: 24px;
+                box-shadow: 0 25px 50px -12px rgba(232, 147, 50, 0.25);
+                animation: slideUp 0.4s ease-out;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .profile-close-btn {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                width: 40px;
+                height: 40px;
+                border: none;
+                background: #f5f5f5;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                color: #666;
+                z-index: 10;
+            }
+
+            .profile-close-btn:hover {
+                background: #e89332;
+                color: white;
+                transform: rotate(90deg);
+            }
+
+            .profile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 30px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .profile-header-right {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+
+            .profile-logo img {
+                width: 50px;
+                height: auto;
+            }
+
+            .profile-date {
+                font-size: 0.9rem;
+                color: #6f6f6f;
+                font-weight: 500;
+            }
+
+            .profile-content {
+                display: flex;
+                gap: 24px;
+                padding: 24px;
+                flex: 1;
+                overflow: hidden;
+            }
+
+            .user-info-card {
+                width: 280px;
+                background: linear-gradient(180deg, #fff9f0 0%, #fff 50%, #fafafa 100%);
+                border-radius: 20px;
+                padding: 24px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                flex-shrink: 0;
+                border: 1px solid #ffe4c4;
+            }
+
+            .user-avatar {
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-bottom: 16px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                border: 3px solid #e89332;
+            }
+
+            .user-avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .user-name {
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: #2c2c2c;
+                margin-bottom: 12px;
+            }
+
+            .user-status {
+                margin-bottom: 16px;
+            }
+
+            .status-premium {
+                background: linear-gradient(135deg, #ffd700, #ffb700);
+                color: #333;
+                padding: 8px 20px;
+                border-radius: 25px;
+                font-weight: 700;
+                font-size: 0.85rem;
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            }
+
+            .status-waiting {
+                background: linear-gradient(135deg, #ffa500, #ff8c00);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 25px;
+                font-weight: 600;
+                font-size: 0.85rem;
+            }
+
+            .user-email {
+                font-size: 0.85rem;
+                color: #6f6f6f;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .user-email i {
+                color: #e89332;
+            }
+
+            .user-minutes {
+                width: 100%;
+                background: white;
+                border-radius: 12px;
+                padding: 16px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .minutes-unlimited {
+                background: linear-gradient(135deg, #fff9e6, #ffd700);
+                color: #b8860b;
+                font-weight: 700;
+                padding: 10px 15px;
+                border-radius: 10px;
+                font-size: 0.9rem;
+            }
+
+            .minutes-bar-container {
+                width: 100%;
+                height: 8px;
+                background: #e8e8e8;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-top: 8px;
+            }
+
+            .minutes-bar {
+                height: 100%;
+                background: linear-gradient(90deg, #e89332, #d48220);
+                border-radius: 4px;
+                transition: width 0.3s ease;
+            }
+
+            .minutes-text {
+                font-size: 0.85rem;
+                color: #6f6f6f;
+                font-weight: 500;
+            }
+
+            .results-section {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #2c2c2c;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .section-title i {
+                color: #e89332;
+            }
+
+            .results-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+                overflow-y: auto;
+                padding-right: 10px;
+            }
+
+            .result-card {
+                background: white;
+                border-radius: 16px;
+                padding: 20px;
+                box-shadow: 0 4px 15px rgba(232, 147, 50, 0.1);
+                border: 1px solid #ffe4c4;
+                transition: all 0.3s ease;
+            }
+
+            .result-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(232, 147, 50, 0.2);
+                border-color: #e89332;
+            }
+
+            .result-card h4 {
+                font-size: 1rem;
+                font-weight: 700;
+                color: #2c2c2c;
+                margin-bottom: 16px;
+                text-align: center;
+            }
+
+            .result-stats {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                margin-bottom: 16px;
+            }
+
+            .stat-item {
+                text-align: center;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #e89332;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+                color: #e89332;
+                font-weight: 500;
+                margin-top: 4px;
+            }
+
+            .result-actions {
+                display: flex;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .btn-redo {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 8px 16px;
+                background: linear-gradient(135deg, #fff9f0, #ffe4c4);
+                border: 1px solid #e89332;
+                border-radius: 8px;
+                font-size: 0.85rem;
+                color: #d48220;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .btn-redo:hover {
+                background: linear-gradient(135deg, #e89332, #d48220);
+                color: white;
+            }
+
+            .btn-redo i {
+                font-size: 0.9rem;
+            }
+
+            .result-chart {
+                margin-top: 12px;
+                background: linear-gradient(135deg, #fff9f0, #fff);
+                border-radius: 10px;
+                padding: 10px;
+                height: 80px;
+                border: 1px solid #ffe4c4;
+            }
+
+            .myLineChart {
+                max-height: 60px !important;
+            }
+
+            @media screen and (max-width: 900px) {
+                .profile-content {
+                    flex-direction: column;
+                    overflow-y: auto;
+                }
+                
+                .user-info-card {
+                    width: 100%;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 16px;
+                }
+                
+                .user-minutes {
+                    width: auto;
+                    flex: 1;
+                    min-width: 200px;
+                }
+                
+                .results-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                .results-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
     </div>`
-    document.body.style.overflow = "hidden"
     document.body.appendChild(div)
+    document.body.style.overflow = "hidden"
 
-    const profileDate = document.querySelector('.profile-date')
-    const profileClose = document.querySelector('.profile-close')
-    const qcmConic = document.querySelector('.qcm-conic')
-    const vfConic = document.querySelector('.vf-conic')
-    const remplirConic = document.querySelector('.remplir-conic')
-    const ordrePhConic = document.querySelector('.ordrePh-conic')
-
-    // Date
+    const profileDate = div.querySelector('.profile-date')
+    const profileClose = div.querySelector('.profile-close-btn')
+    
     const date = new Date()
     const options = {
         day: '2-digit',
-        month: '2-digit',
+        month: 'long',
         year: 'numeric'
     }
-    const minutesDiv = div.querySelector('.minutes')
-    if (role === 'premium') {
-        minutesDiv.innerHTML = '<span style="font-size: 0.8rem; font-weight: 900; color: #b8860b; white-space: nowrap;">ACCÈS ILLIMITÉ ⚡</span>'
-        minutesDiv.style.width = "auto"
-        minutesDiv.style.padding = "5px 15px"
-        minutesDiv.style.borderRadius = "15px"
-        minutesDiv.style.boxShadow = "0 0 10px rgba(255, 215, 0, 0.4)"
-        minutesDiv.style.background = "linear-gradient(90deg, #fff9e6, #ffd700)"
-    }
-
     profileDate.innerHTML = date.toLocaleDateString('fr-FR', options)
 
-
-    //QCM last session
-    const qcmLastSession = document.querySelector('.qcm-last-session')
-    qcmLastSession.onclick = () => {
-        const qcmData = getProfile()?.resultats?.qcm?.lastSession || []
-        if (qcmData.length === 0) return
-        qcm(div, qcmData)
-        document.body.style.overflow = "hidden"
-    }
-
-    //VF last session 
-    const vfLastSession = document.querySelector('.vf-last-session')
-    vfLastSession.onclick = () => {
-        const vfData = getProfile()?.resultats?.vf?.lastSession || []
-        if (vfData.length === 0) return
-        vf(div, vfData)
-        document.body.style.overflow = "hidden"
-    }
-
-    //oredrePhrase last session
-    const ordrePhLastSession = document.querySelector('.ordrePh-last-session')
-    ordrePhLastSession.onclick = () => {
-        const ordrePhData = getProfile()?.resultats?.ordrePhrases?.lastSession || []
-        if (ordrePhData.length === 0) return
-        ordrePhrases(div, ordrePhData)
-        document.body.style.overflow = "hidden"
-        console.log('mlqksjdoiaer')
-    }
-
-    //Remplir last session
-    const remplirLastSession = document.querySelector('.remplir-last-session')
-    remplirLastSession.onclick = () => {
-        const remplirData = getProfile()?.resultats?.remplir?.lastSession || null
-        console.log(remplirData)
-        if (remplirData?.[0] === '') return
-        remplirVide(div, remplirData)
-        document.body.style.overflow = "hidden"
-    }
-
-    qcmConic.appendChild(conic(resultats.qcm?.score, resultats.qcm?.nbrQsts))
-    vfConic.appendChild(conic(resultats.vf?.score, resultats.vf?.nbrQsts))
-    remplirConic.appendChild(
-        conic(resultats.remplir?.score,
-            resultats.remplir?.nbrQsts)
-    )
-    ordrePhConic.appendChild(
-        conic(resultats.ordrePhrases?.score,
-            resultats.ordrePhrases?.nbrQsts)
-    )
-
+    // Event listeners for redo buttons
+    attachRedoListeners(div, 'qcm', qcm)
+    attachRedoListeners(div, 'vf', vf)
+    attachRedoListeners(div, 'remplir', remplirVide)
+    attachRedoListeners(div, 'ordrePh', ordrePhrases)
 
     profileClose.addEventListener('click', () => {
-        document.body.style.overflow = "auto"
-        div.remove()
+        div.style.animation = 'fadeOut 0.2s ease-out forwards';
+        setTimeout(() => {
+            document.body.style.overflow = "auto"
+            div.remove()
+        }, 200);
     })
 
-    //------Charts    
-    //QCM
-    createLineChart(resultats.qcm?.scores, document.querySelector('.qcm-chart'))
-    //VF
-    createLineChart(resultats.vf?.scores, document.querySelector('.vf-chart'))
-    //Ordre phrases
-    createLineChart(resultats.ordrePhrases?.scores, document.querySelector('.ordrePh-chart'))
-    //Remplir
-    createLineChart(resultats.remplir?.scores, document.querySelector('.remplir-chart'))
+    function getStatusBadge(role) {
+        switch(role) {
+            case 'premium':
+                return '<span>👑 COMPTE PREMIUM</span>';
+            case 'attente_premium':
+                return '<span>⏳ En attente Premium</span>';
+            case 'non_verifie':
+                return '<span>📧 Non vérifié</span>';
+            default:
+                return '<span>Compte Basic</span>';
+        }
+    }
+
+    function getMinutesDisplay(role, mins) {
+        if (role === 'premium') {
+            return `<div class="minutes-unlimited">⚡ ACCÈS ILLIMITÉ</div>`;
+        }
+        const percentage = Math.min((mins / 10) * 100, 100);
+        return `
+            <div class="minutes-text">${mins} minutes gratuites</div>
+            <div class="minutes-bar-container">
+                <div class="minutes-bar" style="width: ${percentage}%"></div>
+            </div>
+        `;
+    }
+
+    function createResultCard(title, type, data) {
+        const scores = data?.scores || [];
+        const lastSession = data?.lastSession || [];
+        const score = data?.score || 0;
+        const nbrQsts = data?.nbrQsts || 0;
+        
+        return `
+            <div class="result-card">
+                <h4>${title}</h4>
+                <div class="result-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">${score}/${nbrQsts}</div>
+                        <div class="stat-label">Score</div>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <button class="btn-redo ${type}-last-session">
+                        <i class="fas fa-redo"></i> Refaire
+                    </button>
+                </div>
+                <div class="result-chart">
+                    <canvas id="${type}Chart" class="myLineChart"></canvas>
+                </div>
+            </div>
+        `;
+    }
+
+    function attachRedoListeners(container, type, exerciseFn) {
+        const btn = container.querySelector(`.${type}-last-session`);
+        if (!btn) return;
+        
+        btn.addEventListener('click', () => {
+            const data = getProfile()?.resultats?.[type]?.lastSession || [];
+            if (data.length === 0) return;
+            exerciseFn(div, data);
+        });
+    }
+
+    // Create charts
+    setTimeout(() => {
+        createChartIfExists('qcm', resultats.qcm?.scores);
+        createChartIfExists('vf', resultats.vf?.scores);
+        createChartIfExists('remplir', resultats.remplir?.scores);
+        createChartIfExists('ordrePh', resultats.ordrePhrases?.scores);
+    }, 200);
+
+    function createChartIfExists(type, scores) {
+        const container = document.querySelector(`.result-card:has(#${type}Chart)`);
+        const canvas = container?.querySelector(`#${type}Chart`);
+        if (canvas && scores && scores.length > 0) {
+            createLineChart(scores, canvas.parentElement);
+        }
+    }
 }
