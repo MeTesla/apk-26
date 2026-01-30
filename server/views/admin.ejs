@@ -169,6 +169,16 @@
             color: white;
         }
 
+        .badge-attente-premium {
+            background: #ffa500;
+            color: #333;
+        }
+
+        .badge-non-verifie {
+            background: #6c757d;
+            color: white;
+        }
+
         .actions-cell {
             display: flex;
             gap: 12px;
@@ -311,7 +321,8 @@
                     <select id="admin-filter" onchange="filterEleves()">
                         <option value="all">Tous les comptes</option>
                         <option value="premium">Premium 👑</option>
-                        <option value="attente">En attente ⏳</option>
+                        <option value="attente_premium">En attente Premium ⏳</option>
+                        <option value="non_verifie">Non vérifiés</option>
                         <option value="basic">Basic</option>
                     </select>
                 </div>
@@ -338,22 +349,23 @@
 
                         sortedEleves.forEach((elv) => {
                         const estPremium = elv.role === 'premium';
-                        const estEnAttente = !estPremium && elv.premiumRequest;
+                        const estAttentePremium = elv.role === 'attente_premium';
+                        const estNonVerifie = elv.role === 'non_verifie';
                         let classeRangee = '';
                         if (estPremium) classeRangee = 'premium-row';
-                        if (estEnAttente) classeRangee = 'waiting-row';
+                        if (estAttentePremium) classeRangee = 'waiting-row';
 
                         let badgeStatut = '<span class="badge badge-basic">Basic</span>';
                         let typeStatut = 'basic';
                         if (estPremium) {
-                        badgeStatut = '<span class="badge badge-premium">Premium 👑</span>';
-                        typeStatut = 'premium';
-                        } else if (estEnAttente) {
-                        badgeStatut = '<span class="badge badge-waiting">En attente ⏳</span>';
-                        typeStatut = 'attente';
-                        } else if (elv.role === 'non_verifie') {
-                        badgeStatut = '<span class="badge badge-waiting">À vérifier</span>';
-                        typeStatut = 'attente';
+                            badgeStatut = '<span class="badge badge-premium">Premium 👑</span>';
+                            typeStatut = 'premium';
+                        } else if (estAttentePremium) {
+                            badgeStatut = '<span class="badge badge-attente-premium">En attente Premium ⏳</span>';
+                            typeStatut = 'attente_premium';
+                        } else if (estNonVerifie) {
+                            badgeStatut = '<span class="badge badge-non-verifie">À vérifier 📧</span>';
+                            typeStatut = 'non_verifie';
                         }
 
                         const elvData = JSON.stringify(elv).replace(/'/g, "&#39;");

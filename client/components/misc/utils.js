@@ -404,7 +404,7 @@ export function generateMenu(typeAccount, pere, menu) {
   const div = document.createElement('div')
   div.className = "user-menu"
   switch (typeAccount) {
-    case 'attenteR':
+    case 'non_verifie':
       div.innerHTML = `<div>
         <div>
           <img src="/client/assets/img/verifyEmail.png" />
@@ -417,7 +417,7 @@ export function generateMenu(typeAccount, pere, menu) {
         </div>`
       break;
     case 'basic':
-      div.innerHTML = `<div class="registred">
+      div.innerHTML = `<div class="basic">
             <div class="premium">
               <img src="/client/assets/img/diamond.png" />
               <span>Premium</span>
@@ -435,6 +435,44 @@ export function generateMenu(typeAccount, pere, menu) {
               <span class="logout">Se déconnecter</span>
             </div>
           </div>`
+      break;
+    case 'attente_premium':
+      div.innerHTML = `<div class="attente-premium-menu">
+            <div class="status-badge">
+              <img src="/client/assets/img/clock.png" />
+              <span>En attente Premium</span>
+            </div>
+            <div class="menu-profile">
+              <img src="/client/assets/img/profile.png" />
+              <span>Profile</span>
+            </div>
+            <div class="menu-logout">
+              <img src="/client/assets/img/logout.png" />
+              <span class="logout">Se déconnecter</span>
+            </div>
+          </div>
+          <style>
+            .attente-premium-menu {
+              background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+              border: 1px solid #ffa500;
+              border-radius: 10px;
+            }
+            .status-badge {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              padding: 12px;
+              background: #ffa500;
+              color: #333;
+              font-weight: bold;
+              font-size: 0.75rem;
+              letter-spacing: 0.5px;
+              border-radius: 10px 10px 0 0;
+            }
+            .status-badge img {
+              wwidth: 20px !important;
+            }
+          </style>`
       break;
     case 'premium':
       div.innerHTML = `
@@ -516,7 +554,7 @@ export function generateMenu(typeAccount, pere, menu) {
   })
   premium && premium.addEventListener('click', () => {
     // modalDevenirPremium()
-    location.assign('./premium2.html')
+    location.assign('./premium.html')
   })
 
   logout && logout.addEventListener('click', () => {

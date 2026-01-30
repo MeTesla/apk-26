@@ -51,7 +51,7 @@
                     // 1- afficherSucces('Votre email a été vérifié avec succès !');
                     // 2- logique: s'il a déjà utilisé le lien de l'émail.
                     //localStorage.setItem('resultats', JSON.stringify(data.eleveUpdated.resultats))
-                    localStorage.setItem('role', 'registred')
+                    localStorage.setItem('role', 'basic')
                     localStorage.setItem('token', data.token)
                     const { nom, prenom, email, tel, freeMins, resultats} = data.eleveUpdated
                     const objElv = { nom, prenom, email, tel, freeMins, resultats}

@@ -31,7 +31,7 @@ generateMenu(localStorage.getItem('role'), menu, menu)
 
 //---------Hero créer compte----------------
 const btnHero = document.querySelector('.btn-compte')
-if (localStorage.getItem('role') === 'registred' || localStorage.getItem('role') === 'attenteR') {
+  if (localStorage.getItem('role') === 'non_verifie') {
   btnHero.style.display = "none"
 }
 btnHero.addEventListener('click', () => creerCompte())
