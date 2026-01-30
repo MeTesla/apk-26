@@ -8,78 +8,315 @@ import { safeFetchPost, safeFetchGet } from '../../utils/api.js'
 import { validateSignupForm, sanitizeInput } from '../../utils/validation.js'
 
 export function creerCompte() {
-  //if(localStorage.getItem('token')) return
   const modal = document.createElement('div')
-  modal.className = "creer-compte-page"
-  modal.innerHTML = `<div class="form-container" style="display:nnone">
-      <form class="form">
-          <h2>Créer un compte</h2>
-          <input  type="text" class="nom" required placeholder="Votre nom" name="nom" id="">
-          <input  type="text" class="prenom" required placeholder="Votre prénom" name="prenom" id="">
-          <input  type="email" class="email" required placeholder="Email ..." name="email" id="em">
-          <input  type="tel" class="tel" required placeholder="Numéro de téléphone..." name="tel" id="">
-          <div class="buttons">
-              <button class="envoyer" type="submit">Envoyer</button>
-              <button class="annuler">Annuler</button>
-          </div>
-          <div style="text-align:center;font-size: 0.7rem">
-          Vous avez un compte ? 
-          <span class="login-link" style="color: blue;cursor: pointer">
-          Connectez-vous ! </span></div>
+  modal.className = "creer-compte-overlay"
+  modal.innerHTML = `
+    <div class="creer-compte-modal">
+      <button class="creer-compte-close-btn"><i class="fas fa-times"></i></button>
+      <div class="creer-compte-header">
+        <div class="creer-compte-logo">
+          <img src="/client/assets/img/euduka.png" alt="EUDUKA" />
+        </div>
+        <h1 class="creer-compte-title">Créer un compte</h1>
+        <p class="creer-compte-subtitle">Rejoignez Euduka pour réussir votre Bac</p>
+      </div>
+      <form class="creer-compte-form">
+        <div class="input-group">
+          <span class="input-icon"><i class="fas fa-user"></i></span>
+          <input type="text" class="nom" required placeholder="Nom" name="nom">
+        </div>
+        <div class="input-group">
+          <span class="input-icon"><i class="fas fa-user"></i></span>
+          <input type="text" class="prenom" required placeholder="Prénom" name="prenom">
+        </div>
+        <div class="input-group">
+          <span class="input-icon"><i class="fas fa-envelope"></i></span>
+          <input type="email" class="email" required placeholder="Adresse email" name="email" id="em">
+        </div>
+        <div class="input-group">
+          <span class="input-icon"><i class="fas fa-phone"></i></span>
+          <input type="tel" class="tel" required placeholder="Numéro de téléphone" name="tel">
+        </div>
+        <div class="creer-buttons">
+          <button class="envoyer" type="submit">
+            <span>Créer mon compte</span>
+            <i class="fas fa-check"></i>
+          </button>
+          <button class="annuler" type="button">Annuler</button>
+        </div>
       </form>
-      <style>
-      .form-container{
-          height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+      <div class="creer-compte-footer">
+        <p class="redirect-text">Vous avez déjà un compte ? <span class="login-link">Se connecter</span></p>
+      </div>
+    </div>
+    <style>
+      .creer-compte-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, rgba(232, 147, 50, 0.1), rgba(126, 87, 194, 0.1));
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        animation: fadeIn 0.3s ease-out;
       }
-      form.form{
-          width: 250px;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-          justify-content: center;
-          align-items: center;
-          box-shadow: 0 0 3px rgb(179, 180, 255);
-          padding: 20px;
-          border-radius: 15px;
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
-      form.form input{
-          width: 80%;
-          padding: 10px;
-          border: 1px solid rgb(155, 144, 255);
-          border-radius: 5px;
-          outline: none
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-      form.form button{
-          padding: 10px;
-          border: 1px solid rgb(155, 144, 255);
-          border-radius: 5px;
-          outline: none
+
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
       }
-      </style>
-        </div>`
+
+      .creer-compte-modal {
+        position: relative;
+        width: 90%;
+        max-width: 460px;
+        background: white;
+        border-radius: 24px;
+        padding: 40px 32px;
+        box-shadow: 0 25px 50px -12px rgba(232, 147, 50, 0.25);
+        animation: slideUp 0.4s ease-out;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .creer-compte-close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: #f5f5f5;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        color: #666;
+        z-index: 10;
+      }
+
+      .creer-compte-close-btn:hover {
+        background: #e89332;
+        color: white;
+        transform: rotate(90deg);
+      }
+
+      .creer-compte-header {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+
+      .creer-compte-logo img {
+        width: 60px;
+        height: auto;
+        margin-bottom: 16px;
+      }
+
+      .creer-compte-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #2c2c2c;
+        margin-bottom: 8px;
+      }
+
+      .creer-compte-subtitle {
+        color: #6f6f6f;
+        font-size: 0.95rem;
+      }
+
+      .creer-compte-form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .input-group {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .input-group .input-icon {
+        position: absolute;
+        left: 16px;
+        color: #6f6f6f;
+        font-size: 1rem;
+        transition: color 0.2s ease;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 14px 16px 14px 48px;
+        border: 2px solid #e8e8e8;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+        background: #fafafa;
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: #e89332;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(232, 147, 50, 0.1);
+      }
+
+      .input-group input:focus + .input-icon,
+      .input-group input:focus ~ .input-icon {
+        color: #e89332;
+      }
+
+      .creer-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .envoyer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 24px;
+        background: linear-gradient(135deg, #e89332, #d48220);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .envoyer:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(232, 147, 50, 0.4);
+      }
+
+      .annuler {
+        padding: 12px 24px;
+        background: #f5f5f5;
+        color: #6f6f6f;
+        border: 2px solid #e8e8e8;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .annuler:hover {
+        background: #eeeeee;
+        border-color: #ddd;
+      }
+
+      .creer-compte-footer {
+        text-align: center;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .redirect-text {
+        font-size: 0.9rem;
+        color: #6f6f6f;
+      }
+
+      .login-link {
+        color: #e89332;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color 0.2s ease;
+        position: relative;
+      }
+
+      .login-link:hover {
+        color: #d48220;
+      }
+
+      .login-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #e89332;
+        transition: width 0.3s ease;
+      }
+
+      .login-link:hover::after {
+        width: 100%;
+      }
+    </style>
+  </div>`
   document.body.appendChild(modal)
 
-  const annuler = document.querySelector('.annuler')
-  annuler.onclick = function () { modal.remove() }
+  const closeBtn = modal.querySelector('.creer-compte-close-btn')
+  closeBtn.onclick = function () {
+    modal.style.animation = 'fadeOut 0.2s ease-out forwards';
+    setTimeout(() => modal.remove(), 200);
+  }
 
-  const envoyer = document.querySelector('.envoyer')
-  envoyer.onclick = function () { submitCreerCompte() }
+  const annuler = modal.querySelector('.annuler')
+  annuler.onclick = function () {
+    modal.style.animation = 'fadeOut 0.2s ease-out forwards';
+    setTimeout(() => modal.remove(), 200);
+  }
 
-  const loginLink = document.querySelector('.login-link')
+  const form = modal.querySelector('.creer-compte-form')
+  const envoyerBtn = modal.querySelector('.envoyer')
+  
+  form.onsubmit = function (e) {
+    e.preventDefault()
+    submitCreerCompte(modal)
+  }
+
+  envoyerBtn.onclick = function (e) {
+    e.preventDefault()
+    submitCreerCompte(modal)
+  }
+
+  const loginLink = modal.querySelector('.login-link')
   loginLink.onclick = function () {
-    modal.remove()
-    login()
+    modal.style.animation = 'fadeOut 0.2s ease-out forwards';
+    setTimeout(() => {
+      modal.remove()
+      login()
+    }, 200);
   }
 }
 
-async function submitCreerCompte() {
-  const nom = document.querySelector('.nom').value
-  const prenom = document.querySelector('.prenom').value
-  const email = document.querySelector('.email').value
-  const tel = document.querySelector('.tel').value
+async function submitCreerCompte(modal) {
+  
+  
+  const nom = modal.querySelector('.nom').value
+  const prenom = modal.querySelector('.prenom').value
+  const email = modal.querySelector('.email').value
+  const tel = modal.querySelector('.tel').value
 
   // 1️⃣ Valider formulaire
   const validation = validateSignupForm({ nom, prenom, email, tel })
@@ -106,7 +343,7 @@ async function submitCreerCompte() {
     localStorage.setItem('token', data.token)
     document.querySelector('.user-menu').remove()
     generateMenu(data.role, document.querySelector('.menu'), document.querySelector('.menu'))
-    document.querySelector('.creer-compte-page').remove()
+    modal.remove()
     modalFreeMins(true, data.message, 'verifyEmail')
   } else {
     modalFreeMins(false, result.error || 'Erreur lors de la création du compte', 'failed')

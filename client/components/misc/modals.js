@@ -27,7 +27,7 @@ export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
           display: flex;
           justify-content: center;
           align-items: center;
-          z-index: 113;
+          z-index: 1001;
         }
         .modal-card{
             width: 240px;
