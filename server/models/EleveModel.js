@@ -5,6 +5,7 @@ const elevesSchema = new mongoose.Schema({
     prenom: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     tel: { type: String, required: true },
+    password: { type: String },
 
     token: { type: String, unique: true },
 

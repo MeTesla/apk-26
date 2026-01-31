@@ -272,7 +272,64 @@ const adminLogin = async (req, res) => {
 }
 
 const mdpReinitialiser = async (req, res) => {
+    const { token, newPassword } = req.body
 
+    if (!token || !newPassword) {
+        return res.json({
+            success: false,
+            message: 'Token et nouveau mot de passe requis'
+        })
+    }
+
+    if (newPassword.length < 6) {
+        return res.json({
+            success: false,
+            message: 'Le mot de passe doit contenir au moins 6 caractères'
+        })
+    }
+
+    try {
+        const decoded = jwt.verify(token, config.SECRET_KEY)
+        const eleve = await EleveModel.findOne({ token })
+
+        if (!eleve) {
+            return res.json({
+                success: false,
+                message: 'Lien de réinitialisation invalide ou expiré'
+            })
+        }
+
+        const newToken = await generateToken(eleve.email, 120)
+
+        await EleveModel.findOneAndUpdate(
+            { token },
+            {
+                $set: {
+                    password: newPassword,
+                    token: newToken
+                }
+            },
+            { new: true, runValidators: true }
+        )
+
+        return res.json({
+            success: true,
+            message: 'Votre mot de passe a été réinitialisé avec succès',
+            token: newToken
+        })
+
+    } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return res.json({
+                success: false,
+                message: 'Le lien a expiré. Veuillez refaire une demande de réinitialisation'
+            })
+        }
+        return res.json({
+            success: false,
+            message: 'Erreur lors de la réinitialisation: ' + error.message
+        })
+    }
 }
 
 const demandePremium = async (req, res) => {
@@ -361,6 +418,7 @@ module.exports = {
     login, updateResultats, freeMins,
     getExo, annulerCompte,
     mdpOublie,
+    mdpReinitialiser,
     demandePremium,
     validerPremium,
     adminLogin

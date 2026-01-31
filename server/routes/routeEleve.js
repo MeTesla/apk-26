@@ -9,7 +9,7 @@ const freeMinsMiddleware = require('../middlewares/freeMinsMiddleware')
 const { creerCompte, verifierEmail, login,
     updateResultats, freeMins,
     getExo, annulerCompte,
-    mdpOublie, demandePremium, validerPremium, adminLogin } = require('../controllers/controllerEleve')
+    mdpOublie, mdpReinitialiser, demandePremium, validerPremium, adminLogin } = require('../controllers/controllerEleve')
 
 const upload = require('../middlewares/upload')
 
@@ -33,5 +33,7 @@ router.get('/', freeMinsMiddleware, getExo)
 router.post('/client/euduka/admin', adminLogin)
 
 router.post('/mdp-oublie', mdpOublie)
+
+router.post('/mdp-reinitialiser', mdpReinitialiser)
 
 module.exports = router
