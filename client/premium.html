@@ -128,19 +128,20 @@
             function displayHide(div) {
                 div.style.display = "block"
                 setTimeout(function () { div.style.opacity = "1" }, 10)
-
             }
             accordionTitles.forEach((title, index) => {
                 title.addEventListener('click', () => {
                     const clickedItem = Array.from(accordionContent)[index]
+                    const isOpen = clickedItem.style.display === "block" && clickedItem.style.opacity === "1"
+                    
                     for (let i = 0; i < accordionContent.length; i++) {
                         Array.from(accordionContent)[i].style.display = "none"
                         Array.from(accordionContent)[i].style.opacity = "0"
                     }
 
-                    // clickedItem.style.display= "block"
-                    displayHide(clickedItem)
-
+                    if (!isOpen) {
+                        displayHide(clickedItem)
+                    }
                 })
             })
             const html = `<div class="modal-video-container">
