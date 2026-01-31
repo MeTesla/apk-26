@@ -589,6 +589,12 @@ export function handleResultats(resultat) {
     console.error('❌ Profile not found when updating results')
     return
   }
+
+  // Ensure resultats object exists
+  if (!profile.resultats) {
+    profile.resultats = {}
+  }
+
   let resultatLS = profile.resultats
   resultatLS = { ...resultatLS, ...resultat }
   setProfile({ ...profile, resultats: resultatLS })
@@ -597,7 +603,7 @@ export function handleResultats(resultat) {
 // Slice scores to keep only last 6 items
 export function sliceScores(scores) {
   if (scores.length >= 6) {
-    return scores.slice(-6)
+    return scores.slice(-5)  // Keep 5 to add new one = 6 total
   } else {
     return scores
   }
@@ -606,41 +612,50 @@ export function sliceScores(scores) {
 //---Fetch save résultats to DB
 export async function fetchResultats(listBlc, isModified) {
   if (isModified) {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      console.error('❌ Token missing - cannot sync results')
+      listBlc.remove()
+      return
+    }
+
     const res = getResults()
     if (!res) {
       console.error('❌ No results found to sync')
+      listBlc.remove()
       return
     }
+
     try {
       const reponse = await fetch(API_URL + '/update-resultats', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
-          authorization: localStorage.getItem('token')
+          authorization: token
         },
         body: JSON.stringify({ res })
       })
 
       const data = await reponse.json()
-      if (data.success && isModified == true) {
-        console.log(data.success, isModified)
+      if (data.success) {
+        console.log('✅ Results synced successfully')
         toast('Résultats synchronisés')
         setTimeout(() => {
           listBlc.remove()
         }, 500)
       } else {
-        console.log(data.success, isModified)
+        console.error('❌ Sync failed:', data.message)
+        toast('Erreur: ' + (data.message || 'Échec de synchronisation'))
         listBlc.remove()
-        toast('Fetch : erreur. data not success')
       }
     } catch (error) {
-      console.error('Erreur lors de la synchronisation des résultats :', error);
+      console.error('❌ Erreur lors de la synchronisation des résultats :', error);
       toast('Erreur de synchronisation des résultats')
+      listBlc.remove()
     }
   } else {
     listBlc.remove()
   }
-
 }
 
 // ----Confetti

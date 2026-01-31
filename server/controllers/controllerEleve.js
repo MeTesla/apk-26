@@ -55,9 +55,11 @@ const verifierEmail = async (req, res) => {
         }
 
         // Update student role to 'basic'
+const newToken = await generateToken(eleve.email, 120)
+
         const eleveUpdated = await EleveModel.findOneAndUpdate(
             { token },
-            { $set: { role: ROLES.BASIC } },
+            { $set: { role: ROLES.BASIC, token: newToken } },
             { new: true, runValidators: true }
         )
 
@@ -65,7 +67,7 @@ const verifierEmail = async (req, res) => {
             success: true,
             message: 'Votre email a été vérifié avec succès.',
             eleveUpdated,
-            token: generateToken(eleve.email, 10)
+            token: newToken
         })
 
     } catch (err) {
