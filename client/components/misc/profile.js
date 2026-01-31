@@ -303,7 +303,7 @@ export function profile() {
                 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
                 gap: 20px;
                 overflow-y: auto;
-                padding-right: 10px;
+                padding: 10px;
             }
 
             .result-card {
