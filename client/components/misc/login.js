@@ -324,7 +324,7 @@ export function login() {
 
     const result = await safeFetchPost(API_URL + '/login', cleanData)
 
-    if (result.success) {
+    if (result.success && result.data?.eleve) {
       localStorage.setItem('role', result.data.eleve.role)
       localStorage.setItem('token', result.data.eleve.token)
       const { _id, nom, prenom, email, tel, freeMins, resultats, role } = result.data.eleve
@@ -333,7 +333,7 @@ export function login() {
       toast("Connecté avec succès")
       setTimeout(() => window.location.reload(), 800)
     } else {
-      const errorMsg = result.error || 'Erreur de connexion'
+      const errorMsg = result.error || result.message || 'Erreur de connexion'
       toast(errorMsg)
     }
   }

@@ -442,6 +442,10 @@ export function generateMenu(typeAccount, pere, menu) {
               <img src="/client/assets/img/clock.png" />
               <span>En attente Premium</span>
             </div>
+            <div class="free-mins">
+              <img src="/client/assets/img/freeMins.png" />
+              <span>+10 minutes</span>
+            </div>
             <div class="menu-profile">
               <img src="/client/assets/img/profile.png" />
               <span>Profile</span>
