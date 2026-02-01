@@ -24,7 +24,7 @@ const creerCompte = async (req, res) => {
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
 
-    const token = await generateToken(email, 1)
+    const token = await generateToken(email, 2)
     const eleve = new EleveModel({ nom, prenom, email, tel, role: ROLES.NON_VERIFIE, token })
     await eleve.save()
 
@@ -55,7 +55,7 @@ const verifierEmail = async (req, res) => {
         }
 
         // Update student role to 'basic'
-const newToken = await generateToken(eleve.email, 120)
+const newToken = await generateToken(eleve.email, 4)
 
         const eleveUpdated = await EleveModel.findOneAndUpdate(
             { token },
@@ -123,7 +123,7 @@ const login = async (req, res) => {
         //     message: 'Mot de passe incorrect'
         // })
 
-        const token = await generateToken(email, 120); // Token valide 2 heures (120 min)
+        const token = await generateToken(email, 4); // Token valide 4 minutes
         eleve.token = token;
         await eleve.save();
 
@@ -179,7 +179,7 @@ const updateResultats = async (req, res) => {
 
 const freeMins = async (req, res) => {
     if (!res.headersSent) {
-        const token = await generateToken(req.userEmail, 10) // token valide 10 minutes
+        const token = await generateToken(req.userEmail, 2) // token valide 2 minutes
         // --------- UPDATE DOCUMENT (opération atomique)
         const eleveUpdated = await EleveModel.findOneAndUpdate(
             { email: req.userEmail, freeMins: { $gt: 0 } },
