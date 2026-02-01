@@ -102,8 +102,8 @@
         function validatePassword() {
             const password = document.getElementById('new-password').value;
 
-            if (password.length < 6) {
-                showFieldError('new-password', 'Le mot de passe doit contenir au moins 6 caractères');
+            if (password.length < 4) {
+                showFieldError('new-password', 'Le mot de passe doit contenir au moins 4 caractères');
                 return false;
             }
 

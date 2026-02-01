@@ -34,14 +34,11 @@ const creerCompte = async (req, res) => {
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
 
-<<<<<<< HEAD
+
     const token = await generateToken(email, 1)
     const hashedPassword = await bcrypt.hash(password, 10)
     const eleve = new EleveModel({ nom, prenom, email, tel, password: hashedPassword, role: ROLES.NON_VERIFIE, token })
-=======
-    const token = await generateToken(email, 2)
-    const eleve = new EleveModel({ nom, prenom, email, tel, role: ROLES.NON_VERIFIE, token })
->>>>>>> 82007e759dc7b8003ce381fb5657703cca1f5f21
+
     await eleve.save()
 
     await postEmail(req, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier-email')
@@ -71,7 +68,7 @@ const verifierEmail = async (req, res) => {
         }
 
         // Update student role to 'basic'
-const newToken = await generateToken(eleve.email, 4)
+        const newToken = await generateToken(eleve.email, 4)
 
         const eleveUpdated = await EleveModel.findOneAndUpdate(
             { token },
@@ -299,10 +296,10 @@ const mdpReinitialiser = async (req, res) => {
         })
     }
 
-    if (newPassword.length < 6) {
+    if (newPassword.length < 4) {
         return res.json({
             success: false,
-            message: 'Le mot de passe doit contenir au moins 6 caractères'
+            message: 'Le mot de passe doit contenir au moins 4 caractères'
         })
     }
 
@@ -318,12 +315,13 @@ const mdpReinitialiser = async (req, res) => {
         }
 
         const newToken = await generateToken(eleve.email, 120)
+        const hashedPassword = await bcrypt.hash(newPassword, 10)
 
         await EleveModel.findOneAndUpdate(
             { token },
             {
                 $set: {
-                    password: newPassword,
+                    password: hashedPassword,
                     token: newToken
                 }
             },

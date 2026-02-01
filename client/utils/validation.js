@@ -84,8 +84,8 @@ export function validatePassword(password) {
     return { valid: false, error: 'Mot de passe requis' }
   }
 
-  if (password.length < 6) {
-    return { valid: false, error: 'Mot de passe doit contenir au moins 6 caractères' }
+  if (password.length < 4) {
+    return { valid: false, error: 'Mot de passe doit contenir au moins 4 caractères' }
   }
 
   if (password.length > 128) {
