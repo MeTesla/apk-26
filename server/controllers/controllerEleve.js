@@ -296,10 +296,10 @@ const mdpReinitialiser = async (req, res) => {
         })
     }
 
-    if (newPassword.length < 4) {
+    if (newPassword.length < 6) {
         return res.json({
             success: false,
-            message: 'Le mot de passe doit contenir au moins 4 caractères'
+            message: 'Le mot de passe doit contenir au moins 6 caractères'
         })
     }
 
@@ -315,13 +315,12 @@ const mdpReinitialiser = async (req, res) => {
         }
 
         const newToken = await generateToken(eleve.email, 120)
-        const hashedPassword = await bcrypt.hash(newPassword, 10)
 
         await EleveModel.findOneAndUpdate(
             { token },
             {
                 $set: {
-                    password: hashedPassword,
+                    password: newPassword,
                     token: newToken
                 }
             },
