@@ -1,6 +1,6 @@
 import { creerCompte, toast } from './utils.js';
 import { validateLoginForm, sanitizeInput } from '../../utils/validation.js';
-import { safeFetchPost } from '../../utils/api.js';
+import { safeFetchPost, safeFetchPostWithLoader } from '../../utils/api.js';
 import { API_URL } from '../../config/env.js';
 
 export function login() {
@@ -539,20 +539,15 @@ export function mpdOublie(parent) {
   mdpConfirmer.addEventListener('click', async () => {
     const mdpOublieEmail = modalMdp.querySelector('.mdp-email').value;
     try {
-      const reponse = await fetch(API_URL + '/mdp-oublie', {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email: mdpOublieEmail })
-      });
-      const data = await reponse.json();
-      if (data.success) {
-        toast(data.message);
+      const result = await safeFetchPostWithLoader(API_URL + '/mdp-oublie', { email: mdpOublieEmail });
+      if (result.success) {
+        toast(result.data.message);
         setTimeout(() => {
           modalMdp.style.animation = 'fadeOut 0.2s ease-out forwards';
           setTimeout(() => modalMdp.remove(), 200);
         }, 1000);
       } else {
-        toast(data.message);
+        toast(result.error);
       }
     } catch (error) {
       toast(error.message);
@@ -616,7 +611,7 @@ export function adminLogin() {
       };
     }
 
-    const closeButtons = overlay.querySelectorAll('.btn-annuler, .logout-btn');
+    const closeButtons = overlay.querySelectorAll('.btn-annuler', '.logout-btn');
     closeButtons.forEach(btn => {
       btn.onclick = (e) => {
         e.preventDefault();

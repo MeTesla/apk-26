@@ -4,7 +4,7 @@ import { modalDevenirPremium, modalFreeMins } from './modals.js'
 import { login } from './login.js'
 import { API_URL } from '../../config/env.js'
 import { getProfile, setProfile, getResults } from '../../utils/storage.js'
-import { safeFetchPost, safeFetchGet } from '../../utils/api.js'
+import { safeFetchPost, safeFetchGet, safeFetchPostWithLoader } from '../../utils/api.js'
 import { validateSignupForm, sanitizeInput } from '../../utils/validation.js'
 
 export function creerCompte() {
@@ -381,32 +381,22 @@ export async function annulerCompte() {
     toast('Aucun compte trouvé !')
     setTimeout(() => location.reload(), 1000)
   }
-  const reponse = await fetch(API_URL + '/annuler-compte', {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ token })
-  })
-  const data = await reponse.json()
-  if (data.success) {
+  const result = await safeFetchPostWithLoader(API_URL + '/annuler-compte', { token })
+  if (result.success) {
     localStorage.clear()
-    toast(data.message)
+    toast(result.data.message)
     setTimeout(() => { document.location.reload() }, 1000)
   }
   else {
-    toast(data.message)
+    toast(result.error)
   }
 }
 
 // ------------  Get free MINs -----------
 async function freeMins() {
-  const reponse = await fetch(API_URL + '/freeMins', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: localStorage.getItem('token') || ""
-    }
-  })
-  const data = await reponse.json()
+  const token = localStorage.getItem('token') || ""
+  const result = await safeFetchPostWithLoader(API_URL + '/freeMins', {}, token)
+  const data = result.data
   if (data.token) {
     localStorage.setItem('token', data.token)
     console.log(data);
@@ -649,25 +639,16 @@ export async function fetchResultats(listBlc, isModified) {
     }
 
     try {
-      const reponse = await fetch(API_URL + '/update-resultats', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          authorization: token
-        },
-        body: JSON.stringify({ res })
-      })
-
-      const data = await reponse.json()
-      if (data.success) {
+      const result = await safeFetchPostWithLoader(API_URL + '/update-resultats', { res }, token)
+      if (result.success) {
         console.log('✅ Results synced successfully')
         toast('Résultats synchronisés')
         setTimeout(() => {
           listBlc.remove()
         }, 500)
       } else {
-        console.error('❌ Sync failed:', data.message)
-        toast('Erreur: ' + (data.message || 'Échec de synchronisation'))
+        console.error('❌ Sync failed:', result.error)
+        toast('Erreur: ' + (result.error || 'Échec de synchronisation'))
         listBlc.remove()
       }
     } catch (error) {

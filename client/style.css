@@ -78,17 +78,32 @@ body {
   display: none;
 }
 
-.loader,
-.modal-premium-container {
+.loader {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.95);
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
+}
+
+.loader.hidden {
+  display: none;
+}
+
+/* Toastify z-index override - must be above modals */
+.toastify {
+  z-index: 10000 !important;
+}
+
+/* Navigation z-index */
+.nav {
+  position: relative;
+  z-index: 50;
 }
 
 .flx {

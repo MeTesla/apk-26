@@ -105,6 +105,8 @@
 
     <script type="module">
         import { toast } from './components/misc/utils.js';
+        import { API_URL } from './config/env.js';
+        import { safeFetchPostWithLoader } from './utils/api.js';
 
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -121,28 +123,18 @@
             verifierTokenEmail(token);
 
             async function verifierTokenEmail(token) {
-                const API_URL = 'http://localhost:3000';
-
                 try {
-                    const reponse = await fetch(API_URL + '/verifier-email', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ token })
-                    });
-
-                    const data = await reponse.json();
+                    const result = await safeFetchPostWithLoader(API_URL + '/verifier-email', { token });
                     spinner.style.display = 'none';
 
-                    if (data.success) {
+                    if (result.success) {
                         icon.innerHTML = '<i class="fa-solid fa-check-circle"></i>';
                         icon.classList.add('success');
                         statusMessage.textContent = 'Votre email a été vérifié avec succès !';
 
                         localStorage.setItem('role', 'basic');
-                        localStorage.setItem('token', data.token);
-                        const { nom, prenom, email, tel, freeMins, resultats} = data.eleveUpdated;
+                        localStorage.setItem('token', result.data.token);
+                        const { nom, prenom, email, tel, freeMins, resultats} = result.data.eleveUpdated;
                         const objElv = { nom, prenom, email, tel, freeMins, resultats};
                         localStorage.setItem('profile', JSON.stringify(objElv));
 
@@ -152,7 +144,7 @@
                         }, 1900);
 
                     } else {
-                        showError(data.message);
+                        showError(result.error);
                     }
                 } catch (erreur) {
                     console.log(erreur);
@@ -167,7 +159,7 @@
                 const roleLS = localStorage.getItem('role');
                 roleLS && localStorage.removeItem('role');
                 setTimeout(() => {
-                    location.assign('http://localhost:5500/client/index.html');
+                    location.assign('/client/index.html');
                 }, 1500);
             }
         });

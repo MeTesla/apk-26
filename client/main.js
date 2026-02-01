@@ -13,7 +13,7 @@ import { adminLogin } from './components/misc/login.js'
 //------------------Loader -------------------
 const loader = document.querySelector('.loader')
 window.addEventListener("load", function () {
-  loader.style.display = "none";
+  loader.classList.add('hidden');
   document.querySelector('.wrapper').style.display = "block"
 
 })

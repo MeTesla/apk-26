@@ -66,6 +66,7 @@
 
     <script type="module">
         import { API_URL } from './config/env.js';
+        import { safeFetchPostWithLoader } from './utils/api.js';
 
         let token = null;
 
@@ -187,23 +188,15 @@
             resetBtn.textContent = 'Réinitialisation...';
 
             try {
-                const response = await fetch(API_URL + '/mdp-reinitialiser', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        token: token,
-                        newPassword: newPassword
-                    })
+                const result = await safeFetchPostWithLoader(API_URL + '/mdp-reinitialiser', {
+                    token: token,
+                    newPassword: newPassword
                 });
-
-                const result = await response.json();
 
                 if (result.success) {
                     showSuccess();
                 } else {
-                    showError(result.message || 'Une erreur est survenue');
+                    showError(result.error || 'Une erreur est survenue');
                 }
 
             } catch (error) {

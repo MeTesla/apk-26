@@ -1,5 +1,6 @@
 import { API_URL } from '../../config/env.js'
 import { toast } from './utils.js'
+import { safeFetchFormDataWithLoader } from '../../utils/api.js'
 
 export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
     const div = document.createElement('div')
@@ -291,30 +292,21 @@ export function modalDevenirPremium() {
         const formData = new FormData(form)
 
         try {
-            const response = await fetch(API_URL + '/demande-premium', {
-                method: 'POST',
-                headers: {
-                    'Authorization': token
-                },
-                body: formData
-            })
+            const result = await safeFetchFormDataWithLoader(API_URL + '/demande-premium', formData, token)
 
-            if (response.status === 401) {
+            if (result.status === 401) {
                 toast("Session expirée. Veuillez vous reconnecter.")
                 submitBtn.disabled = false
                 submitBtn.innerText = originalText
                 return
             }
 
-            const data = await response.json()
-
-            if (data.success) {
-                toast(data.message)
+            if (result.success) {
+                toast(result.data.message)
                 div.remove()
                 document.body.style.overflow = "auto"
-                // Optionnel: rafraîchir le profil ou l'UI si nécessaire
             } else {
-                toast(data.message || "Une erreur est survenue")
+                toast(result.error || "Une erreur est survenue")
                 submitBtn.disabled = false
                 submitBtn.innerText = originalText
             }

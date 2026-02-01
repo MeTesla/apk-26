@@ -3,32 +3,25 @@ const l = console.log;
 // ⚠️ DEPRECATED: Firebase client-side code has been moved to backend
 // All Firebase operations now go through Express routes in server/routes/firebaseRoutes.js
 
+import { safeFetchPostWithLoader } from '../utils/api.js'
+import { API_URL } from '../config/env.js'
+
 /**
  * Authenticate user via backend
  * @deprecated Uses backend route instead of direct Firebase
  */
 export async function authenticateUser() {
   try {
-    const API_URL = 'http://localhost:3000'; // or use from config/env.js
+    const result = await safeFetchPostWithLoader(`${API_URL}/api/firebase/authenticate`, {
+      username: 'Hakim'
+    })
 
-    const response = await fetch(`${API_URL}/api/firebase/authenticate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: 'Hakim' // Hardcoded for now, adjust as needed
-      })
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
+    if (result.success) {
       document.body.style.opacity = '1';
-      console.log('✅ Connected:', data.message);
+      console.log('✅ Connected:', result.data.message);
       return true;
     } else {
-      console.error('❌ Authentication failed:', data.message);
+      console.error('❌ Authentication failed:', result.error);
       location.assign('https://www.google.com');
       return false;
     }
@@ -50,26 +43,16 @@ export async function userSuggests(nom, suggest) {
       return;
     }
 
-    const API_URL = 'http://localhost:3000'; // or use from config/env.js
+    const result = await safeFetchPostWithLoader(`${API_URL}/api/firebase/suggestions`, {
+      nom: nom.value,
+      suggestion: suggest.value
+    })
 
-    const response = await fetch(`${API_URL}/api/firebase/suggestions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        nom: nom.value,
-        suggestion: suggest.value
-      })
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
+    if (result.success) {
       alert('✅ Merci, votre suggestion a été bien envoyée');
       viderchamps();
     } else {
-      alert('❌ Erreur: ' + (data.message || 'Unknown error'));
+      alert('❌ Erreur: ' + (result.error || 'Unknown error'));
     }
   } catch (error) {
     console.error('❌ Suggestion error:', error);
