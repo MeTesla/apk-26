@@ -37,6 +37,14 @@ export function creerCompte() {
           <span class="input-icon"><i class="fas fa-phone"></i></span>
           <input type="tel" class="tel" required placeholder="Numéro de téléphone" name="tel">
         </div>
+        <div class="input-group">
+          <span class="input-icon"><i class="fas fa-lock"></i></span>
+          <input type="password" class="password" required placeholder="Mot de passe" name="password">
+        </div>
+        <div class="input-group">
+          <span class="input-icon"><i class="fas fa-lock"></i></span>
+          <input type="password" class="confirmPassword" required placeholder="Confirmer le mot de passe" name="confirmPassword">
+        </div>
         <div class="creer-buttons">
           <button class="envoyer" type="submit">
             <span>Créer mon compte</span>
@@ -317,6 +325,18 @@ async function submitCreerCompte(modal) {
   const prenom = modal.querySelector('.prenom').value
   const email = modal.querySelector('.email').value
   const tel = modal.querySelector('.tel').value
+  const password = modal.querySelector('.password').value
+  const confirmPassword = modal.querySelector('.confirmPassword').value
+
+  if (password !== confirmPassword) {
+    modalFreeMins(false, 'Les mots de passe ne correspondent pas', 'failed')
+    return
+  }
+
+  if (password.length < 4) {
+    modalFreeMins(false, 'Le mot de passe doit contenir au moins 4 caractères', 'failed')
+    return
+  }
 
   // 1️⃣ Valider formulaire
   const validation = validateSignupForm({ nom, prenom, email, tel })
@@ -331,7 +351,9 @@ async function submitCreerCompte(modal) {
     nom: sanitizeInput(nom, 50),
     prenom: sanitizeInput(prenom, 50),
     email: sanitizeInput(email, 254),
-    tel: sanitizeInput(tel, 20)
+    tel: sanitizeInput(tel, 20),
+    password: password,
+    confirmPassword: confirmPassword
   }
 
   // 3️⃣ Envoyer données validées

@@ -1,16 +1,26 @@
 const { postEmail, generateToken, prepareData } = require('../utils')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 const EleveModel = require('../models/EleveModel')
 const config = require('../config/env')
 const ROLES = require('../config/roles')
-// const { prepareData } = require('../utiles')
 
 const creerCompte = async (req, res) => {
-    const { nom, prenom, email, tel } = req.body
-    if (!nom || !prenom || !email || !tel) return res.json({
+    const { nom, prenom, email, tel, password, confirmPassword } = req.body
+    if (!nom || !prenom || !email || !tel || !password || !confirmPassword) return res.json({
         success: false,
         titre: 'infoManquantes',
         message: 'Tous les champs sont obligatoires',
+    })
+    if (password.length < 4) return res.json({
+        success: false,
+        titre: 'motDePasseCourt',
+        message: 'Le mot de passe doit contenir au moins 4 caractères',
+    })
+    if (password !== confirmPassword) return res.json({
+        success: false,
+        titre: 'motDePasseDiff',
+        message: 'Les mots de passe ne correspondent pas',
     })
     const eleveExists = await EleveModel.findOne({ email })
     if (eleveExists) return res.json({
@@ -25,7 +35,8 @@ const creerCompte = async (req, res) => {
     tomorrow.setDate(today.getDate() + 1)
 
     const token = await generateToken(email, 1)
-    const eleve = new EleveModel({ nom, prenom, email, tel, role: ROLES.NON_VERIFIE, token })
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const eleve = new EleveModel({ nom, prenom, email, tel, password: hashedPassword, role: ROLES.NON_VERIFIE, token })
     await eleve.save()
 
     await postEmail(req, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier-email')
@@ -112,16 +123,18 @@ const login = async (req, res) => {
         const eleve = await EleveModel.findOne({ email })
         if (!eleve) return res.json({
             success: false,
-            message: 'Aucun compte associé à cet émail. Veuillez créer un compte'
+            message: 'Email ou mot de passe incorrect'
         })
         if (eleve.role === ROLES.NON_VERIFIE) return res.json({
             success: false,
             message: 'Votre compte n\'est pas encore activé. Veuillez vérifier votre email !'
         })
-        // if(eleve.password !== password) return res.json({
-        //     success: false,
-        //     message: 'Mot de passe incorrect'
-        // })
+
+        const isPasswordValid = await bcrypt.compare(password, eleve.password)
+        if (!isPasswordValid) return res.json({
+            success: false,
+            message: 'Email ou mot de passe incorrect'
+        })
 
         const token = await generateToken(email, 120); // Token valide 2 heures (120 min)
         eleve.token = token;
