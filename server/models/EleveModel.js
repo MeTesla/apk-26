@@ -5,7 +5,11 @@ const elevesSchema = new mongoose.Schema({
     prenom: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     tel: { type: String, required: true },
+<<<<<<< HEAD
     password: { type: String, required: true },
+=======
+    password: { type: String },
+>>>>>>> 82007e759dc7b8003ce381fb5657703cca1f5f21
 
     token: { type: String, unique: true },
 

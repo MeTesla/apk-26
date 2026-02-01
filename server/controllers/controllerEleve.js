@@ -34,9 +34,14 @@ const creerCompte = async (req, res) => {
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
 
+<<<<<<< HEAD
     const token = await generateToken(email, 1)
     const hashedPassword = await bcrypt.hash(password, 10)
     const eleve = new EleveModel({ nom, prenom, email, tel, password: hashedPassword, role: ROLES.NON_VERIFIE, token })
+=======
+    const token = await generateToken(email, 2)
+    const eleve = new EleveModel({ nom, prenom, email, tel, role: ROLES.NON_VERIFIE, token })
+>>>>>>> 82007e759dc7b8003ce381fb5657703cca1f5f21
     await eleve.save()
 
     await postEmail(req, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier-email')
@@ -66,7 +71,7 @@ const verifierEmail = async (req, res) => {
         }
 
         // Update student role to 'basic'
-const newToken = await generateToken(eleve.email, 120)
+const newToken = await generateToken(eleve.email, 4)
 
         const eleveUpdated = await EleveModel.findOneAndUpdate(
             { token },
@@ -136,7 +141,7 @@ const login = async (req, res) => {
             message: 'Email ou mot de passe incorrect'
         })
 
-        const token = await generateToken(email, 120); // Token valide 2 heures (120 min)
+        const token = await generateToken(email, 4); // Token valide 4 minutes
         eleve.token = token;
         await eleve.save();
 
@@ -192,7 +197,7 @@ const updateResultats = async (req, res) => {
 
 const freeMins = async (req, res) => {
     if (!res.headersSent) {
-        const token = await generateToken(req.userEmail, 10) // token valide 10 minutes
+        const token = await generateToken(req.userEmail, 2) // token valide 2 minutes
         // --------- UPDATE DOCUMENT (opération atomique)
         const eleveUpdated = await EleveModel.findOneAndUpdate(
             { email: req.userEmail, freeMins: { $gt: 0 } },
@@ -285,7 +290,64 @@ const adminLogin = async (req, res) => {
 }
 
 const mdpReinitialiser = async (req, res) => {
+    const { token, newPassword } = req.body
 
+    if (!token || !newPassword) {
+        return res.json({
+            success: false,
+            message: 'Token et nouveau mot de passe requis'
+        })
+    }
+
+    if (newPassword.length < 6) {
+        return res.json({
+            success: false,
+            message: 'Le mot de passe doit contenir au moins 6 caractères'
+        })
+    }
+
+    try {
+        const decoded = jwt.verify(token, config.SECRET_KEY)
+        const eleve = await EleveModel.findOne({ token })
+
+        if (!eleve) {
+            return res.json({
+                success: false,
+                message: 'Lien de réinitialisation invalide ou expiré'
+            })
+        }
+
+        const newToken = await generateToken(eleve.email, 120)
+
+        await EleveModel.findOneAndUpdate(
+            { token },
+            {
+                $set: {
+                    password: newPassword,
+                    token: newToken
+                }
+            },
+            { new: true, runValidators: true }
+        )
+
+        return res.json({
+            success: true,
+            message: 'Votre mot de passe a été réinitialisé avec succès',
+            token: newToken
+        })
+
+    } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return res.json({
+                success: false,
+                message: 'Le lien a expiré. Veuillez refaire une demande de réinitialisation'
+            })
+        }
+        return res.json({
+            success: false,
+            message: 'Erreur lors de la réinitialisation: ' + error.message
+        })
+    }
 }
 
 const demandePremium = async (req, res) => {
@@ -374,6 +436,7 @@ module.exports = {
     login, updateResultats, freeMins,
     getExo, annulerCompte,
     mdpOublie,
+    mdpReinitialiser,
     demandePremium,
     validerPremium,
     adminLogin
