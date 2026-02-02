@@ -24,6 +24,7 @@ router.post('/login', login)
 router.post('/update-resultats', auth, updateResultats)
 
 router.post('/demande-premium', auth, upload.single('recuImage'), demandePremium)
+
 router.post('/valider-premium', validerPremium)
 
 router.post('/freeMins', freeMinsMiddleware, freeMins)

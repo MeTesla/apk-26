@@ -34,8 +34,7 @@ const creerCompte = async (req, res) => {
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
 
-
-    const token = await generateToken(email, 1)
+    const token = await generateToken(email, 2)
     const hashedPassword = await bcrypt.hash(password, 10)
     const eleve = new EleveModel({ nom, prenom, email, tel, password: hashedPassword, role: ROLES.NON_VERIFIE, token })
 
@@ -153,6 +152,8 @@ const login = async (req, res) => {
 const getExo = (req, res) => {
     const { exo } = req.query
     const data = prepareData(exo)
+    // console.log(data);
+    
     res.json(data)
 }
 
@@ -176,12 +177,7 @@ const updateResultats = async (req, res) => {
             message: 'pas d\'eleve'
         })
 
-        // New: Emit real-time notification to the user
-        // io.to(eleve._id.toString()).emit('notification', { message: 'Votre score a été mis à jour', score: result.score || result })
-
-
         res.json({ eleve, success: true })
-
 
     } catch (error) {
         res.json({

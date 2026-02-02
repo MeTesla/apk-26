@@ -10,7 +10,7 @@ import { modalLokedContent } from '../misc/modals.js'
 import { fetchResultats } from '../misc/utils.js'
 import { API_URL } from '../../config/env.js'
 import { safeFetch } from '../../utils/api.js'
-
+ 
 function toast(msg) {
   Toastify({
     text: msg,
@@ -104,7 +104,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
   lire.onclick = async () => {
     const dataKey = `${oeuvre}oeuvre`
     const { oeuvre: oeuvreData } = await vffData(dataKey) || ''
-    if (!oeuvreData) return console.log('Erreur chargement œuvre')
+    if (!oeuvreData) return modalLokedContent()
     lecteur(wrapper, oeuvreData)
   }
   //-------Résumé  
@@ -112,7 +112,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
   res.onclick = async () => {
     const dataKey = `${oeuvre}resume`
     const { resumee } = await vffData(dataKey) || ''
-    if (!resumee) return
+    if (!resumee) return modalLokedContent()
     resume(wrapper, resumee)
   }
 
@@ -120,7 +120,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
   q.onclick = async () => {
     const dataKey = `${oeuvre}qcm`
     const { qcmData } = await vffData(dataKey) || ''
-    if (!qcmData) return
+    if (!qcmData) return modalLokedContent()
     qcm(wrapper, qcmData, handleIsModified)
   }
 
@@ -128,7 +128,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
   vide.onclick = async () => {
     const dataKey = `${oeuvre}vide`
     const { textesVide } = await vffData(dataKey) || ''
-    if (!textesVide) return
+    if (!textesVide) return modalLokedContent()
     remplirVide(wrapper, textesVide, handleIsModified)
   }
 
@@ -136,7 +136,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
   vF.onclick = async () => {
     const dataKey = `${oeuvre}vf`
     const { [`${oeuvre}vf`]: vfData } = await vffData(dataKey) || ''
-    if (!vfData) return
+    if (!vfData) return modalLokedContent()
     vf(wrapper, vfData, handleIsModified)
   }
 
@@ -144,7 +144,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
   ordreEvents.onclick = async () => {
     const dataKey = `${oeuvre}ordreev`
     const { ordreEventsData } = await vffData(dataKey) || ''
-    if (!ordreEventsData) return
+    if (!ordreEventsData) return modalLokedContent()
     ordreEvenements(wrapper, ordreEventsData, handleIsModified)
   }
 
@@ -152,7 +152,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
   ordrePh.onclick = async () => {
     const dataKey = `${oeuvre}ordreph`
     const { phrases } = await vffData(dataKey) || ''
-    if (!phrases) return
+    if (!phrases) return modalLokedContent()
     ordrePhrases(wrapper, phrases, handleIsModified)
   }
 }

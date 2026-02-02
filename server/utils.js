@@ -2,6 +2,11 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken')
 const config = require('./config/env')
 
+// Generate TOKEN
+function generateToken(email, expire) {
+    return jwt.sign({ email }, config.SECRET_KEY, { expiresIn: `${expire}m` })
+}
+
 // postEmail
 async function postEmail(req, nom, prenom, email, token, message = "", pageHtml = 'verifier-email',) {
     // Configuration du transporteur Nodemailer
@@ -88,11 +93,6 @@ function prepareData(exo) {
         default:
             break;
     }
-}
-
-// Generate TOKEN
-function generateToken(email, expire) {
-    return jwt.sign({ email }, config.SECRET_KEY, { expiresIn: `${expire}m` })
 }
 
 module.exports = { postEmail, prepareData, generateToken }

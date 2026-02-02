@@ -1,10 +1,7 @@
-const { postEmail, prepareData, generateToken } = require('./utils');
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./config/env')
-const multer = require('multer')
 
-const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const app = express()
 
