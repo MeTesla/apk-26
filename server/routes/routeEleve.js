@@ -3,7 +3,8 @@ const router = express.Router()
 
 // Middlewares
 const auth = require('../middlewares/auth')
-const freeMinsMiddleware = require('../middlewares/freeMinsMiddleware')
+const addFreeMinsMiddleware = require('../middlewares/addFreeMinsMiddleware')
+const checkExoAccessMiddleware = require('../middlewares/checkExoAccessMiddleware')
 
 // Controllers
 const { creerCompte, verifierEmail, login,
@@ -27,9 +28,9 @@ router.post('/demande-premium', auth, upload.single('recuImage'), demandePremium
 
 router.post('/valider-premium', validerPremium)
 
-router.post('/freeMins', freeMinsMiddleware, freeMins)
+router.post('/freeMins', addFreeMinsMiddleware, freeMins)
 
-router.get('/', freeMinsMiddleware, getExo)
+router.get('/', checkExoAccessMiddleware, getExo)
 
 router.post('/client/euduka/admin', adminLogin)
 
