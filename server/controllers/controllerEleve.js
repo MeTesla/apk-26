@@ -312,11 +312,13 @@ const mdpReinitialiser = async (req, res) => {
 
         const newToken = await generateToken(eleve.email, 120)
 
+        const hashedPassword = await bcrypt.hash(newPassword, 10)
+
         await EleveModel.findOneAndUpdate(
             { token },
             {
                 $set: {
-                    password: newPassword,
+                    password: hashedPassword,
                     token: newToken
                 }
             },

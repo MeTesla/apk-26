@@ -52,7 +52,7 @@ const addFreeMinsMiddleware = async (req, res, next) => {
 
     const { freeMins, dateFreeMin } = eleve
 
-    if ((timeStamp(dateFreeMin) + 1000 * 60 * SESSION_VALIDITY_MINUTES) > timeStamp(now)) {
+    if ((timeStamp(dateFreeMin) + SESSION_VALIDITY_MINUTES) > timeStamp(now)) {
         return res.json({
             success: false,
             titre: 'validSession',
@@ -70,7 +70,7 @@ const addFreeMinsMiddleware = async (req, res, next) => {
         })
     }
 
-    if (timeStamp(dateFreeMin) + (WAIT_TIME_HOURS * 60 * 60 * 1000) > timeStamp(now)) {
+    if (timeStamp(dateFreeMin) + WAIT_TIME_HOURS > timeStamp(now)) {
         return res.json({
             success: false,
             titre: 'waitDay',
