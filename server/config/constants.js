@@ -1,5 +1,4 @@
 module.exports = {
-    FREE_MINS_AMOUNT: 2 * 60 * 1000,
     SESSION_VALIDITY_MINUTES: 2 * 60 * 1000,
-    WAIT_TIME_HOURS: 1 * 60 * 1000,
+    WAIT_TIME_HOURS: 60 * 1000,
 }

@@ -3,7 +3,7 @@ const EleveModel = require('../models/EleveModel')
 const jwt = require('jsonwebtoken')
 const config = require('../config/env')
 const ROLES = require('../config/roles')
-const { FREE_MINS_AMOUNT, SESSION_VALIDITY_MINUTES, WAIT_TIME_HOURS } = require('../config/constants')
+const { SESSION_VALIDITY_MINUTES, WAIT_TIME_HOURS } = require('../config/constants')
 
 const addFreeMinsMiddleware = async (req, res, next) => {
     const token = req.headers.authorization

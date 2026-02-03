@@ -3,7 +3,7 @@ const EleveModel = require('../models/EleveModel')
 const jwt = require('jsonwebtoken')
 const config = require('../config/env')
 const ROLES = require('../config/roles')
-const { FREE_MINS_AMOUNT, SESSION_VALIDITY_MINUTES, WAIT_TIME_HOURS } = require('../config/constants')
+const { SESSION_VALIDITY_MINUTES, WAIT_TIME_HOURS } = require('../config/constants')
 
 const checkExoAccessMiddleware = async (req, res, next) => {
     const token = req.headers.authorization
@@ -64,7 +64,7 @@ const checkExoAccessMiddleware = async (req, res, next) => {
         return res.json({
             success: false,
             titre: 'waitDay',
-            message: `Vous devez attendre ${WAIT_TIME_HOURS}h avant d'avoir des minutes gratuites`,
+            message: `Vous devez attendre avant d'avoir des minutes gratuites`,
             freeMins
         })
     }
