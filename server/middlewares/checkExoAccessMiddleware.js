@@ -60,7 +60,7 @@ const checkExoAccessMiddleware = async (req, res, next) => {
         })
     }
 
-    if (timeStamp(dateFreeMin) + WAIT_TIME_HOURS > timeStamp(now)) {
+    if (timeStamp(dateFreeMin) + WAIT_TIME_HOURS < timeStamp(now)) {
         return res.json({
             success: false,
             titre: 'waitDay',
@@ -70,15 +70,14 @@ const checkExoAccessMiddleware = async (req, res, next) => {
     }
 
     jwt.verify(token, config.SECRET_KEY, (err, user) => {
-        if (err && err.name === "TokenExpiredError") {
-            next();
-        } else {
+        if (err) {
             return res.json({
                 success: false,
-                titre: 'invalidState',
-                message: 'État invalide. Veuillez vous reconnecter.'
+                titre: 'invalidToken',
+                message: 'Token invalide. Veuillez vous reconnecter.'
             })
         }
+        next();
     });
 }
 

@@ -45,23 +45,7 @@ const addFreeMinsMiddleware = async (req, res, next) => {
         })
     }
 
-    const now = new Date()
-    function timeStamp(d) {
-        return d.getTime()
-    }
-
     const { freeMins, dateFreeMin } = eleve
-
-    if ((timeStamp(dateFreeMin) + SESSION_VALIDITY_MINUTES) > timeStamp(now)) {
-        return res.json({
-            success: false,
-            titre: 'validSession',
-            message: 'Votre session est encore valide !',
-        })
-    }
-
-    const date = new Date(dateFreeMin)
-
     if (freeMins <= 0) {
         return res.json({
             success: false,
@@ -70,26 +54,33 @@ const addFreeMinsMiddleware = async (req, res, next) => {
         })
     }
 
-    if (timeStamp(dateFreeMin) + WAIT_TIME_HOURS > timeStamp(now)) {
+    const now = new Date()
+    function timeStamp(d) {
+        return d.getTime()
+    }
+
+    if ((timeStamp(dateFreeMin) + SESSION_VALIDITY_MINUTES) > timeStamp(now)) { //true
         return res.json({
             success: false,
-            titre: 'waitDay',
-            message: `Vous devez attendre ${WAIT_TIME_HOURS}h avant d'avoir des minutes gratuites`,
-            freeMins
+            titre: 'validSession',
+            message: 'Votre session est encore valide !',
         })
     }
 
-    jwt.verify(token, config.SECRET_KEY, (err, user) => {
-        if (err && err.name === "TokenExpiredError") {
-            next();
-        } else {
-            return res.json({
-                success: false,
-                titre: 'invalidState',
-                message: 'État invalide. Veuillez vous reconnecter.'
-            })
-        }
-    });
+    if ((timeStamp(dateFreeMin)+ SESSION_VALIDITY_MINUTES +  WAIT_TIME_HOURS) > timeStamp(now)) {
+        return res.json({
+            success: false,
+            titre: 'waitDay',
+            message: `Vous devez attendre avant d'avoir des minutes gratuites`,
+            freeMins
+        })
+    }
+    console.log(timeStamp(dateFreeMin) + WAIT_TIME_HOURS > timeStamp(now));
+    
+console.log('3');
+
+console.log('3');
+    next();
 }
 
 module.exports = addFreeMinsMiddleware
