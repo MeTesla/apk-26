@@ -37,7 +37,7 @@
   padding: 5px;
   font-size: 1.2em;
   text-align: center;
-  color: rgb(212, 212, 212);
+  color: var(--sec);
 }
 
 .q-content {
@@ -64,7 +64,7 @@
 .c3 {
   color: var(--secf);
   background-color: var(--pr);
-  border: 1px solid var(--comp);
+  /* border: 1px solid var(--comp); */
   width: 90%;
   padding: 8px 15px;
   margin: 10px auto;
@@ -88,11 +88,11 @@
   border: 1px solid var(--comp);
 }
 
-.reponseCorrect {
+.vrai.reponseCorrect {
   background-color: var(--correct);
 }
 
-.reponseIncorrect {
+.faux.reponseIncorrect {
   background-color: var(--incorrect);
 }
 
@@ -235,6 +235,7 @@
 
 .choix {
   display: flex;
+  justify-content: center;
   gap: 5px;
   font-size: 0.8rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;  
@@ -246,7 +247,7 @@
   height: 70px;
   background-color: var(--secc);
   color: var(--secf);
-  border: 2px solid var(--sec);
+  border: 1px solid var(--sec);
   font-size: 1rem;
   line-height: 70px;
   text-align: center;
@@ -319,8 +320,8 @@
   padding: 10px;
   margin: 5px auto;
   border-radius: 5px;
-  color: #333;
-  background-color: #eeeeeee9;
+  color: var(--secf);
+  background-color: var(--pr);
   animation: anime 0.5s;
 }
 
@@ -350,8 +351,8 @@
   font-weight: bold;
   line-height: 25px;
   border-radius: 50%;
-  color: white;
-  background-color: #795548;
+  color: var(--pr);
+  background-color: var(--number-badge, #795548);
   z-index: 1;
 }
 
@@ -364,8 +365,8 @@
   justify-content: center;
   align-items: center;
   font-size: 2rem;
-  color: black;
-  background-color: #000000e1;
+  color: var(--secf);
+  background-color: var(--overlay);
 }
 
 .resultat {

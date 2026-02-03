@@ -58,7 +58,7 @@ export function profile() {
         </div>
         
         <style>
-            .profile-overlay {
+.profile-overlay {
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -67,7 +67,7 @@ export function profile() {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background: linear-gradient(135deg, rgba(232, 147, 50, 0.1), rgba(126, 87, 194, 0.1));
+                background: linear-gradient(135deg, rgba(var(--comp), 0.1), rgba(var(--premium-comp), 0.1));
                 backdrop-filter: blur(8px);
                 z-index: 1000;
                 animation: fadeIn 0.3s ease-out;
@@ -94,50 +94,50 @@ export function profile() {
                 to { opacity: 0; }
             }
 
-            .profile-modal {
+.profile-modal {
                 position: relative;
                 width: 95%;
                 max-width: 1200px;
                 height: 90vh;
-                background: white;
+                background: var(--pr);
                 border-radius: 24px;
-                box-shadow: 0 25px 50px -12px rgba(232, 147, 50, 0.25);
+                box-shadow: 0 25px 50px -12px rgba(var(--comp), 0.25);
                 animation: slideUp 0.4s ease-out;
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
             }
 
-            .profile-close-btn {
+.profile-close-btn {
                 position: absolute;
                 top: 16px;
                 right: 16px;
                 width: 40px;
                 height: 40px;
                 border: none;
-                background: #f5f5f5;
+                background: var(--secc);
                 border-radius: 50%;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 transition: all 0.2s ease;
-                color: #666;
+                color: var(--text-light);
                 z-index: 10;
             }
 
             .profile-close-btn:hover {
-                background: #e89332;
-                color: white;
+                background: var(--comp);
+                color: var(--pr);
                 transform: rotate(90deg);
             }
 
-            .profile-header {
+.profile-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 padding: 20px 30px;
-                border-bottom: 1px solid #f0f0f0;
+                border-bottom: 1px solid var(--secc);
             }
 
             .profile-header-right {
@@ -153,7 +153,7 @@ export function profile() {
 
             .profile-date {
                 font-size: 0.9rem;
-                color: #6f6f6f;
+                color: var(--sec);
                 font-weight: 500;
                 margin-right: 60px;
             }
@@ -166,9 +166,9 @@ export function profile() {
                 overflow: hidden;
             }
 
-            .user-info-card {
+.user-info-card {
                 width: 280px;
-                background: linear-gradient(180deg, #fff9f0 0%, #fff 50%, #fafafa 100%);
+                background: linear-gradient(180deg, var(--pr) 0%, var(--pr) 50%, var(--pr) 100%);
                 border-radius: 20px;
                 padding: 24px;
                 display: flex;
@@ -176,7 +176,7 @@ export function profile() {
                 align-items: center;
                 text-align: center;
                 flex-shrink: 0;
-                border: 1px solid #ffe4c4;
+                border: 1px solid var(--secc);
             }
 
             .user-avatar {
@@ -186,7 +186,7 @@ export function profile() {
                 overflow: hidden;
                 margin-bottom: 16px;
                 box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-                border: 3px solid #e89332;
+                border: 3px solid var(--comp);
             }
 
             .user-avatar img {
@@ -198,7 +198,7 @@ export function profile() {
             .user-name {
                 font-size: 1.3rem;
                 font-weight: 700;
-                color: #2c2c2c;
+                color: var(--secf);
                 margin-bottom: 12px;
             }
 
@@ -208,7 +208,7 @@ export function profile() {
 
             .status-premium {
                 background: linear-gradient(135deg, #ffd700, #ffb700);
-                color: #333;
+                color: var(--secf);
                 padding: 8px 20px;
                 border-radius: 25px;
                 font-weight: 700;
@@ -218,7 +218,7 @@ export function profile() {
 
             .status-waiting {
                 background: linear-gradient(135deg, #ffa500, #ff8c00);
-                color: white;
+                color: var(--pr);
                 padding: 8px 20px;
                 border-radius: 25px;
                 font-weight: 600;
@@ -227,7 +227,7 @@ export function profile() {
 
             .user-email {
                 font-size: 0.85rem;
-                color: #6f6f6f;
+                color: var(--sec);
                 margin-bottom: 20px;
                 display: flex;
                 align-items: center;
@@ -235,12 +235,12 @@ export function profile() {
             }
 
             .user-email i {
-                color: #e89332;
+                color: var(--comp);
             }
 
             .user-minutes {
                 width: 100%;
-                background: white;
+                background: var(--pr);
                 border-radius: 12px;
                 padding: 16px;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -248,7 +248,7 @@ export function profile() {
 
             .minutes-unlimited {
                 background: linear-gradient(135deg, #fff9e6, #ffd700);
-                color: #b8860b;
+                color: var(--warning);
                 font-weight: 700;
                 padding: 10px 15px;
                 border-radius: 10px;
@@ -258,7 +258,7 @@ export function profile() {
             .minutes-bar-container {
                 width: 100%;
                 height: 8px;
-                background: #e8e8e8;
+                background: var(--secc);
                 border-radius: 4px;
                 overflow: hidden;
                 margin-top: 8px;
@@ -266,18 +266,18 @@ export function profile() {
 
             .minutes-bar {
                 height: 100%;
-                background: linear-gradient(90deg, #e89332, #d48220);
+                background: linear-gradient(90deg, var(--comp), var(--comp));
                 border-radius: 4px;
                 transition: width 0.3s ease;
             }
 
             .minutes-text {
                 font-size: 0.85rem;
-                color: #6f6f6f;
+                color: var(--sec);
                 font-weight: 500;
             }
 
-            .results-section {
+.results-section {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
@@ -287,7 +287,7 @@ export function profile() {
             .section-title {
                 font-size: 1.2rem;
                 font-weight: 700;
-                color: #2c2c2c;
+                color: var(--secf);
                 margin-bottom: 20px;
                 display: flex;
                 align-items: center;
@@ -295,7 +295,7 @@ export function profile() {
             }
 
             .section-title i {
-                color: #e89332;
+                color: var(--comp);
             }
 
             .results-grid {
@@ -307,24 +307,24 @@ export function profile() {
             }
 
             .result-card {
-                background: white;
+                background: var(--pr);
                 border-radius: 16px;
                 padding: 20px;
-                box-shadow: 0 4px 15px rgba(232, 147, 50, 0.1);
-                border: 1px solid #ffe4c4;
+                box-shadow: 0 4px 15px rgba(var(--comp), 0.1);
+                border: 1px solid var(--secc);
                 transition: all 0.3s ease;
             }
 
             .result-card:hover {
                 transform: translateY(-4px);
-                box-shadow: 0 8px 25px rgba(232, 147, 50, 0.2);
-                border-color: #e89332;
+                box-shadow: 0 8px 25px rgba(var(--comp), 0.2);
+                border-color: var(--comp);
             }
 
             .result-card h4 {
                 font-size: 1rem;
                 font-weight: 700;
-                color: #2c2c2c;
+                color: var(--secf);
                 margin-bottom: 16px;
                 text-align: center;
             }
@@ -343,17 +343,17 @@ export function profile() {
             .stat-value {
                 font-size: 1.5rem;
                 font-weight: 700;
-                color: #e89332;
+                color: var(--comp);
             }
 
             .stat-label {
                 font-size: 0.75rem;
-                color: #e89332;
+                color: var(--comp);
                 font-weight: 500;
                 margin-top: 4px;
             }
 
-            .result-actions {
+.result-actions {
                 display: flex;
                 justify-content: center;
                 gap: 12px;
@@ -364,18 +364,18 @@ export function profile() {
                 align-items: center;
                 gap: 6px;
                 padding: 8px 16px;
-                background: linear-gradient(135deg, #fff9f0, #ffe4c4);
-                border: 1px solid #e89332;
+                background: linear-gradient(135deg, var(--pr), var(--secc));
+                border: 1px solid var(--comp);
                 border-radius: 8px;
                 font-size: 0.85rem;
-                color: #d48220;
+                color: var(--comp);
                 cursor: pointer;
                 transition: all 0.2s ease;
             }
 
             .btn-redo:hover {
-                background: linear-gradient(135deg, #e89332, #d48220);
-                color: white;
+                background: linear-gradient(135deg, var(--comp), var(--comp));
+                color: var(--pr);
             }
 
             .btn-redo i {
@@ -384,11 +384,11 @@ export function profile() {
 
             .result-chart {
                 margin-top: 12px;
-                background: linear-gradient(135deg, #fff9f0, #fff);
+                background: linear-gradient(135deg, var(--pr), var(--pr));
                 border-radius: 10px;
                 padding: 12px;
                 height: 150px;
-                border: 1px solid #ffe4c4;
+                border: 1px solid var(--secc);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -396,7 +396,7 @@ export function profile() {
 
             .chart-title {
                 font-size: 0.7rem;
-                color: #d48220;
+                color: var(--comp);
                 font-weight: 600;
                 margin-bottom: 6px;
                 text-transform: uppercase;
@@ -413,7 +413,7 @@ export function profile() {
 
             .bar {
                 width: 18px;
-                background: linear-gradient(180deg, #ffd700, #e89332);
+                background: linear-gradient(180deg, #ffd700, var(--comp));
                 border-radius: 3px 3px 0 0;
                 transition: all 0.3s ease;
                 position: relative;
@@ -421,7 +421,7 @@ export function profile() {
             }
 
             .bar:hover {
-                background: linear-gradient(180deg, #ffb700, #d48220);
+                background: linear-gradient(180deg, #ffb700, var(--comp));
                 transform: scaleY(1.1);
             }
 
@@ -433,7 +433,7 @@ export function profile() {
                 transform: translateX(-50%);
                 font-size: 0.65rem;
                 font-weight: 700;
-                color: #e89332;
+                color: var(--comp);
                 opacity: 0;
                 transition: opacity 0.2s;
                 white-space: nowrap;
@@ -444,7 +444,7 @@ export function profile() {
             }
 
             .bar.empty {
-                background: #e8e8e8;
+                background: var(--secc);
             }
 
             .myLineChart {

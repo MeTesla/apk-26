@@ -51,30 +51,30 @@ for(let i=0;i <pairs.length;i++){
  let apparMot=document.querySelectorAll('.appar-mot')
  let apparSyn=document.querySelectorAll('.appar-syn')
     
- for(let i=0; i <apparMot.length; i++){
-     
- apparMot[i].addEventListener('click',()=>{
-  for(let j=0; j<apparMot.length; j++){
-   apparMot[j].style.backgroundColor=""
-   apparMot[j].style.color="gray"
-  }
-  apparMot[i].style.backgroundColor="rgba(80,24,250, 0.7)"
-  apparMot[i].style.color="white"
-  repA=apparMot[i]
-  verification()
-     })    
-     
-  apparSyn[i].addEventListener('click',()=>{
-   for (let j = 0; j <apparMot.length; j++) {
-    apparSyn[j].style.backgroundColor = ""
-    apparSyn[j].style.color = "gray"
-      }
-   apparSyn[i].style.backgroundColor="rgba(80,24,250, 0.7)"  
-    apparSyn[i].style.color="white"  
-    repB=apparSyn[i]
-    verification()
-     })    
-    }
+for(let i=0; i <apparMot.length; i++){
+      
+  apparMot[i].addEventListener('click',()=>{
+   for(let j=0; j<apparMot.length; j++){
+    apparMot[j].style.backgroundColor=""
+    apparMot[j].style.color="var(--sec)"
+   }
+   apparMot[i].style.backgroundColor="var(--comp)"
+   apparMot[i].style.color="var(--pr)"
+   repA=apparMot[i]
+   verification()
+      })    
+      
+   apparSyn[i].addEventListener('click',()=>{
+    for (let j = 0; j <apparMot.length; j++) {
+     apparSyn[j].style.backgroundColor = ""
+     apparSyn[j].style.color = "var(--sec)"
+       }
+    apparSyn[i].style.backgroundColor="var(--comp)"  
+     apparSyn[i].style.color="var(--pr)"  
+     repB=apparSyn[i]
+     verification()
+      })    
+     }
     
     // vérifier les réponses
     
@@ -109,17 +109,17 @@ function verification(){
           sound.play()
            repA.style.display = "none"
            repB.style.display = "none"
-        } else {
-         let sound= new Audio()
-          sound.src='../components/apparaiement/assets/wrong.mp3'
-          sound.volume=.2
-          sound.play()
-          repB.style.backgroundColor = ""
-          repB.style.color = "gray"
-           
-          repA.style.backgroundColor = ""
-          repA.style.color = "gray"
-        }
+} else {
+          let sound= new Audio()
+           sound.src='../components/apparaiement/assets/wrong.mp3'
+           sound.volume=.2
+           sound.play()
+           repB.style.backgroundColor = ""
+           repB.style.color = "var(--sec)"
+            
+           repA.style.backgroundColor = ""
+           repA.style.color = "var(--sec)"
+         }
         repA=""
         repB=""
      }
@@ -151,13 +151,13 @@ function htmlCode(){
  <style>
  /* ---------- Apparaiement------------*/
 .apparaiement{
-    width:100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgb(142, 213, 222);
-}
+     width:100%;
+     height: 100vh;
+     position: absolute;
+     top: 0;
+     left: 0;
+     background: var(--appariement-bg);
+ }
 
 .apparaiement .app-container{
     height: 60%;
@@ -176,17 +176,17 @@ function htmlCode(){
     align-items: center;
 }
  
- .col1 .cont-div-mot, .col2 .cont-div-syn{
-    width: 70%;
-    height: 40px;
-    bbox-shadow: 0 0 1px gray;
-    color: dimgray;
-    background-color : white ;
-    font-size: 1rem;
-    margin: 10px auto;
-    border-radius: 15px;
-    overflow: hidden;
- }
+.col1 .cont-div-mot, .col2 .cont-div-syn{
+     width: 70%;
+     height: 40px;
+     bbox-shadow: 0 0 1px var(--sec);
+     color: var(--sec);
+     background-color : var(--pr) ;
+     font-size: 1rem;
+     margin: 10px auto;
+     border-radius: 15px;
+     overflow: hidden;
+  }
  .cont-div-mot .appar-mot, .appar-syn{
     width: 100%;
     height: 100%;
@@ -200,38 +200,38 @@ function htmlCode(){
   transform: scale(0.95)
   }
   
-    .fermer{
-     width: 80% ;
-     height: 140px;
-     position: absolute;
-     top: 50% ;
-     left: 50% ;
-     transform: translate(-50% ,-50%);
-     border :2px solid gray ;
-     border-radius: 20px;
-     padding: 10px;
-     font-size: 1.2rem;
-     flex-direction: column;
-     color: gray;
-     background-color: white ;
-     zz-index: 444;
-     display :none ;
-    }
-    .btns{
-     width: 100% ;
-     margin-top: 20px;
-     
-    }
-    .oui, .non{
-     width: 30% ;
-     padding: 10px;
-     margin: 10px;
-     text-align: center;
-     background-color: mediumseagreen;
-     border-radius: 10px;
-     font-size: 16px;
-     color:white ;
-    }
+.fermer{
+      width: 80% ;
+      height: 140px;
+      position: absolute;
+      top: 50% ;
+      left: 50% ;
+      transform: translate(-50% ,-50%);
+      border :2px solid var(--sec) ;
+      border-radius: 20px;
+      padding: 10px;
+      font-size: 1.2rem;
+      flex-direction: column;
+      color: var(--sec);
+      background-color: var(--pr) ;
+      zz-index: 444;
+      display :none ;
+     }
+     .btns{
+      width: 100% ;
+      margin-top: 20px;
+      
+     }
+     .oui, .non{
+      width: 30% ;
+      padding: 10px;
+      margin: 10px;
+      text-align: center;
+      background-color: var(--success-btn);
+      border-radius: 10px;
+      font-size: 16px;
+      color:var(--pr) ;
+     }
     .center{
      display: flex;
      justify-content: center;

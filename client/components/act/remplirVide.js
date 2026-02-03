@@ -65,11 +65,11 @@ export function remplirVide(bloc, data, callBack) {
     // Gestion des cliques : liste - paragraphe
     for (let i = 0; i < mots.length; i++) {
       // clique sur les mots de la liste
-      events.on(mots[i], 'click', (ev) => {
+events.on(mots[i], 'click', (ev) => {
         if (verified || motsChoisis.includes(ev.target.innerText)) return
-        mots.forEach((item) => item.style.backgroundColor = "rgba(0,0,0, .08)")
+        mots.forEach((item) => item.style.backgroundColor = "var(--secc)")
         //color selected list word
-        ev.target.style.backgroundColor = "#E79b64"
+        ev.target.style.backgroundColor = "var(--comp)"
         // mot selectionné de la liste
         mot = ev.target
       })
@@ -83,13 +83,13 @@ export function remplirVide(bloc, data, callBack) {
           motsChoisis.pop(m.innerText)
           e.target.innerText = ""
         }
-        if (mot) {
+if (mot) {
           e.target.innerText = mot.innerText
           motsChoisis.push(mot.innerText)
           e.target.style.transition = "1s all ease"
-          e.target.style.color = "black"
+          e.target.style.color = "var(--secf)"
           mot.style.opacity = "0.5"
-          mot.style.backgroundColor = "rgba(0,0,0, .08)"
+          mot.style.backgroundColor = "var(--secc)"
           mot = undefined
         } // fin if (typeof)
       }) //fin vides[i]

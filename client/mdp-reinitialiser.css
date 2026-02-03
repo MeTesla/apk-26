@@ -4,12 +4,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #eeeeee;
+    background-color: var(--pr);
     padding: 20px;
 }
 
 .modal-mdp-reinitialiser {
-    background: white;
+    background: var(--pr);
     border-radius: 20px;
     padding: 40px;
     width: 100%;
@@ -49,12 +49,12 @@
 }
 
 .modal-mdp-reinitialiser input.error {
-    border-color: #e74c3c;
+    border-color: var(--error);
     box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
 }
 
 .modal-mdp-reinitialiser .error-message {
-    color: #e74c3c;
+    color: var(--error);
     font-size: 0.85rem;
     margin-top: 8px;
     padding-left: 15px;
@@ -70,7 +70,7 @@
     width: 100%;
     padding: 15px;
     background-color: var(--comp);
-    color: white;
+    color: var(--pr);
     border: none;
     border-radius: 30px;
     font-size: 1.1rem;
@@ -108,7 +108,7 @@
 
 .modal-mdp-reinitialiser .success-message {
     text-align: center;
-    color: #27ae60;
+    color: var(--success);
     padding: 20px;
     background: rgba(39, 174, 96, 0.1);
     border-radius: 10px;
@@ -135,7 +135,7 @@
 
 .modal-mdp-reinitialiser .token-expired {
     text-align: center;
-    color: #e74c3c;
+    color: var(--error);
     padding: 30px;
 }
 

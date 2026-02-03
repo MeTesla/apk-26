@@ -9,7 +9,7 @@
   font-family: josefin, sans-serif;
  }
 body{
-  background-color: rgb(81, 81, 151);
+  background-color: var(--blue-theme);
 }
  .fermerImg{
   width: 30px;
@@ -92,20 +92,20 @@ body{
   font-size: 1.3rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bolder;
-  color: rgb(55, 55, 119);
+  color: var(--blue-theme-dark);
 }
 .vrai, .faux{
   width: 100px;
   height: 100px;
-  background-color: rgb(63, 70, 168);
-  color: white;
+  background-color: var(--blue-theme);
+  color: var(--pr);
   line-height: 100px;
   text-align: center;
   border-radius: 10px;
 }
 
 .selected{
-  background-color: rgb(45, 55, 114);
+  background-color: var(--blue-theme-dark);
   /* box-shadow: -5px -5px 0 rgb(141, 140, 140); */
 }
 
@@ -134,13 +134,13 @@ body{
 }
 
 .valider{
-  background-color : blueviolet;
+  background-color : var(--comp);
   border-radius: 20px;
   width: 250px;
   height: 40px;
   line-height: 40px;
   text-align: center;
-  color: white ;
+  color: var(--pr);
   font-weight: bold;
   cursor: pointer;
   transition: .3s;

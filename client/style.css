@@ -34,6 +34,14 @@ PC	1025 - 1200 px	Mise en page classique à trois colonnes */
   --comp: #E89332;
   --correct: rgba(0, 200, 10, 0.3);
   --incorrect: rgba(200, 0, 10, 0.3);
+  --error: #e74c3c;
+  --success: #27ae60;
+  --warning: #b8860b;
+  --text-light: #666;
+  --overlay: rgba(0, 0, 0, 0.5);
+  --premium-comp: #7C4DFF;
+  --blue-theme: rgb(81, 81, 151);
+  --appariement-bg: rgb(142, 213, 222);
 }
 
 .maron {
@@ -44,6 +52,14 @@ PC	1025 - 1200 px	Mise en page classique à trois colonnes */
   --comp: #A1673B;
   --correct: rgba(0, 200, 10, 0.3);
   --incorrect: rgba(200, 0, 10, 0.3);
+  --error: #c0392b;
+  --success: #2ecc71;
+  --warning: #d68910;
+  --text-light: #666;
+  --overlay: rgba(0, 0, 0, 0.5);
+  --premium-comp: #8e44ad;
+  --blue-theme: rgb(81, 81, 151);
+  --appariement-bg: rgb(142, 213, 222);
 }
 
 .violet {
@@ -54,6 +70,14 @@ PC	1025 - 1200 px	Mise en page classique à trois colonnes */
   --comp: #892982;
   --correct: rgba(0, 200, 10, 0.3);
   --incorrect: rgba(200, 0, 10, 0.3);
+  --error: #c0392b;
+  --success: #2ecc71;
+  --warning: #d68910;
+  --text-light: #666;
+  --overlay: rgba(0, 0, 0, 0.5);
+  --premium-comp: #7C4DFF;
+  --blue-theme: rgb(81, 81, 151);
+  --appariement-bg: rgb(142, 213, 222);
 }
 
 @font-face {
@@ -71,7 +95,7 @@ PC	1025 - 1200 px	Mise en page classique à trois colonnes */
 body {
   min-height: 100vh;
   overflow: auto;
-  background-color: #eeeeee;
+  background-color: var(--pr);
 }
 
 .wrapper {
@@ -191,7 +215,7 @@ svg rect {
   top: 0;
   height: 100vh;
   width: 100vw;
-  background-color: white;
+  background-color: var(--pr);
 }
 
 /* -------------------CORPS --------------*/
@@ -232,7 +256,7 @@ svg rect {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #D8D6BD;
+  background-color: var(--secc);
   padding: 7px;
   margin: 15px;
 }

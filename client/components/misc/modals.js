@@ -20,11 +20,11 @@ export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
         </div>
 
     <style>
-        .modal-creer-compte{
+.modal-creer-compte{
           position: fixed;
           width: 100%; height: 100%;
           top:0; left:0 ;
-          background-color: rgba(102, 102, 102, 0.73);
+          background-color: var(--overlay);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -32,8 +32,8 @@ export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
         }
         .modal-card{
             width: 240px;
-            box-shadow: 0 0 3px rgb(214, 214, 214);
-            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 3px var(--secc);
+            background-color: var(--pr);
             border-radius: 10px;
             overflow: hidden;
             opacity:0;
@@ -45,13 +45,13 @@ export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
             to{ opacity: 1;}
         }
         .modal-titre{
-            background-color: rgb(217, 226, 255);
+            background-color: var(--premium-light);
             padding: 25px 10px ;
             margin: 0;
             position: relative;
         }
-        .modal-red{color: red}
-        .modal-green{color:green}
+        .modal-red{color: var(--error)}
+        .modal-green{color:var(--success)}
         .modal-titre h3{
             margin:0
         }
@@ -60,7 +60,7 @@ export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
             right: 5px;
             top: 5px;
             font-size: 25px;
-            color: rgb(99, 141, 255);
+            color: var(--premium-comp);
             cursor: pointer
         }
         .modal-corps{
@@ -78,7 +78,7 @@ export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
             margin: 10px auto;
             text-align: center;
             width: 80px;
-            border: 1px solid rgb(235, 235, 235);
+            border: 1px solid var(--secc);
             border-radius: 5px;
             cursor: pointer;
         }
@@ -115,12 +115,12 @@ export function modalLokedContent() {
         <img src="./assets/img/lock.png"/>        
     </div>
     <style>
-        .lock-container{
+.lock-container{
             z-index: 33;
             height: 100%; width: 100%;
             position: fixed;
             top:0; left:0;
-            bbackground-color: red;
+            bbackground-color: var(--notification);
             display: flex;
             justify-content: center; align-items: center
         }
@@ -179,15 +179,15 @@ export function modalDevenirPremium() {
             width: 100%; height: 100%;
             z-index: 2000;
         }
-        .modal-premium-overlay {
+.modal-premium-overlay {
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: var(--overlay);
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .modal-premium-card {
-            background: white;
+            background: var(--pr);
             width: 90%;
             max-width: 450px;
             border-radius: 15px;
@@ -199,9 +199,9 @@ export function modalDevenirPremium() {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        .modal-premium-header {
-            background: #f4b400; /* Couleur premium gold/yellow */
-            color: white;
+.modal-premium-header {
+            background: var(--warning);
+            color: var(--pr);
             padding: 20px;
             display: flex;
             justify-content: space-between;
@@ -217,16 +217,16 @@ export function modalDevenirPremium() {
             overflow-y: auto;
         }
         .banking-info {
-            background: #f9f9f9;
+            background: var(--secc);
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 20px;
-            border-left: 5px solid #f4b400;
+            border-left: 5px solid var(--warning);
         }
         .rib-container {
             margin-top: 10px;
             font-family: monospace;
-            background: #eee;
+            background: var(--secc);
             padding: 10px;
             border-radius: 5px;
         }
@@ -242,12 +242,12 @@ export function modalDevenirPremium() {
         }
         .form-group input {
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--secc);
             border-radius: 5px;
         }
         .btn-envoyer-premium {
-            background: #f4b400;
-            color: white;
+            background: var(--warning);
+            color: var(--pr);
             border: none;
             padding: 12px;
             border-radius: 5px;
@@ -256,7 +256,7 @@ export function modalDevenirPremium() {
             font-size: 16px;
         }
         .btn-envoyer-premium:hover {
-            background: #d49d00;
+            background: var(--warning);
         }
         hr {
             margin: 20px 0;

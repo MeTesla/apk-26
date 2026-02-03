@@ -47,7 +47,7 @@ export function login() {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, rgba(232, 147, 50, 0.1), rgba(126, 87, 194, 0.1));
+        background: linear-gradient(135deg, rgba(var(--comp), 0.1), rgba(var(--premium-comp), 0.1));
         backdrop-filter: blur(8px);
         z-index: 1000;
         animation: fadeIn 0.3s ease-out;
@@ -62,10 +62,10 @@ export function login() {
         position: relative;
         width: 90%;
         max-width: 420px;
-        background: white;
+        background: var(--pr);
         border-radius: 24px;
         padding: 40px 32px;
-        box-shadow: 0 25px 50px -12px rgba(232, 147, 50, 0.25);
+        box-shadow: 0 25px 50px -12px rgba(var(--comp), 0.25);
         animation: slideUp 0.4s ease-out;
       }
 
@@ -87,19 +87,19 @@ export function login() {
         width: 36px;
         height: 36px;
         border: none;
-        background: #f5f5f5;
+        background: var(--secc);
         border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
-        color: #666;
+        color: var(--text-light);
       }
 
       .login-close-btn:hover {
-        background: #e89332;
-        color: white;
+        background: var(--comp);
+        color: var(--pr);
         transform: rotate(90deg);
       }
 
@@ -117,12 +117,12 @@ export function login() {
       .login-title {
         font-size: 1.75rem;
         font-weight: 700;
-        color: #2c2c2c;
+        color: var(--secf);
         margin-bottom: 8px;
       }
 
       .login-subtitle {
-        color: #6f6f6f;
+        color: var(--sec);
         font-size: 0.95rem;
       }
 
@@ -141,7 +141,7 @@ export function login() {
       .input-icon {
         position: absolute;
         left: 16px;
-        color: #6f6f6f;
+        color: var(--sec);
         font-size: 1rem;
         transition: color 0.2s ease;
       }
@@ -149,23 +149,23 @@ export function login() {
       .input-group input {
         width: 100%;
         padding: 14px 16px 14px 48px;
-        border: 2px solid #e8e8e8;
+        border: 2px solid var(--secc);
         border-radius: 12px;
         font-size: 1rem;
         transition: all 0.2s ease;
-        background: #fafafa;
+        background: var(--pr);
       }
 
       .input-group input:focus {
         outline: none;
-        border-color: #e89332;
-        background: white;
-        box-shadow: 0 0 0 4px rgba(232, 147, 50, 0.1);
+        border-color: var(--comp);
+        background: var(--pr);
+        box-shadow: 0 0 0 4px rgba(var(--comp), 0.1);
       }
 
       .input-group input:focus + .input-icon,
       .input-group input:focus ~ .input-icon {
-        color: #e89332;
+        color: var(--comp);
       }
 
       .toggle-pass {
@@ -174,13 +174,13 @@ export function login() {
         background: none;
         border: none;
         cursor: pointer;
-        color: #6f6f6f;
+        color: var(--sec);
         padding: 4px;
         transition: color 0.2s ease;
       }
 
       .toggle-pass:hover {
-        color: #e89332;
+        color: var(--comp);
       }
 
       .btn-login {
@@ -189,8 +189,8 @@ export function login() {
         justify-content: center;
         gap: 10px;
         padding: 14px 24px;
-        background: linear-gradient(135deg, #e89332, #d48220);
-        color: white;
+        background: linear-gradient(135deg, var(--comp), var(--comp));
+        color: var(--pr);
         border: none;
         border-radius: 12px;
         font-size: 1rem;
@@ -202,7 +202,7 @@ export function login() {
 
       .btn-login:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(232, 147, 50, 0.4);
+        box-shadow: 0 8px 20px rgba(var(--comp), 0.4);
       }
 
       .btn-login:active {
@@ -211,9 +211,9 @@ export function login() {
 
       .btn-annuler {
         padding: 12px 24px;
-        background: #f5f5f5;
-        color: #6f6f6f;
-        border: 2px solid #e8e8e8;
+        background: var(--secc);
+        color: var(--sec);
+        border: 2px solid var(--secc);
         border-radius: 12px;
         font-size: 0.95rem;
         font-weight: 500;
@@ -222,25 +222,25 @@ export function login() {
       }
 
       .btn-annuler:hover {
-        background: #eeeeee;
-        border-color: #ddd;
+        background: var(--secc);
+        border-color: var(--sec);
       }
 
       .login-footer {
         text-align: center;
         margin-top: 24px;
         padding-top: 24px;
-        border-top: 1px solid #f0f0f0;
+        border-top: 1px solid var(--secc);
       }
 
       .redirect-text, .mdp-link {
         font-size: 0.9rem;
-        color: #6f6f6f;
+        color: var(--sec);
         margin-bottom: 8px;
       }
 
       .creer-compte-link, .mdp-oublie-link {
-        color: #e89332;
+        color: var(--comp);
         font-weight: 600;
         cursor: pointer;
         transition: color 0.2s ease;
@@ -248,7 +248,7 @@ export function login() {
       }
 
       .creer-compte-link:hover, .mdp-oublie-link:hover {
-        color: #d48220;
+        color: var(--comp);
       }
 
       .creer-compte-link::after {
@@ -258,7 +258,7 @@ export function login() {
         left: 0;
         width: 0;
         height: 2px;
-        background: #e89332;
+        background: var(--comp);
         transition: width 0.3s ease;
       }
 
