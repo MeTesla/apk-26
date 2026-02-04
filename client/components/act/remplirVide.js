@@ -269,6 +269,7 @@ export function remplirVide(bloc, data, callBack) {
 .resultat {
   position: absolute;
   width:100%;
+  height: 85vh;
   bottom: -100vh;
   display: flex;
   align-items: center;

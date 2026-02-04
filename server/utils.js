@@ -27,13 +27,54 @@ async function postEmail(req, nom, prenom, email, token, message = "", pageHtml 
         from: config.EMAIL_USER,
         to: config.EMAIL_USER,
         subject: 'Mot de passe',
-        html: `<div style="border: 1px solid gray;border-radius: 20px; width: 70%; margin: auto; padding: 50px;">
-            <p style="font-size:1.2rem; "> Bonjour ${nom + ' ' + prenom}</p>
-            <p style="font-size:1.2rem; "> votre Email : ${email}</p>
-            <h2>${message}</h2>
-            <h1><a href=${client}/${pageHtml}.html?token=${token}>Cliquez ici</a></h1>
-            
-            </div>`
+        html: `<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td align="center" style="padding: 40px 20px;">
+                <table role="presentation" style="width: 100%; max-width: 600px; border-collapse: collapse; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #4a90d9 0%, #357abd 100%); padding: 40px 30px; text-align: center;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Vérification d'Email</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 40px 35px;">
+                            <p style="color: #333333; font-size: 17px; line-height: 1.6; margin: 0 0 20px 0;">
+                                Bonjour <strong>${nom} ${prenom}</strong>,
+                            </p>
+                            <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 0 0 25px 0;">
+                                Nous avons besoin de vérifier votre adresse email <strong>${email}</strong>.
+                            </p>
+                            ${message ? `<p style="color: #4a90d9; font-size: 18px; font-weight: 500; margin: 0 0 30px 0; padding: 15px; background-color: #f0f7ff; border-radius: 8px; text-align: center;">${message}</p>` : ''}
+                            <table role="presentation" style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+                                <tr>
+                                    <td align="center">
+                                        <a href="${client}/${pageHtml}.html?token=${token}" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #4a90d9 0%, #357abd 100%); color: #ffffff; text-decoration: none; font-size: 17px; font-weight: 600; border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s;">Vérifier mon email</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="color: #888888; font-size: 14px; line-height: 1.6; margin: 35px 0 0 0; text-align: center;">
+                                Ce lien expirera dans quelques minutes.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #f8f9fa; padding: 25px; text-align: center; border-top: 1px solid #eeeeee;">
+                            <p style="color: #999999; font-size: 13px; margin: 0;">Si vous n'avez pas demandé cette vérification, vous pouvez ignorer cet email.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`
     };
 
     return transporter.sendMail(mailOptions);
