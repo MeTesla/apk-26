@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const EleveModel = require('../models/EleveModel')
 const config = require('../config/env')
 const ROLES = require('../config/roles')
+const { SESSION_VALIDITY_MINUTES } = require('../config/constants')
 
 const creerCompte = async (req, res) => {
     const { nom, prenom, email, tel, password, confirmPassword } = req.body
@@ -34,7 +35,7 @@ const creerCompte = async (req, res) => {
     const tomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1)
 
-    const token = await generateToken(email, 2)
+    const token = await generateToken(email, 10) // token valide 10 minutes
     const hashedPassword = await bcrypt.hash(password, 10)
     const eleve = new EleveModel({ nom, prenom, email, tel, password: hashedPassword, role: ROLES.NON_VERIFIE, token })
 
@@ -67,7 +68,7 @@ const verifierEmail = async (req, res) => {
         }
 
         // Update student role to 'basic'
-        const newToken = await generateToken(eleve.email, 4)
+        const newToken = await generateToken(eleve.email, SESSION_VALIDITY_MINUTES)
 
         const eleveUpdated = await EleveModel.findOneAndUpdate(
             { token },
@@ -137,7 +138,7 @@ const login = async (req, res) => {
             message: 'Email ou mot de passe incorrect'
         })
 
-        const token = await generateToken(email, 4); // Token valide 4 minutes
+        const token = await generateToken(email, 1); // Token valide 4 minutes
         eleve.token = token;
         await eleve.save();
 
