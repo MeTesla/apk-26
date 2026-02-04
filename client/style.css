@@ -363,7 +363,7 @@ svg rect {
   }
 }
 
-@media screen and (min-width: 780px) {
+@media screen and (max-width: 780px) {
 
   .wrapper {
     width: 60%;
