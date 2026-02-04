@@ -126,7 +126,7 @@ export function creerCompte() {
       }
 
       .creer-compte-close-btn:hover {
-        background: #e89332;
+        background: var(--premium-comp);
         color: white;
         transform: rotate(90deg);
       }
@@ -186,7 +186,7 @@ export function creerCompte() {
 
       .input-group input:focus {
         outline: none;
-        border-color: #e89332;
+        border-color: var(--premium-comp);
         background: white;
         box-shadow: 0 0 0 4px rgba(232, 147, 50, 0.1);
       }
@@ -209,7 +209,7 @@ export function creerCompte() {
         justify-content: center;
         gap: 10px;
         padding: 14px 24px;
-        background: linear-gradient(135deg, #e89332, #d48220);
+        background: var(--premium-comp);
         color: white;
         border: none;
         border-radius: 12px;
@@ -297,7 +297,7 @@ export function creerCompte() {
 
   const form = modal.querySelector('.creer-compte-form')
   const envoyerBtn = modal.querySelector('.envoyer')
-  
+
   form.onsubmit = function (e) {
     e.preventDefault()
     submitCreerCompte(modal)
@@ -319,8 +319,8 @@ export function creerCompte() {
 }
 
 async function submitCreerCompte(modal) {
-  
-  
+
+
   const nom = modal.querySelector('.nom').value
   const prenom = modal.querySelector('.prenom').value
   const email = modal.querySelector('.email').value
