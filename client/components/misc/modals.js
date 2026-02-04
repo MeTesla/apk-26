@@ -200,7 +200,7 @@ export function modalDevenirPremium() {
             to { transform: translateY(0); opacity: 1; }
         }
 .modal-premium-header {
-            background: var(--warning);
+            background: var(--premium-comp);
             color: var(--pr);
             padding: 20px;
             display: flex;
@@ -246,7 +246,7 @@ export function modalDevenirPremium() {
             border-radius: 5px;
         }
         .btn-envoyer-premium {
-            background: var(--warning);
+            background: var(--premium-comp);
             color: var(--pr);
             border: none;
             padding: 12px;

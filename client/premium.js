@@ -1,10 +1,12 @@
 import { modalDevenirPremium } from './components/misc/modals.js'
 
 document.addEventListener('DOMContentLoaded', () => {
-    const ctaPremium = document.querySelector('.cta-premium');
+    const ctaPremium = document.querySelectorAll('.cta-premium');
     if (ctaPremium) {
-        ctaPremium.addEventListener('click', () => {
-            modalDevenirPremium();
+        ctaPremium.forEach(cta => {
+            cta.addEventListener('click', () => {
+                modalDevenirPremium();
+            });
         });
     }
 });

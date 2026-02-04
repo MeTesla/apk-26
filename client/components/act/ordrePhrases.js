@@ -292,7 +292,6 @@ export function ordrePhrases(bloc, data, callBack) {
    color: var(--pr);
    width: 70%;
    border-radius: 20px;
-   padding: 10px 15px;
    margin: auto;
    font-size: 16px;
    background-color: var(--comp);

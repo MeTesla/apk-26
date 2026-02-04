@@ -1,3 +1,9 @@
+- QCM / vrai-faux : Traduction, explication
+- Production écrite :
+    BD : sujet, thème, thèse, problèmatique, arguments, rédaction
+
+- Régionaux :
+
 
 - Sugg : comment ajouter fichier config à l'app : son, confetti, dark mode ?
 - Sugg : Sauvgarder (backup) les émails et les tel dans un endroit sûr

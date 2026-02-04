@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box
 }
+
 :root {
   --pr: white;
   --secc: #D8D6BD;
@@ -211,7 +212,8 @@ body {
 
 /* -------------------- Hero section */
 .hero {
-  background-color: var(--premium-bg);
+  /* background-color: var(--premium-bg); */
+  box-shadow: 0 0 5px gray, 0 0 2px var(--secc);
   border-radius: 15px;
   padding-bottom: 20px;
 }
@@ -238,7 +240,8 @@ body {
   gap: 20px;
 }
 
-.hero-actions .cta-premium {
+.hero-actions .cta-premium,
+.prq-premium-container .prq-premium .cta-premium {
   width: 160px;
   outline: none;
   border: none;
@@ -366,33 +369,38 @@ body {
   color: var(--secf);
 }
 
-.prq-premium .cinquente {
+.pricing {
+  pposition: relative;
+  top: -100px;
+  background-color: var(--pr);
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--error);
+  box-shadow: 0 0 5px var(--premium-comp), 0 0 10px var(--premium-comp);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  padding: 20px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  box-shadow: 0 0 5px gray, 0 0 10px white;
-  background: url(/client/assets/img/cinquente.webp);
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: rgb(4, 77, 0);
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  font-size: 1.6rem;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-.prq-premium-container .prq-premium div {
+.princing:before {
+  content: ''
+}
+
+.prq-premium-container .prq-premium .prq-premium-avantages div {
   position: relative;
   margin: 35px 0;
-  font-size: 1.3rem;
+  font-size: 0.9rem;
+  font-weight: bold;
 
 }
 
-.prq-premium-container .prq-premium div:before {
+.prq-premium-container .prq-premium .prq-premium-avantages div:before {
   content: '';
   position: absolute;
   left: -35px;
@@ -405,10 +413,12 @@ body {
   ;
 }
 
-.prq-premium-container .prq-premium div span {
+.prq-premium-container .prq-premium .prq-premium-avantages span {
   font-weight: bold;
   color: var(--premium-comp);
 }
+
+
 
 /* ----------- QUESTIONS FREQUENTES ------------ */
 .faq-container {
@@ -418,19 +428,22 @@ body {
 
 .faq-item .item-qst {
   font-weight: 500;
-  background-color: var(--premium-light);
+  background-color: var(--appariement-bg);
   padding: 10px;
+  border-radius: 5px;
   margin: 15px;
   box-shadow: 0 0 2px 1px var(--pr), 0 0 5px 2px var(--pr);
   cursor: pointer;
 }
 
 .faq-item .item-res {
+  width: 90%;
+  margin: auto;
   font-weight: 500;
   display: none;
   background-color: #e1bee7;
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 0 auto;
   font-size: 1.2rem;
   transition: 0.5s ease-out;
 }
