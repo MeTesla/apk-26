@@ -40,7 +40,7 @@ const creerCompte = async (req, res) => {
 
     await eleve.save()
 
-    await postEmail(req, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier-email')
+    await postEmail(req, nom, prenom, email, token, 'Bienvenue chez Euduka', 'verifier')
     return res.json({
         success: true,
         token,
@@ -153,7 +153,7 @@ const getExo = (req, res) => {
     const { exo } = req.query
     const data = prepareData(exo)
     // console.log(data);
-    
+
     res.json(data)
 }
 
@@ -246,7 +246,7 @@ const mdpOublie = async (req, res) => {
             }
         )
         // send email with token
-        await postEmail(req, eleve.nom, eleve.prenom, email, token, 'Réinitialisation de mot de passe', 'mdp-reinitialiser')
+        await postEmail(req, eleve.nom, eleve.prenom, email, token, 'Réinitialisation de mot de passe', 'reinitialiser')
         return res.json({
             success: true,
             message: 'Un email a été envoyé à votre adresse pour réinitialiser votre mot de passe.'
