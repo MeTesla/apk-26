@@ -18,8 +18,6 @@ import { handleResultats, sliceScores, toast } from '../misc/utils.js';
 import { getProfile } from '../../utils/storage.js';
 
 export function vf(bloc, data, callBack) {
-
-
   const div = document.createElement('div')
   div.setAttribute('class', 'vrai-faux')
   div.innerHTML = codeHTML();

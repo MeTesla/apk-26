@@ -94,6 +94,8 @@ PC	1025 - 1200 px	Mise en page classique à trois colonnes */
 
 body {
   min-height: 100vh;
+  width: 70%;
+  margin: auto;
   overflow: auto;
   background-color: var(--pr);
 }
@@ -363,11 +365,11 @@ svg rect {
   }
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (min-width: 780px) {
 
   .wrapper {
-    width: 60%;
-    margin: auto;
+    width: 100%;
+    mmargin: auto;
   }
 
   .liste-act {
