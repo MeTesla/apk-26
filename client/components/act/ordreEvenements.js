@@ -3,6 +3,7 @@
 //import confetti from 'https://cdn.skypack.dev/canvas-confetti';
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js';
+import { confet } from '../misc/utils.js';
 /*
 App's logic
 1- créer un nombre de div équivalent au nombre de phrases
@@ -95,9 +96,9 @@ export function ordreEvenements(bloc, data) {
 
 
     if (dropedPhrases.toString() == sortedPhrasesIndexes.toString()) {
-      l(dropedPhrases.toString(), sortedPhrasesIndexes.toString())
       message.innerText = "C'est correct"
       voirRep.style.display = "none"
+      confet()
     } else {
       voirRep.style.display = "block"
       message.innerText = "C'est incorrect !"
@@ -108,6 +109,8 @@ export function ordreEvenements(bloc, data) {
         const div = document.createElement('div')
         div.classList = 'phrase'
         div.innerText = data[sortedPhrasesIndexes[i]]
+        console.log(data[sortedPhrasesIndexes[i]]);
+        
         bnRep.appendChild(div)
       })
     }
@@ -116,6 +119,7 @@ export function ordreEvenements(bloc, data) {
 
   voirRep.onclick = () => {
     bnRep.style.display = "block"
+    bnRep.style.opacity="1"
     voirRep.style.display = "none"
     message.innerHTML = "" // .display="non"
   }

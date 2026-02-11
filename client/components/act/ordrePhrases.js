@@ -1,7 +1,7 @@
 const l = console.log
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js'
-import { handleResultats, sliceScores } from '../misc/utils.js'
+import { handleResultats, sliceScores,confet } from '../misc/utils.js'
 import { getProfile } from '../../utils/storage.js'
 import { EventManager } from '../../utils/eventManager.js'
 
@@ -83,6 +83,7 @@ export function ordrePhrases(bloc, data, callBack) {
          //audio = new Audio('../../assets/audios/yay.mp3')
          //audio.play()
          voirRep.style.display = "none"
+         confet()
       } else {
          voirRep.style.display = "block"
          message.innerText = "C'est incorrect !"

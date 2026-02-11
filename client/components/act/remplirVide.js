@@ -67,10 +67,14 @@ export function remplirVide(bloc, data, callBack) {
       // clique sur les mots de la liste
       events.on(mots[i], 'click', (ev) => {
         if (verified || motsChoisis.includes(ev.target.innerText)) return
-        mots.forEach((item) => item.style.backgroundColor = "var(--secc)")
+        mots.forEach((item) => {
+          item.style.backgroundColor = "var(--secc)"
+          item.style.color = "var(--secf)" 
+        })
         //color selected list word
-        ev.target.style.backgroundColor = "var(--comp)"
         // mot selectionné de la liste
+        ev.target.style.backgroundColor= "var(--comp)"        
+        ev.target.style.color= "var(--pr)"        
         mot = ev.target
       })
       // clique sur les mots du paragraphe

@@ -14,7 +14,7 @@ const l = console.log
 import { closeAct, homeAct } from '../misc/closeAct.js'
 import { entete } from '../misc/entete.js';
 import { modalFinSession } from '../../utils.js'
-import { handleResultats, sliceScores, toast } from '../misc/utils.js';
+import { confet, handleResultats, sliceScores, toast } from '../misc/utils.js';
 import { getProfile } from '../../utils/storage.js';
 
 export function vf(bloc, data, callBack) {
@@ -151,8 +151,11 @@ if (index !== -1) {
         // audio.src='../assets/audios/yay.mp3'
         // audio.play()
         choosenRep.classList.add('reponseCorrect')
+        confet()
       } else {
         choosenRep.classList.add('reponseIncorrect')
+        console.log('incorrect');
+        
         /* Array.from(rep).filter((item) => {
            return item.innerText == questions[currentQst].rep.trim()
          [0].classList.add('reponseCorrect')

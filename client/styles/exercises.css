@@ -62,7 +62,7 @@
 .c3 {
   color: var(--secf);
   background-color: var(--pr);
-  /* border: 1px solid var(--comp); */
+  border: 1px solid var(--comp);
   width: 90%;
   padding: 8px 15px;
   margin: 10px auto;
@@ -72,10 +72,8 @@
   transition: 0.2s;
 }
 
-.c1:hover,
-.c2:hover,
-.c3:hover {
-  border: 1px solid #8482823e;
+.qcm .choix:hover {
+  width: 91%;
 }
 
 .c1.selected,
@@ -86,11 +84,11 @@
   border: 1px solid var(--comp);
 }
 
-.vrai.reponseCorrect {
+.vrai.reponseCorrect, .faux.reponseCorrect, .choix.reponseCorrect {
   background-color: var(--correct);
 }
 
-.faux.reponseIncorrect {
+.vrai.reponseIncorrect, .faux.reponseIncorrect, .choix.reponseIncorrect {
   background-color: var(--incorrect);
 }
 
@@ -231,9 +229,10 @@
   display: none;
 }
 
-.choix {
+.vrai-faux .choix {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 5px;
   font-size: 0.8rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -319,7 +318,8 @@
   margin: 5px auto;
   border-radius: 5px;
   color: var(--secf);
-  background-color: var(--pr);
+  background-color: var(--secc);
+  cursor: pointer;
   animation: anime 0.5s;
 }
 
@@ -368,7 +368,7 @@
   background-color: var(--overlay);
 }
 
-.resultat {
+.ordre-events .resultat {
   height: 90vh;
   width: 100%;
   position: absolute;
@@ -377,10 +377,11 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(255, 255, 255);
+  z-index: 2;
   transition: 0.2s ease-in-out;
 }
 
-.resultat .res-cont {
+.ordre-events .resultat .res-cont {
   min-height: 200px;
   width: 90%;
   border-radius: 10px;
@@ -512,7 +513,7 @@
     background-color: red;
 }
 
-.resultat{
+.ordre-ph .resultat{
    height: 90vh;
    width: 100%;
    position: absolute; 
@@ -524,8 +525,7 @@
    transition: .2s ease-in-out;
 }   
 
-.resultat .res-cont{
-   hheight: 200px;
+.ordre-ph .resultat .res-cont{
    width: 90%;
    border-radius: 10px;
    margin: 0 auto;
