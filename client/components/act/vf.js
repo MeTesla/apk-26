@@ -241,7 +241,7 @@ if (index !== -1) {
   }
 
   function codeHTML() {
-    const html = `${entete()}
+    const html = `<div class="activity-container">${entete()}
     <div class="progress-bar">
       <div class="progress"></div>
     </div>
@@ -256,7 +256,6 @@ if (index !== -1) {
           <div class="faux rep">Faux</div>
         </div>
       </div>    
-    </div>
 
     <div class="score"> 00 </div> 
     <div class = "vf-foot">
@@ -272,7 +271,8 @@ if (index !== -1) {
         </svg>
       </div>
    
-</div>`
+    </div>
+  </div>`
     return html
   }
 }

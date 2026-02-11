@@ -178,7 +178,7 @@ export function remplirVide(bloc, data, callBack) {
   }
 
   function htmlCode() {
-    const html = `${entete()} 
+    const html = `<div class="activity-container">${entete()} 
   <div class="consigne">Remplissez les espaces blancs par les mots de la liste :</div>
    <div class="sous-consigne">[Clique sur le mot puis sur l'endroit où tu veux l'insérer]</div>
    <div class="liste">        </div>
@@ -196,9 +196,7 @@ export function remplirVide(bloc, data, callBack) {
     
    </div>
    <div class="fin-session">FIN de la sesssion</div>   
-  <style>
-  
-  </style>`
+  </div>`
     return html
   }
 

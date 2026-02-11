@@ -153,7 +153,7 @@ export function ordreEvenements(bloc, data) {
   }
 
   function code() {
-    const html = `${entete()}
+    const html = `<div class="activity-container">${entete()}
     <div class="consigne">
       Je mets en ordre les évènements du chapitre.
     </div>
@@ -174,6 +174,7 @@ export function ordreEvenements(bloc, data) {
           <div class="voir-rep"> Voir la réponse </div>
         </div>  
       </div>
+    </div>
     </div>
     
     `

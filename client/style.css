@@ -129,7 +129,7 @@ body {
 /* Navigation z-index */
 .nav {
   position: relative;
-  z-index: 50;
+  z-index: 5;
 }
 
 .flx {
@@ -144,6 +144,7 @@ a:visited {
   text-decoration: none
 }
 
+.liste-act,
 .cl,
 .evenements,
 .lect-blc,
@@ -270,11 +271,21 @@ svg rect {
 .liste-act {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   background-color: var(--pr);
   animation: op .3s;
   z-index: 11;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.activity-container {
+  width: 60%;
+  margin: auto;
 }
 
 .list {
@@ -365,31 +376,23 @@ svg rect {
   }
 }
 
-@media screen and (min-width: 780px) {
+@media screen and (max-width: 780px) {
+  .fermer .modal {
+    width: 90%;
+  }
+
+  body {
+    width: 100%;
+  }
 
   .wrapper {
     width: 100%;
-    mmargin: auto;
+    margin: auto;
   }
 
-  .liste-act {
-    width: 60%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  .activity-container {
+    width: 95%;
 
-  .cl,
-  .evenements,
-  .lect-blc,
-  .ordre-ph,
-  .ordre-events,
-  .qcm,
-  .vide,
-  .resume-blc,
-  .vrai-faux {
-    width: 60%;
-    left: 50%;
-    transform: translateX(-50%);
   }
 
   .corps {
@@ -402,5 +405,20 @@ svg rect {
     width: 80px;
     height: 80px;
     line-height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    width: 100%;
+  }
+
+  .fermer .modal {
+    width: 90%;
+  }
+
+  /* Styles pour mobiles */
+  .activity-container {
+    width: 95%;
   }
 }

@@ -141,7 +141,7 @@ export function ordrePhrases(bloc, data, callBack) {
 
 
    function htmlCode() {
-      let html = `${entete()}
+      let html = `<div class="activity-container">${entete()}
   <div class="q-header">
   <div class="progress-bar">
     <div class="progress"></div>
@@ -166,6 +166,7 @@ export function ordrePhrases(bloc, data, callBack) {
         <div class="voir-rep"> Voir la réponse </div>
       </div>  
    </div>
+</div>
 </div>`
       return html
    }

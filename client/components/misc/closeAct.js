@@ -41,7 +41,7 @@ export function closeAct(el) {
       top:50%; left:50%;
       transform :translate(-50%,-50%);
       height :140px;
-      width :80%;
+      width :50%;
       background-color : var(--pr);
       border: 1px solid var(--sec);
       padding: 15px;
@@ -73,6 +73,11 @@ export function closeAct(el) {
       text-align: center;
       border-radius: 20px;
       }
+      @media screen and (max-width: 780px) {
+        .fermer .modal {
+          width: 70%;
+        }
+      }  
       </style>
     </div>`
     return html;
