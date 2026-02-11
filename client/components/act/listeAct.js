@@ -10,7 +10,7 @@ import { modalLokedContent } from '../misc/modals.js'
 import { fetchResultats } from '../misc/utils.js'
 import { API_URL } from '../../config/env.js'
 import { safeFetch } from '../../utils/api.js'
- 
+
 function toast(msg) {
   Toastify({
     text: msg,
@@ -70,7 +70,8 @@ export function listeAct(bloc, oeuvre = 'bam') {
     return isModified = value
   }
 
-  const html = `<img class="index" src ="/client/assets/img/previous.svg"></svg>
+  const html = `<div>
+  <img class="index" src ="/client/assets/img/previous.svg"></svg>
   <div class="list">
     <li class="list-elements lst-lire">${config.readLabel}</li>
     <li class="list-elements lst-resume">Résumé</li>
@@ -79,6 +80,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
     <li class="list-elements lst-ordre-ph">Mettre en ordre des phrases</li>
     <li class="list-elements lst-ordre-ev">Mettre en ordre des évènements</li>
     <li class="list-elements lst-vide">Remplir le vide</li>
+  </div>
   </div>`
 
   const activites = document.createElement('ul')

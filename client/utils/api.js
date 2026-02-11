@@ -3,11 +3,11 @@
  */
 const loaderState = {
   count: 0,
-  
+
   getLoader() {
     return document.querySelector('.loader')
   },
-  
+
   show() {
     this.count++
     const loader = this.getLoader()
@@ -15,7 +15,7 @@ const loaderState = {
       loader.classList.remove('hidden')
     }
   },
-  
+
   hide() {
     this.count = Math.max(0, this.count - 1)
     if (this.count === 0) {
@@ -25,6 +25,12 @@ const loaderState = {
       }
     }
   }
+}
+
+function buildHeaders(token = null, contentType = true) {
+  const headers = contentType ? { 'Content-Type': 'application/json' } : {}
+  if (token) headers['Authorization'] = token
+  return headers
 }
 
 /**
@@ -59,7 +65,7 @@ export async function safeFetch(url, options = {}) {
     // 2️⃣ Valider le statut HTTP AVANT parsing JSON
     if (!response.ok) {
       const errorData = await parseResponseSafely(response)
-      
+
       if (response.status === 401) {
         return {
           success: false,
@@ -100,7 +106,7 @@ export async function safeFetch(url, options = {}) {
 
     // 3️⃣ Parser la réponse JSON de manière sûre
     const data = await parseResponseSafely(response)
-    
+
     return {
       success: true,
       data: data,
@@ -140,10 +146,11 @@ export async function safeFetch(url, options = {}) {
  * @param {Response} response - Objet Response
  * @returns {Promise<any>} Données parsées ou objet vide
  */
+
 async function parseResponseSafely(response) {
   try {
     const contentType = response.headers.get('content-type')
-    
+
     // Vérifier si la réponse est du JSON
     if (contentType?.includes('application/json')) {
       return await response.json()
@@ -166,17 +173,9 @@ async function parseResponseSafely(response) {
  * @returns {Promise<{success: boolean, data: any, error?: string}>}
  */
 export async function safeFetchPost(url, body, token = null) {
-  const headers = {
-    'Content-Type': 'application/json'
-  }
-  
-  if (token) {
-    headers['Authorization'] = token
-  }
-
   return safeFetch(url, {
     method: 'POST',
-    headers: headers,
+    headers: buildHeaders(token),
     body: JSON.stringify(body)
   })
 }
@@ -188,15 +187,9 @@ export async function safeFetchPost(url, body, token = null) {
  * @returns {Promise<{success: boolean, data: any, error?: string}>}
  */
 export async function safeFetchGet(url, token = null) {
-  const headers = {}
-  
-  if (token) {
-    headers['Authorization'] = token
-  }
-
   return safeFetch(url, {
     method: 'GET',
-    headers: headers
+    headers: buildHeaders(token, false)
   })
 }
 
@@ -222,18 +215,11 @@ export async function safeFetchWithLoader(url, options = {}) {
  * @param {string} token - Token d'authentification (optionnel)
  * @returns {Promise<{success: boolean, data: any, error?: string}>}
  */
-export async function safeFetchPostWithLoader(url, body, token = null) {
-  const headers = {
-    'Content-Type': 'application/json'
-  }
-  
-  if (token) {
-    headers['Authorization'] = token
-  }
 
+export async function safeFetchPostWithLoader(url, body, token = null) {
   return safeFetchWithLoader(url, {
     method: 'POST',
-    headers: headers,
+    headers: buildHeaders(token),
     body: JSON.stringify(body)
   })
 }
@@ -245,15 +231,9 @@ export async function safeFetchPostWithLoader(url, body, token = null) {
  * @returns {Promise<{success: boolean, data: any, error?: string}>}
  */
 export async function safeFetchGetWithLoader(url, token = null) {
-  const headers = {}
-  
-  if (token) {
-    headers['Authorization'] = token
-  }
-
   return safeFetchWithLoader(url, {
     method: 'GET',
-    headers: headers
+    headers: buildHeaders(token, false)
   })
 }
 
@@ -265,50 +245,9 @@ export async function safeFetchGetWithLoader(url, token = null) {
  * @returns {Promise<{success: boolean, data: any, error?: string}>}
  */
 export async function safeFetchFormDataWithLoader(url, formData, token = null) {
-  loaderState.show()
-  try {
-    const headers = {}
-    if (token) {
-      headers['Authorization'] = token
-    }
-    
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: headers,
-      body: formData
-    })
-
-    if (!response.ok) {
-      const errorData = await parseResponseSafely(response)
-      return {
-        success: false,
-        error: `Erreur HTTP ${response.status}`,
-        status: response.status,
-        data: errorData
-      }
-    }
-
-    const data = await parseResponseSafely(response)
-    return {
-      success: true,
-      data: data,
-      status: response.status
-    }
-  } catch (error) {
-    console.error('⚠️ safeFetchFormDataWithLoader error:', error)
-    if (error instanceof TypeError) {
-      return {
-        success: false,
-        error: 'Erreur réseau. Vérifiez votre connexion Internet.',
-        networkError: true
-      }
-    } else {
-      return {
-        success: false,
-        error: error.message || 'Erreur inconnue'
-      }
-    }
-  } finally {
-    loaderState.hide()
-  }
+  return safeFetchWithLoader(url, {
+    method: 'POST',
+    headers: buildHeaders(token, false),
+    body: formData
+  })
 }
