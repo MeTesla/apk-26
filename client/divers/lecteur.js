@@ -131,9 +131,9 @@ export function lecteur(n) {
     const html = `${entete(n)}
  <div class="r-container">
   <div class="controls-h hide">
-   <span class="m"><img src="/client/assets/img/minus.svg" alt="minus"></span>
-   <span class="p"><img src="/client/assets/img/plus.svg" alt=""></span>
-   <span class="dots"><img src="/client/assets/img/dots.svg" alt=""></span>
+   <span class="m"><img src="/assets/img/minus.svg" alt="minus"></span>
+   <span class="p"><img src="/assets/img/plus.svg" alt=""></span>
+   <span class="dots"><img src="/assets/img/dots.svg" alt=""></span>
   </div>
   
  <div class="r-content">  </div>

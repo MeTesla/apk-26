@@ -15,7 +15,7 @@ export function creerCompte() {
       <button class="creer-compte-close-btn"><i class="fas fa-times"></i></button>
       <div class="creer-compte-header">
         <div class="creer-compte-logo">
-          <img src="/client/assets/img/euduka.png" alt="EUDUKA" />
+          <img src="/assets/img/euduka.png" alt="EUDUKA" />
         </div>
         <h1 class="creer-compte-title">Créer un compte</h1>
         <p class="creer-compte-subtitle">Rejoignez Euduka pour réussir votre Bac</p>
@@ -419,11 +419,11 @@ export function generateMenu(typeAccount, pere, menu) {
     case 'non_verifie':
       div.innerHTML = `<div>
         <div>
-          <img src="/client/assets/img/verifyEmail.png" />
+          <img src="/assets/img/verifyEmail.png" />
           <span>En attente</span>
         </div>
         <div class="annuler">
-          <img src="/client/assets/img/annuler.png" />
+          <img src="/assets/img/annuler.png" />
           <span>Annuler</span>
         </div>
         </div>`
@@ -431,19 +431,19 @@ export function generateMenu(typeAccount, pere, menu) {
     case 'basic':
       div.innerHTML = `<div class="basic">
             <div class="premium">
-              <img src="/client/assets/img/diamond.png" />
+              <img src="/assets/img/diamond.png" />
               <span>Premium</span>
             </div>           
             <div class="free-mins">
-              <img src="/client/assets/img/freeMins.png" />
+              <img src="/assets/img/freeMins.png" />
               <span>+10 minutes</span>
             </div>  
             <div class="menu-profile">
-              <img src="/client/assets/img/profile.png" />
+              <img src="/assets/img/profile.png" />
               <span>Profile</span>
             </div>
             <div class="menu-logout">
-              <img src="/client/assets/img/logout.png" />
+              <img src="/assets/img/logout.png" />
               <span class="logout">Se déconnecter</span>
             </div>
           </div>`
@@ -451,19 +451,19 @@ export function generateMenu(typeAccount, pere, menu) {
     case 'attente_premium':
       div.innerHTML = `<div class="attente-premium-menu">
             <div class="status-badge">
-              <img src="/client/assets/img/clock.png" />
+              <img src="/assets/img/clock.png" />
               <span>En attente Premium</span>
             </div>
             <div class="free-mins">
-              <img src="/client/assets/img/freeMins.png" />
+              <img src="/assets/img/freeMins.png" />
               <span>+10 minutes</span>
             </div>
             <div class="menu-profile">
-              <img src="/client/assets/img/profile.png" />
+              <img src="/assets/img/profile.png" />
               <span>Profile</span>
             </div>
             <div class="menu-logout">
-              <img src="/client/assets/img/logout.png" />
+              <img src="/assets/img/logout.png" />
               <span class="logout">Se déconnecter</span>
             </div>
           </div>
@@ -494,15 +494,15 @@ export function generateMenu(typeAccount, pere, menu) {
       div.innerHTML = `
           <div class="premium-active">
             <div class="premium-badge">
-              <img src="/client/assets/img/diamond.png" />
+              <img src="/assets/img/diamond.png" />
               <span>COMPTE PREMIUM 👑</span>
             </div> 
             <div class="menu-profile">
-              <img src="/client/assets/img/profile.png" />
+              <img src="/assets/img/profile.png" />
               <span>Profile</span>
             </div>
             <div class="menu-logout">
-              <img src="/client/assets/img/logout.png" />
+              <img src="/assets/img/logout.png" />
               <span class="logout">Se déconnecter</span>
             </div>
           </div>
@@ -533,11 +533,11 @@ export function generateMenu(typeAccount, pere, menu) {
       div.innerHTML = `
         <div class="menu-compte">
           <div class="creer-compte">
-            <img src="/client/assets/img/creerCompte.png" />
+            <img src="/assets/img/creerCompte.png" />
             <span>Créer un compte</span>
           </div>
           <div class="login">
-            <img src="/client/assets/img/login.png" />
+            <img src="/assets/img/login.png" />
             <span>Login</span>          
           </div>
         </div>`

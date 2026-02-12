@@ -1,5 +1,5 @@
 // // Change l'URL
-//     history.pushState({ modal: true }, '', '/client/quiz');
+//     history.pushState({ modal: true }, '', '/quiz');
 
 //     closeQuizButton.addEventListener('click', () => {
 //         document.body.removeChild(quizModal); // Supprime le modal

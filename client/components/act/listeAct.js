@@ -71,7 +71,7 @@ export function listeAct(bloc, oeuvre = 'bam') {
   }
 
   const html = `<div class="activity-container">
-  <img class="index" src ="/client/assets/img/previous.svg"></svg>
+  <img class="index" src ="/assets/img/previous.svg"></svg>
   <div class="list">
     <li class="list-elements lst-lire">${config.readLabel}</li>
     <li class="list-elements lst-resume">Résumé</li>

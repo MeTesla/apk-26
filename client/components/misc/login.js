@@ -11,7 +11,7 @@ export function login() {
       <button class="login-close-btn"><i class="fas fa-times"></i></button>
       <div class="login-header">
         <div class="login-logo">
-          <img src="/client/assets/img/euduka.png" alt="EUDUKA" />
+          <img src="/assets/img/euduka.png" alt="EUDUKA" />
         </div>
         <h1 class="login-title">Bon retour !</h1>
         <p class="login-subtitle">Connectez-vous pour continuer</p>
@@ -556,7 +556,7 @@ export function mpdOublie(parent) {
 }
 
 export function adminLogin() {
-  const targetUrl = '/client/euduka/admin';
+  const targetUrl = '/euduka/admin';
 
   let overlay = document.getElementById('admin-login-overlay');
   if (!overlay) {

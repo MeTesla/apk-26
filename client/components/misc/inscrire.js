@@ -5,7 +5,7 @@ export function inscrire() {
         <button class="inscrire-close-btn"><i class="fas fa-times"></i></button>
         <div class="inscrire-header">
           <div class="inscrire-logo">
-            <img src="/client/assets/img/euduka.png" alt="EUDUKA" />
+            <img src="/assets/img/euduka.png" alt="EUDUKA" />
           </div>
           <h1 class="inscrire-title">Créer un compte</h1>
           <p class="inscrire-subtitle">Rejoignez Euduka pour réussir votre Bac</p>

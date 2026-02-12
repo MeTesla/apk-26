@@ -13,7 +13,7 @@ const config = {
     EMAIL_SERVICE: process.env.EMAIL_SERVICE,
     
     // Client URLs
-    CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5500/client',
+    CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5500',
     
     // Server
     PORT: process.env.PORT || 3000,

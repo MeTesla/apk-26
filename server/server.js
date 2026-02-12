@@ -7,7 +7,7 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use('/client/assets', express.static('../client/assets'))
+app.use('/assets', express.static('../assets'))
 app.use('/uploads', express.static('uploads'))
 
 // Routes
@@ -37,7 +37,7 @@ app.use('/api/firebase', firebaseRouter)
 app.set('view engine', 'ejs');
 
 // Route GET admin login
-app.get('/client/euduka/admin', (req, res) => {
+app.get('/euduka/admin', (req, res) => {
     res.render('login_admin');
 });
 

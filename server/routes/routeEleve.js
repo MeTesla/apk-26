@@ -32,7 +32,7 @@ router.post('/freeMins', addFreeMinsMiddleware, freeMins)
 
 router.get('/', checkExoAccessMiddleware, getExo)
 
-router.post('/client/euduka/admin', adminLogin)
+router.post('/euduka/admin', adminLogin)
 
 router.post('/mdp-oublie', mdpOublie)
 

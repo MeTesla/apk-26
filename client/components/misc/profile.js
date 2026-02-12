@@ -21,7 +21,7 @@ export function profile() {
         <div class="profile-modal">
             <div class="profile-header">
                 <div class="profile-logo">
-                    <img src="/client/assets/img/euduka.png" alt="EUDUKA" />
+                    <img src="/assets/img/euduka.png" alt="EUDUKA" />
                 </div>
                 <div class="profile-header-right">
                     <div class="profile-date"></div>
@@ -32,7 +32,7 @@ export function profile() {
             <div class="profile-content">
                 <div class="user-info-card">
                     <div class="user-avatar">
-                        <img src="/client/assets/img/user-img.png" alt="${nom}" />
+                        <img src="/assets/img/user-img.png" alt="${nom}" />
                     </div>
                     <h2 class="user-name">${nom} ${prenom}</h2>
                     <div class="user-status ${role === 'premium' ? 'status-premium' : role === 'attente_premium' ? 'status-waiting' : ''}">
