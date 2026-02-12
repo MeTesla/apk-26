@@ -61,3 +61,6 @@ export const STORAGE_KEYS = {
   LISTE: 'liste',
   RESULTS: 'resultats'
 }
+
+// Durée de validité des sessions (en minutes)
+export const SESSION_VALIDITY_MINUTES_PREMIUM = 30 * 24 * 60 // 30 jours (1 mois) pour PREMIUM

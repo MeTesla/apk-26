@@ -632,6 +632,7 @@ export async function fetchResultats(listBlc, isModified) {
     }
 
     const res = getResults()
+    console.error(res)
     if (!res) {
       console.error('❌ No results found to sync')
       listBlc.remove()

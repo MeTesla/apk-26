@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const EleveModel = require('../models/EleveModel')
 const config = require('../config/env')
 const ROLES = require('../config/roles')
-const { SESSION_VALIDITY_MINUTES } = require('../config/constants')
+const { SESSION_VALIDITY_MINUTES, SESSION_VALIDITY_MINUTES_PREMIUM } = require('../config/constants')
 
 const creerCompte = async (req, res) => {
     const { nom, prenom, email, tel, password, confirmPassword } = req.body
@@ -138,7 +138,9 @@ const login = async (req, res) => {
             message: 'Email ou mot de passe incorrect'
         })
 
-        const token = await generateToken(email, 1); // Token valide 4 minutes
+        // Générer un token avec une durée différente selon le rôle
+        const tokenDuration = eleve.role === ROLES.PREMIUM ? SESSION_VALIDITY_MINUTES_PREMIUM : SESSION_VALIDITY_MINUTES;
+        const token = await generateToken(email, tokenDuration);
         eleve.token = token;
         await eleve.save();
 
@@ -173,14 +175,20 @@ const updateResultats = async (req, res) => {
                 runValidators: true
             }
         )
-        if (!eleve) return res.json({
-            success: false,
-            message: 'pas d\'eleve'
-        })
+        if (!eleve) {
+            console.log('erreur res !eleve');
+
+            return res.json({
+                success: false,
+                message: 'pas d\'eleve'
+            })
+        }
 
         res.json({ eleve, success: true })
 
     } catch (error) {
+        console.log('Erreur update res');
+
         res.json({
             success: false,
             message: 'Erreur serveur. Veuillez réessayer plus tard' + error.message
@@ -403,23 +411,30 @@ const demandePremium = async (req, res) => {
 const validerPremium = async (req, res) => {
     const { token } = req.body; // Token de l'élève à valider
     try {
+        // Récupérer d'abord l'élève pour obtenir son email
+        const eleveExistant = await EleveModel.findOne({ token });
+        if (!eleveExistant) return res.json({ success: false, message: 'Élève non trouvé' });
+
+        // Générer un nouveau token valable 1 mois pour PREMIUM
+        const newToken = await generateToken(eleveExistant.email, SESSION_VALIDITY_MINUTES_PREMIUM);
+
         const eleve = await EleveModel.findOneAndUpdate(
             { token: token },
             {
                 $set: {
                     role: ROLES.PREMIUM,
+                    token: newToken,
                     'premiumRequest.statut': 'valide'
                 }
             },
             { new: true }
         );
 
-        if (!eleve) return res.json({ success: false, message: 'Élève non trouvé' });
-
         res.json({
             success: true,
             message: `Le compte de ${eleve.nom} est maintenant PREMIUM`,
-            eleve
+            eleve,
+            token: newToken
         });
     } catch (error) {
         res.json({ success: false, message: 'Erreur : ' + error.message });

@@ -475,7 +475,7 @@
                 });
                 const result = await res.json();
                 if (result.success) {
-                    alert(result.message);
+                    alert(result.message + ' Nouveau token généré pour cet élève.');
                     location.reload();
                 } else {
                     alert(result.message);
