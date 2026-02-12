@@ -42,7 +42,7 @@ app.get('/client/euduka/admin', (req, res) => {
 });
 
 // BD connexion
-mongoose.connect(config.MONGODB_URL)
+mongoose.connect(config.MONGODB_URI)
     .then(() => {
         console.log('Connexion à la base de données réussie !');
     })

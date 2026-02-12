@@ -85,7 +85,7 @@ export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
         
     </style> `
     document.body.appendChild(div)
-    document.body.style.position = 'fixed'
+    document.body.style.overflow = 'hidden'
 
     const closeModal = document.querySelector('.modal-titre .fermer-modal')
     const ok = document.querySelector('.modal-footer div')
@@ -94,16 +94,16 @@ export function modalFreeMins(success, message, lottie = 'failed', autoClose) {
             setTimeout(() => {
                 div.style.opacity = "0"
             }, 1400)
-            document.body.style.position = "static"
+            document.body.style.overflow= "auto"
             div.remove()
         }, 1500)
     }
     closeModal.addEventListener('click', () => {
-        document.body.style.position = "static"
+        document.body.style.overflow= "auto"
         div.remove()
     })
     ok.addEventListener('click', () => {
-        document.body.style.position = "static"
+        document.body.style.overflow= "auto"
         div.remove()
     })
 }
