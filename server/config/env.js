@@ -20,7 +20,7 @@ const config = {
     NODE_ENV: process.env.NODE_ENV || 'development',
     
     // CORS Origins
-    CORS_ORIGINS: (process.env.CORS_ORIGINS || 'https://eudeka.onrender.com,http://127.0.0.1:5500,http://localhost:3000,https://euduka.vercel.app,https://euduka.page.gd,http://localhost:5500').split(','),
+    CORS_ORIGINS: (process.env.CORS_ORIGINS || 'https://eudeka.onrender.com,http://127.0.0.1:5500,http://localhost:3000,https://euduka.page.gd,http://localhost:5500').split(','),
     
     // Firebase (backend)
     FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL || '',
