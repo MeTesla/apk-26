@@ -1,6 +1,9 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 const jwt = require('jsonwebtoken')
 const config = require('./config/env')
+
+// Configuration SendGrid
+sgMail.setApiKey(config.SENDGRID_API_KEY);
 
 // Generate TOKEN
 function generateToken(email, expire) {
@@ -107,25 +110,14 @@ async function postEmail(req, nom, prenom, email, token, message = "", pageHtml 
 </body>
 </html>`
 
-    const transporter = nodemailer.createTransport({
-        service: config.EMAIL_SERVICE,
-        auth: {
-            user: config.EMAIL_USER,
-            pass: config.EMAIL_PASS
-        },
-        tls: {
-            rejectUnauthorized: false
-        }
-    });
-
-    const mailOptions = {
-        from: config.EMAIL_USER,
-        to: config.EMAIL_USER,
+    const msg = {
+        to: email,
+        from: config.EMAIL_FROM,
         subject: subject,
         html: isVerification ? verifier : reinitialiser
     };
 
-    return transporter.sendMail(mailOptions);
+    return sgMail.send(msg);
 }
 
 // server DB data

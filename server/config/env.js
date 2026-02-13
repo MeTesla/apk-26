@@ -7,10 +7,9 @@ const config = {
     // Base de données
     MONGODB_URI: process.env.MONGODB_URI,
     
-    // Email
-    EMAIL_USER: process.env.EMAIL_USER,
-    EMAIL_PASS: process.env.EMAIL_PASS,
-    EMAIL_SERVICE: process.env.EMAIL_SERVICE,
+    // Email (SendGrid)
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    EMAIL_FROM: process.env.EMAIL_FROM || 'noreply@euduka.com',
     
     // Client URLs
     CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5500',
@@ -48,8 +47,8 @@ if (config.NODE_ENV === 'production') {
     if (!process.env.MONGODB_URI) {
         throw new Error('❌ ERROR: MONGODB_URI must be set in .env for production');
     }
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        throw new Error('❌ ERROR: EMAIL_USER and EMAIL_PASS must be set in .env for production');
+    if (!process.env.SENDGRID_API_KEY) {
+        throw new Error('❌ ERROR: SENDGRID_API_KEY must be set in .env for production');
     }
 }
 
