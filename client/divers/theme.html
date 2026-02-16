@@ -14,12 +14,14 @@
         .mer{
             --primary-color: #3498db;
             --secondary-color: #a3cfff;
-            --puce: url(../assets/img/clock.png)
+            --puce: url(../assets/img/clock.png);
+            --bg: url(../assets/img/student.png)
         }
         .nature{
             --primary-color: #008d00;
             --secondary-color: #abf590;
-            --puce: url(../assets/img/cloche.png)
+            --puce: url(../assets/img/cloche.png);
+            --bg: url(../assets/img/student2.png)
         }
 
         body{
@@ -30,11 +32,15 @@
             background-color: var(--primary-color);
             color: white;
             padding: 20px;
+            background-image: var(--bg);
+            background-size: cover;
+            background-size: 130px;;
         }
         h1{
             position: relative;
             border: 1px solid var(--secondary-color);
             padding: 10px;
+            color: var(--secondary-color);
         }
         h1:before{
             content: "";
