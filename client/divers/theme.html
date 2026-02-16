@@ -28,16 +28,21 @@
             width:60%; margin: auto;
         }
         .container{
+            margin: 50px auto;
             padding: 30px;
             background-color: var(--primary-color);
             color: white;
             padding: 20px;
             background-image: var(--bg);
             background-size: cover;
-            background-size: 130px;;
+            background-size: 130px;
+            background-position: right center;
+            background-repeat: no-repeat;
         }
         h1{
             position: relative;
+            width: 50%;
+            margin: 40px auto;
             border: 1px solid var(--secondary-color);
             padding: 10px;
             color: var(--secondary-color);
@@ -63,6 +68,14 @@
             border: none;
             cursor: pointer;
         }
+        @keyframes zoomOut {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(0.98);
+            }
+        }
     </style>
     <script>
         const toggleButton = document.querySelector('.toggle-theme');
@@ -70,9 +83,11 @@
         console.log(theme);
         
         toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('nature');
-            //getComputedStyle(document.body)
-        console.log(document.body.className);
+            document.body.style.animation = 'zoomOut 0.5s ease';
+            setTimeout(() => {
+                document.body.classList.toggle('nature');
+                document.body.style.animation = '';
+            }, 300);
         });
     </script>
 </body>
