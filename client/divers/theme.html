@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body class="mer">
+    <div class="container">
+        <h1>Theme</h1>
+    </div>
+    <button class="toggle-theme">Toggle Theme</button>
+    <style>
+        .mer{
+            --primary-color: #3498db;
+            --secondary-color: #a3cfff;
+            --puce: url(../assets/img/clock.png)
+        }
+        .nature{
+            --primary-color: #008d00;
+            --secondary-color: #abf590;
+            --puce: url(../assets/img/cloche.png)
+        }
+
+        body{
+            width:60%; margin: auto;
+        }
+        .container{
+            padding: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+        }
+        h1{
+            position: relative;
+            border: 1px solid var(--secondary-color);
+            padding: 10px;
+        }
+        h1:before{
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: -40px;
+            width: 30px;
+            height: 30px;
+            background:  var(--puce);
+            background-size: 30px 30px;
+            background-position: center;
+
+        }
+        .toggle-theme{
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        const toggleButton = document.querySelector('.toggle-theme');
+        const theme = document.body.className//getComputedStyle(document.body)
+        console.log(theme);
+        
+        toggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('nature');
+            //getComputedStyle(document.body)
+        console.log(document.body.className);
+        });
+    </script>
+</body>
+</html>
