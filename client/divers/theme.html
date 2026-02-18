@@ -1,33 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body class="mer">
+
+<body class="mer overlay">
     <div class="container">
         <h1>Theme</h1>
+        <button class="toggle-theme">Toggle Theme</button>
     </div>
-    <button class="toggle-theme">Toggle Theme</button>
+
     <style>
-        .mer{
+        .mer {
             --primary-color: #3498db;
             --secondary-color: #a3cfff;
             --puce: url(../assets/img/clock.png);
-            --bg: url(../assets/img/student.png)
+            --bg: url(../assets/img/student.png);
+            --body-bg: url(../assets/img/bg-samurai.jpg);
         }
-        .nature{
+
+        .nature {
             --primary-color: #008d00;
             --secondary-color: #abf590;
             --puce: url(../assets/img/cloche.png);
-            --bg: url(../assets/img/student2.png)
+            --bg: url(../assets/img/student2.png);
+            --body-bg: url(../assets/img/bg-nature.jpg);
         }
 
-        body{
-            width:60%; margin: auto;
+        body {
+            width: 60%;
+            margin: auto;
+            background-image: var(--body-bg);
+            background-size: cover;
+            position: relative;
         }
-        .container{
+
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+
+
+        .container {
+            position: relative;
+            z-index: 2;
             margin: 50px auto;
             padding: 30px;
             background-color: var(--primary-color);
@@ -39,7 +65,8 @@
             background-position: right center;
             background-repeat: no-repeat;
         }
-        h1{
+
+        h1 {
             position: relative;
             width: 50%;
             margin: 40px auto;
@@ -47,19 +74,21 @@
             padding: 10px;
             color: var(--secondary-color);
         }
-        h1:before{
+
+        h1:before {
             content: "";
             position: absolute;
             top: 15px;
             left: -40px;
             width: 30px;
             height: 30px;
-            background:  var(--puce);
+            background: var(--puce);
             background-size: 30px 30px;
             background-position: center;
 
         }
-        .toggle-theme{
+
+        .toggle-theme {
             display: block;
             margin: 20px auto;
             padding: 10px 20px;
@@ -68,10 +97,12 @@
             border: none;
             cursor: pointer;
         }
+
         @keyframes zoomOut {
             from {
                 transform: scale(1);
             }
+
             to {
                 transform: scale(0.98);
             }
@@ -81,7 +112,7 @@
         const toggleButton = document.querySelector('.toggle-theme');
         const theme = document.body.className//getComputedStyle(document.body)
         console.log(theme);
-        
+
         toggleButton.addEventListener('click', () => {
             document.body.style.animation = 'zoomOut 0.5s ease';
             setTimeout(() => {
@@ -91,4 +122,5 @@
         });
     </script>
 </body>
+
 </html>
