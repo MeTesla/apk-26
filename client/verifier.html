@@ -110,7 +110,7 @@
 
     <script type="module">
         import { toast } from './components/misc/utils.js';
-        import { CLIENT_URL } from './config/env.js';
+        import { CLIENT_URL, API_URL } from './config/env.js';
         import { safeFetchPostWithLoader } from './utils/api.js';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -164,7 +164,7 @@
                 const roleLS = localStorage.getItem('role');
                 roleLS && localStorage.removeItem('role');
                 setTimeout(() => {
-                    location.assign('/index.html');
+                    location.assign(CLIENT_URL);
                 }, 1500);
             }
         });
