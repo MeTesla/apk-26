@@ -83,8 +83,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -105,7 +110,7 @@
 
     <script type="module">
         import { toast } from './components/misc/utils.js';
-        import { API_URL } from './config/env.js';
+        import { CLIENT_URL } from './config/env.js';
         import { safeFetchPostWithLoader } from './utils/api.js';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -134,13 +139,13 @@
 
                         localStorage.setItem('role', 'basic');
                         localStorage.setItem('token', result.data.token);
-                        const { nom, prenom, email, tel, freeMins, resultats} = result.data.eleveUpdated;
-                        const objElv = { nom, prenom, email, tel, freeMins, resultats};
+                        const { nom, prenom, email, tel, freeMins, resultats } = result.data.eleveUpdated;
+                        const objElv = { nom, prenom, email, tel, freeMins, resultats };
                         localStorage.setItem('profile', JSON.stringify(objElv));
 
                         toast('Votre email a été vérifié avec succès !');
                         setTimeout(() => {
-                            location.assign(API_URL);
+                            location.assign(CLIENT_URL);
                         }, 1900);
 
                     } else {
