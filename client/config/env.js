@@ -6,5 +6,5 @@
 // Déterminer l'URL de base selon l'environnement
 const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
 const API_URL = 'https://apk-26-backend.onrender.com' //isDevelopment ? 'http://localhost:3000' : 'https://euduka.vercel.app'
-const CLIENT_URL = 'https://eudeka.onrender.com/'
+const CLIENT_URL = 'https://eudeka.onrender.com'
 export { API_URL, CLIENT_URL }
