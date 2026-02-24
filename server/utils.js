@@ -111,7 +111,7 @@ async function postEmail(req, nom, prenom, email, token, message = "", pageHtml 
 </html>`
 
     const msg = {
-        to: 'pookarim@gmail.com',
+        to: email,
         from: config.EMAIL_FROM,
         subject: subject,
         html: isVerification ? verifier : reinitialiser
