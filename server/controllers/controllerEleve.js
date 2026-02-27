@@ -301,7 +301,7 @@ const mdpReinitialiser = async (req, res) => {
         })
     }
 
-    if (newPassword.length < 6) {
+    if (newPassword.length < 4) {
         return res.json({
             success: false,
             message: 'Le mot de passe doit contenir au moins 6 caractères'
