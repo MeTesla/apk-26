@@ -449,6 +449,93 @@
       background: #2980b9;
     }
 
+    .exam-selector {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    .exam-selector h2 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .exam-selector > p {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 25px;
+    }
+
+    .exam-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .exam-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border: 2px solid #3498db;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .exam-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    }
+
+    .exam-card:hover .exam-card-region,
+    .exam-card:hover .exam-card-year,
+    .exam-card:hover .exam-card-niveau {
+      color: white;
+    }
+
+    .exam-card-region {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .exam-card-year {
+      font-size: 1.1rem;
+      color: #3498db;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .exam-card-niveau {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      border: none;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #2980b9;
+    }
+
     @media (max-width: 600px) {
       body {
         padding: 10px;
@@ -569,29 +656,22 @@
 </head>
 
 <body>
-  <div class="exam-container">
+  <div class="exam-selector" id="examSelector">
+    <h2>📚 Banque d'Examens de Français</h2>
+    <p>Sélectionnez un examen pour commencer :</p>
+    <div class="exam-list" id="examList"></div>
+  </div>
+
+  <div class="exam-container" id="examContainer" style="display: none;">
+    <button class="back-btn" onclick="goBackToSelector()">
+      <i class="fas fa-arrow-left"></i> Retour aux examens
+    </button>
     <div class="entete">
-      <div class="region">Casablanca</div>
-      <div class="annee">2016</div>
+      <div class="region" id="region"></div>
+      <div class="annee" id="annee"></div>
     </div>
 
-    <div class="texte">
-      <p>
-        Ce matin-là, je me suis réveillé tôt. Ma mère préparait le petit-déjeuner dans la cuisine. Elle avait l'air
-        fatiguée.
-        Je lui ai proposé de l'aider à faire les courses. Elle a souri et m'a donné une liste.
-      </p>
-      <p>
-        Au marché, j'ai choisi des tomates bien rouges, des oignons frais et des oranges juteuses. Le marchand était
-        gentil.
-        Il m'a fait un petit cadeau : un citron. En rentrant, j'ai porté les sacs lourds. Mes bras me faisaient mal,
-        mais j'étais fier.
-      </p>
-      <p>
-        Quand je suis arrivé, ma mère m'a embrassé et m'a dit : « Tu es devenu un homme aujourd'hui. »
-        Ce jour-là, j'ai compris qu'aider sa famille est un bonheur plus grand que tous les cadeaux du monde.
-      </p>
-    </div>
+    <div class="texte" id="texteContainer"></div>
 
     <div class="toggle-container">
       <button class="toggle-btn" id="toggleQuestions">
@@ -617,44 +697,130 @@
     </div>
   </div>
 
-  <script>
-    const questionsData = [
-      { id: 1, text: "Quel est le thème de ce texte ?" },
+<script>
+    const examsData = [
       {
-        id: 2, text: "Répondez par « vrai » ou « faux ».", affirmations: [
-          "Le narrateur s'est réveillé tôt ce matin.",
-          "La mère du narrateur paraissait fatiguée.",
-          "Le marchand a offert un citron au narrateur.",
-          "Le narrateur a porté les sacs lourds en rentrant."
+        id: 1,
+        region: "Casablanca",
+        annee: 2016,
+        niveau: "2ème année BAC",
+        texte: [
+          "Fenris et Murg s'arrêtent subitement : leurs naseaux mobiles hument l'air avec inquiétude ; ils subodorent la présence d'un ennemi. — Ce n'est point un loup ni un renard ; un loup et un renard ne seraient qu'une bouchée pour ces braves chiens.",
+          "Un bruit de pas se fait entendre, et bientôt paraît au détour du chemin un chevalier monté sur un cheval de grande taille et suivi de deux chiens énormes.",
+          "Vous l'auriez pris pour Oluf. <strong><u>Il</u></strong> était armé exactement de même, avec un surcot historié du même blason ; seulement il portait sur son casque une plume rouge au lieu d'une verte. La route était si étroite qu'il fallait que l'un des deux chevaliers reculât.",
+          "« Seigneur Oluf, reculez-vous pour que je passe, dit le chevalier à la visière baissée. Le voyage que je fais est un long voyage ; on m'attend, il faut que j'arrive.",
+          "— Par la moustache de mon père, c'est vous qui reculerez. Je vais à un rendez-vous d'amour, et les amoureux sont pressés, » répondit Oluf en portant la main sur la garde de son épée.",
+          "L'inconnu tira la sienne, et le combat commença. Les épées, en tombant sur les mailles d'acier, en faisaient jaillir des gerbes d'étincelles pétillantes ; bientôt, quoique d'une trempe supérieure, <strong><u>elles</u></strong> furent ébréchées comme des scies. On eût pris les combattants, à travers la fumée de leurs chevaux et la brume de leur respiration haletante, pour deux noirs forgerons acharnés sur un fer rouge.",
+          "Les gouttes de sang, suintant à travers les écailles imbriquées des armures et tombant toutes tièdes sur la neige, y faisaient de petits trous roses. Au bout de peu d'instants l'on aurait dit un crible, tant les gouttes tombaient fréquentes et pressées. Les deux chevaliers étaient blessé.",
+          "<strong>Chose étrange</strong>, Oluf sentait les coups qu'il portait au chevalier inconnu ; il souffrait des blessures qu'il faisait et de celles qu'il recevait. [...] Ramassant ses forces, Oluf fit voler d'un revers le terrible heaume de son adversaire. — Ô terreur ! Que vit le fils d'Edwige et de Lodbrog ? il se vit lui-même devant lui : un miroir eût été moins exact."
+        ],
+        questions: [
+          { id: 1, type: "short", text: "Remplissez les éléments suivants.", items: ["Titre de l'oeuvre", "Nom de l'auteur", "Genre littéraire", "Autre oeuvre de l'auteur"] },
+          { id: 2, type: "vrai_faux", text: "Répondez par « vrai » ou « faux ».", affirmations: ["a. L'étranger était un homme mystérieux.", "b. Oluf est né sous l'influence de trois étoiles", "c. Oluf a hérité le caractère double de son père", "d. Oluf, jeune homme, s'est débarassé de son double"] },
+          { id: 3, type: "normal", text: "Relevez trois mots appartenant au champ lexical de l'armure" },
+          { id: 4, type: "normal", text: "Relève dans le texte deux expressions qui montrent que le combat était féroce" },
+          { id: 5, type: "normal", text: "Relève deux expressions qui montrent la ressemblance entre Oluf et le chevalier." },
+          { id: 6, type: "normal", text: "Pour quelle raison les deux personnages sont-ils entrés en combat ?" },
+          { id: 7, type: "normal", text: "Comment s'est terminé le combat ? Qui a gagné ?" },
+          { id: 8, type: "short", text: "Identifie les procédés d'exagération dans les phrases", items: ["Il cria aussi fort que toute la ville l'avait entendu", "Le chevalier était un taureau.", "Il tua tout : hommes, femmes, enfants"] },
+          { id: 9, type: "normal", text: "Selon toi, la violence est-elle une solution de nos problèmes avec les gens ? Justifie ta réponse." }
         ]
       },
-      { id: 3, text: "Où se déroule l'histoire ?" },
-      { id: 4, text: "Pourquoi le narrateur a-t-il proposé d'aider sa mère ?" },
-      { id: 5, text: "Qu'a acheté le narrateur au marché ?" },
-      { id: 6, text: "Quelle est la morale de cette histoire ?" },
       {
-        id: 7, type: "short", text: "Remplissez les éléments suivants.", items: [
-          "Titre de l'oeuvre",
-          "Nom de l'auteur",
-          "Date de publication",
-          "Autre oeuvre de l'auteur"
+        id: 2,
+        region: "Rabat",
+        annee: 2017,
+        niveau: "2ème année BAC",
+        texte: [
+          "Le vieux mahogany de la table brillait comme un miroir. La lumière de la lampe à石油oleum y dessinait des cercles orangés qui tremblaient légèrement, agités par le souffle d'Adèle. <strong><u>Elle</u></strong> était assise devant ce monument de bois sombre, les coudes plantés dans le cuir usé du buvard, les doigts crispés sur la plume.",
+          "La lettre qu'elle écrivait était datée du 14 octobre 1914. « Mon très cher ami, Jeakis, écrit-elle. Je ne sais pas si vous recevrez jamais cette lettre. Les routes sont coupées, les trains ne circulent plus. Je suis prisonnière dans cette ville que nous aimions tant, et que la guerre a transformée en un vaste camp retranchée.",
+          "De sa fenêtre, elle voyait les soldiers english qui montaient la garde devant la cathédrale. Leurs uniformes bleu horizon se découpaient sur les pierres grises du bâtiment. Chaque soir, à la même heure, un clairon sonnait le couvre-feu, et la ville tout entière retenait son souffle.",
+          "Elle se souvenait de leurs promenades le long de la Seine, des ponts illuminés, des灯光 qui se reflétaient dans l'eau noire du fleuve. <strong><u>Ces</u></strong> moments de bonheur lui semblaient désormais appartenir à une autre vie, à un autre siècle.",
+          "La plume grince sur le papier. « Je pense à vous, à nos conversations sans fin, à vos yeux qui riaient quand vous me parliez de poésie. Est-ce seulement il y a trois mois ? J'ai l'impression qu'une éternité s'est écoulée depuis notre dernière rencontre au café de la Paix. »",
+          "Outside, les obus continuent d'exploser dans le lointain. Le sol tremble parfois, et les vitres tintent comme des clochettes. Mais Adèle n'entend plus rien. Elle écrit, écrit toujours, parce que écrire c'est encore croire au futur, c'est refuser la résignation."
+        ],
+        questions: [
+          { id: 1, type: "short", text: "Complétez les informations suivantes.", items: ["Le titre de l'extrait", "Le genre littéraire", "L'année de la guerre mentionnée"] },
+          { id: 2, type: "vrai_faux", text: "Répondez par « vrai » ou « faux ».", affirmations: ["a. Adèle écrit une lettre à son ami Jeakis.", "b. La guerre a transformé la ville en camp retranché.", "c. Les deux personnages se sont rencontrés au cinéma.", "d. Adèle perdue tout espoir de revoir son ami."] },
+          { id: 3, type: "normal", text: "Quel sentiment dominant se dégage de cette lettre ? Justifiez votre réponse." },
+          { id: 4, type: "normal", text: "Relevez deux expressions qui montrent que le temps semble suspendu pour Adèle." },
+          { id: 5, type: "normal", text: "Pourquoi l'écriture est-elle importante pour Adèle à ce moment de l'histoire ?" },
+          { id: 6, type: "short", text: "Identifiez les champs lexicaux présents dans le texte.", items: ["Champ lexical de la guerre", "Champ lexical du temps", "Champ lexical de la solitude"] },
+          { id: 7, type: "normal", text: "Quel rôle joue le souvenir dans ce texte ? Illustrer votre réponse par un exemple du texte." },
+          { id: 8, type: "vrai_faux", text: "Cochez « vrai » ou « faux » pour chaque affirmation.", affirmations: ["a. Le cadre spatial est une ville française occupée.", "b. Le temps du récit est actuel.", "c. Le personnage principal est un soldat.", "d. Le thème principal est l'amour et le souvenir."] },
+          { id: 9, type: "normal", text: "Que représente la lettre pour Adèle selon vous ? Développez votre réponse en deux lignes." }
         ]
-      },
-      { id: 8, text: "Identifiez le temps verbal de la phrase : « Elle avait l'air fatiguée. »" },
-      { id: 9, text: "Relevez un mot de la même famille que « bonheur »." },
-      { id: 10, text: "Quel sentiment avez-vous ressenti en lisant ce texte ? Justifiez." }
+      }
     ];
 
+    let currentExam = null;
+    let questionsData = [];
+
     let currentQuestion = null;
-    const STORAGE_KEY = 'examAnswers';
+    const getStorageKey = () => 'examAnswers_' + (currentExam ? currentExam.id : 0);
 
     function getAnswers() {
-      const data = localStorage.getItem(STORAGE_KEY);
+      const data = localStorage.getItem(getStorageKey());
       return data ? JSON.parse(data) : {};
     }
 
     function saveAnswers(answers) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+      localStorage.setItem(getStorageKey(), JSON.stringify(answers));
+    }
+
+    function initExamSelector() {
+      const examList = document.getElementById('examList');
+      examList.innerHTML = examsData.map(exam => `
+        <div class="exam-card" onclick="selectExam(${exam.id})">
+          <div class="exam-card-region">${exam.region}</div>
+          <div class="exam-card-year">${exam.annee}</div>
+          <div class="exam-card-niveau">${exam.niveau}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectExam(examId) {
+      currentExam = examsData.find(e => e.id === examId);
+      if (!currentExam) return;
+
+      questionsData = currentExam.questions;
+
+      document.getElementById('examSelector').style.display = 'none';
+      document.getElementById('examContainer').style.display = 'block';
+
+      document.getElementById('region').textContent = currentExam.region;
+      document.getElementById('annee').textContent = currentExam.annee;
+
+      const texteContainer = document.getElementById('texteContainer');
+      texteContainer.innerHTML = currentExam.texte.map(p => `<p>${p}</p>`).join('');
+
+      renderQuestions();
+    }
+
+    function goBackToSelector() {
+      document.getElementById('examSelector').style.display = 'block';
+      document.getElementById('examContainer').style.display = 'none';
+      currentExam = null;
+      questionsData = [];
+    }
+
+    function initExam() {
+      initExamSelector();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      const answers = getAnswers();
+
+      container.innerHTML = questionsData.map(q => {
+        if (q.affirmations) {
+          return renderTrueFalseQuestion(q, answers);
+        }
+        if (q.type === 'short') {
+          return renderShortQuestion(q, answers);
+        }
+        return renderNormalQuestion(q, answers);
+      }).join('');
     }
 
     function renderQuestions() {
@@ -853,7 +1019,7 @@
       if (e.key === 'Escape') closeModal();
     });
 
-    renderQuestions();
+    initExam();
   </script>
 </body>
 
