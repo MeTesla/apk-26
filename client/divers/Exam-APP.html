@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet">
+  <title>Examen de Français</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .exam-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .entete {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background: #2c3e50;
+      color: #fff;
+    }
+
+    .region {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .annee {
+      font-size: 1.2rem;
+      background: #3498db;
+      padding: 5px 15px;
+      border-radius: 20px;
+    }
+
+    .texte {
+      padding: 30px;
+      line-height: 1.8;
+      color: #34495e;
+      border-bottom: 2px solid #ecf0f1;
+    }
+
+    .texte p {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .toggle-container {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      border-bottom: 2px solid #ecf0f1;
+    }
+
+    .toggle-btn {
+      background: #3498db;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #2980b9;
+    }
+
+    .toggle-btn i {
+      font-size: 1.2rem;
+    }
+
+    .questions {
+      padding: 0 30px 30px;
+      display: none;
+    }
+
+    .questions.visible {
+      display: block;
+    }
+
+    .qst {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-left: 4px solid #3498db;
+    }
+
+    .qst-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .text-qst {
+      flex: 1;
+      font-size: 1rem;
+      color: #2c3e50;
+      font-weight: 500;
+    }
+
+    .icon-answer {
+      width: 40px;
+      height: 40px;
+      background: #3498db;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      flex-shrink: 0;
+      margin-left: 15px;
+    }
+
+    .icon-answer:hover {
+      background: #2980b9;
+      transform: scale(1.1);
+    }
+
+    .answer-area {
+      margin-top: 15px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .answer-area.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .answer-display {
+      background: #fff;
+      border: 1px solid #3498db;
+      border-radius: 8px;
+      padding: 15px;
+      color: #2c3e50;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .edit-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    .edit-icon:hover {
+      background: #2980b9;
+    }
+
+    .no-answer {
+      color: #95a5a6;
+      font-style: italic;
+    }
+
+    .affirmations-list {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .affirmation-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 10px 15px;
+      background: #fff;
+      border: 1px solid #3498db;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .affirmation-text {
+      flex: 1;
+      color: #2c3e50;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .tf-toggle {
+      width: 80px;
+      height: 35px;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      flex-shrink: 0;
+      background: #95a5a6;
+      color: #fff;
+    }
+
+    .tf-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    .tf-toggle.vrai {
+      background: #27ae60;
+    }
+
+    .tf-toggle.faux {
+      background: #e74c3c;
+    }
+
+    .qst-short {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      border-left: 4px solid #3498db;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .qst-short-text {
+      flex: 1;
+      font-size: 1rem;
+      color: #2c3e50;
+      font-weight: 500;
+    }
+
+    .qst-short-answer {
+      font-size: 0.95rem;
+      color: #27ae60;
+      font-weight: 500;
+      margin-left: 10px;
+      white-space: nowrap;
+    }
+
+    .qst-short .icon-answer {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .qst-short-container {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-left: 4px solid #3498db;
+    }
+
+    .short-items-list {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .short-item-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      background: #fff;
+      border: 1px solid #3498db;
+      border-radius: 8px;
+    }
+
+    .short-item-text {
+      flex: 1;
+      color: #2c3e50;
+      font-size: 0.95rem;
+    }
+
+    .short-item-answer {
+      color: #27ae60;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-right: 5px;
+    }
+
+    .short-item-btn {
+      width: 32px;
+      height: 32px;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .short-item-btn:hover {
+      background: #2980b9;
+      transform: scale(1.1);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.visible {
+      display: flex;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #95a5a6;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .modal-close:hover {
+      color: #e74c3c;
+    }
+
+    .modal textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 15px;
+      border: 2px solid #3498db;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+    }
+
+    .modal textarea.short {
+      min-height: 60px;
+    }
+
+    .modal textarea:focus {
+      border-color: #2980b9;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.3s;
+    }
+
+    .btn-cancel {
+      background: #ecf0f1;
+      color: #7f8c8d;
+    }
+
+    .btn-cancel:hover {
+      background: #bdc3c7;
+    }
+
+    .btn-save {
+      background: #3498db;
+      color: #fff;
+    }
+
+    .btn-save:hover {
+      background: #2980b9;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .entete {
+        padding: 15px 20px;
+      }
+
+      .region {
+        font-size: 1.1rem;
+      }
+
+      .annee {
+        font-size: 1rem;
+        padding: 4px 12px;
+      }
+
+      .texte {
+        padding: 20px;
+      }
+
+      .texte p {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+      }
+
+      .toggle-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      .questions {
+        padding: 0 20px 20px;
+      }
+
+      .qst {
+        padding: 15px;
+      }
+
+      .text-qst {
+        font-size: 0.9rem;
+      }
+
+      .icon-answer {
+        width: 35px;
+        height: 35px;
+      }
+
+      .answer-display {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+
+      .edit-icon {
+        width: 28px;
+        height: 28px;
+      }
+
+      .modal {
+        padding: 20px;
+      }
+
+      .modal-title {
+        font-size: 1rem;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+
+      .affirmation-row {
+        padding: 8px 12px;
+        gap: 10px;
+      }
+
+      .affirmation-text {
+        font-size: 0.85rem;
+      }
+
+      .tf-toggle {
+        width: 70px;
+        height: 30px;
+        font-size: 0.8rem;
+      }
+
+      .qst-short {
+        padding: 12px 15px;
+        flex-wrap: wrap;
+      }
+
+      .qst-short-text {
+        font-size: 0.9rem;
+      }
+
+      .qst-short-answer {
+        font-size: 0.85rem;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+      }
+
+      .qst-short .icon-answer {
+        width: 32px;
+        height: 32px;
+      }
+
+      .short-item-row {
+        flex-wrap: wrap;
+      }
+
+      .short-item-text {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="exam-container">
+    <div class="entete">
+      <div class="region">Casablanca</div>
+      <div class="annee">2016</div>
+    </div>
+
+    <div class="texte">
+      <p>
+        Ce matin-là, je me suis réveillé tôt. Ma mère préparait le petit-déjeuner dans la cuisine. Elle avait l'air
+        fatiguée.
+        Je lui ai proposé de l'aider à faire les courses. Elle a souri et m'a donné une liste.
+      </p>
+      <p>
+        Au marché, j'ai choisi des tomates bien rouges, des oignons frais et des oranges juteuses. Le marchand était
+        gentil.
+        Il m'a fait un petit cadeau : un citron. En rentrant, j'ai porté les sacs lourds. Mes bras me faisaient mal,
+        mais j'étais fier.
+      </p>
+      <p>
+        Quand je suis arrivé, ma mère m'a embrassé et m'a dit : « Tu es devenu un homme aujourd'hui. »
+        Ce jour-là, j'ai compris qu'aider sa famille est un bonheur plus grand que tous les cadeaux du monde.
+      </p>
+    </div>
+
+    <div class="toggle-container">
+      <button class="toggle-btn" id="toggleQuestions">
+        <i class="fa-regular fa-eye"></i>
+        <span>Afficher les questions</span>
+      </button>
+    </div>
+
+    <div class="questions" id="questionsContainer"></div>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modalTitle">Question 1</span>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <textarea id="modalTextarea" placeholder="Écrivez votre réponse ici..."></textarea>
+      <div class="modal-actions">
+        <button class="btn btn-cancel" onclick="closeModal()">Annuler</button>
+        <button class="btn btn-save" onclick="saveModalAnswer()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questionsData = [
+      { id: 1, text: "Quel est le thème de ce texte ?" },
+      {
+        id: 2, text: "Répondez par « vrai » ou « faux ».", affirmations: [
+          "Le narrateur s'est réveillé tôt ce matin.",
+          "La mère du narrateur paraissait fatiguée.",
+          "Le marchand a offert un citron au narrateur.",
+          "Le narrateur a porté les sacs lourds en rentrant."
+        ]
+      },
+      { id: 3, text: "Où se déroule l'histoire ?" },
+      { id: 4, text: "Pourquoi le narrateur a-t-il proposé d'aider sa mère ?" },
+      { id: 5, text: "Qu'a acheté le narrateur au marché ?" },
+      { id: 6, text: "Quelle est la morale de cette histoire ?" },
+      {
+        id: 7, type: "short", text: "Remplissez les éléments suivants.", items: [
+          "Titre de l'oeuvre",
+          "Nom de l'auteur",
+          "Date de publication",
+          "Autre oeuvre de l'auteur"
+        ]
+      },
+      { id: 8, text: "Identifiez le temps verbal de la phrase : « Elle avait l'air fatiguée. »" },
+      { id: 9, text: "Relevez un mot de la même famille que « bonheur »." },
+      { id: 10, text: "Quel sentiment avez-vous ressenti en lisant ce texte ? Justifiez." }
+    ];
+
+    let currentQuestion = null;
+    const STORAGE_KEY = 'examAnswers';
+
+    function getAnswers() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : {};
+    }
+
+    function saveAnswers(answers) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      const answers = getAnswers();
+
+      container.innerHTML = questionsData.map(q => {
+        if (q.affirmations) {
+          return renderTrueFalseQuestion(q, answers);
+        }
+        if (q.type === 'short') {
+          return renderShortQuestion(q, answers);
+        }
+        return renderNormalQuestion(q, answers);
+      }).join('');
+    }
+
+    function renderTrueFalseQuestion(q, answers) {
+      const savedAnswers = answers[q.id] || [];
+      return `
+        <div class="qst" data-id="${q.id}">
+          <div class="qst-header">
+            <p class="text-qst">${q.id}. ${q.text}</p>
+          </div>
+          <div class="affirmations-list">
+            ${q.affirmations.map((aff, index) => {
+        const val = savedAnswers[index] === true;
+        const btnClass = val ? 'vrai' : 'faux';
+        const btnText = val ? 'Vrai' : 'Faux';
+        return `
+                <div class="affirmation-row">
+                  <span class="affirmation-text">${aff}</span>
+                  <button class="tf-toggle ${btnClass}" data-qid="${q.id}" data-idx="${index}" onclick="toggleTrueFalse(${q.id}, ${index})">${btnText}</button>
+                </div>
+              `;
+      }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderShortQuestion(q, answers) {
+      const savedAnswers = answers[q.id] || {};
+      if (q.items) {
+        return `
+          <div class="qst-short-container" data-id="${q.id}">
+            <p class="text-qst">${q.id}. ${q.text}</p>
+            <div class="short-items-list">
+              ${q.items.map((item, index) => {
+          const answer = savedAnswers[index];
+          return `
+                  <div class="short-item-row">
+                    <span class="short-item-text">${item}</span>
+                    ${answer ? `<span class="short-item-answer">${answer}</span>` : ''}
+                    <button class="short-item-btn" data-qid="${q.id}" data-idx="${index}" onclick="openShortModal(${q.id}, ${index})">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                  </div>
+                `;
+        }).join('')}
+            </div>
+          </div>
+        `;
+      }
+      const answer = answers[q.id];
+      return `
+        <div class="qst-short" data-id="${q.id}">
+          <span class="qst-short-text">${q.id}. ${q.text}</span>
+          ${answer ? `<span class="qst-short-answer">${answer}</span>` : ''}
+          <div class="icon-answer" onclick="openModal(${q.id})"><i class="fa-regular fa-pen-to-square"></i></div>
+        </div>
+      `;
+    }
+
+    function renderNormalQuestion(q, answers) {
+      const hasAnswer = !!answers[q.id];
+      return `
+        <div class="qst" data-id="${q.id}">
+          <div class="qst-header">
+            <p class="text-qst">${q.id}. ${q.text}</p>
+            ${!hasAnswer ? `<div class="icon-answer" onclick="openModal(${q.id})"><i class="fa-regular fa-pen-to-square"></i></div>` : ''}
+          </div>
+          <div class="answer-area ${hasAnswer ? 'visible' : ''}" id="answer-${q.id}">
+            <div class="answer-display">
+              ${hasAnswer
+          ? answers[q.id]
+          : '<span class="no-answer">Pas de réponse</span>'
+        }
+              <button class="edit-icon" onclick="openModal(${q.id})"><i class="fa-solid fa-pen"></i></button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openModal(id) {
+      const q = questionsData.find(q => q.id === id);
+      if (q && q.affirmations) return;
+      if (q && q.items) return;
+      currentQuestion = id;
+      currentItemIndex = null;
+      const answers = getAnswers();
+      const textarea = document.getElementById('modalTextarea');
+      textarea.value = answers[id] || '';
+      textarea.classList.toggle('short', q && q.type === 'short');
+      textarea.maxLength = q && q.type === 'short' ? 100 : 10000;
+      document.getElementById('modalTitle').textContent = 'Question ' + id;
+      document.getElementById('modalOverlay').classList.add('visible');
+      textarea.focus();
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('visible');
+      document.getElementById('modalTextarea').classList.remove('short');
+      currentQuestion = null;
+      currentItemIndex = null;
+    }
+
+    let currentItemIndex = null;
+
+    function openShortModal(questionId, itemIndex) {
+      const q = questionsData.find(q => q.id === questionId);
+      if (!q || !q.items) return;
+      currentQuestion = questionId;
+      currentItemIndex = itemIndex;
+      const answers = getAnswers();
+      const savedAnswers = answers[questionId] || {};
+      const textarea = document.getElementById('modalTextarea');
+      textarea.value = savedAnswers[itemIndex] || '';
+      textarea.classList.add('short');
+      textarea.maxLength = 100;
+      document.getElementById('modalTitle').textContent = `${questionId}. ${q.items[itemIndex]}`;
+      document.getElementById('modalOverlay').classList.add('visible');
+      textarea.focus();
+    }
+
+    function toggleTrueFalse(questionId, index) {
+      const answers = getAnswers();
+      if (!answers[questionId]) {
+        answers[questionId] = [];
+      }
+      const currentVal = answers[questionId][index] === true;
+      answers[questionId][index] = !currentVal;
+      saveAnswers(answers);
+
+      const btn = document.querySelector(`[data-qid="${questionId}"][data-idx="${index}"]`);
+      if (btn) {
+        const newVal = answers[questionId][index] === true;
+        btn.textContent = newVal ? 'Vrai' : 'Faux';
+        btn.className = `tf-toggle ${newVal ? 'vrai' : 'faux'}`;
+      }
+    }
+
+    function saveModalAnswer() {
+      if (currentQuestion !== null) {
+        const textarea = document.getElementById('modalTextarea');
+        const q = questionsData.find(q => q.id === currentQuestion);
+        const answers = getAnswers();
+        const answerText = textarea.value.trim();
+
+        if (currentItemIndex !== null && q && q.items) {
+          if (!answers[currentQuestion]) answers[currentQuestion] = {};
+          answers[currentQuestion][currentItemIndex] = answerText;
+        } else {
+          answers[currentQuestion] = answerText;
+        }
+
+        saveAnswers(answers);
+        closeModal();
+        renderQuestions();
+      }
+    }
+
+    document.getElementById('toggleQuestions').addEventListener('click', function () {
+      const container = document.getElementById('questionsContainer');
+      const btn = this;
+      const icon = btn.querySelector('i');
+      const text = btn.querySelector('span');
+
+      if (container.classList.contains('visible')) {
+        container.classList.remove('visible');
+        icon.className = 'fa-regular fa-eye';
+        text.textContent = 'Afficher les questions';
+      } else {
+        container.classList.add('visible');
+        icon.className = 'fa-regular fa-eye-slash';
+        text.textContent = 'Masquer les questions';
+      }
+    });
+
+    document.getElementById('modalOverlay').addEventListener('click', function (e) {
+      if (e.target === this) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    renderQuestions();
+  </script>
+</body>
+
+</html>
