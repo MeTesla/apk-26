@@ -1,0 +1,31 @@
+<svg width="600" height="500" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Elements -->
+    <circle cx="450" cy="150" r="100" fill="#EEF2FF" />
+    <rect x="50" y="350" width="120" height="120" rx="20" transform="rotate(-15 50 350)" fill="#F59E0B" fill-opacity="0.1" />
+    
+    <!-- Character / Student Concept -->
+    <rect x="150" y="100" width="300" height="350" rx="40" fill="white" stroke="#4F46E5" stroke-width="4" />
+    <rect x="180" y="140" width="240" height="160" rx="10" fill="#F9FAF8" stroke="#E5E7EB" stroke-width="2" />
+    
+    <!-- Laptop Representation -->
+    <path d="M150 400C150 380 170 370 190 370H410C430 370 450 380 450 400V420H150V400Z" fill="#4F46E5" />
+    <rect x="190" y="380" width="220" height="10" rx="5" fill="#4338CA" />
+    
+    <!-- Graduation Cap / Achievement Icon -->
+    <path d="M300 50L220 90L300 130L380 90L300 50Z" fill="#F59E0B" />
+    <path d="M240 100V130C240 130 270 150 300 150C330 150 360 130 360 130V100" stroke="#F59E0B" stroke-width="10" stroke-linecap="round" />
+    <path d="M380 90V140" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" />
+    <circle cx="380" cy="145" r="8" fill="#F59E0B" />
+
+    <!-- Progress Lines -->
+    <rect x="200" y="320" width="150" height="12" rx="6" fill="#10B981" />
+    <rect x="200" y="345" width="100" height="8" rx="4" fill="#E5E7EB" />
+    
+    <!-- Floating Success Icons -->
+    <circle cx="100" cy="80" r="30" fill="#10B981" fill-opacity="0.2" />
+    <path d="M90 80L97 87L110 74" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <rect x="500" y="320" width="60" height="60" rx="15" fill="#4F46E5" fill-opacity="0.1" />
+    <path d="M520 350L540 350" stroke="#4F46E5" stroke-width="4" stroke-linecap="round" />
+    <path d="M530 340L530 360" stroke="#4F46E5" stroke-width="4" stroke-linecap="round" />
+</svg>
