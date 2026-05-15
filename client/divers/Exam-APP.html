@@ -479,7 +479,7 @@
       margin-bottom: 10px;
     }
 
-    .exam-selector > p {
+    .exam-selector>p {
       text-align: center;
       color: #7f8c8d;
       margin-bottom: 25px;
@@ -692,19 +692,7 @@
     <p>Sélectionnez un examen pour commencer :</p>
     <div class="exam-list" id="examList"></div>
   </div>
-  <div class="exam-selector" id="examSelector">
-    <h2>📚 Banque d'Examens de Français</h2>
-    <p>Sélectionnez un examen pour commencer :</p>
-    <div class="exam-list" id="examList"></div>
-  </div>
 
-  <div class="exam-container" id="examContainer" style="display: none;">
-    <button class="back-btn" onclick="goBackToSelector()">
-      <i class="fas fa-arrow-left"></i> Retour aux examens
-    </button>
-    <div class="entete">
-      <div class="region" id="region"></div>
-      <div class="annee" id="annee"></div>
   <div class="exam-container" id="examContainer" style="display: none;">
     <button class="back-btn" onclick="goBackToSelector()">
       <i class="fas fa-arrow-left"></i> Retour aux examens
@@ -713,8 +701,6 @@
       <div class="region" id="region"></div>
       <div class="annee" id="annee"></div>
     </div>
-
-    <div class="texte" id="texteContainer"></div>
 
     <div class="texte" id="texteContainer"></div>
 
@@ -727,7 +713,7 @@
 
     <div class="questions" id="questionsContainer"></div>
     <button class="reset-btn" onclick="resetAllAnswers()">
-      <i class="fas fa-trash-alt"></i> Réinitialiser les réponses
+      <i class="fas fa-trash-alt"></i> Effacer les réponses
     </button>
   </div>
 
@@ -745,124 +731,234 @@
     </div>
   </div>
 
-<script>
+  <script>
     const examsData = [
       {
         id: 1,
-        region: "Casablanca",
-        annee: 2016,
-        niveau: "2ème année BAC",
+        region: "Fès-Meknès",
+        annee: 2019,
+        niveau: "1ère année BAC",
         texte: [
-          "Fenris et Murg s'arrêtent subitement : leurs naseaux mobiles hument l'air avec inquiétude ; ils subodorent la présence d'un ennemi. — Ce n'est point un loup ni un renard ; un loup et un renard ne seraient qu'une bouchée pour ces braves chiens.",
-          "Un bruit de pas se fait entendre, et bientôt paraît au détour du chemin un chevalier monté sur un cheval de grande taille et suivi de deux chiens énormes.",
-          "Vous l'auriez pris pour Oluf. <strong><u>Il</u></strong> était armé exactement de même, avec un surcot historié du même blason ; seulement il portait sur son casque une plume rouge au lieu d'une verte. La route était si étroite qu'il fallait que l'un des deux chevaliers reculât.",
-          "« Seigneur Oluf, reculez-vous pour que je passe, dit le chevalier à la visière baissée. Le voyage que je fais est un long voyage ; on m'attend, il faut que j'arrive.",
-          "— Par la moustache de mon père, c'est vous qui reculerez. Je vais à un rendez-vous d'amour, et les amoureux sont pressés, » répondit Oluf en portant la main sur la garde de son épée.",
-          "L'inconnu tira la sienne, et le combat commença. Les épées, en tombant sur les mailles d'acier, en faisaient jaillir des gerbes d'étincelles pétillantes ; bientôt, quoique d'une trempe supérieure, <strong><u>elles</u></strong> furent ébréchées comme des scies. On eût pris les combattants, à travers la fumée de leurs chevaux et la brume de leur respiration haletante, pour deux noirs forgerons acharnés sur un fer rouge.",
-          "Les gouttes de sang, suintant à travers les écailles imbriquées des armures et tombant toutes tièdes sur la neige, y faisaient de petits trous roses. Au bout de peu d'instants l'on aurait dit un crible, tant les gouttes tombaient fréquentes et pressées. Les deux chevaliers étaient blessé.",
-          "<strong>Chose étrange</strong>, Oluf sentait les coups qu'il portait au chevalier inconnu ; il souffrait des blessures qu'il faisait et de celles qu'il recevait. [...] Ramassant ses forces, Oluf fit voler d'un revers le terrible heaume de son adversaire. — Ô terreur ! Que vit le fils d'Edwige et de Lodbrog ? il se vit lui-même devant lui : un miroir eût été moins exact."
+          "<strong>Texte 1 :</strong>",
+          "- Je vous laisserai seuls pendant un mois. Je tâcherai de ne rien dépenser de mon salaire, il me sera possible de remettre l’atelier en marche dès mon retour. Un grand silence s’établit, un silence lourd, moite, huileux et noir comme la suie. J’étouffais. Je désirais de toutes mes forces qu’une porte claquât, qu’une voisine poussât un cri de joie ou un gémissement de douleur, que quelque événement extraordinaire survint pour rompre cette angoisse.",
+          "<strong>Texte 2 :</strong>",
+          "Après la lecture de l’arrêt de mort par le président : Le procureur général combattit l’avocat, et je l’écoutai avec une satisfaction stupide. Puis les juges sortirent, puis ils rentrèrent, et le président me lut mon arrêt. Condamné à mort ! dit la foule ; et, tandis qu’on m’emmenait, tout ce peuple se rua sur mes pas avec le fracas d’un édifice qui se démolit."
         ],
         questions: [
-          { id: 1, type: "short", text: "Remplissez les éléments suivants.", items: ["Titre de l'oeuvre", "Nom de l'auteur", "Genre littéraire", "Autre oeuvre de l'auteur"] },
-          { id: 2, type: "vrai_faux", text: "Répondez par « vrai » ou « faux ».", affirmations: ["a. L'étranger était un homme mystérieux.", "b. Oluf est né sous l'influence de trois étoiles", "c. Oluf a hérité le caractère double de son père", "d. Oluf, jeune homme, s'est débarassé de son double"] },
-          { id: 3, type: "normal", text: "Relevez trois mots appartenant au champ lexical de l'armure" },
-          { id: 4, type: "normal", text: "Relève dans le texte deux expressions qui montrent que le combat était féroce" },
-          { id: 5, type: "normal", text: "Relève deux expressions qui montrent la ressemblance entre Oluf et le chevalier." },
-          { id: 6, type: "normal", text: "Pour quelle raison les deux personnages sont-ils entrés en combat ?" },
-          { id: 7, type: "normal", text: "Comment s'est terminé le combat ? Qui a gagné ?" },
-          { id: 8, type: "short", text: "Identifie les procédés d'exagération dans les phrases", items: ["Il cria aussi fort que toute la ville l'avait entendu", "Le chevalier était un taureau.", "Il tua tout : hommes, femmes, enfants"] },
-          { id: 9, type: "normal", text: "Selon toi, la violence est-elle une solution de nos problèmes avec les gens ? Justifie ta réponse." }
-        ]
-      },
-<script>
-    const examsData = [
-      {
-        id: 1,
-        region: "Casablanca",
-        annee: 2016,
-        niveau: "2ème année BAC",
-        texte: [
-          "Fenris et Murg s'arrêtent subitement : leurs naseaux mobiles hument l'air avec inquiétude ; ils subodorent la présence d'un ennemi. — Ce n'est point un loup ni un renard ; un loup et un renard ne seraient qu'une bouchée pour ces braves chiens.",
-          "Un bruit de pas se fait entendre, et bientôt paraît au détour du chemin un chevalier monté sur un cheval de grande taille et suivi de deux chiens énormes.",
-          "Vous l'auriez pris pour Oluf. <strong><u>Il</u></strong> était armé exactement de même, avec un surcot historié du même blason ; seulement il portait sur son casque une plume rouge au lieu d'une verte. La route était si étroite qu'il fallait que l'un des deux chevaliers reculât.",
-          "« Seigneur Oluf, reculez-vous pour que je passe, dit le chevalier à la visière baissée. Le voyage que je fais est un long voyage ; on m'attend, il faut que j'arrive.",
-          "— Par la moustache de mon père, c'est vous qui reculerez. Je vais à un rendez-vous d'amour, et les amoureux sont pressés, » répondit Oluf en portant la main sur la garde de son épée.",
-          "L'inconnu tira la sienne, et le combat commença. Les épées, en tombant sur les mailles d'acier, en faisaient jaillir des gerbes d'étincelles pétillantes ; bientôt, quoique d'une trempe supérieure, <strong><u>elles</u></strong> furent ébréchées comme des scies. On eût pris les combattants, à travers la fumée de leurs chevaux et la brume de leur respiration haletante, pour deux noirs forgerons acharnés sur un fer rouge.",
-          "Les gouttes de sang, suintant à travers les écailles imbriquées des armures et tombant toutes tièdes sur la neige, y faisaient de petits trous roses. Au bout de peu d'instants l'on aurait dit un crible, tant les gouttes tombaient fréquentes et pressées. Les deux chevaliers étaient blessé.",
-          "<strong>Chose étrange</strong>, Oluf sentait les coups qu'il portait au chevalier inconnu ; il souffrait des blessures qu'il faisait et de celles qu'il recevait. [...] Ramassant ses forces, Oluf fit voler d'un revers le terrible heaume de son adversaire. — Ô terreur ! Que vit le fils d'Edwige et de Lodbrog ? il se vit lui-même devant lui : un miroir eût été moins exact."
-        ],
-        questions: [
-          { id: 1, type: "short", text: "Remplissez les éléments suivants.", items: ["Titre de l'oeuvre", "Nom de l'auteur", "Genre littéraire", "Autre oeuvre de l'auteur"] },
-          { id: 2, type: "vrai_faux", text: "Répondez par « vrai » ou « faux ».", affirmations: ["a. L'étranger était un homme mystérieux.", "b. Oluf est né sous l'influence de trois étoiles", "c. Oluf a hérité le caractère double de son père", "d. Oluf, jeune homme, s'est débarassé de son double"] },
-          { id: 3, type: "normal", text: "Relevez trois mots appartenant au champ lexical de l'armure" },
-          { id: 4, type: "normal", text: "Relève dans le texte deux expressions qui montrent que le combat était féroce" },
-          { id: 5, type: "normal", text: "Relève deux expressions qui montrent la ressemblance entre Oluf et le chevalier." },
-          { id: 6, type: "normal", text: "Pour quelle raison les deux personnages sont-ils entrés en combat ?" },
-          { id: 7, type: "normal", text: "Comment s'est terminé le combat ? Qui a gagné ?" },
-          { id: 8, type: "short", text: "Identifie les procédés d'exagération dans les phrases", items: ["Il cria aussi fort que toute la ville l'avait entendu", "Le chevalier était un taureau.", "Il tua tout : hommes, femmes, enfants"] },
-          { id: 9, type: "normal", text: "Selon toi, la violence est-elle une solution de nos problèmes avec les gens ? Justifie ta réponse." }
+          { id: 1, type: "short", text: "Complétez le tableau suivant pour les deux textes :", items: ["Nom de l’auteur", "Titre de l’œuvre", "Genre littéraire", "Siècle"] },
+          { id: 2, type: "normal", text: "Situez chaque texte dans l’œuvre dont il est extrait." },
+          { id: 3, type: "normal", text: "Montrez que la foule n’a pas le même effet sur les deux personnages dans les deux textes." },
+          { id: 4, type: "vrai_faux", text: "Répondez par vrai ou faux :", affirmations: ["Le narrateur du texte 1 ressent une solitude absolue.", "Le narrateur du texte 2 est indifférent à sa condamnation."] },
+          { id: 5, type: "normal", text: "Relevez dans le texte 1 une comparaison montrant la densité du silence." },
+          { id: 6, type: "normal", text: "Quelle est la réaction du peuple dans le texte 2 après la sentence ?" },
+          { id: 7, type: "normal", text: "Relevez une métaphore dans le texte 2 décrivant la foule." },
+          { id: 8, type: "normal", text: "Quel sentiment domine le narrateur du texte 1 face au départ de son père ?" },
+          { id: 9, type: "normal", text: "Identifiez le niveau de langue utilisé par le narrateur du texte 2." },
+          { id: 10, type: "normal", text: "Selon vous, la réaction de la foule dans le texte 2 est-elle humaine ? Justifiez." }
         ]
       },
       {
         id: 2,
-        region: "Rabat",
-        annee: 2017,
-        niveau: "2ème année BAC",
+        region: "Casablanca-Settat",
+        annee: 2021,
+        niveau: "1ère année BAC",
         texte: [
-          "Le vieux mahogany de la table brillait comme un miroir. La lumière de la lampe à石油oleum y dessinait des cercles orangés qui tremblaient légèrement, agités par le souffle d'Adèle. <strong><u>Elle</u></strong> était assise devant ce monument de bois sombre, les coudes plantés dans le cuir usé du buvard, les doigts crispés sur la plume.",
-          "La lettre qu'elle écrivait était datée du 14 octobre 1914. « Mon très cher ami, Jeakis, écrit-elle. Je ne sais pas si vous recevrez jamais cette lettre. Les routes sont coupées, les trains ne circulent plus. Je suis prisonnière dans cette ville que nous aimions tant, et que la guerre a transformée en un vaste camp retranchée.",
-          "De sa fenêtre, elle voyait les soldiers english qui montaient la garde devant la cathédrale. Leurs uniformes bleu horizon se découpaient sur les pierres grises du bâtiment. Chaque soir, à la même heure, un clairon sonnait le couvre-feu, et la ville tout entière retenait son souffle.",
-          "Elle se souvenait de leurs promenades le long de la Seine, des ponts illuminés, des灯光 qui se reflétaient dans l'eau noire du fleuve. <strong><u>Ces</u></strong> moments de bonheur lui semblaient désormais appartenir à une autre vie, à un autre siècle.",
-          "La plume grince sur le papier. « Je pense à vous, à nos conversations sans fin, à vos yeux qui riaient quand vous me parliez de poésie. Est-ce seulement il y a trois mois ? J'ai l'impression qu'une éternité s'est écoulée depuis notre dernière rencontre au café de la Paix. »",
-          "Outside, les obus continuent d'exploser dans le lointain. Le sol tremble parfois, et les vitres tintent comme des clochettes. Mais Adèle n'entend plus rien. Elle écrit, écrit toujours, parce que écrire c'est encore croire au futur, c'est refuser la résignation."
+          "Tant que j'ai marché dans les galeries publiques du Palais de Justice, je me suis senti presque libre et à l'aise; mais toute ma résolution m'a abandonné quand on a ouvert devant moi des portes basses, des escaliers secrets, des couloirs intérieurs, de longs corridors étouffés et sourds... On m'a conduit au cabinet du directeur entre les mains duquel l'huissier m'a remis. C'était un échange. Le directeur l'a prié d'attendre un instant lui annonçant qu'il allait avoir du gibier à lui remettre."
         ],
         questions: [
-          { id: 1, type: "short", text: "Complétez les informations suivantes.", items: ["Le titre de l'extrait", "Le genre littéraire", "L'année de la guerre mentionnée"] },
-          { id: 2, type: "vrai_faux", text: "Répondez par « vrai » ou « faux ».", affirmations: ["a. Adèle écrit une lettre à son ami Jeakis.", "b. La guerre a transformé la ville en camp retranché.", "c. Les deux personnages se sont rencontrés au cinéma.", "d. Adèle perdue tout espoir de revoir son ami."] },
-          { id: 3, type: "normal", text: "Quel sentiment dominant se dégage de cette lettre ? Justifiez votre réponse." },
-          { id: 4, type: "normal", text: "Relevez deux expressions qui montrent que le temps semble suspendu pour Adèle." },
-          { id: 5, type: "normal", text: "Pourquoi l'écriture est-elle importante pour Adèle à ce moment de l'histoire ?" },
-          { id: 6, type: "short", text: "Identifiez les champs lexicaux présents dans le texte.", items: ["Champ lexical de la guerre", "Champ lexical du temps", "Champ lexical de la solitude"] },
-          { id: 7, type: "normal", text: "Quel rôle joue le souvenir dans ce texte ? Illustrer votre réponse par un exemple du texte." },
-          { id: 8, type: "vrai_faux", text: "Cochez « vrai » ou « faux » pour chaque affirmation.", affirmations: ["a. Le cadre spatial est une ville française occupée.", "b. Le temps du récit est actuel.", "c. Le personnage principal est un soldat.", "d. Le thème principal est l'amour et le souvenir."] },
-          { id: 9, type: "normal", text: "Que représente la lettre pour Adèle selon vous ? Développez votre réponse en deux lignes." }
+          { id: 1, type: "short", text: "Complétez :", items: ["Auteur", "Œuvre", "Genre", "Chapitre"] },
+          { id: 2, type: "normal", text: "Ce sentiment d'être libre a-t-il duré longtemps chez le narrateur ? Justifiez." },
+          { id: 3, type: "normal", text: "Pour quelle raison conduit-on le condamné au cabinet du directeur ?" },
+          { id: 4, type: "normal", text: "Comment sont considérés les prisonniers par le personnel de la prison ?" },
+          { id: 5, type: "normal", text: "Quelle image l'auteur donne-t-il du personnel pénitencier ?" },
+          { id: 6, type: "normal", text: "Pourquoi le narrateur ne s'est-il pas rendu compte qu'il n'était pas seul dans sa cellule ?" },
+          { id: 7, type: "normal", text: "Quel sentiment le narrateur éprouve-t-il à l'égard de son nouveau compagnon ?" },
+          { id: 8, type: "normal", text: "Dans quel niveau de langue s'exprime le 'friauche' ?" },
+          { id: 9, type: "normal", text: "Relevez deux expressions montrant le dégoût du narrateur." },
+          { id: 10, type: "normal", text: "Approuvez-vous l'attitude indifférente du prêtre envers le condamné ?" }
+        ]
+      },
+      {
+        id: 3,
+        region: "Rabat-Salé-Kénitra",
+        annee: 2022,
+        niveau: "1ère année BAC",
+        texte: [
+          "<strong>Texte 1 :</strong>",
+          "Nous avons pris le fatal quai. Je commençais à ne plus voir, à ne plus entendre. Toutes ces voix, toutes ces têtes aux fenêtres... cette foule où tous me connaissent et où je ne connais personne ; cette route pavée et murée de visages humains… j’étais ivre, stupide, insensé.",
+          "<strong>Texte 2 :</strong>",
+          "Antigone entre dans la pièce, poussée par les gardes... Antigone : Créon, je ne veux plus voir leurs visages, je ne veux plus entendre leurs cris, je ne veux plus voir personne ! Tu as ma mort maintenant, c’est assez."
+        ],
+        questions: [
+          { id: 1, type: "short", text: "Tableau comparatif :", items: ["Auteur T1", "Auteur T2", "Œuvre T1", "Œuvre T2"] },
+          { id: 2, type: "normal", text: "Situez le texte 2 dans l'œuvre Antigone." },
+          { id: 3, type: "normal", text: "Pour quelle raison Antigone a-t-elle été condamnée à mort ?" },
+          { id: 4, type: "normal", text: "Pourquoi l'auteur du texte 1 n'indique-t-il pas le motif du crime ?" },
+          { id: 5, type: "normal", text: "Expliquez l'effet de la foule sur le narrateur du texte 1." },
+          { id: 6, type: "normal", text: "Que cherche à produire l'emploi du pronom 'vous' dans le texte 1 ?" },
+          { id: 7, type: "normal", text: "Expliquez l'expression 'C'est assez' dite par Antigone." },
+          { id: 8, type: "normal", text: "Relevez une métaphore dans le texte 1 liée à la foule." },
+          { id: 9, type: "normal", text: "Comparez la peur de la mort et la peur de la foule chez Antigone." },
+          { id: 10, type: "normal", text: "Pensez-vous que la solitude est préférable à la foule dans les moments tragiques ?" }
+        ]
+      },
+      {
+        id: 4,
+        region: "Tanger-Tétouan-Al Hoceïma",
+        annee: 2018,
+        niveau: "1ère année BAC",
+        texte: [
+          "Je me suis dit : Puisque j'ai le moyen d'écrire, pourquoi ne le ferais-je pas ? Mais quoi écrire ? Pris entre quatre murailles de pierre nue et froide... seul à seul avec une idée, une idée de crime et de châtiment, de meurtre et de mort! Est-ce que je puis avoir quelque chose à dire, moi qui n'ai plus rien à faire dans ce monde ?"
+        ],
+        questions: [
+          { id: 1, type: "normal", text: "Quel est le projet que le narrateur décide d'entreprendre ?" },
+          { id: 2, type: "normal", text: "Relevez quatre termes appartenant au champ lexical de l'écriture." },
+          { id: 3, type: "normal", text: "La tâche de l'écriture est-elle facile pour le narrateur ? Justifiez." },
+          { id: 4, type: "normal", text: "Quel type de phrases domine dans le premier paragraphe et pourquoi ?" },
+          { id: 5, type: "normal", text: "Citez deux sentiments éprouvés par le narrateur dans son cachot." },
+          { id: 6, type: "normal", text: "Quelle est l'idée fixe qui possède le narrateur ?" },
+          { id: 7, type: "normal", text: "Expliquez la comparaison : 'toujours plus hideuse et plus ensanglantée'." },
+          { id: 8, type: "normal", text: "À qui ce journal est-il destiné selon le narrateur ?" },
+          { id: 9, type: "normal", text: "Dégagez deux arguments montrant l'utilité de ce journal pour les autres." },
+          { id: 10, type: "normal", text: "L'écriture peut-elle réellement distraire de la souffrance ? Donnez votre avis." }
+        ]
+      },
+      {
+        id: 5,
+        region: "Marrakech-Safi",
+        annee: 2020,
+        niveau: "1ère année BAC",
+        texte: [
+          "Un geôlier passa. Je me hasardai à l’appeler et à lui demander si c’était fête dans la prison. – Fête si l’on veut ! me répondit-il. C’est aujourd’hui qu’on ferre les forçats qui doivent partir demain pour Toulon... C’est un moment affreux, où les plus hardis pâlissent. Chaque coup de marteau asséné sur l’enclume appuyée à leur dos, fait rebondir le menton du patient."
+        ],
+        questions: [
+          { id: 1, type: "normal", text: "Pourquoi le narrateur demande-t-il s'il y a une fête ?" },
+          { id: 2, type: "normal", text: "En quoi consiste le 'spectacle' mentionné dans le texte ?" },
+          { id: 3, type: "normal", text: "Pourquoi le narrateur qualifie-t-il ce spectacle d'odieux ?" },
+          { id: 4, type: "normal", text: "Identifiez la figure de style : 'sauter le crâne comme une coquille de noix'." },
+          { id: 5, type: "normal", text: "Transformez au discours direct : 'Je demandai au geôlier si c'était fête'." },
+          { id: 6, type: "normal", text: "Relevez quatre termes du champ lexical du ferrage." },
+          { id: 7, type: "normal", text: "Quelles sont les manifestations physiques de la peur chez les forçats ?" },
+          { id: 8, type: "normal", text: "Quel est le registre littéraire dominant dans la scène du ferrage ?" },
+          { id: 9, type: "normal", text: "Pourquoi le narrateur se sent-il 'comme le roi' dans sa loge ?" },
+          { id: 10, type: "normal", text: "Que pensez-vous de la curiosité du narrateur pour ce spectacle cruel ?" }
+        ]
+      },
+      {
+        id: 6,
+        region: "Souss-Massa",
+        annee: 2017,
+        niveau: "1ère année BAC",
+        texte: [
+          "À peine arrivé, des mains de fer s’emparèrent de moi. On multiplia les précautions ; point de couteau, point de fourchette... Les premiers jours on me traita avec une douceur qui m’était horrible. Les égards d’un guichetier sentent l’échafaud. Par bonheur, au bout de peu de jours, l’habitude reprit le dessus."
+        ],
+        questions: [
+          { id: 1, type: "vrai_faux", text: "Vrai ou Faux :", affirmations: ["Le narrateur a été traité avec brutalité dès le premier jour.", "Il a obtenu du papier et de l'encre après hésitation."] },
+          { id: 2, type: "normal", text: "Pourquoi la douceur des gardiens est-elle 'horrible' pour lui ?" },
+          { id: 3, type: "normal", text: "Qu'est-ce qui a permis au narrateur d'obtenir des faveurs (promenade, encre) ?" },
+          { id: 4, type: "normal", text: "Relevez quatre mots du champ lexical de la prison." },
+          { id: 5, type: "normal", text: "Quelle image le narrateur donne-t-il de l'argot ?" },
+          { id: 6, type: "normal", text: "Identifiez la figure de style : 'des mains de fer'." },
+          { id: 7, type: "normal", text: "Pourquoi le narrateur préfère-t-il la brutalité des gardiens à leur politesse ?" },
+          { id: 8, type: "normal", text: "Comment le narrateur occupe-t-il son temps le dimanche ?" },
+          { id: 9, type: "normal", text: "Expliquez l'expression : 'Les égards d'un guichetier sentent l'échafaud'." },
+          { id: 10, type: "normal", text: "Le journal intime du condamné a-t-il une valeur selon vous ? Justifiez." }
+        ]
+      },
+      {
+        id: 7,
+        region: "Béni Mellal-Khénifra",
+        annee: 2023,
+        niveau: "1ère année BAC",
+        texte: [
+          "La fenêtre donnait sur la grande cour de Bicêtre. Cette cour était pleine de monde. Entre ce double rang de soldats cheminaient lentement, cinq longues charrettes chargées d’hommes ; c’étaient les forçats qui partaient... Une pluie fine et pénétrante glaçait l’air... Leurs visages étaient violâtres et leurs dents grinçaient de rage et de froid."
+        ],
+        questions: [
+          { id: 1, type: "short", text: "Fiche de lecture :", items: ["Titre", "Auteur", "Genre", "Siècle"] },
+          { id: 2, type: "normal", text: "Où se trouve le narrateur au moment où il observe cette scène ?" },
+          { id: 3, type: "normal", text: "Qui sont les hommes transportés dans les charrettes ?" },
+          { id: 4, type: "normal", text: "Décrivez l'état physique des galériens sous la pluie." },
+          { id: 5, type: "normal", text: "Comment l'ordre est-il rétabli par les soldats lors du départ ?" },
+          { id: 6, type: "normal", text: "Quelle figure de style : 'vêtus des mêmes vêtements pour le soleil de juillet et les pluies de novembre' ?" },
+          { id: 7, type: "normal", text: "Quel est le but des coups de bâton donnés par les soldats ?" },
+          { id: 8, type: "normal", text: "Relevez quatre expressions du champ lexical de la souffrance." },
+          { id: 9, type: "normal", text: "Quelle est la tonalité dominante du texte ?" },
+          { id: 10, type: "normal", text: "Partagez-vous l'avis du narrateur qui préfère la mort au bagne ? Pourquoi ?" }
+        ]
+      },
+      {
+        id: 8,
+        region: "L'Oriental",
+        annee: 2019,
+        niveau: "1ère année BAC",
+        texte: [
+          "Malheureusement je n’étais pas malade. Le lendemain il fallut sortir de l’infirmerie. Le cachot me reprit. Pas malade ! en effet, je suis jeune, sain et fort... et cependant j’ai une maladie, une maladie mortelle, une maladie faite de la main des hommes. Depuis que je suis sorti de l’infirmerie, il m’est venu une idée poignante : j’aurais peut-être pu m’évader."
+        ],
+        questions: [
+          { id: 1, type: "normal", text: "Pourquoi le narrateur dit-il 'malheureusement je n'étais pas malade' ?" },
+          { id: 2, type: "normal", text: "Quelle est cette 'maladie faite de la main des hommes' ?" },
+          { id: 3, type: "normal", text: "Quelle idée poignante vient à l'esprit du narrateur ?" },
+          { id: 4, type: "normal", text: "Pourquoi pense-t-il que les médecins ne l'auraient pas aidé à s'évader ?" },
+          { id: 5, type: "normal", text: "Expliquez la métaphore : 'Le pourvoi, c'est une corde qui vous tient suspendu au-dessus de l'abîme'." },
+          { id: 6, type: "normal", text: "Pourquoi le narrateur finit-il par dire 'plus d'espérance' ?" },
+          { id: 7, type: "normal", text: "Identifiez la tonalité de l'extrait : 'Si j’avais ma grâce ? Avoir ma grâce ! Et par qui ?'" },
+          { id: 8, type: "normal", text: "Relevez une personnification dans le premier paragraphe." },
+          { id: 9, type: "normal", text: "Que pense le narrateur du rôle des médecins en prison ?" },
+          { id: 10, type: "normal", text: "Est-il juste de soigner un homme pour mieux l'exécuter ensuite ? Justifiez." }
+        ]
+      },
+      {
+        id: 9,
+        region: "Dakhla-Oued Ed-Dahab",
+        annee: 2022,
+        niveau: "1ère année BAC",
+        texte: [
+          "<strong>Texte 1 :</strong>",
+          "Il s’était établi entre la foule et les charrettes je ne sais quel horrible dialogue ; injures d’un côté, bravades de l’autre...",
+          "<strong>Texte 2 :</strong>",
+          "Le condamné : Plutôt mille fois la mort, plutôt l’échafaud que le bagne, plutôt le néant que cet enfer vivant !"
+        ],
+        questions: [
+          { id: 1, type: "normal", text: "Quel sentiment le peuple exprime-t-il envers les galériens ?" },
+          { id: 2, type: "normal", text: "Quelle est l'attitude des galériens face aux injures de la foule ?" },
+          { id: 3, type: "normal", text: "Identifiez la figure de style : 'tout ce spectacle s’évanouit comme une fantasmagorie'." },
+          { id: 4, type: "normal", text: "Pourquoi le narrateur refuse-t-il l'idée des galères ?" },
+          { id: 5, type: "normal", text: "Relevez deux expressions montrant la violence des gardes." },
+          { id: 6, type: "normal", text: "Quel est l'effet produit par le bruit des chaînes sur le narrateur ?" },
+          { id: 7, type: "normal", text: "Analysez l'expression 'enfer vivant' pour désigner le bagne." },
+          { id: 8, type: "normal", text: "Qui donne l'ordre de frapper les prisonniers ?" },
+          { id: 9, type: "normal", text: "Quelle est la réaction finale de la foule au départ des charrettes ?" },
+          { id: 10, type: "normal", text: "La haine de la foule envers les criminels est-elle justifiable ?" }
+        ]
+      },
+      {
+        id: 10,
+        region: "Guelmim-Oued Noun",
+        annee: 2021,
+        niveau: "1ère année BAC",
+        texte: [
+          "Condamné à mort ! Voilà cinq semaines que je vis avec cette idée, toujours seul avec elle, toujours glacé de sa présence, toujours courbé sous son poids ! Autrefois, car il me semble qu'il y a plutôt des années que des semaines, j'étais un homme comme un autre homme. Chaque jour, chaque heure, chaque minute avait son idée."
+        ],
+        questions: [
+          { id: 1, type: "short", text: "Identifiez :", items: ["Auteur", "Œuvre", "Genre", "Narrateur"] },
+          { id: 2, type: "normal", text: "Depuis combien de temps le narrateur est-il condamné ?" },
+          { id: 3, type: "normal", text: "Comment le narrateur décrit-il sa vie 'autrefois' ?" },
+          { id: 4, type: "normal", text: "Identifiez la personnification de 'l'idée' dans le texte." },
+          { id: 5, type: "normal", text: "Relevez une métaphore montrant le poids de la condamnation." },
+          { id: 6, type: "normal", text: "Quel contraste le narrateur fait-il entre son passé et son présent ?" },
+          { id: 7, type: "normal", text: "Relevez trois mots du champ lexical de la pensée." },
+          { id: 8, type: "normal", text: "Pourquoi le temps semble-t-il s'écouler différemment pour lui ?" },
+          { id: 9, type: "normal", text: "Quelle est la tonalité du premier paragraphe ?" },
+          { id: 10, type: "normal", text: "L'isolement est-il la pire des tortures pour un condamné ? Justifiez." }
         ]
       }
     ];
 
     let currentExam = null;
     let questionsData = [];
-        id: 2,
-        region: "Rabat",
-        annee: 2017,
-        niveau: "2ème année BAC",
-        texte: [
-          "Le vieux mahogany de la table brillait comme un miroir. La lumière de la lampe à石油oleum y dessinait des cercles orangés qui tremblaient légèrement, agités par le souffle d'Adèle. <strong><u>Elle</u></strong> était assise devant ce monument de bois sombre, les coudes plantés dans le cuir usé du buvard, les doigts crispés sur la plume.",
-          "La lettre qu'elle écrivait était datée du 14 octobre 1914. « Mon très cher ami, Jeakis, écrit-elle. Je ne sais pas si vous recevrez jamais cette lettre. Les routes sont coupées, les trains ne circulent plus. Je suis prisonnière dans cette ville que nous aimions tant, et que la guerre a transformée en un vaste camp retranchée.",
-          "De sa fenêtre, elle voyait les soldiers english qui montaient la garde devant la cathédrale. Leurs uniformes bleu horizon se découpaient sur les pierres grises du bâtiment. Chaque soir, à la même heure, un clairon sonnait le couvre-feu, et la ville tout entière retenait son souffle.",
-          "Elle se souvenait de leurs promenades le long de la Seine, des ponts illuminés, des灯光 qui se reflétaient dans l'eau noire du fleuve. <strong><u>Ces</u></strong> moments de bonheur lui semblaient désormais appartenir à une autre vie, à un autre siècle.",
-          "La plume grince sur le papier. « Je pense à vous, à nos conversations sans fin, à vos yeux qui riaient quand vous me parliez de poésie. Est-ce seulement il y a trois mois ? J'ai l'impression qu'une éternité s'est écoulée depuis notre dernière rencontre au café de la Paix. »",
-          "Outside, les obus continuent d'exploser dans le lointain. Le sol tremble parfois, et les vitres tintent comme des clochettes. Mais Adèle n'entend plus rien. Elle écrit, écrit toujours, parce que écrire c'est encore croire au futur, c'est refuser la résignation."
-        ],
-        questions: [
-          { id: 1, type: "short", text: "Complétez les informations suivantes.", items: ["Le titre de l'extrait", "Le genre littéraire", "L'année de la guerre mentionnée"] },
-          { id: 2, type: "vrai_faux", text: "Répondez par « vrai » ou « faux ».", affirmations: ["a. Adèle écrit une lettre à son ami Jeakis.", "b. La guerre a transformé la ville en camp retranché.", "c. Les deux personnages se sont rencontrés au cinéma.", "d. Adèle perdue tout espoir de revoir son ami."] },
-          { id: 3, type: "normal", text: "Quel sentiment dominant se dégage de cette lettre ? Justifiez votre réponse." },
-          { id: 4, type: "normal", text: "Relevez deux expressions qui montrent que le temps semble suspendu pour Adèle." },
-          { id: 5, type: "normal", text: "Pourquoi l'écriture est-elle importante pour Adèle à ce moment de l'histoire ?" },
-          { id: 6, type: "short", text: "Identifiez les champs lexicaux présents dans le texte.", items: ["Champ lexical de la guerre", "Champ lexical du temps", "Champ lexical de la solitude"] },
-          { id: 7, type: "normal", text: "Quel rôle joue le souvenir dans ce texte ? Illustrer votre réponse par un exemple du texte." },
-          { id: 8, type: "vrai_faux", text: "Cochez « vrai » ou « faux » pour chaque affirmation.", affirmations: ["a. Le cadre spatial est une ville française occupée.", "b. Le temps du récit est actuel.", "c. Le personnage principal est un soldat.", "d. Le thème principal est l'amour et le souvenir."] },
-          { id: 9, type: "normal", text: "Que représente la lettre pour Adèle selon vous ? Développez votre réponse en deux lignes." }
-        ]
-      }
-    ];
-
-    let currentExam = null;
-    let questionsData = [];
-
     let currentQuestion = null;
-    const getStorageKey = () => 'examAnswers_' + (currentExam ? currentExam.id : 0);
+    let currentItemIndex = null;
+
     const getStorageKey = () => 'examAnswers_' + (currentExam ? currentExam.id : 0);
 
     function getAnswers() {
@@ -890,16 +986,16 @@
     function initExamSelector() {
       const examList = document.getElementById('examList');
       examList.innerHTML = examsData.map(exam => `
-        <div class="exam-card" onclick="selectExam(${exam.id})">
-          <div class="exam-card-region">${exam.region}</div>
-          <div class="exam-card-year">${exam.annee}</div>
-          <div class="exam-card-niveau">${exam.niveau}</div>
-        </div>
-      `).join('');
+            <div class="exam-card" onclick="selectExam(${exam.id})">
+              <div class="exam-card-region">${exam.region}</div>
+              <div class="exam-card-year">${exam.annee}</div>
+              <div class="exam-card-niveau">${exam.niveau}</div>
+            </div>
+          `).join('');
     }
 
     function selectExam(examId) {
-      currentExam = examsData.find(e => e.id === examId);
+      currentExam = examsData.find(e => e.id === Number(examId));
       if (!currentExam) return;
 
       questionsData = currentExam.questions;
@@ -910,8 +1006,12 @@
       document.getElementById('region').textContent = currentExam.region;
       document.getElementById('annee').textContent = currentExam.annee;
 
+      localStorage.removeItem(getStorageKey());
+
       const texteContainer = document.getElementById('texteContainer');
       texteContainer.innerHTML = currentExam.texte.map(p => `<p>${p}</p>`).join('');
+
+      document.getElementById('questionsContainer').classList.add('visible');
 
       renderQuestions();
     }
@@ -921,10 +1021,6 @@
       document.getElementById('examContainer').style.display = 'none';
       currentExam = null;
       questionsData = [];
-    }
-
-    function initExam() {
-      initExamSelector();
     }
 
     function renderQuestions() {
@@ -940,161 +1036,89 @@
         }
         return renderNormalQuestion(q, answers);
       }).join('');
+
       localStorage.setItem(getStorageKey(), JSON.stringify(answers));
-    }
-
-    function initExamSelector() {
-      const examList = document.getElementById('examList');
-      examList.innerHTML = examsData.map(exam => `
-        <div class="exam-card" onclick="selectExam(${exam.id})">
-          <div class="exam-card-region">${exam.region}</div>
-          <div class="exam-card-year">${exam.annee}</div>
-          <div class="exam-card-niveau">${exam.niveau}</div>
-        </div>
-      `).join('');
-    }
-
-    function selectExam(examId) {
-      currentExam = examsData.find(e => e.id === examId);
-      if (!currentExam) return;
-
-      questionsData = currentExam.questions;
-
-      document.getElementById('examSelector').style.display = 'none';
-      document.getElementById('examContainer').style.display = 'block';
-
-      document.getElementById('region').textContent = currentExam.region;
-      document.getElementById('annee').textContent = currentExam.annee;
-
-      const texteContainer = document.getElementById('texteContainer');
-      texteContainer.innerHTML = currentExam.texte.map(p => `<p>${p}</p>`).join('');
-
-      renderQuestions();
-    }
-
-    function goBackToSelector() {
-      document.getElementById('examSelector').style.display = 'block';
-      document.getElementById('examContainer').style.display = 'none';
-      currentExam = null;
-      questionsData = [];
-    }
-
-    function initExam() {
-      initExamSelector();
-    }
-
-    function renderQuestions() {
-      const container = document.getElementById('questionsContainer');
-      const answers = getAnswers();
-
-      container.innerHTML = questionsData.map(q => {
-        if (q.affirmations) {
-          return renderTrueFalseQuestion(q, answers);
-        }
-        if (q.type === 'short') {
-          return renderShortQuestion(q, answers);
-        }
-        return renderNormalQuestion(q, answers);
-      }).join('');
-    }
-
-    function renderQuestions() {
-      const container = document.getElementById('questionsContainer');
-      const answers = getAnswers();
-
-      container.innerHTML = questionsData.map(q => {
-        if (q.affirmations) {
-          return renderTrueFalseQuestion(q, answers);
-        }
-        if (q.type === 'short') {
-          return renderShortQuestion(q, answers);
-        }
-        return renderNormalQuestion(q, answers);
-      }).join('');
     }
 
     function renderTrueFalseQuestion(q, answers) {
       const savedAnswers = answers[q.id] || [];
       return `
-        <div class="qst" data-id="${q.id}">
-          <div class="qst-header">
-            <p class="text-qst">${q.id}. ${q.text}</p>
-          </div>
-          <div class="affirmations-list">
-            ${q.affirmations.map((aff, index) => {
+            <div class="qst" data-id="${q.id}">
+              <div class="qst-header">
+                <p class="text-qst">${q.id}. ${q.text}</p>
+              </div>
+              <div class="affirmations-list">
+                ${q.affirmations.map((aff, index) => {
         const val = savedAnswers[index] === true;
         const btnClass = val ? 'vrai' : 'faux';
         const btnText = val ? 'Vrai' : 'Faux';
         return `
-                <div class="affirmation-row">
-                  <span class="affirmation-text">${aff}</span>
-                  <button class="tf-toggle ${btnClass}" data-qid="${q.id}" data-idx="${index}" onclick="toggleTrueFalse(${q.id}, ${index})">${btnText}</button>
-                </div>
-              `;
+                    <div class="affirmation-row">
+                      <span class="affirmation-text">${aff}</span>
+                      <button class="tf-toggle ${btnClass}" data-qid="${q.id}" data-idx="${index}" onclick="toggleTrueFalse(${q.id}, ${index})">${btnText}</button>
+                    </div>
+                  `;
       }).join('')}
-          </div>
-        </div>
-      `;
+              </div>
+            </div>
+          `;
     }
 
     function renderShortQuestion(q, answers) {
       const savedAnswers = answers[q.id] || {};
       if (q.items) {
         return `
-          <div class="qst-short-container" data-id="${q.id}">
-            <p class="text-qst">${q.id}. ${q.text}</p>
-            <div class="short-items-list">
-              ${q.items.map((item, index) => {
+              <div class="qst-short-container" data-id="${q.id}">
+                <p class="text-qst">${q.id}. ${q.text}</p>
+                <div class="short-items-list">
+                  ${q.items.map((item, index) => {
           const answer = savedAnswers[index];
           return `
-                  <div class="short-item-row">
-                    <span class="short-item-text">${item}</span>
-                    <div class="short-item-answer-row">
-                      ${answer ? `<span class="short-item-answer">${answer}</span>` : '<span class="short-item-answer"></span>'}
-                      <button class="short-item-btn" data-qid="${q.id}" data-idx="${index}" onclick="openShortModal(${q.id}, ${index})">
-                        <i class="fa-solid fa-pen"></i>
-                      </button>
-                    </div>
-                  </div>
-                `;
+                      <div class="short-item-row">
+                        <span class="short-item-text">${item}</span>
+                        <div class="short-item-answer-row">
+                          ${answer ? `<span class="short-item-answer">${answer}</span>` : '<span class="short-item-answer"></span>'}
+                          <button class="short-item-btn" data-qid="${q.id}" data-idx="${index}" onclick="openShortModal(${q.id}, ${index})">
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                        </div>
+                      </div>
+                    `;
         }).join('')}
-            </div>
-          </div>
-        `;
+                </div>
+              </div>
+            `;
       }
       const answer = answers[q.id];
       return `
-        <div class="qst-short" data-id="${q.id}">
-          <div class="qst-short-row1">
-            <span class="qst-short-text">${q.id}. ${q.text}</span>
-          </div>
-          <div class="qst-short-row2">
-            ${answer ? `<span class="qst-short-answer">${answer}</span>` : ''}
-            <div class="icon-answer" onclick="openModal(${q.id})"><i class="fa-regular fa-pen-to-square"></i></div>
-          </div>
-        </div>
-      `;
+            <div class="qst-short" data-id="${q.id}">
+              <div class="qst-short-row1">
+                <span class="qst-short-text">${q.id}. ${q.text}</span>
+              </div>
+              <div class="qst-short-row2">
+                ${answer ? `<span class="qst-short-answer">${answer}</span>` : ''}
+                <div class="icon-answer" onclick="openModal(${q.id})"><i class="fa-regular fa-pen-to-square"></i></div>
+              </div>
+            </div>
+          `;
     }
 
     function renderNormalQuestion(q, answers) {
       const hasAnswer = !!answers[q.id];
       return `
-        <div class="qst" data-id="${q.id}">
-          <div class="qst-header">
-            <p class="text-qst">${q.id}. ${q.text}</p>
-            ${!hasAnswer ? `<div class="icon-answer" onclick="openModal(${q.id})"><i class="fa-regular fa-pen-to-square"></i></div>` : ''}
-          </div>
-          <div class="answer-area ${hasAnswer ? 'visible' : ''}" id="answer-${q.id}">
-            <div class="answer-display">
-              ${hasAnswer
-          ? answers[q.id]
-          : '<span class="no-answer">Pas de réponse</span>'
-        }
-              <button class="edit-icon" onclick="openModal(${q.id})"><i class="fa-solid fa-pen"></i></button>
+            <div class="qst" data-id="${q.id}">
+              <div class="qst-header">
+                <p class="text-qst">${q.id}. ${q.text}</p>
+                ${!hasAnswer ? `<div class="icon-answer" onclick="openModal(${q.id})"><i class="fa-regular fa-pen-to-square"></i></div>` : ''}
+              </div>
+              <div class="answer-area ${hasAnswer ? 'visible' : ''}" id="answer-${q.id}">
+                <div class="answer-display">
+                  ${hasAnswer ? answers[q.id] : '<span class="no-answer">Pas de réponse</span>'}
+                  <button class="edit-icon" onclick="openModal(${q.id})"><i class="fa-solid fa-pen"></i></button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      `;
+          `;
     }
 
     function openModal(id) {
@@ -1119,8 +1143,6 @@
       currentQuestion = null;
       currentItemIndex = null;
     }
-
-    let currentItemIndex = null;
 
     function openShortModal(questionId, itemIndex) {
       const q = questionsData.find(q => q.id === questionId);
@@ -1200,8 +1222,7 @@
       if (e.key === 'Escape') closeModal();
     });
 
-    initExam();
-    initExam();
+    initExamSelector();
   </script>
 </body>
 
